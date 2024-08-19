@@ -3,52 +3,41 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreContactUsRequest;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Portfolio;
+use App\Traits\HandleResponse;
 use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
+    use HandleResponse;
+
+    public function __construct(protected Contact $contact ,protected Blog $blog ,protected Portfolio $portfolio)
+    {
+
+    }
+
     // Store contact information
-    public function store(Request $request)
+    public function store(StoreContactUsRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
-            'message' => 'required|string',
-        ]);
+        $contact = $this->contact::create($request->validated());
 
-        $contact = Contact::create($validatedData);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Contact information submitted successfully!',
-            'data' => $contact,
-        ], 201);
+        return $this->successWithData($contact,'Contact information submitted successfully!');
     }
 
-    public function getBlogs(Request $request)
+    public function getBlogs()
     {
-        $perPage = $request->input('per_page', 10); 
-        $blogs = Blog::paginate($perPage);
+        $blogs = $this->blog::paginate();
 
-        return response()->json([
-            'success' => true,
-            'data' => $blogs,
-        ], 200);
+        return  $this->successWithData($blogs,'Blogs fetched successfully!');
     }
 
-    // Fetch all portfolios with pagination
-    public function getPortfolios(Request $request)
+    public function getPortfolios()
     {
-        $perPage = $request->input('per_page', 10); 
-        $portfolios = Portfolio::paginate($perPage);
+        $portfolios = $this->portfolio::paginate();
 
-        return response()->json([
-            'success' => true,
-            'data' => $portfolios,
-        ], 200);
+        return $this->successWithData($portfolios,'Portfolios fetched successfully!');
     }
 }
