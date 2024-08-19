@@ -48,6 +48,10 @@ class PortfolioController extends Controller
     {
         $portfolio = Portfolio::find($id);
 
+        if (!$portfolio) {
+            return redirect()->route('portofilo')->with('error', 'Portfolio not found.');
+        }
+
         return view('dashboard.portofilo.edit', compact('portfolio'));
     }
 
@@ -97,6 +101,6 @@ class PortfolioController extends Controller
 
         $portfolio->delete();
 
-        return redirect()->route('portofilo')->with('success', 'Portfolio deleted successfully');
+        return redirect()->route('portofilo')->with('error', 'Portfolio deleted successfully');
     }
 }

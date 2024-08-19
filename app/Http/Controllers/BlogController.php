@@ -67,6 +67,10 @@ class BlogController extends Controller
     {
         $blog = Blog::find($id);
 
+        if(!$blog){
+            return redirect()->route('blog')->with('error', 'Blog not found.');
+        }
+
         return view('dashboard.blogs.edit', compact('blog'));
     }
 
@@ -120,6 +124,6 @@ class BlogController extends Controller
     {
     $blog = Blog::findOrFail($id); 
     $blog->delete(); 
-    return redirect()->route('blog')->with('success', 'Blog deleted successfully'); 
+    return redirect()->route('blog')->with('error', 'Blog deleted successfully'); 
     }
 }
