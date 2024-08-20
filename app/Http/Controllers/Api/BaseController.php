@@ -40,9 +40,9 @@ class BaseController extends Controller
 
          if ($blog) {
                 return $this->successWithData($blog, 'Blog fetched successfully!');
-                 } else {
-                return $this->errorResponse('Blog not found!', 404);
-            }
+                 }
+
+        return $this->badRequestResponse('Blog not found!', 404);
     }
 
     public function getPortfolios()
