@@ -18,4 +18,13 @@ class Portfolio extends Model
         'description',
         'image',
     ];
+
+    protected $hidden = ['image'];
+
+    protected $appends = ['image_url'];
+
+    public function getImageUrlAttribute()
+    {
+        return asset('storage/app/' . $this->image);
+    }
 }
