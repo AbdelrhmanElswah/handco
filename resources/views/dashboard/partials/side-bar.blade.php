@@ -4,10 +4,10 @@
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
         <a href="{{url('/admin')}}" class="header-logo">
-            <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="desktop-logo">
-            <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="toggle-logo">
-            <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="desktop-dark">
-            <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="toggle-dark">
+            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="desktop-logo">
+            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="toggle-logo">
+            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="desktop-dark">
+            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="toggle-dark">
         </a>
     </div>
     <!-- End::main-sidebar-header -->
@@ -94,7 +94,7 @@
 
                     </ul>
                 </li>
-                
+
                 <!-- Start::logout -->
                 <li class="slide__category"><span class="category-name">Log out</span></li>
                 <li class="slide">
