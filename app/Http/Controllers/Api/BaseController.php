@@ -34,6 +34,17 @@ class BaseController extends Controller
         return  $this->successWithData($blogs,'Blogs fetched successfully!');
     }
 
+    public function getBlog($id)
+    {
+    $blog = $this->blog::find($id);
+
+         if ($blog) {
+                return $this->successWithData($blog, 'Blog fetched successfully!');
+                 } else {
+                return $this->errorResponse('Blog not found!', 404);
+            }
+    }
+
     public function getPortfolios()
     {
         $portfolios = $this->portfolio::paginate();

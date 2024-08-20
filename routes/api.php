@@ -24,4 +24,6 @@ Route::post('/contact', [BaseController::class, 'store']);
 
 Route::get('/blogs', [BaseController::class, 'getBlogs']);
 
+Route::get('/blog/{id}', [BaseController::class, 'getBlog']);
+
 Route::get('/portfolios', [BaseController::class, 'getPortfolios']);
