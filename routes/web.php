@@ -18,9 +18,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Root route redirecting to /admin if authenticated, otherwise to a home page or another route
 Route::get('/', function () {
-    return Auth::check() ? redirect('/admin') : view('auth.login'); // Change 'welcome' to your desired home view
+    return Auth::check() ? redirect('/admin') : view('auth.login'); 
 });
 
 // Contact Us route

@@ -478,7 +478,7 @@
             <div class="card custom-card">
                 <div class="card-body p-5">
                     <p class="h5 fw-semibold mb-2 text-center">Sign In</p>
-                    <p class="mb-4 text-muted op-7 fw-normal text-center">Welcome back to Takaful Dashboard</p>
+                    <p class="mb-4 text-muted op-7 fw-normal text-center">Welcome back to  Dashboard</p>
                     <form method="post" action="{{ route('login') }}">
                         @csrf
                         <div class="row gy-3">

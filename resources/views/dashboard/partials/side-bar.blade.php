@@ -63,7 +63,6 @@
                                 All</a>
                         </li>
 
-
                         <li class="slide">
                             <a href="{{route('blogs.create')}}"
                                class="side-menu__item ">Create</a>
@@ -88,7 +87,6 @@
                                 All</a>
                         </li>
 
-
                         <li class="slide">
                             <a href="{{route('portofilos.create')}}"
                                class="side-menu__item ">Create</a>
@@ -96,6 +94,21 @@
 
                     </ul>
                 </li>
+                
+                <!-- Start::logout -->
+                <li class="slide__category"><span class="category-name">Log out</span></li>
+                <li class="slide">
+                    <a href="{{ route('logout') }}"
+                       class="side-menu__item"
+                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        <i class="fe fe-log-out side-menu__icon"></i>
+                        <span class="side-menu__label">Logout</span>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
+                <!-- End::logout -->
             </ul>
             <div class="slide-right" id="slide-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
@@ -110,4 +123,3 @@
 
 </aside>
 <!-- End::app-sidebar -->
-<
