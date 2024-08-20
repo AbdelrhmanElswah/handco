@@ -10,33 +10,20 @@ use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $blogs = Blog::all();
         return view('dashboard.blogs.index',compact('blogs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         return view('dashboard.blogs.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -49,6 +36,8 @@ class BlogController extends Controller
             $imagePath = $request->file('image')->store('blogs', 'public');
         }
 
+
+
         Blog::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
@@ -57,12 +46,7 @@ class BlogController extends Controller
 
         return redirect()->route('blog')->with('success', 'Blog created successfully');
     }
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $blog = Blog::find($id);
@@ -74,13 +58,6 @@ class BlogController extends Controller
         return view('dashboard.blogs.edit', compact('blog'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         // Validate the request data
@@ -114,16 +91,10 @@ class BlogController extends Controller
         return redirect()->route('blog')->with('success', 'Blog updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-    $blog = Blog::findOrFail($id); 
-    $blog->delete(); 
-    return redirect()->route('blog')->with('error', 'Blog deleted successfully'); 
+    $blog = Blog::findOrFail($id);
+    $blog->delete();
+    return redirect()->route('blog')->with('error', 'Blog deleted successfully');
     }
 }

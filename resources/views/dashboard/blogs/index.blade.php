@@ -58,7 +58,7 @@
                                         <td>{{$i}}</td>
                                         <td>{{$blog->title}}</td>
                                         <td>{{$blog->description}}</td>
-                                        <td><img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" width="100"></td>
+                                        <td><img src="{{ asset('storage/app/' . $blog->image) }}" alt="{{ $blog->title }}" width="100"></td>
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                                 <a class="pr-1" style="color:white;" href="{{ route('blogs.edit', [$blog->id]) }}">
@@ -131,7 +131,7 @@
             btn.addEventListener('click', function() {
                 // Get the blog ID from the data attribute
                 const blogId = this.getAttribute('data-blog_id');
-                
+
                 // Update the form action with the correct blog ID
                 const deleteForm = document.getElementById('delete_blog_form');
                 deleteForm.action = "{{ url('admin/blogs') }}" + '/' + blogId;
