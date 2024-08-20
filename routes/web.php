@@ -18,15 +18,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/store/contact-us', [ContactController::class, 'store'])->name('contact-us');
+// Root route redirecting to /admin if authenticated, otherwise to a home page or another route
+Route::get('/', function () {
+    return Auth::check() ? redirect('/admin') : view('auth.login'); // Change 'welcome' to your desired home view
+});
 
+// Contact Us route
+Route::post('/store/contact-us', [ContactController::class, 'store'])->name('contact-us');
 
 Route::middleware('auth')->group(function () {
     // Dashboard
     Route::prefix('/admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin');
 
-         // Blogs
+        // Blogs
         Route::prefix('/blogs')->group(function () {
             Route::get('/', [BlogController::class, 'index'])->name('blog');
             Route::get('/create', [BlogController::class, 'create'])->name('blogs.create');
@@ -36,8 +41,7 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
         });
 
-
-            // Portofilo
+        // Portfolio
         Route::prefix('/portofilos')->group(function () {
             Route::get('/', [PortfolioController::class, 'index'])->name('portofilo');
             Route::get('/create', [PortfolioController::class, 'create'])->name('portofilos.create');
@@ -49,11 +53,7 @@ Route::middleware('auth')->group(function () {
 
         // Get Contacts 
         Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
-
-
     });
 });
 
 Auth::routes();
-
-
