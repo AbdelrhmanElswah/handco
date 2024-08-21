@@ -8,7 +8,7 @@
     <title> Dashboard </title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{asset('website/assets/logo.png')}}" type="image/x-icon">
+    <link rel="icon" href="{{asset('dashboard/assets/logo.png')}}" type="image/x-icon">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" >
 

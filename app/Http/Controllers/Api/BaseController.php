@@ -29,7 +29,7 @@ class BaseController extends Controller
 
     public function getBlogs()
     {
-        $blogs = $this->blog::paginate();
+        $blogs = $this->blog::get();
 
         return  $this->successWithData($blogs,'Blogs fetched successfully!');
     }
@@ -40,14 +40,14 @@ class BaseController extends Controller
 
          if ($blog) {
                 return $this->successWithData($blog, 'Blog fetched successfully!');
-                 } else {
-                return $this->errorResponse('Blog not found!', 404);
-            }
+                 }
+
+        return $this->badRequestResponse('Blog not found!', 404);
     }
 
     public function getPortfolios()
     {
-        $portfolios = $this->portfolio::paginate();
+        $portfolios = $this->portfolio::get();
 
         return $this->successWithData($portfolios,'Portfolios fetched successfully!');
     }

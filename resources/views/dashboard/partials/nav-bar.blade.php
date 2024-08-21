@@ -11,10 +11,10 @@
             <div class="header-element">
                 <div class="horizontal-logo">
                     <a href="{{url('/admin')}}" class="header-logo">
-                        <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="desktop-logo">
-                        <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="toggle-logo">
-                        <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="desktop-dark">
-                        <img src="{{asset('website/assets/logo.png')}}" alt="logo" class="toggle-dark">
+                        <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="desktop-logo">
+                        <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="toggle-logo">
+                        <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="desktop-dark">
+                        <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="toggle-dark">
                     </a>
                 </div>
             </div>

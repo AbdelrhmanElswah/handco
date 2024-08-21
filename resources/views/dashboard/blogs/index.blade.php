@@ -131,7 +131,7 @@
             btn.addEventListener('click', function() {
                 // Get the blog ID from the data attribute
                 const blogId = this.getAttribute('data-blog_id');
-                
+
                 // Update the form action with the correct blog ID
                 const deleteForm = document.getElementById('delete_blog_form');
                 deleteForm.action = "{{ url('admin/blogs') }}" + '/' + blogId;

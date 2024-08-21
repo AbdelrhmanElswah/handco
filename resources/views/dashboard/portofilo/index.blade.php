@@ -57,7 +57,7 @@
                                     <td>{!! $portfolio->description !!}</td>
                                     <td>
                                         @if ($portfolio->image)
-                                            <img src="{{ asset('storage/' . $portfolio->image) }}" alt="{{ $portfolio->title }}" width="100">
+                                            <img src="{{ asset('storage/app/' . $portfolio->image) }}" alt="{{ $portfolio->title }}" width="100">
                                         @endif
                                     </td>
                                     <td>
