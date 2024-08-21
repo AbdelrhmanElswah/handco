@@ -9,7 +9,7 @@
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Add New Portfolio</li>
                     </ol>
                 </nav>
@@ -37,10 +37,10 @@
                                 <input type="text" name="title" class="form-control" value="{{ old('title') }}">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" class="form-control">{{ old('description') }}</textarea>
+                                <textarea name="description" class="form-control" id="description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -49,10 +49,11 @@
                                 <input type="file" name="image" class="form-control">
                             </div>
                         </div>
-                     <div class="col-md-12">
-                    <button type="submit" class="btn btn-primary">Add Portfolio</button>
+
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Add Portfolio</button>
+                        </div>
                     </div>
-                </div>
                 </form>
             </div>
         </div>

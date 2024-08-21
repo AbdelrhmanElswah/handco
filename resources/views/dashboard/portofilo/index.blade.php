@@ -54,7 +54,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $portfolio->title }}</td>
-                                    <td>{{ $portfolio->description }}</td>
+                                    <td>{!! $portfolio->description !!}</td>
                                     <td>
                                         @if ($portfolio->image)
                                             <img src="{{ asset('storage/' . $portfolio->image) }}" alt="{{ $portfolio->title }}" width="100">

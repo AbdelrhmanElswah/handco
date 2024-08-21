@@ -58,4 +58,9 @@
           href="{{asset('dashboard/assets/libs/filepond-plugin-image-preview/filepond-plugin-image-preview.min.css')}}">
     <link rel="stylesheet"
           href="{{asset('dashboard/assets/libs/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css')}}">
+
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
+    
+
 </head>

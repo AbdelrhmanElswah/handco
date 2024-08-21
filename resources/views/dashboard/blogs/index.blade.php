@@ -57,7 +57,7 @@
                                     <tr>
                                         <td>{{$i}}</td>
                                         <td>{{$blog->title}}</td>
-                                        <td>{{$blog->description}}</td>
+                                        <td>{!! $blog->description !!}</td>
                                         <td><img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" width="100"></td>
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group" aria-label="...">

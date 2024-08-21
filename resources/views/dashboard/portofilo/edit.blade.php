@@ -9,7 +9,7 @@
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Edit Portfolio</li>
                     </ol>
                 </nav>
@@ -38,10 +38,12 @@
                                 <input type="text" name="title" class="form-control" value="{{ $portfolio->title }}">
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        
+                        </div>
+                        <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" class="form-control">{{ $portfolio->description }}</textarea>
+                                <textarea name="description" class="form-control" id="description">{{ $portfolio->description }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -52,7 +54,6 @@
                                     <img src="{{ asset('storage/' . $portfolio->image) }}" width="100" alt="Portfolio Image">
                                 @endif
                             </div>
-                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Update Portfolio</button>
                 </form>
@@ -60,5 +61,4 @@
         </div>
     </div>
 </div>
-
 @endsection
