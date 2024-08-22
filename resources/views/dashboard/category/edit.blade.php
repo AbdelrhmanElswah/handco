@@ -5,12 +5,12 @@
     <div class="container-fluid">
 
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Edit Portfolio</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Edit Category</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Edit Portfolio</li>
+                        <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
                     </ol>
                 </nav>
             </div>
@@ -28,37 +28,40 @@
 
         <div class="card custom-card">
             <div class="card-body">
-                <form method="POST" action="{{ route('portofilos.update', $portfolio->id) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('category.update', $category->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" class="form-control" value="{{ $portfolio->title }}">
+                                <label for="name">Title</label>
+                                <input type="text" name="name" class="form-control" value="{{ old('name', $category->name) }}">
                             </div>
-                        </div>
-                        
                         </div>
                         <div class="col-md-12 mb-3">
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" class="form-control" id="description">{{ $portfolio->description }}</textarea>
+                                <textarea name="description" class="form-control" id="description">{{ old('description', $category->description) }}</textarea>
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
                                 <label for="image">Image</label>
                                 <input type="file" name="image" class="form-control">
-                                @if($portfolio->image)
-                                    <img src="{{ asset('storage/' . $portfolio->image) }}" width="100" alt="Portfolio Image">
+                                @if($category->media->count())
+                                    <img src="{{ $category->media->first()->media_link }}" alt="{{ $category->title }}" width="100">
                                 @endif
                             </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Update Category</button>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Update Portfolio</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 @endsection

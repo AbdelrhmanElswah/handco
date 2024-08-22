@@ -56,11 +56,9 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $category->name }}</td>
                                     <td>{!! $category->description !!}</td>
-                                    <td>
-                                        @if ($category->image)
-                                            <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" width="100">
-                                        @endif
-                                    </td>
+                                    <td width="12px"><span class="avatar avatar-xxl avatar-rounded me-3">
+                                        <img src="{{$category->media[0]['media_link'] ?? asset('nophoto.jpeg')}}" alt="">
+                                    </span></td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                             <a class="pr-1" style="color:white;" href="{{ route('category.edit', [$category->id]) }}">

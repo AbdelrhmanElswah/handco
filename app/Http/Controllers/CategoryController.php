@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Services\MediaUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
+
     public function index()
     {
-        $categories = Category::all(); 
+        $categories = Category::with('media')->get(); 
         return view('dashboard.category.index', compact('categories'));
     }
 
@@ -27,17 +29,15 @@ class CategoryController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
 
-        $imagePath = null;
-
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('categories', 'public');
-        }
-
-        Category::create([
+        $category =Category::create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
-            'image' => $imagePath,
         ]);
+
+        if(isset($request->image)){
+            (new mediaUploadService())->uploadMedia($request->image, $category, 'categories');
+        }
+
 
         return redirect()->route('category')->with('success', 'Category created successfully');
     }
@@ -58,23 +58,18 @@ class CategoryController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
 
         $category = Category::findOrFail($id);
 
-        if ($request->hasFile('image')) {
-            if ($category->image) {
-                Storage::delete('public/' . $category->image);
-            }
-
-            $imagePath = $request->file('image')->store('categories', 'public');
-            $category->image = $imagePath;
-        }
-
         $category->name = $request->input('name');
         $category->description = $request->input('description');
         $category->save();
+
+        if(isset($request->image)){
+            (new mediaUploadService())->editMedia([$request->image],$category,'categories');
+        }
 
         return redirect()->route('category')->with('success', 'Category updated successfully');
     }
@@ -83,9 +78,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        if ($category->image) {
-            Storage::delete('public/' . $category->image);
-        }
+        ($this->mediaUploadService())->deleteMedia(null, $category, 'files/categories/');
 
         $category->delete();
         return redirect()->route('category')->with('error', 'Category deleted successfully');
