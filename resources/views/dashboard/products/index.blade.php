@@ -59,7 +59,7 @@
                                         <td>{{ $i }}</td>
                                         <td>{{ $product->name }}</td>
                                         <td>{!! $product->details !!}</td>
-                                        <td>${{ $product->price }}</td>
+                                        <td>{{ $product->price }}</td>
                                         <td>{{ $product->category->name }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group" aria-label="...">

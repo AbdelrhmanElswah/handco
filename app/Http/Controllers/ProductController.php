@@ -42,13 +42,14 @@ class ProductController extends Controller
 
     public function edit($id)
     {
+        $categories = Category::all();
         $products = Product::find($id);
 
         if(!$products){
             return redirect()->route('products')->with('error', 'Product not found.');
         }
 
-        return view('dashboard.products.edit', compact('products'));
+        return view('dashboard.products.edit', compact('products','categories'));
     }
 
     public function update(Request $request, $id)
