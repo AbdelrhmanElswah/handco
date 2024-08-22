@@ -58,7 +58,7 @@
                         style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(120px, 275px);">
 
                         <li class="slide">
-                            <a href="{{route('blog')}}"
+                            <a href="{{route('products')}}"
                                class="side-menu__item {{Request::route()->getName() == 'products'}}">Show
                                 All</a>
                         </li>

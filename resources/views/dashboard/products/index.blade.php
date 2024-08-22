@@ -7,12 +7,12 @@
 
             <!-- Page Header -->
             <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-                <h1 class="page-title fw-semibold fs-18 mb-0">Blogs</h1>
+                <h1 class="page-title fw-semibold fs-18 mb-0">Products</h1>
                 <div class="ms-md-1 ms-0">
                     <nav>
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">All Blogs</li>
+                            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">All Products</li>
                         </ol>
                     </nav>
                 </div>
@@ -35,7 +35,7 @@
                     <div class="card custom-card">
                         <div class="card-header">
                             <div class="card-title">
-                                Blogs
+                                Products
                             </div>
                         </div>
                         <div class="card-body">
@@ -43,31 +43,33 @@
                                 <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Details</th>
+                                    <th>Price</th>
+                                    <th>Category</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @php $i = 0 @endphp
 
-                                @foreach($blogs as $blog)
+                                @foreach($products as $product)
                                     @php $i++ @endphp
                                     <tr>
-                                        <td>{{$i}}</td>
-                                        <td>{{$blog->title}}</td>
-                                        <td>{!! $blog->description !!}</td>
-                                        <td><img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" width="100"></td>
+                                        <td>{{ $i }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{!! $product->details !!}</td>
+                                        <td>${{ $product->price }}</td>
+                                        <td>{{ $product->category->name }}</td>
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                                <a class="pr-1" style="color:white;" href="{{ route('blogs.edit', [$blog->id]) }}">
-                                                    <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Edit Blog">
+                                                <a class="pr-1" style="color:white;" href="{{ route('products.edit', [$product->id]) }}">
+                                                    <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Edit Product">
                                                         <i class="far fa-edit text-success"></i>
                                                     </span>
                                                 </a>
-                                                <a class="pr-1 delete-blog-btn" style="color: white; margin-left: 10px;" href="#" data-blog_id="{{$blog->id}}" data-bs-toggle="modal" data-bs-target="#delete_blog_modal">
-                                                    <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Delete Blog">
+                                                <a class="pr-1 delete-product-btn" style="color: white; margin-left: 10px;" href="#" data-product_id="{{ $product->id }}" data-bs-toggle="modal" data-bs-target="#delete_product_modal">
+                                                    <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Delete Product">
                                                         <i class="far fa-trash-alt text-danger"></i>
                                                     </span>
                                                 </a>
@@ -89,19 +91,19 @@
     <!-- End::app-content -->
 
     <!-- Delete Modal -->
-    <div class="modal fade" id="delete_blog_modal" tabindex="-1" aria-labelledby="delete_blog_modal_label" aria-hidden="true">
+    <div class="modal fade" id="delete_product_modal" tabindex="-1" aria-labelledby="delete_product_modal_label" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="delete_blog_modal_label">Confirm Delete</h5>
+                    <h5 class="modal-title" id="delete_product_modal_label">Confirm Delete</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this blog?
+                    Are you sure you want to delete this product?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <form id="delete_blog_form" method="POST" action="{{ route('blogs.destroy', ['id' => 1]) }}">
+                    <form id="delete_product_form" method="POST" action="{{ route('products.destroy', ['id' => 1]) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -123,18 +125,18 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
-    <script src="{{asset('dashboard/assets/js/datatables.js')}}"></script>
+    <script src="{{ asset('dashboard/assets/js/datatables.js') }}"></script>
 
     <script>
-        // Attach click event listener to delete blog buttons
-        document.querySelectorAll('.delete-blog-btn').forEach(btn => {
+        // Attach click event listener to delete product buttons
+        document.querySelectorAll('.delete-product-btn').forEach(btn => {
             btn.addEventListener('click', function() {
-                // Get the blog ID from the data attribute
-                const blogId = this.getAttribute('data-blog_id');
+                // Get the product ID from the data attribute
+                const productId = this.getAttribute('data-product_id');
 
-                // Update the form action with the correct blog ID
-                const deleteForm = document.getElementById('delete_blog_form');
-                deleteForm.action = "{{ url('admin/blogs') }}" + '/' + blogId;
+                // Update the form action with the correct product ID
+                const deleteForm = document.getElementById('delete_product_form');
+                deleteForm.action = "{{ url('admin/products') }}" + '/' + productId;
             });
         });
     </script>

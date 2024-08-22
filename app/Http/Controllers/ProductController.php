@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -13,88 +14,68 @@ class ProductController extends Controller
 
     public function index()
     {
-        $blogs = Product::all();
-        return view('dashboard.products.index',compact('blogs'));
+        $products = Product::with('category')->get();
+        return view('dashboard.products.index',compact('products'));
     }
 
 
     public function create()
     {
-        return view('dashboard.products.create');
+        $categories = Category::all();
+        return view('dashboard.products.create', compact('categories'));
     }
 
 
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'name' => 'required|string|max:255',
+            'details' => 'nullable|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('blogs', 'public');
-        }
+        Product::create($request->all());
 
-
-
-        Product::create([
-            'title' => $request->input('title'),
-            'description' => $request->input('description'),
-            'image' => $imagePath,
-        ]);
-
-        return redirect()->route('blog')->with('success', 'Blog created successfully');
+        return redirect()->route('products')->with('success', 'Product created successfully');
     }
 
     public function edit($id)
     {
-        $blog = Product::find($id);
+        $products = Product::find($id);
 
-        if(!$blog){
-            return redirect()->route('blog')->with('error', 'Blog not found.');
+        if(!$products){
+            return redirect()->route('products')->with('error', 'Product not found.');
         }
 
-        return view('dashboard.products.edit', compact('blog'));
+        return view('dashboard.products.edit', compact('products'));
     }
 
     public function update(Request $request, $id)
     {
-        // Validate the request data
         $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'name' => 'required|string|max:255',
+            'details' => 'nullable|string',
+            'price' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
         ]);
 
         // Find the article by ID
-        $blog = Product::findOrFail($id);
+        $products = Product::findOrFail($id);
 
-        // Handle the image upload if a new image is provided
-        if ($request->hasFile('image')) {
-            // Delete the old image if exists
-            if ($blog->image) {
-                Storage::delete('public/' . $blog->image);
-            }
+        $products->name = $request->input('name');
+        $products->details = $request->input('details');
+        $products->price = $request->input('price');
+        $products->category_id = $request->input('category_id');
+        $products->save();
 
-            // Store the new image
-            $imagePath = $request->file('image')->store('blogs', 'public');
-            $blog->image = $imagePath;
-        }
-
-        // Update the article with the new data
-        $blog->title = $request->input('title');
-        $blog->description = $request->input('description');
-        $blog->save();
-
-        // Redirect to the article listing page with a success message
-        return redirect()->route('blog')->with('success', 'Blog updated successfully');
+        return redirect()->route('products')->with('success', 'Product updated successfully');
     }
 
     public function destroy($id)
     {
-    $blog = Product::findOrFail($id);
-    $blog->delete();
-    return redirect()->route('blog')->with('error', 'Blog deleted successfully');
+    $products = Product::findOrFail($id);
+    $products->delete();
+    return redirect()->route('products')->with('error', 'Product deleted successfully');
     }
 }

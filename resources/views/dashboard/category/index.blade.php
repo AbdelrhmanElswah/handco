@@ -7,17 +7,18 @@
 
         <!-- Page Header -->
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Portfolios</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Categories</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{url('/home')}}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">All Portfolios</li>
+                        <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">All Categories</li>
                     </ol>
                 </nav>
             </div>
         </div>
         <!-- Page Header Close -->
+
         @if(session('error'))
             <div class="alert alert-danger" role="alert">
                 {{ session('error') }}
@@ -35,7 +36,7 @@
                 <div class="card custom-card">
                     <div class="card-header">
                         <div class="card-title">
-                            Portfolios
+                            Categories
                         </div>
                     </div>
                     <div class="card-body">
@@ -43,32 +44,32 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Title</th>
+                                <th>Name</th>
                                 <th>Description</th>
-                                <th>Image</th>
+                                <th>Icon</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($portfolios as $portfolio)
+                            @foreach($categories as $category)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $portfolio->title }}</td>
-                                    <td>{!! $portfolio->description !!}</td>
+                                    <td>{{ $category->name }}</td>
+                                    <td>{!! $category->description !!}</td>
                                     <td>
-                                        @if ($portfolio->image)
-                                            <img src="{{ asset('storage/app/' . $portfolio->image) }}" alt="{{ $portfolio->title }}" width="100">
+                                        @if ($category->image)
+                                            <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" width="100">
                                         @endif
                                     </td>
                                     <td>
                                         <div class="btn-group btn-group-sm" role="group" aria-label="...">
-                                            <a class="pr-1" style="color:white;" href="{{ route('portofilos.edit', [$portfolio->id]) }}">
-                                                <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Edit Portfolio">
+                                            <a class="pr-1" style="color:white;" href="{{ route('category.edit', [$category->id]) }}">
+                                                <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Edit Category">
                                                     <i class="far fa-edit text-success"></i>
                                                 </span>
                                             </a>
-                                            <a class="pr-1 delete-portfolio-btn" style="color: white; margin-left: 10px;" href="#" data-portfolio_id="{{ $portfolio->id }}" data-bs-toggle="modal" data-bs-target="#delete_portfolio_modal">
-                                                <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Delete Portfolio">
+                                            <a class="pr-1 delete-category-btn" style="color: white; margin-left: 10px;" href="#" data-category_id="{{ $category->id }}" data-bs-toggle="modal" data-bs-target="#delete_category_modal">
+                                                <span class="btn btn-outline-secondary" data-toggle="tooltip" data-placement="top" title="Delete Category">
                                                     <i class="far fa-trash-alt text-danger"></i>
                                                 </span>
                                             </a>
@@ -82,25 +83,25 @@
                 </div>
             </div>
         </div>
-        <!--End::row-1 -->
+        <!-- End::row-1 -->
 
     </div>
 </div>
 <!-- End::app-content -->
 
-<div class="modal fade" id="delete_portfolio_modal" tabindex="-1" aria-labelledby="delete_portfolio_modal_label" aria-hidden="true">
+<div class="modal fade" id="delete_category_modal" tabindex="-1" aria-labelledby="delete_category_modal_label" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="delete_portfolio_modal_label">Confirm Delete</h5>
+                <h5 class="modal-title" id="delete_category_modal_label">Confirm Delete</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete this portfolio?
+                Are you sure you want to delete this category?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <form id="delete_portfolio_form" method="POST" action="{{ route('portofilos.destroy', ['id' => 1]) }}">
+                <form id="delete_category_form" method="POST" action="{{ route('category.destroy', ['id' => 1]) }}">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -123,11 +124,11 @@
 <script src="{{ asset('dashboard/assets/js/datatables.js') }}"></script>
 
 <script>
-    document.querySelectorAll('.delete-portfolio-btn').forEach(btn => {
+    document.querySelectorAll('.delete-category-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const portfolioId = this.getAttribute('data-portfolio_id');
-            const deleteForm = document.getElementById('delete_portfolio_form');
-            deleteForm.action = "{{ url('admin/portofilos') }}" + '/' + portfolioId;
+            const categoryId = this.getAttribute('data-category_id');
+            const deleteForm = document.getElementById('delete_category_form');
+            deleteForm.action = "{{ url('admin/category') }}" + '/' + categoryId;
         });
     });
 </script>

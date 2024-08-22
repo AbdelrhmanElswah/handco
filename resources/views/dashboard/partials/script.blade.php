@@ -104,6 +104,15 @@
 <script src="{{asset('dashboard/assets/js/todolist.js')}}"></script>
 
 <script>
+    CKEDITOR.replace('details', {
+        removePlugins: 'uploadimage',
+        on: {
+            instanceReady: function(ev) {
+                ev.editor.showNotification = function() { return false; };
+            }
+        }
+    });
+
     CKEDITOR.replace('description', {
         removePlugins: 'uploadimage',
         on: {
@@ -113,6 +122,7 @@
         }
     });
 </script>
+
 
 @stack('script')
 

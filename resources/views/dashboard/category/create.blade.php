@@ -5,12 +5,12 @@
     <div class="container-fluid">
 
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-            <h1 class="page-title fw-semibold fs-18 mb-0">Add New Portfolio</h1>
+            <h1 class="page-title fw-semibold fs-18 mb-0">Add New Category</h1>
             <div class="ms-md-1 ms-0">
                 <nav>
                     <ol class="breadcrumb mb-0">
                         <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Add New Portfolio</li>
+                        <li class="breadcrumb-item active" aria-current="page">Add New Category</li>
                     </ol>
                 </nav>
             </div>
@@ -28,13 +28,13 @@
 
         <div class="card custom-card">
             <div class="card-body">
-                <form method="POST" action="{{ route('portofilos.store') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('category.store') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+                                <label for="name">Name</label>
+                                <input type="text" placeholder="Category Name" name="name" class="form-control" value="{{ old('name') }}">
                             </div>
                         </div>
                         <div class="col-md-12 mb-3">
@@ -45,13 +45,13 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <label for="image">Image</label>
+                                <label for="image">Icon</label>
                                 <input type="file" name="image" class="form-control">
                             </div>
                         </div>
 
                         <div class="col-md-12">
-                            <button type="submit" class="btn btn-primary">Add Portfolio</button>
+                            <button type="submit" class="btn btn-primary">Add Category</button>
                         </div>
                     </div>
                 </form>
