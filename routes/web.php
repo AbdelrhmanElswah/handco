@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\PortfolioController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -31,23 +31,23 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin');
 
         // Blogs
-        Route::prefix('/blogs')->group(function () {
-            Route::get('/', [BlogController::class, 'index'])->name('blog');
-            Route::get('/create', [BlogController::class, 'create'])->name('blogs.create');
-            Route::post('/', [BlogController::class, 'store'])->name('blogs.store');
-            Route::get('/{id}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
-            Route::put('/{id}', [BlogController::class, 'update'])->name('blogs.update');
-            Route::delete('/{id}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+        Route::prefix('/products')->group(function () {
+            Route::get('/', [ProductController::class, 'index'])->name('products');
+            Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+            Route::post('/', [ProductController::class, 'store'])->name('products.store');
+            Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+            Route::put('/{id}', [ProductController::class, 'update'])->name('products.update');
+            Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
         });
 
         // Portfolio
-        Route::prefix('/portofilos')->group(function () {
-            Route::get('/', [PortfolioController::class, 'index'])->name('portofilo');
-            Route::get('/create', [PortfolioController::class, 'create'])->name('portofilos.create');
-            Route::post('/', [PortfolioController::class, 'store'])->name('portofilos.store');
-            Route::get('/{id}/edit', [PortfolioController::class, 'edit'])->name('portofilos.edit');
-            Route::put('/{id}', [PortfolioController::class, 'update'])->name('portofilos.update');
-            Route::delete('/{id}', [PortfolioController::class, 'destroy'])->name('portofilos.destroy');
+        Route::prefix('/category')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('category');
+            Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
+            Route::post('/', [CategoryController::class, 'store'])->name('category.store');
+            Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+            Route::put('/{id}', [CategoryController::class, 'update'])->name('category.update');
+            Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
         });
 
         // Get Contacts 

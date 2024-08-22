@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 
 
-class BlogController extends Controller
+class ProductController extends Controller
 {
 
     public function index()
     {
-        $blogs = Blog::all();
-        return view('dashboard.blogs.index',compact('blogs'));
+        $blogs = Product::all();
+        return view('dashboard.products.index',compact('blogs'));
     }
 
 
     public function create()
     {
-        return view('dashboard.blogs.create');
+        return view('dashboard.products.create');
     }
 
 
@@ -38,7 +38,7 @@ class BlogController extends Controller
 
 
 
-        Blog::create([
+        Product::create([
             'title' => $request->input('title'),
             'description' => $request->input('description'),
             'image' => $imagePath,
@@ -49,13 +49,13 @@ class BlogController extends Controller
 
     public function edit($id)
     {
-        $blog = Blog::find($id);
+        $blog = Product::find($id);
 
         if(!$blog){
             return redirect()->route('blog')->with('error', 'Blog not found.');
         }
 
-        return view('dashboard.blogs.edit', compact('blog'));
+        return view('dashboard.products.edit', compact('blog'));
     }
 
     public function update(Request $request, $id)
@@ -68,7 +68,7 @@ class BlogController extends Controller
         ]);
 
         // Find the article by ID
-        $blog = Blog::findOrFail($id);
+        $blog = Product::findOrFail($id);
 
         // Handle the image upload if a new image is provided
         if ($request->hasFile('image')) {
@@ -93,7 +93,7 @@ class BlogController extends Controller
 
     public function destroy($id)
     {
-    $blog = Blog::findOrFail($id);
+    $blog = Product::findOrFail($id);
     $blog->delete();
     return redirect()->route('blog')->with('error', 'Blog deleted successfully');
     }

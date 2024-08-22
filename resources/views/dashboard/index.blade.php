@@ -32,12 +32,12 @@
                                                 <div class="d-flex align-items-center justify-content-between flex-wrap">
                                                     <div>
                                                         <p class="text-muted mb-0">Total Blogs</p>
-                                                        <h4 class="fw-semibold mt-1">{{ \App\Models\Blog::count() }}</h4>
+                                                        <h4 class="fw-semibold mt-1"></h4>
                                                     </div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                                     <div>
-                                                        <a class="text-secondary" href="{{ route('blog') }}">View All
+                                                        <a class="text-secondary" href="">View All
                                                             <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                     </div>
                                                     <div class="text-end"></div>
@@ -60,13 +60,13 @@
                                                 <div class="d-flex align-items-center justify-content-between flex-wrap">
                                                     <div>
                                                         <p class="text-muted mb-0">Total Portfolio</p>
-                                                        <h4 class="fw-semibold mt-1">{{ \App\Models\Portfolio::count() }}</h4>
+                                                        <h4 class="fw-semibold mt-1"></h4>
                                                     </div>
                                                     <div id="crm-total-revenue"></div>
                                                 </div>
                                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                                     <div>
-                                                        <a class="text-warning" href="{{ route('portofilo') }}">View All
+                                                        <a class="text-warning" href="">View All
                                                             <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                                     </div>
                                                     <div class="text-end"></div>

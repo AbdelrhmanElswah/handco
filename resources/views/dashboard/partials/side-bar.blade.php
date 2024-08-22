@@ -45,13 +45,13 @@
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                 </li>
-                <li class="slide__category"><span class="category-name">Blogs</span></li>
+                <li class="slide__category"><span class="category-name">Product</span></li>
 
-                <li class="slide has-sub {{Request::route()->getName() == 'blog'  || Request::route()->getName() == 'blogs.create' }} ">
+                <li class="slide has-sub {{Request::route()->getName() == 'products'  || Request::route()->getName() == 'products.create' }} ">
                     <a href="javascript:void(0);"
-                       class="side-menu__item " {{Request::route()->getName() == 'blog'  || Request::route()->getName() == 'blogs.create'}}>
-                        <i class="fe fe-users side-menu__icon"></i>
-                        <span class="side-menu__label">Blogs</span>
+                       class="side-menu__item " {{Request::route()->getName() == 'products'  || Request::route()->getName() == 'products.create'}}>
+                        <i class="fe fe-package side-menu__icon"></i>
+                        <span class="side-menu__label">Product</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1" data-popper-placement="bottom"
@@ -59,36 +59,36 @@
 
                         <li class="slide">
                             <a href="{{route('blog')}}"
-                               class="side-menu__item {{Request::route()->getName() == 'blog'}}">Show
+                               class="side-menu__item {{Request::route()->getName() == 'products'}}">Show
                                 All</a>
                         </li>
 
                         <li class="slide">
-                            <a href="{{route('blogs.create')}}"
+                            <a href="{{route('products.create')}}"
                                class="side-menu__item ">Create</a>
                         </li>
                     </ul>
                 </li>
-                <li class="slide__category"><span class="category-name">Portfolio</span></li>
+                <li class="slide__category"><span class="category-name">Category</span></li>
 
-                 <li class="slide has-sub {{Request::route()->getName() == 'portofilo'  || Request::route()->getName() == 'portofilos.create' }} ">
+                 <li class="slide has-sub {{Request::route()->getName() == 'category'  || Request::route()->getName() == 'category.create' }} ">
                     <a href="javascript:void(0);"
-                       class="side-menu__item " {{Request::route()->getName() == 'portofilo'  || Request::route()->getName() == 'portofilos.create'}}>
-                        <i class="fe fe-users side-menu__icon"></i>
-                        <span class="side-menu__label">Portfolio</span>
+                       class="side-menu__item " {{Request::route()->getName() == 'category'  || Request::route()->getName() == 'category.create'}}>
+                        <i class="fe fe-grid side-menu__icon"></i>
+                        <span class="side-menu__label">Category</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1" data-popper-placement="bottom"
                         style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(120px, 275px);">
 
                         <li class="slide">
-                            <a href="{{route('portofilo')}}"
-                               class="side-menu__item " {{Request::route()->getName() == 'portofilo'}}>Show
+                            <a href="{{route('category')}}"
+                               class="side-menu__item " {{Request::route()->getName() == 'category'}}>Show
                                 All</a>
                         </li>
 
                         <li class="slide">
-                            <a href="{{route('portofilos.create')}}"
+                            <a href="{{route('category.create')}}"
                                class="side-menu__item ">Create</a>
                         </li>
 
