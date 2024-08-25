@@ -29,6 +29,7 @@
                         <form method="post" action="{{ route('products.update', $products->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT') <!-- Use PUT method for updating -->
+
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Name</label>
@@ -39,12 +40,15 @@
                                     <input type="number" class="form-control" name="price" placeholder="Price" aria-label="price" value="{{ old('price', $products->price) }}" min="0" step="0.01">
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-md-12 mb-3">
                                     <label for="details" class="form-label">Details</label>
                                     <textarea class="form-control" name="details" id="details" rows="3">{{ old('details', $products->details) }}</textarea>
                                 </div>
                             </div>
+
+                            <!-- Row containing Category Select and Image Upload -->
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Category</label>
@@ -57,16 +61,31 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
-                            <div class="row">
+
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">Image</label>
-                                    <input type="file" class="form-control" name="image" aria-label="image">
-                                    @if($products->image)
-                                        <img src="{{ asset('storage/' . $products->image) }}" alt="{{ $products->name }}" class="img-fluid mt-2" style="max-width: 150px;">
-                                    @endif
+                                    <label class="form-label">Upload New Images</label>
+                                    <input type="file" class="form-control" name="image[]" aria-label="image" multiple>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Existing Images</label>
+                                    <div class="d-flex flex-wrap">
+                                        @foreach($products->media as $media)
+                                           <div class="position-relative me-2 mb-2" id="image_{{ $media->id }}">
+                                           <img src="{{ $media->media_link }}" alt="{{ $products->name }}" width="100" class="img-thumbnail">
+                                           <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0" onclick="removeImage({{ $media->id }})">
+                                           &times;
+                                                </button>
+                                          <input type="hidden" name="existing_images[]" value="{{ $media->id }}">
+                                            <input type="hidden" name="deleted_images[]" id="deleted_image_{{ $media->id }}" value="{{$media->id }}">
+                                                    </div>
+                                @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <button type="submit" class="btn btn-primary">Update</button>
@@ -79,5 +98,38 @@
         </div>
     </div>
 </div>
+
+<script>
+function removeImage(mediaId) {
+    let csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    if (!csrfToken) {
+        console.error('CSRF token not found');
+        return;
+    }
+
+    fetch(`/admin/products/media/${mediaId}`, {
+        method: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: mediaId }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById(`image_${mediaId}`).remove();
+            console.log(`Image with ID ${mediaId} deleted successfully.`);
+        } else {
+            console.error('Failed to delete image:', data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+</script>
+ 
 
 @endsection

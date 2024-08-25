@@ -35,7 +35,8 @@ class CategoryController extends Controller
         ]);
 
         if(isset($request->image)){
-            (new mediaUploadService())->uploadMedia($request->image, $category, 'categories');
+         (new mediaUploadService())->uploadMedia([$request->image], $category, 'categories');
+
         }
 
 
@@ -55,10 +56,11 @@ class CategoryController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
         ]);
 
         $category = Category::findOrFail($id);
@@ -67,9 +69,10 @@ class CategoryController extends Controller
         $category->description = $request->input('description');
         $category->save();
 
-        if(isset($request->image)){
-            (new mediaUploadService())->editMedia([$request->image],$category,'categories');
+        if($request->hasFile('image')){
+            (new MediaUploadService())->editMedia([$request->file('image')], $category, null, 'categories');
         }
+        
 
         return redirect()->route('category')->with('success', 'Category updated successfully');
     }
@@ -78,7 +81,7 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
 
-        ($this->mediaUploadService())->deleteMedia(null, $category, 'files/categories/');
+        (new mediaUploadService())->deleteMedia(null, $category, 'files/categories/');
 
         $category->delete();
         return redirect()->route('category')->with('error', 'Category deleted successfully');

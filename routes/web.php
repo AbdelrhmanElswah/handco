@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
         });
 
+        Route::delete('/products/media/{id}', [ProductController::class, 'deleteMedia'])->name('products.media.delete');
+
+
         // Portfolio
         Route::prefix('/category')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])->name('category');
@@ -49,6 +53,16 @@ Route::middleware('auth')->group(function () {
             Route::put('/{id}', [CategoryController::class, 'update'])->name('category.update');
             Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
         });
+
+
+        Route::post('/about', [AboutUsController::class, 'update'])->name('about.update');
+
+        Route::get('/about/create', [AboutUsController::class, 'create'])->name('about.create');
+
+        Route::post('/about/store', [AboutUsController::class, 'store'])->name('about.store');
+
+        Route::get('/about/edit', [AboutUsController::class, 'edit'])->name('about.edit');
+
 
         // Get Contacts 
         Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');

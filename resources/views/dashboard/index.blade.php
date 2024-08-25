@@ -9,7 +9,7 @@
             <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
                 <div>
                     <p class="fw-semibold fs-18 mb-0">Welcome back, Admin!</p>
-                    <span class="fs-semibold text-muted">Track your sales activity</span>
+                    <span class="fs-semibold text-muted">Track your activity</span>
                 </div>
             </div>
             <!-- End::page-header -->
@@ -31,7 +31,7 @@
                                             <div class="flex-fill ms-3">
                                                 <div class="d-flex align-items-center justify-content-between flex-wrap">
                                                     <div>
-                                                        <p class="text-muted mb-0">Total Blogs</p>
+                                                        <p class="text-muted mb-0">Total Products</p>
                                                         <h4 class="fw-semibold mt-1"></h4>
                                                     </div>
                                                 </div>
@@ -59,7 +59,7 @@
                                             <div class="flex-fill ms-3">
                                                 <div class="d-flex align-items-center justify-content-between flex-wrap">
                                                     <div>
-                                                        <p class="text-muted mb-0">Total Portfolio</p>
+                                                        <p class="text-muted mb-0">Total Category</p>
                                                         <h4 class="fw-semibold mt-1"></h4>
                                                     </div>
                                                     <div id="crm-total-revenue"></div>

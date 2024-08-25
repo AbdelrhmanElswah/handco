@@ -47,6 +47,7 @@
                                     <th>Details</th>
                                     <th>Price</th>
                                     <th>Category</th>
+                                    <th>Icon</th>
                                     <th>Action</th>
                                 </tr>
                                 </thead>
@@ -61,6 +62,15 @@
                                         <td>{!! $product->details !!}</td>
                                         <td>{{ $product->price }}</td>
                                         <td>{{ $product->category->name }}</td>
+                                        <td>
+                                            @foreach($product->media as $media)
+                                                <a href="{{ $media->media_link }}" target="_blank">
+                                                    <span class="avatar avatar-sm avatar-rounded me-2">
+                                                        <i class="fas fa-image fa-2x text-success"></i>
+                                                    </span>
+                                                </a>
+                                            @endforeach
+                                        </td>                                        
                                         <td>
                                             <div class="btn-group btn-group-sm" role="group" aria-label="...">
                                                 <a class="pr-1" style="color:white;" href="{{ route('products.edit', [$product->id]) }}">

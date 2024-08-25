@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <div class="form-group">
-                                <label for="image">Image</label>
+                                <label for="image">Icon</label>
                                 <input type="file" name="image" class="form-control">
                                 @if($category->media->count())
                                     <img src="{{ $category->media->first()->media_link }}" alt="{{ $category->title }}" width="100">

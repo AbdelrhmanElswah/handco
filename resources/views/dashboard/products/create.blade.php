@@ -67,6 +67,12 @@
                                         </select>
                                     </div>
 
+                                    <div class="col-md-6 mb-3">
+                                        <div class="form-group">
+                                            <label for="images">Icons</label>
+                                            <input type="file" name="images[]" class="form-control" multiple>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary">Add Product</button>
                                     </div>

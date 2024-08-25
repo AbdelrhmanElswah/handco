@@ -95,6 +95,27 @@
                     </ul>
                 </li>
 
+                <li class="slide__category"><span class="category-name">About Us</span></li>
+
+                <li class="slide has-sub {{ Request::route()->getName() == 'about.index' || Request::route()->getName() == 'about.create' }}">
+                    <a href="javascript:void(0);"
+                       class="side-menu__item {{ Request::route()->getName() == 'about.index' || Request::route()->getName() == 'about.create' }}">
+                        <i class="fe fe-info side-menu__icon"></i>
+                        <span class="side-menu__label">About Us</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1" data-popper-placement="bottom"
+                        style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(120px, 275px);">
+                
+                        <li class="slide">
+                            <a href="{{ route('about.create') }}"
+                               class="side-menu__item {{ Request::route()->getName() == 'about.create' }}">Create</a>
+                        </li>
+                
+                    </ul>
+                </li>
+                
+
                 <!-- Start::logout -->
                 <li class="slide__category"><span class="category-name">Log out</span></li>
                 <li class="slide">
