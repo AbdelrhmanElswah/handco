@@ -7,6 +7,7 @@ use App\Http\Requests\StoreContactUsRequest;
 use App\Models\Blog;
 use App\Models\Contact;
 use App\Models\Portfolio;
+use App\Models\Setting;
 use App\Traits\HandleResponse;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class BaseController extends Controller
 {
     use HandleResponse;
 
-    public function __construct(protected Contact $contact ,protected Blog $blog ,protected Portfolio $portfolio)
+    public function __construct(protected Contact $contact , protected Setting $settings)
     {
 
     }
@@ -27,28 +28,14 @@ class BaseController extends Controller
         return $this->successWithData($contact,'Contact information submitted successfully!');
     }
 
-    public function getBlogs()
+    public function getAboutUs()
     {
-        $blogs = $this->blog::get();
+        $setting = $this->settings::first();
 
-        return  $this->successWithData($blogs,'Blogs fetched successfully!');
-    }
-
-    public function getBlog($id)
-    {
-    $blog = $this->blog::find($id);
-
-         if ($blog) {
-                return $this->successWithData($blog, 'Blog fetched successfully!');
-                 }
-
-        return $this->badRequestResponse('Blog not found!', 404);
-    }
-
-    public function getPortfolios()
-    {
-        $portfolios = $this->portfolio::get();
-
-        return $this->successWithData($portfolios,'Portfolios fetched successfully!');
+        if ($setting) {
+            return $this->successWithData($setting->about_us, 'About Us content fetched successfully!');
+        } else {
+            return $this->errorResponse('About Us content not found', 404);
+        }
     }
 }

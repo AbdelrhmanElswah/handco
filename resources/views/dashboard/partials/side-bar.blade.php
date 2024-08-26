@@ -29,8 +29,8 @@
                 <li class="slide">
                     <a href=""
                        class="side-menu__item">
-                        <i class="fe fe-users side-menu__icon"></i>
-                        <span class="side-menu__label">Website</span>
+                       <i class="fe fe-globe side-menu__icon"></i>
+                       <span class="side-menu__label">Website</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                 </li>
@@ -109,7 +109,7 @@
                 
                         <li class="slide">
                             <a href="{{ route('about.create') }}"
-                               class="side-menu__item {{ Request::route()->getName() == 'about.create' }}">Create</a>
+                               class="side-menu__item {{ Request::route()->getName() == 'about.create' }}">Update</a>
                         </li>
                 
                     </ul>

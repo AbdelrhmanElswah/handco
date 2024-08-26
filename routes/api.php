@@ -22,8 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/contact', [BaseController::class, 'store']);
 
-Route::get('/blogs', [BaseController::class, 'getBlogs']);
+Route::get('/about-us', [BaseController::class, 'getAboutUs']);
 
-Route::get('/blog/{id}', [BaseController::class, 'getBlog']);
-
-Route::get('/portfolios', [BaseController::class, 'getPortfolios']);

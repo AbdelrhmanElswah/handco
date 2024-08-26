@@ -66,6 +66,9 @@ Route::middleware('auth')->group(function () {
 
         // Get Contacts 
         Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
+
+
+
     });
 });
 

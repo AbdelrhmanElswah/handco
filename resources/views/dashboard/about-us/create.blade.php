@@ -5,16 +5,28 @@
         <div class="container-fluid">
 
             <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-                <h1 class="page-title fw-semibold fs-18 mb-0">Create About Us</h1>
+                <h1 class="page-title fw-semibold fs-18 mb-0">Update About Us</h1>
                 <div class="ms-md-1 ms-0">
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Create About Us</li>
+                            <li class="breadcrumb-item active" aria-current="page">Update About Us</li>
                         </ol>
                     </nav>
                 </div>
             </div>
+
+            <!-- Page Header Close -->
+            @if(session('error'))
+                <div class="alert alert-danger" role="alert">
+                    {{ session('error') }}
+                </div>
+            @endif
+            @if(session('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('success') }}
+                </div>
+            @endif
 
             <div class="row">
                 <div class="col-xl-12">
@@ -44,7 +56,6 @@
                                         <label for="description" class="form-label">Description</label>
                                         <textarea class="form-control" name="description" id="description" rows="5" placeholder="About Us description">{{ old('description', $setting->about_us ?? '') }}</textarea>
                                     </div>
-
 
                                     <div class="col-md-12">
                                         <button type="submit" class="btn btn-primary">Add</button>

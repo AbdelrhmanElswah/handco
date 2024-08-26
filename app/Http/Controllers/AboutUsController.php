@@ -21,42 +21,36 @@ class AboutUsController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request
         $validatedData = $request->validate([
             'description' => 'required|string',
         ]);
-
-        // Create or update the "About Us" setting
         $setting = Setting::updateOrCreate(
-            ['id' => 1], // Condition: Match by ID (assuming the setting has a fixed ID)
-            ['about_us' => $validatedData['description']] // Values to update/crea
+            ['id' => 1], 
+            ['about_us' => $validatedData['description']] 
         );
 
         // Redirect with a success message
-        return redirect()->route('about.index')->with('success', 'About Us section updated successfully!');
+        return redirect()->route('about.create')->with('success', 'About Us section updated successfully!');
     }
 
 
-    
-
-
-    /**
-     * Update the "About Us" content in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request)
+    public function getAboutUs()
     {
-        $request->validate([
-            'about_us' => 'required|string',
-        ]);
-
-        // Assuming you have a Setting model where "about_us" is stored
         $setting = Setting::first();
-        $setting->about_us = $request->input('about_us');
-        $setting->save();
 
-        return redirect()->route('about.index')->with('success', 'About Us updated successfully.');
+        if ($setting) {
+            return response()->json([
+                'success' => true,
+                'about_us' => $setting->about_us,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'About Us content not found',
+            ], 404);
+        }
     }
+
+
+
 }
