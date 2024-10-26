@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +27,6 @@ Route::post('/store/contact-us', [ContactController::class, 'store'])->name('con
 
 Route::middleware('auth')->group(function () {
     // Dashboard
-    Route::prefix('/admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin');
 
 
@@ -41,13 +38,9 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/about/edit', [AboutUsController::class, 'edit'])->name('about.edit');
 
-
         // Get Contacts
         Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
 
-
-
-    });
 });
 });
 Auth::routes();

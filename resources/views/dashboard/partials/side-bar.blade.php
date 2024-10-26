@@ -45,8 +45,6 @@
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                 </li>
-                <li class="slide__category"><span class="category-name">Product</span></li>
-
 
                 <li class="slide__category"><span class="category-name">About Us</span></li>
 
