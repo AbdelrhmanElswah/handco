@@ -20,12 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/contact', [BaseController::class, 'store']);
-
-Route::get('/about-us', [BaseController::class, 'getAboutUs']);
-
-Route::get('products/category/{categoryId}', [BaseController::class, 'getProductsByCategory']);
-
-Route::get('category/{id}', [BaseController::class, 'getCategory']);
 
 

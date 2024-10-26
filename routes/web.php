@@ -32,29 +32,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix('/admin')->group(function () {
         Route::get('/', [DashboardController::class, 'index'])->name('admin');
 
-        // Blogs
-        Route::prefix('/products')->group(function () {
-            Route::get('/', [ProductController::class, 'index'])->name('products');
-            Route::get('/create', [ProductController::class, 'create'])->name('products.create');
-            Route::post('/', [ProductController::class, 'store'])->name('products.store');
-            Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-            Route::put('/{id}', [ProductController::class, 'update'])->name('products.update');
-            Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
-        });
-
-        Route::delete('/products/media/{id}', [ProductController::class, 'deleteMedia'])->name('products.media.delete');
-
-
-        // Portfolio
-        Route::prefix('/category')->group(function () {
-            Route::get('/', [CategoryController::class, 'index'])->name('category');
-            Route::get('/create', [CategoryController::class, 'create'])->name('category.create');
-            Route::post('/', [CategoryController::class, 'store'])->name('category.store');
-            Route::get('/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
-            Route::put('/{id}', [CategoryController::class, 'update'])->name('category.update');
-            Route::delete('/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-        });
-
 
         Route::post('/about', [AboutUsController::class, 'update'])->name('about.update');
 

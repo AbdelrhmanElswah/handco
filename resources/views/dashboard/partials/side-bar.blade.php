@@ -47,53 +47,6 @@
                 </li>
                 <li class="slide__category"><span class="category-name">Product</span></li>
 
-                <li class="slide has-sub {{Request::route()->getName() == 'products'  || Request::route()->getName() == 'products.create' }} ">
-                    <a href="javascript:void(0);"
-                       class="side-menu__item " {{Request::route()->getName() == 'products'  || Request::route()->getName() == 'products.create'}}>
-                        <i class="fe fe-package side-menu__icon"></i>
-                        <span class="side-menu__label">Product</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1" data-popper-placement="bottom"
-                        style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(120px, 275px);">
-
-                        <li class="slide">
-                            <a href="{{route('products')}}"
-                               class="side-menu__item {{Request::route()->getName() == 'products'}}">Show
-                                All</a>
-                        </li>
-
-                        <li class="slide">
-                            <a href="{{route('products.create')}}"
-                               class="side-menu__item ">Create</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="slide__category"><span class="category-name">Category</span></li>
-
-                 <li class="slide has-sub {{Request::route()->getName() == 'category'  || Request::route()->getName() == 'category.create' }} ">
-                    <a href="javascript:void(0);"
-                       class="side-menu__item " {{Request::route()->getName() == 'category'  || Request::route()->getName() == 'category.create'}}>
-                        <i class="fe fe-grid side-menu__icon"></i>
-                        <span class="side-menu__label">Category</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1" data-popper-placement="bottom"
-                        style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(120px, 275px);">
-
-                        <li class="slide">
-                            <a href="{{route('category')}}"
-                               class="side-menu__item " {{Request::route()->getName() == 'category'}}>Show
-                                All</a>
-                        </li>
-
-                        <li class="slide">
-                            <a href="{{route('category.create')}}"
-                               class="side-menu__item ">Create</a>
-                        </li>
-
-                    </ul>
-                </li>
 
                 <li class="slide__category"><span class="category-name">About Us</span></li>
 
@@ -106,15 +59,15 @@
                     </a>
                     <ul class="slide-menu child1" data-popper-placement="bottom"
                         style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(120px, 275px);">
-                
+
                         <li class="slide">
                             <a href="{{ route('about.create') }}"
                                class="side-menu__item {{ Request::route()->getName() == 'about.create' }}">Update</a>
                         </li>
-                
+
                     </ul>
                 </li>
-                
+
 
                 <!-- Start::logout -->
                 <li class="slide__category"><span class="category-name">Log out</span></li>
