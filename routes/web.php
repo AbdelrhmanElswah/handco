@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix('admin')->group(function () {
 
 Route::get('/', function () {
-    return Auth::check() ? redirect('/admin') : view('auth.login'); 
+    return Auth::check() ? redirect('/admin') : view('auth.login');
 });
 
 // Contact Us route
@@ -64,12 +65,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/about/edit', [AboutUsController::class, 'edit'])->name('about.edit');
 
 
-        // Get Contacts 
+        // Get Contacts
         Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
 
 
 
     });
 });
-
+});
 Auth::routes();
