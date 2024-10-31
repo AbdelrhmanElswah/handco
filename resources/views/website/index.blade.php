@@ -1,21 +1,10 @@
-<!doctype html>
-<html lang="en">
+@extends('layouts.website', [
+    'title' => 'Home Page',
+    'headerType' => '_header',
+    'bg' => 'bg-white'
+])
 
-<head>
-    <title>H&Co Properties | Home</title>
-    @include('website.partials._head')
-</head>
-
-<body>
-
-<div class="preloader">
-    <div class="loader xy-center"></div>
-</div>
-
-<div id="page_wrapper" class="bg-white">
-    <!--============== Header Section Start ==============-->
-    @include('website.partials._header')
-    <!--============== Header Section End ==============-->
+@section('content')
 
     <!--============== Slider Area Start ==============-->
     @include('website.partials._slider')
@@ -35,7 +24,8 @@
                 <div class="col-lg-4">
                     <div class="py-2 pt-3">
                         <p>
-                            H&Co Properties provides expert real estate services in Dubai, helping you buy, sell, or invest with ease.
+                            H&Co Properties provides expert real estate services in Dubai, helping you buy, sell, or
+                            invest with ease.
                             From luxury homes to commercial spaces, we guide you every step of the way.
                         </p>
                     </div>
@@ -98,7 +88,8 @@
         <div class="container">
             <div class="row">
                 <div class="col mb-5">
-                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What You Are Looking for?</h2>
+                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What You Are Looking
+                        for?</h2>
                     <span class="d-table w-50 w-sm-100 sub-title text-white fw-normal mx-auto text-center">Select what you are looking for.</span>
                 </div>
             </div>
@@ -112,6 +103,88 @@
                         </div>
                         <h6 class="d-block text-secondary">Living House</h6>
                         <p>Preview listing of accommodation property living houses</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i class="flaticon-sketch-1 flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Solid Land</h6>
+                        <p>Hight listed solid use-able land in most popular area for development</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i
+                                class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Office Floor</h6>
+                        <p>Preview most popular are office building listed category</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i class="flaticon-shop flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Commercial</h6>
+                        <p>Listing Commercial property for business and factory development</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i class="flaticon-real-estate flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Hostel Room</h6>
+                        <p>if you are single looking for sinlge living, preview the hostel listing</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i
+                                class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Appartment</h6>
+                        <p>for family living appartment, find your best appartment in our directort list</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i class="flaticon-sketch flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Condo</h6>
+                        <p>In our directory we have listed luxury condo for rent and sale</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i class="flaticon-spa flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Villa House</h6>
+                        <p>Please who like villa house click here this category listed</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#"
+                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                        <div class="box-70px position-relative">
+                            <i class="flaticon-bed flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                        </div>
+                        <h6 class="d-block text-secondary">Hotel Room</h6>
+                        <p>The traveller people can findbest hotel here for living night</p>
                     </a>
                 </div>
                 <!-- Add other categories here similarly -->
@@ -135,7 +208,9 @@
                         <div class="text-carusel owl-carousel">
                             <div class="item">
                                 <i class="flaticon-right-quote flat-large text-primary d-table mx-auto"></i>
-                                <blockquote class="text-secondary fs-5 fst-italic">“ Posuere mus curabitur parturient scelerisque ...”</blockquote>
+                                <blockquote class="text-secondary fs-5 fst-italic">“ Posuere mus curabitur parturient
+                                    scelerisque ...”
+                                </blockquote>
                                 <h4 class="mt-4 font-400">Mark Wiggins</h4>
                                 <span class="text-primary font-fifteen">CEO ( Grodins Group )</span>
                             </div>
@@ -156,14 +231,4 @@
     @include('website.partials._blogs')
     <!--============== Blog Section End ==============-->
 
-    <!--============== Footer Section Start ==============-->
-    @include('website.partials._footer')
-    <!--============== Footer Section End ==============-->
-
-    @include('website.partials._modal')
-
-</div>
-
-@include('website.partials._scripts')
-</body>
-</html>
+@endsection

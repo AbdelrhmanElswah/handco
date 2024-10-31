@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col mb-5">
-                <h2 class="down-line text-white w-50 mx-auto text-center w-sm-100">Most Popular Property</h2>
+                <h2 class="down-line text-white w-50 mx-auto text-center w-sm-100">Most Popular Projects</h2>
             </div>
         </div>
         <div class="row">

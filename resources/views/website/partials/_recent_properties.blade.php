@@ -4,7 +4,7 @@
             <div class="col mb-4">
                 <div class="align-items-center d-flex">
                     <div class="me-auto">
-                        <h2 class="d-table">Recent Properties</h2>
+                        <h2 class="d-table">Recent Projects</h2>
                     </div>
                     <a href="property-grid-v1.html" class="ms-auto btn-link">View All Properties</a>
                 </div>

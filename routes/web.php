@@ -18,15 +18,15 @@ use Illuminate\Support\Facades\Route;
 */
 Route::prefix('admin')->group(function () {
 
-Route::get('/', function () {
-    return Auth::check() ? redirect('/admin') : view('auth.login');
-});
+    Route::get('/', function () {
+        return Auth::check() ? redirect('/admin') : view('auth.login');
+    });
 
-// Contact Us route
-Route::post('/store/contact-us', [ContactController::class, 'store'])->name('contact-us');
+    // Contact Us route
+    Route::post('/store/contact-us', [ContactController::class, 'store'])->name('contact-us');
 
-Route::middleware('auth')->group(function () {
-    // Dashboard
+    Route::middleware('auth')->group(function () {
+        // Dashboard
         Route::get('/', [DashboardController::class, 'index'])->name('admin');
 
 
@@ -41,6 +41,6 @@ Route::middleware('auth')->group(function () {
         // Get Contacts
         Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
 
-});
+    });
 });
 Auth::routes();

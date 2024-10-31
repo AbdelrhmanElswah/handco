@@ -1,22 +1,10 @@
-<!doctype html>
-<html lang="en">
+@extends('layouts.website', [
+    'title' => 'Contact Us',
+    'headerType' => '_header_pages',
+    'bg' => 'bg-light'
+])
 
-<head>
-    <title>H&Co Properties | Contact Us</title>
-    @include('website.partials._head')
-</head>
-
-<body>
-
-<div class="preloader">
-    <div class="loader xy-center"></div>
-</div>
-
-<div id="page_wrapper" class="bg-light">
-    <!--============== Header Section Start ==============-->
-    @include('website.partials._header_pages')
-    <!--============== Header Section End ==============-->
-
+@section('content')
     <!--============== Page title Start ==============-->
     <div class="full-row py-5">
         <div class="container">
@@ -93,13 +81,4 @@
             </div>
         </div>
     </div>
-    <!--============== Contact form End ==============-->
-
-    <!--============== Footer Section Start ==============-->
-    @include('website.partials._footer')
-    <!--============== Footer Section End ==============-->
-</div>
-
-@include('website.partials._scripts')
-</body>
-</html>
+@endsection

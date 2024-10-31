@@ -46,7 +46,7 @@
 + Footer Style
 + Case Study
 + Location Style Banner
-+ Responsive Media Query CSS 
++ Responsive Media Query CSS
 
 --------------------------------------------------------*/
 
@@ -712,11 +712,11 @@ a.demo-example span {
 }
 
 
-/* a.text-primary:focus, 
+/* a.text-primary:focus,
 a.text-primary:hover,
 a.text-dark:hover,
 a.text-dark:focus {
-	color: 
+	color:
 } */
 
 [class*="overlay-"],
@@ -4433,7 +4433,7 @@ Newsletter Style
 
 
 /*====================================================
-	Responsive Media Query CSS 
+	Responsive Media Query CSS
 ======================================================*/
 
 .multi-demo li {
