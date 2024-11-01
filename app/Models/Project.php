@@ -35,4 +35,15 @@ class Project extends Model
     {
         return $this->belongsTo(Utility::class, 'utilities_id');
     }
+
+    public function mainImage()
+    {
+        return $this->morphOne(Media::class, 'modelable')->where('info', 'main');
+    }
+
+    // Relationship to get additional images
+    public function images()
+    {
+        return $this->morphMany(Media::class, 'modelable')->where('info', 'additional');
+    }
 }
