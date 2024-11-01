@@ -9,6 +9,6 @@ class Contact extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','phone_number','email','message'];
+    protected $fillable = ['name','subject','email','message'];
 
 }

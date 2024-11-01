@@ -9,18 +9,14 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = [
+        'name',
+        'description',
+    ];
 
-    /**
-     * Get the products for the category.
-     */
-    public function products()
+    // Define relationships if needed, for example, a category could have many projects
+    public function projects()
     {
-        return $this->hasMany(Product::class);
-    }
-
-    public function media()
-    {
-        return $this->morphMany(Media::class, 'modelable');
+        return $this->hasMany(Project::class);
     }
 }

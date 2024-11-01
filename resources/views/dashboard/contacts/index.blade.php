@@ -45,7 +45,7 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Email</th>
-                                    <th>Phone Number</th>
+                                    <th>Subject</th>
                                     <th>Message</th>
                                 </tr>
                                 </thead>
@@ -59,7 +59,7 @@
 
                                         <td>{{$contact->name}}</td>
                                         <td>{{$contact->email}}</td>
-                                        <td>{{$contact->phone_number}}</td>
+                                        <td>{{$contact->subject}}</td>
                                         <td>{{$contact->message}}</td>
 
                                     </tr>

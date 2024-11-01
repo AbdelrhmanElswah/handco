@@ -3,11 +3,11 @@
 
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
-        <a href="{{url('/admin')}}" class="header-logo">
-            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="desktop-logo">
-            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="toggle-logo">
-            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="desktop-dark">
-            <img src="{{asset('dashboard/assets/logo.png')}}" alt="logo" class="toggle-dark">
+        <a href="{{ url('/admin') }}" class="header-logo">
+            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="desktop-logo">
+            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="toggle-logo">
+            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="desktop-dark">
+            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="toggle-dark">
         </a>
     </div>
     <!-- End::main-sidebar-header -->
@@ -23,55 +23,85 @@
                 </svg>
             </div>
             <ul class="main-menu">
-                <!-- Start::slide__category -->
+                <!-- Main section -->
                 <li class="slide__category"><span class="category-name">Main</span></li>
-                <!-- End::slide__category -->
                 <li class="slide">
-                    <a href=""
-                       class="side-menu__item">
-                       <i class="fe fe-globe side-menu__icon"></i>
-                       <span class="side-menu__label">Website</span>
+                    <a href="" class="side-menu__item">
+                        <i class="fe fe-globe side-menu__icon"></i>
+                        <span class="side-menu__label">Website</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                 </li>
 
+                <!-- Contact Us section -->
                 <li class="slide__category"><span class="category-name">Contact Us</span></li>
-                <!-- End::slide__category -->
                 <li class="slide">
-                    <a href="{{route('contact')}}"
-                       class="side-menu__item">
+                    <a href="{{ route('contact-us.index') }}" class="side-menu__item">
                         <i class="fe fe-users side-menu__icon"></i>
                         <span class="side-menu__label">Contact Us</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                 </li>
 
-                <li class="slide__category"><span class="category-name">About Us</span></li>
+                <!-- Category section -->
+                <li class="slide__category"><span class="category-name">Category</span></li>
+                <li class="slide has-sub {{ request()->routeIs('category.*') }}">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="fe fe-folder side-menu__icon"></i>
+                        <span class="side-menu__label">Category</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li><a href="{{ route('category.create') }}" class="side-menu__item">Add Category</a></li>
+                        <li><a href="{{ route('category.index') }}" class="side-menu__item">Show Categories</a></li>
+                    </ul>
+                </li>
 
-                <li class="slide has-sub {{ Request::route()->getName() == 'about.index' || Request::route()->getName() == 'about.create' }}">
-                    <a href="javascript:void(0);"
-                       class="side-menu__item {{ Request::route()->getName() == 'about.index' || Request::route()->getName() == 'about.create' }}">
+                <!-- Utilities section -->
+                <li class="slide__category"><span class="category-name">Utilities</span></li>
+                <li class="slide has-sub {{ request()->routeIs('utilities.*') }}">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="fe fe-settings side-menu__icon"></i>
+                        <span class="side-menu__label">Utilities</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li><a href="{{ route('utilities.create') }}" class="side-menu__item">Add Utility</a></li>
+                        <li><a href="{{ route('utilities.index') }}" class="side-menu__item">Show Utilities</a></li>
+                    </ul>
+                </li>
+
+                <!-- Projects section -->
+                <li class="slide__category"><span class="category-name">Projects</span></li>
+                <li class="slide has-sub {{ request()->routeIs('projects.*') }}">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="fe fe-briefcase side-menu__icon"></i>
+                        <span class="side-menu__label">Projects</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li><a href="{{ route('projects.create') }}" class="side-menu__item">Add Project</a></li>
+                        <li><a href="{{ route('projects.index') }}" class="side-menu__item">Show Projects</a></li>
+                    </ul>
+                </li>
+
+                <!-- About Us section -->
+                <li class="slide__category"><span class="category-name">About Us</span></li>
+                <li class="slide has-sub {{ request()->routeIs('about.*') }}">
+                    <a href="javascript:void(0);" class="side-menu__item">
                         <i class="fe fe-info side-menu__icon"></i>
                         <span class="side-menu__label">About Us</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
-                    <ul class="slide-menu child1" data-popper-placement="bottom"
-                        style="position: relative; left: 0px; top: 0px; margin: 0px; transform: translate(120px, 275px);">
-
-                        <li class="slide">
-                            <a href="{{ route('about.create') }}"
-                               class="side-menu__item {{ Request::route()->getName() == 'about.create' }}">Update</a>
-                        </li>
-
+                    <ul class="slide-menu child1">
+                        <li><a href="{{ route('about.create') }}" class="side-menu__item">Update</a></li>
                     </ul>
                 </li>
 
-
-                <!-- Start::logout -->
+                <!-- Logout section -->
                 <li class="slide__category"><span class="category-name">Log out</span></li>
                 <li class="slide">
-                    <a href="{{ route('logout') }}"
-                       class="side-menu__item"
+                    <a href="{{ route('logout') }}" class="side-menu__item"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fe fe-log-out side-menu__icon"></i>
                         <span class="side-menu__label">Logout</span>
@@ -80,7 +110,6 @@
                         @csrf
                     </form>
                 </li>
-                <!-- End::logout -->
             </ul>
             <div class="slide-right" id="slide-right">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">

@@ -17,67 +17,96 @@
             <!-- Start::row-1 -->
             <div class="col-xxl-12 col-xl-12">
                 <div class="row">
-                    <div class="col-xl-12">
-                        <div class="row">
-                            <div class="col-xxl-6 col-lg-4 col-md-6">
-                                <div class="card custom-card overflow-hidden">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-top justify-content-between">
+                    <!-- Card for Category -->
+                    <div class="col-xxl-6 col-lg-4 col-md-6">
+                        <div class="card custom-card overflow-hidden">
+                            <div class="card-body">
+                                <div class="d-flex align-items-top justify-content-between">
+                                    <div>
+                                        <span class="avatar avatar-md avatar-rounded bg-warning">
+                                            <i class="fa fa-folder"></i> <!-- Icon for Category -->
+                                        </span>
+                                    </div>
+                                    <div class="flex-fill ms-3">
+                                        <div class="d-flex align-items-center justify-content-between flex-wrap">
                                             <div>
-                                                <span class="avatar avatar-md avatar-rounded bg-secondary">
-                                                    <i class="fa fa-book"></i>
-                                                </span>
-                                            </div>
-                                            <div class="flex-fill ms-3">
-                                                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                                    <div>
-                                                        <p class="text-muted mb-0">Total Products</p>
-                                                        <h4 class="fw-semibold mt-1"></h4>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                                    <div>
-                                                        <a class="text-secondary" href="">View All
-                                                            <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
-                                                    </div>
-                                                    <div class="text-end"></div>
-                                                </div>
+                                                <p class="text-muted mb-0">Total Categories</p>
+                                                <h4 class="fw-semibold mt-1"> <!-- Display total categories here --></h4>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xxl-6 col-lg-4 col-md-6">
-                                <div class="card custom-card overflow-hidden">
-                                    <div class="card-body">
-                                        <div class="d-flex align-items-top justify-content-between">
+                                        <div class="d-flex align-items-center justify-content-between mt-1">
                                             <div>
-                                                <span class="avatar avatar-md avatar-rounded bg-warning">
-                                                    <i class="fa fa-image"></i>
-                                                </span>
+                                                <a class="text-warning" href="{{ route('category.index') }}">View All
+                                                    <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
                                             </div>
-                                            <div class="flex-fill ms-3">
-                                                <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                                    <div>
-                                                        <p class="text-muted mb-0">Total Category</p>
-                                                        <h4 class="fw-semibold mt-1"></h4>
-                                                    </div>
-                                                    <div id="crm-total-revenue"></div>
-                                                </div>
-                                                <div class="d-flex align-items-center justify-content-between mt-1">
-                                                    <div>
-                                                        <a class="text-warning" href="">View All
-                                                            <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
-                                                    </div>
-                                                    <div class="text-end"></div>
-                                                </div>
-                                            </div>
+                                            <div class="text-end"></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Card for Utilities -->
+                    <div class="col-xxl-6 col-lg-4 col-md-6">
+                        <div class="card custom-card overflow-hidden">
+                            <div class="card-body">
+                                <div class="d-flex align-items-top justify-content-between">
+                                    <div>
+                                        <span class="avatar avatar-md avatar-rounded bg-info">
+                                            <i class="fa fa-tools"></i> <!-- Icon for Utilities -->
+                                        </span>
+                                    </div>
+                                    <div class="flex-fill ms-3">
+                                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                            <div>
+                                                <p class="text-muted mb-0">Total Utilities</p>
+                                                <h4 class="fw-semibold mt-1"> <!-- Display total utilities here --></h4>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-1">
+                                            <div>
+                                                <a class="text-info" href="{{ route('utilities.index') }}">View All
+                                                    <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
+                                            </div>
+                                            <div class="text-end"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card for Projects -->
+                    <div class="col-xxl-6 col-lg-4 col-md-6">
+                        <div class="card custom-card overflow-hidden">
+                            <div class="card-body">
+                                <div class="d-flex align-items-top justify-content-between">
+                                    <div>
+                                        <span class="avatar avatar-md avatar-rounded bg-secondary">
+                                            <i class="fa fa-briefcase"></i> <!-- Icon for Projects -->
+                                        </span>
+                                    </div>
+                                    <div class="flex-fill ms-3">
+                                        <div class="d-flex align-items-center justify-content-between flex-wrap">
+                                            <div>
+                                                <p class="text-muted mb-0">Total Projects</p>
+                                                <h4 class="fw-semibold mt-1"> <!-- Display total projects here --></h4>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between mt-1">
+                                            <div>
+                                                <a class="text-secondary" href="{{ route('projects.index') }}">View All
+                                                    <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
+                                            </div>
+                                            <div class="text-end"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <!-- End::row-1 -->
@@ -86,6 +115,7 @@
     </div>
     <!-- End::app-content -->
 
+    <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -94,7 +124,7 @@
                         <a href="javascript:void(0);" class="input-group-text" id="Search-Grid">
                             <i class="fe fe-search header-link-icon fs-18"></i>
                         </a>
-                        <input type="search" class="form-control border-0 px-2" placeholder="Search" aria-label="Username">
+                        <input type="search" class="form-control border-0 px-2" placeholder="Search" aria-label="Search">
                         <a href="javascript:void(0);" class="input-group-text" id="voice-search">
                             <i class="fe fe-mic header-link-icon"></i>
                         </a>

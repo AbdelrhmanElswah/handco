@@ -39,7 +39,25 @@ Route::prefix('admin')->group(function () {
         Route::get('/about/edit', [AboutUsController::class, 'edit'])->name('about.edit');
 
         // Get Contacts
-        Route::get('/contact-us', [ContactController::class, 'index'])->name('contact');
+        Route::get('/contact-us', [ContactController::class, 'index'])->name('contact-us.index');
+
+        Route::prefix('categories')->group(function () {
+            Route::get('/', [CategoryController::class, 'index'])->name('category.index'); // Show all categories
+            Route::get('/create', [CategoryController::class, 'create'])->name('category.create'); // Add a new category
+            Route::post('/', [CategoryController::class, 'store'])->name('category.store'); // Store new category
+        });
+
+        Route::prefix('utilities')->group(function () {
+            Route::get('/', [UtilityController::class, 'index'])->name('utilities.index'); // Show all utilities
+            Route::get('/create', [UtilityController::class, 'create'])->name('utilities.create'); // Add a new utility
+            Route::post('/', [UtilityController::class, 'store'])->name('utilities.store'); // Store new utility
+        });
+
+        Route::prefix('projects')->group(function () {
+            Route::get('/', [ProjectController::class, 'index'])->name('projects.index'); // Show all projects
+            Route::get('/create', [ProjectController::class, 'create'])->name('projects.create'); // Add a new project
+            Route::post('/', [ProjectController::class, 'store'])->name('projects.store'); // Store new project
+        });
 
     });
 });

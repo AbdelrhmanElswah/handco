@@ -50,26 +50,48 @@
                         <a href="mailto:info@handcoproperties.com">info@handcoproperties.com</a>
                     </p>
                 </div>
+
                 <div class="col-md-7 order-md-1">
                     <h4 class="down-line mb-4">Send Message</h4>
+
+                    <!-- Display Success Message -->
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
+                    <!-- Display Validation Errors -->
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    <!-- Contact Form -->
                     <div class="form-simple">
-                        <form id="contact-form" action="#" method="post" novalidate="novalidate">
+                        <form id="contact-form" action="{{ route('contacts.store') }}" method="POST" novalidate>
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-20">
                                     <label class="mb-2">Full Name:</label>
-                                    <input type="text" class="form-control bg-white" name="name" required>
+                                    <input type="text" class="form-control bg-white" name="name" value="{{ old('name') }}" required>
                                 </div>
                                 <div class="col-md-6 mb-20">
                                     <label class="mb-2">Your Email:</label>
-                                    <input type="email" class="form-control bg-white" name="email" required>
+                                    <input type="email" class="form-control bg-white" name="email" value="{{ old('email') }}" required>
                                 </div>
                                 <div class="col-md-12 mb-20">
                                     <label class="mb-2">Subject:</label>
-                                    <input type="text" class="form-control bg-white" name="subject" required>
+                                    <input type="text" class="form-control bg-white" name="subject" value="{{ old('subject') }}" required>
                                 </div>
                                 <div class="col-md-12 mb-20">
                                     <label class="mb-2">Message:</label>
-                                    <textarea class="form-control bg-white" name="message" rows="8" required></textarea>
+                                    <textarea class="form-control bg-white" name="message" rows="8" required>{{ old('message') }}</textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <button class="btn btn-primary" name="submit" type="submit">Send Message</button>
@@ -81,4 +103,5 @@
             </div>
         </div>
     </div>
+    <!--============== Contact form End ==============-->
 @endsection
