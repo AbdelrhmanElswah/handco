@@ -26,3 +26,19 @@ Route::get('/blogs', function () {
 Route::get('/projects', function () {
     return view('website.projects');
 })->name('projects');
+
+Route::get('/projects/{slug}', function ($slug) {
+    $project = [
+        "slug" => "Dubai-123-Al-Fahidi-Street",
+        "payment" => "Installment",
+        "tag" => "Hot Sale",
+        "image" => "property-grid-2.png",
+        "price" => "420,000",
+        "address" => "Dubai, 123 Al Fahidi Street",
+        "address_link" => "https://maps.google.com",
+        "category" => "Villa",
+        "title" => "Luxury Villa With Pool",
+        "date" => "Oct 21, 2024",
+    ];
+    return view('website.projects_show', ['project' => $project]);
+})->name('projects.show');

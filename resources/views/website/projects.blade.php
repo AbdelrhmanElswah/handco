@@ -6,6 +6,7 @@
 @php
     $projects = [
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Installment",
             "tag" => "Hot Sale",
             "image" => "property-grid-2.png",
@@ -17,6 +18,7 @@
             "date" => "Oct 21, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Full Payment",
             "tag" => "New Listing",
             "image" => "property-grid-1.png",
@@ -28,6 +30,7 @@
             "date" => "Oct 22, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Installment",
             "tag" => "Featured",
             "image" => "property-grid-3.png",
@@ -39,6 +42,7 @@
             "date" => "Oct 23, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Lease",
             "tag" => "Just Listed",
             "image" => "property-grid-4.png",
@@ -50,6 +54,7 @@
             "date" => "Oct 24, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Installment",
             "tag" => "Special Offer",
             "image" => "property-grid-6.png",
@@ -61,6 +66,7 @@
             "date" => "Oct 25, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Full Payment",
             "tag" => "Popular",
             "image" => "property-grid-8.png",
@@ -72,6 +78,7 @@
             "date" => "Oct 26, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Lease",
             "tag" => "Hot Deal",
             "image" => "property-grid-9.png",
@@ -83,6 +90,7 @@
             "date" => "Oct 27, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Installment",
             "tag" => "Featured",
             "image" => "property-grid-3.png",
@@ -94,6 +102,7 @@
             "date" => "Oct 23, 2024",
         ],
         [
+            "slug" => "Dubai-123-Al-Fahidi-Street",
             "payment" => "Lease",
             "tag" => "Just Listed",
             "image" => "property-grid-4.png",
@@ -162,7 +171,9 @@
                                 <span class="sale bg-secondary text-white">{{ $project['payment'] }}</span>
                                 <span class="featured bg-primary text-white">{{ $project['tag'] }}</span>
                             </div>
-                            <a href="#"><img src="assets/images/property_grid/{{ $project['image'] }}" alt="Image Not Found!"></a>
+                            <a href="{{ route('projects.show', $project['slug']) }}">
+                                <img src="assets/images/property_grid/{{ $project['image'] }}" alt="Image Not Found!">
+                            </a>
                             <span class="price-on text-white font-medium font-500">${{ $project['price'] }}</span>
                             <ul class="position-absolute quick-meta">
                                 <li class="md-mx-none"><a class="quick-view" href="#quick-view" title="Quick View"><i class="flaticon-zoom-increasing-symbol flat-mini"></i></a></li>

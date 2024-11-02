@@ -32,3 +32,10 @@
 <link rel="stylesheet" href="{{ asset('assets/css/colors/color.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
 
+
+<style>
+    /* #1c2e4a */
+    :root {
+        --theme-secondary-color: #1c2e4a !important;
+    }
+</style>
