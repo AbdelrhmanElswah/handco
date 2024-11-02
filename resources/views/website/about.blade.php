@@ -6,12 +6,12 @@
 
 @section('content')
     <!--============== Page Banner Start ==============-->
-    <div class="page-banner-simple bg-secondary py-40">
+    <div class="page-banner-simple bg-light py-40">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <h3 class="banner-title text-white">Who We Are</h3>
-                    <span class="banner-tagline font-medium text-white">
+                    <h3 class="banner-title">Who We Are</h3>
+                    <span class="banner-tagline font-medium">
                         Discover H C O Real Estate: Our Mission and Vision
                     </span>
                 </div>
