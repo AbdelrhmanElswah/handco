@@ -10,12 +10,12 @@ class UtilityController extends Controller
     public function index()
     {
         $utilities = Utility::all();
-        return view('utilities.index', compact('utilities'));
+        return view('dashboard.utility.index', compact('utilities'));
     }
 
     public function create()
     {
-        return view('utilities.create');
+        return view('dashboard.utility.create');
     }
 
     public function store(Request $request)
@@ -35,14 +35,9 @@ class UtilityController extends Controller
         return redirect()->route('utilities.index')->with('success', 'Utility created successfully.');
     }
 
-    public function show(Utility $utility)
-    {
-        return view('utilities.show', compact('utility'));
-    }
-
     public function edit(Utility $utility)
     {
-        return view('utilities.edit', compact('utility'));
+        return view('dashboard.utility.edit', compact('utility'));
     }
 
     public function update(Request $request, Utility $utility)

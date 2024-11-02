@@ -48,7 +48,6 @@ Route::prefix('admin')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])->name('category.index'); // Show all categories
             Route::get('/create', [CategoryController::class, 'create'])->name('category.create'); // Show form to add a new category
             Route::post('/', [CategoryController::class, 'store'])->name('category.store'); // Store new category
-            Route::get('/{category}', [CategoryController::class, 'show'])->name('category.show'); // Show a single category
             Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit'); // Show form to edit category
             Route::put('/{category}', [CategoryController::class, 'update'])->name('category.update'); // Update category
             Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('category.destroy'); // Delete category
@@ -59,7 +58,6 @@ Route::prefix('admin')->group(function () {
             Route::get('/', [UtilityController::class, 'index'])->name('utilities.index'); // Show all utilities
             Route::get('/create', [UtilityController::class, 'create'])->name('utilities.create'); // Show form to add a new utility
             Route::post('/', [UtilityController::class, 'store'])->name('utilities.store'); // Store new utility
-            Route::get('/{utility}', [UtilityController::class, 'show'])->name('utilities.show'); // Show a single utility
             Route::get('/{utility}/edit', [UtilityController::class, 'edit'])->name('utilities.edit'); // Show form to edit utility
             Route::put('/{utility}', [UtilityController::class, 'update'])->name('utilities.update'); // Update utility
             Route::delete('/{utility}', [UtilityController::class, 'destroy'])->name('utilities.destroy'); // Delete utility
