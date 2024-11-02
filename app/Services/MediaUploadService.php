@@ -7,24 +7,40 @@ use Illuminate\Support\Str;
 
 class MediaUploadService
 {
-    public function uploadMedia($files, $model, $path_file_name,$info = null)
+    public function uploadMedia($files, $model, $path_file_name, $info = null)
     {
+        // Ensure $files is an array for handling multiple files or single file.
+        $files = is_array($files) ? $files : [$files];
 
         foreach ($files as $file) {
-        
-            $now = Carbon::now();
-            $randomString = Str::random(10);
-            $filename = $now->format('Ymdh').'_'.$randomString.'.'.$file->getClientOriginalExtension();
-            $file->move(public_path('files/'.$path_file_name), $filename);
-            $model->media()->create([
-                'media' => $filename,
-                'info'=>$info,
-                'path_file_name' => $path_file_name,
-            ]);
+            $now = \Carbon\Carbon::now();
+            $randomString = \Str::random(10);
+            $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
+
+            // Move file to the appropriate directory
+            $file->move(public_path('files/' . $path_file_name), $filename);
+
+            // Use the appropriate relationship based on 'info' parameter
+            if ($info === 'main') {
+                // For main image, use the 'mainImage' relationship
+                $model->mainImage()->create([
+                    'media' => $filename,
+                    'info' => $info,
+                    'path_file_name' => $path_file_name,
+                ]);
+            } else {
+                // For additional images, use the 'images' relationship
+                $model->images()->create([
+                    'media' => $filename,
+                    'info' => $info,
+                    'path_file_name' => $path_file_name,
+                ]);
+            }
         }
 
         return true;
     }
+
 
     public function editMedia($files, $model, $info = null, $path_file_name = 'media/')
     {
@@ -32,18 +48,18 @@ class MediaUploadService
             $now = Carbon::now();
             $randomString = Str::random(10);
             $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
-            
+
             $file->move(public_path('files/' . $path_file_name), $filename);
-            
+
             // Fetch the existing media record (assuming there's only one per model)
             $mediaRecord = $model->media()->first();
-            
+
             if ($mediaRecord) {
                 // Delete the old file
                 if (file_exists(public_path('files/' . $path_file_name . $mediaRecord->media))) {
                     unlink(public_path('files/' . $path_file_name . $mediaRecord->media));
                 }
-                
+
                 // Update the existing record
                 $mediaRecord->update([
                     'media' => $filename,
@@ -59,10 +75,10 @@ class MediaUploadService
                 ]);
             }
         }
-    
+
         return true;
     }
-    
+
 
     public function deleteMedia($images, $model, $publicPath = '/media/')
     {

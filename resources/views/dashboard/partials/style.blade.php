@@ -62,6 +62,13 @@
 
     <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 
-    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <!-- Bootstrap Select CSS for enhanced dropdowns with icon support -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
+
+
+
 
 </head>

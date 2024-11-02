@@ -21,14 +21,14 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-        return view('projects.index', compact('projects'));
+        return view('dashboard.project.index', compact('projects'));
     }
 
     public function create()
     {
         $categories = Category::all();
         $utilities = Utility::all();
-        return view('projects.create', compact('categories', 'utilities'));
+        return view('dashboard.project.create', compact('categories', 'utilities'));
     }
 
     public function store(Request $request)
@@ -79,16 +79,11 @@ class ProjectController extends Controller
         return redirect()->route('projects.index')->with('success', 'Project created successfully.');
     }
 
-    public function show(Project $project)
-    {
-        return view('projects.show', compact('project'));
-    }
-
     public function edit(Project $project)
     {
         $categories = Category::all();
         $utilities = Utility::all();
-        return view('projects.edit', compact('project', 'categories', 'utilities'));
+        return view('dashboard.project.edit', compact('project', 'categories', 'utilities'));
     }
 
     public function update(Request $request, Project $project)
