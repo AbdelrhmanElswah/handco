@@ -42,6 +42,13 @@ class ProjectController extends Controller
             'description' => 'nullable|string',
             'utilities_id' => 'required|exists:utilities,id',
             'floor_area' => 'nullable|integer',
+            'status' => 'required|string|in:available,sold_out', // Validation for status
+            'selling_points' => 'nullable|array', // Validation for selling_points as an array
+            'selling_points.*.label' => 'required_with:selling_points|string', // Label for each selling point
+            'selling_points.*.value' => 'required_with:selling_points|string', // Value for each selling point
+            'more_information' => 'nullable|array', // Validation for more_information as an array
+            'more_information.*.label' => 'required_with:more_information|string', // Label for each additional info
+            'more_information.*.value' => 'required_with:more_information|string', // Value for each additional info
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -95,6 +102,13 @@ class ProjectController extends Controller
             'description' => 'nullable|string',
             'utilities_id' => 'required|exists:utilities,id',
             'floor_area' => 'nullable|integer',
+            'status' => 'required|string|in:available,sold_out', // Validation for status
+            'selling_points' => 'nullable|array', // Validation for selling_points as an array
+            'selling_points.*.label' => 'required_with:selling_points|string', // Label for each selling point
+            'selling_points.*.value' => 'required_with:selling_points|string', // Value for each selling point
+            'more_information' => 'nullable|array', // Validation for more_information as an array
+            'more_information.*.label' => 'required_with:more_information|string', // Label for each additional info
+            'more_information.*.value' => 'required_with:more_information|string', // Value for each additional info
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

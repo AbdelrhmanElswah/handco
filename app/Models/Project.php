@@ -18,11 +18,16 @@ class Project extends Model
         'description',
         'utilities_id',
         'floor_area',
+        'status', // New field for status
+        'selling_points', // New field for selling points
+        'more_information', // New field for more information
     ];
 
-    // Cast tags to array for easier access
+    // Cast tags, selling_points, and more_information to arrays for easier access
     protected $casts = [
         'tags' => 'array',
+        'selling_points' => 'array',
+        'more_information' => 'array',
     ];
 
     // Define relationships to link a project to its category and utilities

@@ -46,21 +46,36 @@ Route::prefix('admin')->group(function () {
 
         Route::prefix('categories')->group(function () {
             Route::get('/', [CategoryController::class, 'index'])->name('category.index'); // Show all categories
-            Route::get('/create', [CategoryController::class, 'create'])->name('category.create'); // Add a new category
+            Route::get('/create', [CategoryController::class, 'create'])->name('category.create'); // Show form to add a new category
             Route::post('/', [CategoryController::class, 'store'])->name('category.store'); // Store new category
+            Route::get('/{category}', [CategoryController::class, 'show'])->name('category.show'); // Show a single category
+            Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('category.edit'); // Show form to edit category
+            Route::put('/{category}', [CategoryController::class, 'update'])->name('category.update'); // Update category
+            Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('category.destroy'); // Delete category
         });
+
 
         Route::prefix('utilities')->group(function () {
             Route::get('/', [UtilityController::class, 'index'])->name('utilities.index'); // Show all utilities
-            Route::get('/create', [UtilityController::class, 'create'])->name('utilities.create'); // Add a new utility
+            Route::get('/create', [UtilityController::class, 'create'])->name('utilities.create'); // Show form to add a new utility
             Route::post('/', [UtilityController::class, 'store'])->name('utilities.store'); // Store new utility
+            Route::get('/{utility}', [UtilityController::class, 'show'])->name('utilities.show'); // Show a single utility
+            Route::get('/{utility}/edit', [UtilityController::class, 'edit'])->name('utilities.edit'); // Show form to edit utility
+            Route::put('/{utility}', [UtilityController::class, 'update'])->name('utilities.update'); // Update utility
+            Route::delete('/{utility}', [UtilityController::class, 'destroy'])->name('utilities.destroy'); // Delete utility
         });
+
 
         Route::prefix('projects')->group(function () {
             Route::get('/', [ProjectController::class, 'index'])->name('projects.index'); // Show all projects
-            Route::get('/create', [ProjectController::class, 'create'])->name('projects.create'); // Add a new project
+            Route::get('/create', [ProjectController::class, 'create'])->name('projects.create'); // Show form to add a new project
             Route::post('/', [ProjectController::class, 'store'])->name('projects.store'); // Store new project
+            Route::get('/{project}', [ProjectController::class, 'show'])->name('projects.show'); // Show a single project
+            Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit'); // Show form to edit project
+            Route::put('/{project}', [ProjectController::class, 'update'])->name('projects.update'); // Update project
+            Route::delete('/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy'); // Delete project
         });
+
 
     });
 });
