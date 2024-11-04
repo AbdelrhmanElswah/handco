@@ -16,8 +16,6 @@
                                 <a href="property-single-v1.html"><img src="{{ asset('assets/images/property_grid/property-grid-2.png') }}" alt="Image Not Found!"></a>
                                 <a href="#" class="listing-ctg text-white"><i class="fa-solid fa-building"></i><span>Apartment</span></a>
                                 <ul class="position-absolute quick-meta">
-                                    <li><a href="#" title="Add Compare"><i class="flaticon-transfer flat-mini"></i></a></li>
-                                    <li><a href="#" title="Add Favourite"><i class="flaticon-like-1 flat-mini"></i></a></li>
                                     <li class="md-mx-none"><a class="quick-view" href="#quick-view" title="Quick View"><i class="flaticon-zoom-increasing-symbol flat-mini"></i></a></li>
                                 </ul>
                             </div>
@@ -50,8 +48,6 @@
                                 <a href="property-single-v1.html"><img src="{{ asset('assets/images/property_grid/property-grid-10.png') }}" alt="Image Not Found!"></a>
                                 <a href="#" class="listing-ctg text-white"><i class="fa-solid fa-building"></i><span>Condo</span></a>
                                 <ul class="position-absolute quick-meta">
-                                    <li><a href="#" title="Add Compare"><i class="flaticon-transfer flat-mini"></i></a></li>
-                                    <li><a href="#" title="Add Favourite"><i class="flaticon-like-1 flat-mini"></i></a></li>
                                     <li class="md-mx-none"><a class="quick-view" href="#quick-view" title="Quick View"><i class="flaticon-zoom-increasing-symbol flat-mini"></i></a></li>
                                 </ul>
                             </div>

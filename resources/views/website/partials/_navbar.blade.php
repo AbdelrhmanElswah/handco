@@ -7,7 +7,10 @@
             <a class="nav-link" href="{{ route('projects') }}">Projects</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Featured</a>
+
+            <a class="nav-link" href="#">
+                <span class="badge bg-danger" style="transform: rotate(45deg)">NEW</span>
+                Featured</a>
         </li>
         <li class="nav-item {{ Request::is('blogs') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('blogs') }}">Blogs</a>

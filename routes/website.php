@@ -42,3 +42,9 @@ Route::get('/projects/{slug}', function ($slug) {
     ];
     return view('website.projects_show', ['project' => $project]);
 })->name('projects.show');
+
+
+
+Route::get('/featured-projects', function () {
+    return view('website.featured_projects');
+})->name('featured_projects');
