@@ -30,7 +30,7 @@
                                     </a>
                                     <ul class="position-absolute quick-meta">
                                         <li class="md-mx-none">
-                                            <a class="quick-view" href="#quick-view" title="Quick View">
+                                            <a class="quick-view" href="#quick-view-{{ $project->id }}" title="Quick View">
                                                 <i class="flaticon-zoom-increasing-symbol flat-mini"></i>
                                             </a>
                                         </li>
