@@ -80,7 +80,7 @@
     <!-- =============== Counting ================-->
 
     <!--============== Recent Property Start ==============-->
-    @include('website.partials._recent_properties', ['projects' => $projects])
+    @include('website.partials._recent_properties', ['recentProjects' => $recentProjects])
     <!--============== Recent Property End ==============-->
 
     <!--============== Property Category Start ==============-->
@@ -224,7 +224,7 @@
     <!--============== Testimonial Section End ==============-->
 
     <!--============== Popular Properties Start ==============-->
-    @include('website.partials._popular_properties', ['projects' => $projects])
+    @include('website.partials._popular_properties', ['popularProjects' => $popularProjects])
     <!--============== Popular Properties End ==============-->
 
     <!--============== Blog Section Start ==============-->

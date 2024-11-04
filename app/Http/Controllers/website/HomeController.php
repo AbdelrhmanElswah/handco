@@ -10,7 +10,21 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $projects = Project::latest()->take(3)->get();
-        return view('website.index', compact('projects'));
+        // Fetch the top 3 featured projects for "Most Popular Projects"
+        $popularProjects = Project::where('featured', true)
+            ->orderBy('created_at', 'desc')
+            ->take(3)
+            ->get();
+
+        // Fetch the latest projects for "Recent Projects" and exclude the popular ones if desired
+        $recentProjects = Project::latest()
+            ->take(3)
+            ->get();
+
+        return view('website.index', compact('popularProjects', 'recentProjects'));
     }
+
+
+
+
 }

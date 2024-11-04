@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col">
                 <div class="3block-carusel nav-disable owl-carousel">
-                    @foreach($projects as $project)
+                    @foreach($popularProjects as $project)
                         <div class="item">
                             <div class="property-grid-1 property-block bg-white transation-this">
                                 <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom">
@@ -28,7 +28,7 @@
                                     </ul>
                                 </div>
                                 <div class="property_text p-4">
-                                    <span class="listing-price">${{ number_format($project->price, 2) }}<small> ({{ $project->payment_type }})</small></span>
+                                    <span class="listing-price">${{ number_format($project->price, 2) }}</span>
                                     <h5 class="listing-title">
                                         <a href="#">{{ $project->title }}</a>
                                     </h5>
@@ -46,67 +46,52 @@
                                     </span>
 
                                     <ul class="d-flex quantity font-fifteen" style="flex-wrap: wrap; gap: 10px;">
-                                        <!-- Beds -->
+                                        <!-- Property Features (e.g., Beds, Baths, Area, etc.) -->
                                         @if($project->utility && $project->utility->bedrooms)
                                             <li title="Beds" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-bed" style="font-size: 14px;"></i>
                                                 <span>{{ $project->utility->bedrooms }}</span>
                                             </li>
                                         @endif
-
-                                        <!-- Baths -->
                                         @if($project->utility && $project->utility->bathrooms)
                                             <li title="Baths" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-shower" style="font-size: 14px;"></i>
                                                 <span>{{ $project->utility->bathrooms }}</span>
                                             </li>
                                         @endif
-
-                                        <!-- Area -->
                                         @if($project->floor_area)
                                             <li title="Area" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-vector-square" style="font-size: 14px;"></i>
                                                 <span>{{ $project->floor_area }} Sqft</span>
                                             </li>
                                         @endif
-
-                                        <!-- Parking Spaces -->
                                         @if($project->utility && $project->utility->parking_spaces)
                                             <li title="Parking Spaces" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-car" style="font-size: 14px;"></i>
                                                 <span>{{ $project->utility->parking_spaces }}</span>
                                             </li>
                                         @endif
-
-                                        <!-- Swimming Pool -->
+                                        <!-- Additional Features (e.g., Pool, Gym, Garden, etc.) -->
                                         @if($project->utility && $project->utility->swimming_pool)
                                             <li title="Swimming Pool" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-water" style="font-size: 14px;"></i>
                                             </li>
                                         @endif
-
-                                        <!-- Gym -->
                                         @if($project->utility && $project->utility->gym)
                                             <li title="Gym" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-dumbbell" style="font-size: 14px;"></i>
                                             </li>
                                         @endif
-
-                                        <!-- Garden -->
                                         @if($project->utility && $project->utility->garden)
                                             <li title="Garden" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-tree" style="font-size: 14px;"></i>
                                             </li>
                                         @endif
-
-                                        <!-- Air Conditioning -->
                                         @if($project->utility && $project->utility->air_conditioning)
                                             <li title="Air Conditioning" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-snowflake" style="font-size: 14px;"></i>
                                             </li>
                                         @endif
-
-                                        <!-- Furnished -->
                                         @if($project->utility && $project->utility->furnished)
                                             <li title="Furnished" style="display: flex; align-items: center; gap: 5px;">
                                                 <i class="fa-solid fa-couch" style="font-size: 14px;"></i>
