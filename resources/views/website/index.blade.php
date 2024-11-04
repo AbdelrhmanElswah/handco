@@ -224,7 +224,7 @@
     <!--============== Testimonial Section End ==============-->
 
     <!--============== Popular Properties Start ==============-->
-    @include('website.partials._popular_properties')
+    @include('website.partials._popular_properties', ['projects' => $projects])
     <!--============== Popular Properties End ==============-->
 
     <!--============== Blog Section Start ==============-->
