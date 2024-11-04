@@ -6,10 +6,9 @@
         <li class="nav-item {{ Request::is('projects') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('projects') }}">Projects</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item {{ Request::is('featured-projects') ? 'active' : '' }}">
 
-            <a class="nav-link" href="#">
-                <span class="badge bg-danger" style="transform: rotate(45deg)">NEW</span>
+            <a class="nav-link" href="{{ route('featured_projects') }}">
                 Featured</a>
         </li>
         <li class="nav-item {{ Request::is('blogs') ? 'active' : '' }}">
