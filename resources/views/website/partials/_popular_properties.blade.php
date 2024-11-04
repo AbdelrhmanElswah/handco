@@ -22,8 +22,6 @@
                                         <i class="fa-solid fa-building"></i><span>{{ $project->category->name }}</span>
                                     </a>
                                     <ul class="position-absolute quick-meta">
-                                        <li><a href="#" title="Add Compare"><i class="flaticon-transfer flat-mini"></i></a></li>
-                                        <li><a href="#" title="Add Favourite"><i class="flaticon-like-1 flat-mini"></i></a></li>
                                         <li class="md-mx-none"><a class="quick-view" href="#quick-view" title="Quick View"><i class="flaticon-zoom-increasing-symbol flat-mini"></i></a></li>
                                     </ul>
                                 </div>
