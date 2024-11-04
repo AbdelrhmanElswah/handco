@@ -37,11 +37,13 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'location' => 'required|string',
+            'location_name' => 'required|string', // Validate location name
+            'location_link' => 'nullable|url', // Validate the Google Maps link
             'tags' => 'nullable|array',
             'description' => 'nullable|string',
             'utilities_id' => 'required|exists:utilities,id',
             'floor_area' => 'nullable|integer',
+            'featured' => 'boolean',
             'status' => 'required|string|in:available,sold_out', // Validation for status
             'selling_points' => 'nullable|array', // Validation for selling_points as an array
             'selling_points.*.label' => 'required_with:selling_points|string', // Label for each selling point
@@ -53,8 +55,17 @@ class ProjectController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
+        $location = $request->input('location_name');
+        if ($request->filled('location_link')) {
+            $location .= " ({$request->input('location_link')})";
+        }
+
+        // Include the combined `location` field in the data to be saved
+        $projectData = $request->except(['main_image', 'images', 'location_name', 'location_link']);
+        $projectData['location'] = $location;
+
         // Create the project without images
-        $project = Project::create($request->except(['main_image', 'images']));
+        $project = Project::create($projectData);
 
         // Upload the main image
         if ($request->hasFile('main_image')) {
@@ -83,33 +94,57 @@ class ProjectController extends Controller
     {
         $categories = Category::all();
         $utilities = Utility::all();
-        return view('dashboard.project.edit', compact('project', 'categories', 'utilities'));
+
+        // Split `location` into `location_name` and `location_link`
+        $location = $project->location;
+        $location_name = $location;
+        $location_link = '';
+
+        // Check if location contains a link in parentheses
+        if (preg_match('/(.*)\s+\((https?:\/\/[^\)]+)\)$/', $location, $matches)) {
+            $location_name = $matches[1];
+            $location_link = $matches[2];
+        }
+
+        return view('dashboard.project.edit', compact('project', 'categories', 'utilities', 'location_name', 'location_link'));
     }
+
 
     public function update(Request $request, Project $project)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-            'location' => 'required|string',
-            'tags' => 'nullable|array',
-            'description' => 'nullable|string',
-            'utilities_id' => 'required|exists:utilities,id',
-            'floor_area' => 'nullable|integer',
-            'status' => 'required|string|in:available,sold_out', // Validation for status
-            'selling_points' => 'nullable|array', // Validation for selling_points as an array
-            'selling_points.*.label' => 'required_with:selling_points|string', // Label for each selling point
-            'selling_points.*.value' => 'required_with:selling_points|string', // Value for each selling point
-            'more_information' => 'nullable|array', // Validation for more_information as an array
-            'more_information.*.label' => 'required_with:more_information|string', // Label for each additional info
-            'more_information.*.value' => 'required_with:more_information|string', // Value for each additional info
-            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'title' => 'sometimes|required|string|max:255',
+            'price' => 'sometimes|required|numeric',
+            'category_id' => 'sometimes|required|exists:categories,id',
+            'location_name' => 'sometimes|string',
+            'location_link' => 'sometimes|url',
+            'tags' => 'sometimes|nullable|array',
+            'description' => 'sometimes|nullable|string',
+            'utilities_id' => 'sometimes|required|exists:utilities,id',
+            'floor_area' => 'sometimes|nullable|integer',
+            'featured' => 'sometimes|required|boolean',
+            'status' => 'sometimes|required|string|in:available,sold_out',
+            'selling_points' => 'sometimes|nullable|array',
+            'selling_points.*.label' => 'sometimes|required_with:selling_points|string',
+            'selling_points.*.value' => 'sometimes|required_with:selling_points|string',
+            'more_information' => 'sometimes|nullable|array',
+            'more_information.*.label' => 'sometimes|required_with:more_information|string',
+            'more_information.*.value' => 'sometimes|required_with:more_information|string',
+            'main_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'images.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // Update project details
-        $project->update($request->except(['main_image', 'images']));
+        $location = $request->input('location_name');
+        if ($request->filled('location_link')) {
+            $location .= " ({$request->input('location_link')})";
+        }
+
+        // Prepare data for updating
+        $projectData = $request->except(['main_image', 'images', 'location_name', 'location_link']);
+        $projectData['location'] = $location;
+
+        // Update the project
+        $project->update($projectData);
 
         // Replace main image if a new one is uploaded
         if ($request->hasFile('main_image')) {

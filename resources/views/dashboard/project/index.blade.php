@@ -47,6 +47,7 @@
                                         <th>Tags</th>
                                         <th>Description</th>
                                         <th>Floor Area (sq ft)</th>
+                                        <th>Featured</th>
                                         <th>Selling Points</th>
                                         <th>Action</th>
                                     </tr>
@@ -86,6 +87,13 @@
                                             </td>
                                             <!-- Floor Area -->
                                             <td>{{ $project->floor_area ? $project->floor_area . ' sq ft' : '-' }}</td>
+
+                                            <!-- Featured Status -->
+                                            <td>
+                                              <span class="badge {{ $project->featured ? 'bg-success' : 'bg-danger' }}">
+                                                           {{ $project->featured ? 'Yes' : 'No' }}
+                                                             </span>
+                                            </td>
                                             <!-- Selling Points -->
                                             <td>
                                                 @if(is_array($project->selling_points))
@@ -150,9 +158,10 @@
             btn.addEventListener('click', function() {
                 const projectId = this.getAttribute('data-project_id');
                 const deleteForm = document.getElementById('delete_project_form');
-                deleteForm.action = "{{ url('projects') }}" + '/' + projectId;
+                deleteForm.action = "{{ route('projects.destroy', '') }}" + '/' + projectId;
             });
         });
+
     </script>
 
 @endsection

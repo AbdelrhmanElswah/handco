@@ -41,7 +41,7 @@
                                 <input type="number" name="price" class="form-control" placeholder="Enter price" value="{{ old('price') }}" step="0.01">
                             </div>
 
-                            <!-- Category and Location -->
+                            <!-- Category -->
                             <div class="col-md-6 mb-3">
                                 <label for="category_id">Category</label>
                                 <select name="category_id" class="form-control">
@@ -51,16 +51,24 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            <!-- Location Name and Google Maps Link -->
                             <div class="col-md-6 mb-3">
-                                <label for="location">Location</label>
-                                <input type="text" name="location" class="form-control" placeholder="Enter location" value="{{ old('location') }}">
+                                <label for="location_name">Location Name</label>
+                                <input type="text" name="location_name" class="form-control" placeholder="Enter location name" value="{{ old('location_name') }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="location_link">Google Maps Link</label>
+                                <input type="url" name="location_link" class="form-control" placeholder="Enter Google Maps link" value="{{ old('location_link') }}">
                             </div>
 
                             <!-- Tags (Bootstrap Tags Input) -->
                             <div class="col-md-6 mb-3">
                                 <label for="tags">Tags</label>
-                                <input type="text" name="tags[]" class="form-control" placeholder="Enter tags" value="{{ old('tags') }}" data-role="tagsinput">
+                                <input type="text" name="tags[]" class="form-control" placeholder="Enter tags"
+                                       value="{{ old('tags') ? implode(',', old('tags')) : '' }}" data-role="tagsinput">
                             </div>
+
 
                             <!-- Description (WYSIWYG Editor) -->
                             <div class="col-md-12 mb-3">
@@ -95,6 +103,18 @@
                                     <option value="sold_out" {{ old('status') == 'sold_out' ? 'selected' : '' }}>Sold Out</option>
                                 </select>
                             </div>
+
+                            <!-- Featured -->
+                            <div class="col-md-6 mb-3">
+                                <label for="featured">Featured</label>
+                                <!-- Hidden field to handle unchecked case -->
+                                <input type="hidden" name="featured" value="0">
+                                <div class="form-check">
+                                    <input type="checkbox" name="featured" class="form-check-input" id="featured" value="1" {{ old('featured') ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="featured">Mark as Featured</label>
+                                </div>
+                            </div>
+
 
                             <!-- Main Image Upload -->
                             <div class="col-md-6 mb-3">
@@ -148,17 +168,20 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
+        // Declare counters for dynamic fields at the top
+        let sellingPointCount = 1;
+        let moreInfoCount = 1;
 
         $('input[data-role="tagsinput"]').tagsinput();
+        CKEDITOR.replace('description');
 
-        // Selling Points Dynamic Fields
-        let sellingPointCount = 1;
+        // Dynamic fields for Selling Points and More Information
         function addSellingPoint() {
             let html = `<div class="input-group mb-2" id="selling_point_${sellingPointCount}">
-                    <input type="text" name="selling_points[${sellingPointCount}][label]" class="form-control" placeholder="Label">
-                    <input type="text" name="selling_points[${sellingPointCount}][value]" class="form-control" placeholder="Value">
-                    <button type="button" class="btn btn-danger" onclick="removeSellingPoint(${sellingPointCount})">Remove</button>
-                </div>`;
+                <input type="text" name="selling_points[${sellingPointCount}][label]" class="form-control" placeholder="Label">
+                <input type="text" name="selling_points[${sellingPointCount}][value]" class="form-control" placeholder="Value">
+                <button type="button" class="btn btn-danger" onclick="removeSellingPoint(${sellingPointCount})">Remove</button>
+            </div>`;
             document.getElementById('selling_points_wrapper').insertAdjacentHTML('beforeend', html);
             sellingPointCount++;
         }
@@ -167,17 +190,16 @@
             document.getElementById(`selling_point_${id}`).remove();
         }
 
-        // More Information Dynamic Fields
-        let moreInfoCount = 1;
         function addMoreInformation() {
             let html = `<div class="input-group mb-2" id="info_${moreInfoCount}">
-                        <input type="text" name="more_information[${moreInfoCount}][label]" class="form-control" placeholder="Label">
-                        <input type="text" name="more_information[${moreInfoCount}][value]" class="form-control" placeholder="Value">
-                        <button type="button" class="btn btn-danger" onclick="removeMoreInformation(${moreInfoCount})">Remove</button>
-                    </div>`;
+                    <input type="text" name="more_information[${moreInfoCount}][label]" class="form-control" placeholder="Label">
+                    <input type="text" name="more_information[${moreInfoCount}][value]" class="form-control" placeholder="Value">
+                    <button type="button" class="btn btn-danger" onclick="removeMoreInformation(${moreInfoCount})">Remove</button>
+                </div>`;
             document.getElementById('more_information_wrapper').insertAdjacentHTML('beforeend', html);
             moreInfoCount++;
         }
+
         function removeMoreInformation(id) {
             document.getElementById(`info_${id}`).remove();
         }

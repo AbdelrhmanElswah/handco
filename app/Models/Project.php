@@ -18,6 +18,7 @@ class Project extends Model
         'description',
         'utilities_id',
         'floor_area',
+        'featured',
         'status', // New field for status
         'selling_points', // New field for selling points
         'more_information', // New field for more information
