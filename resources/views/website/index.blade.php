@@ -80,7 +80,7 @@
     <!-- =============== Counting ================-->
 
     <!--============== Recent Property Start ==============-->
-    @include('website.partials._recent_properties')
+    @include('website.partials._recent_properties', ['projects' => $projects])
     <!--============== Recent Property End ==============-->
 
     <!--============== Property Category Start ==============-->
