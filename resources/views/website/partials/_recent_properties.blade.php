@@ -41,12 +41,12 @@
                                     <h5 class="listing-title">
                                         <a href="#">{{ $project->title }}</a>
                                     </h5>
-                                    <span class="listing-location">
-                                        <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($project->location) }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
-                                            <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
-                                            {{ $project->location }}
-                                        </a>
-                                    </span>
+                                      <span class="listing-location">
+                                         <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
+                                         <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
+                                         {{ $project->location_name }}
+                                          </a>
+                                      </span>
                                     <ul class="d-flex quantity font-fifteen" style="flex-wrap: wrap; gap: 10px;">
                                         <!-- Property features, e.g., Bedrooms, Bathrooms, etc. -->
                                         @if($project->utility && $project->utility->bedrooms)
