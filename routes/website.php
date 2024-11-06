@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\website\HomeController;
+use App\Http\Controllers\website\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -22,28 +23,10 @@ Route::get('/blogs', function () {
     return view('website.blogs');
 })->name('blogs');
 
-Route::get('/projects', function () {
-    return view('website.projects');
-})->name('projects');
+Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
 
-Route::get('/projects/{slug}', function ($slug) {
-    $project = [
-        "slug" => "Dubai-123-Al-Fahidi-Street",
-        "payment" => "Installment",
-        "tag" => "Hot Sale",
-        "image" => "property-grid-2.png",
-        "price" => "420,000",
-        "address" => "Dubai, 123 Al Fahidi Street",
-        "address_link" => "https://maps.google.com",
-        "category" => "Villa",
-        "title" => "Luxury Villa With Pool",
-        "date" => "Oct 21, 2024",
-    ];
-    return view('website.projects_show', ['project' => $project]);
-})->name('projects.show');
+// Individual project details page route
+Route::get('/projects/{id}', [ProjectController::class, 'show'])->name('projects.show');
 
-
-
-Route::get('/featured-projects', function () {
-    return view('website.featured_projects');
-})->name('featured_projects');
+// Featured projects page route
+Route::get('/featured-projects', [ProjectController::class, 'featured'])->name('featured_projects');

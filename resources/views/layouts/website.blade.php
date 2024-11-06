@@ -27,7 +27,9 @@
     @include('website.partials._footer')
     <!--============== Footer Section End ==============-->
 
+    @isset($popularProjects)
     @include('website.partials._modal')
+    @endisset
 
 </div>
 

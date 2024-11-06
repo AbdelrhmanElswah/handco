@@ -30,25 +30,31 @@
             <div class="row">
                 <div class="col-md-12">
                     <div id="single-property" style="width:1200px; height:600px; margin:0 auto 30px;">
-                        <!-- Slide 1-->
-                        <div class="ls-slide"
-                             data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
-                            <img width="1920" height="1280" src="{{ url('/') }}/assets/images/property_grid/{{ $project['image'] }}"
-                                 class="ls-bg" alt="">
-                        </div>
 
-                        <!-- Slide 2-->
-                        <div class="ls-slide"
-                             data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
-                            <img width="1920" height="1280" src="{{ url('/') }}/assets/images/property_grid/{{ $project['image'] }}"
-                                 class="ls-bg" alt="">
-                        </div>
+                        <!-- Main Image Slide -->
+                        @if($project->mainImage)
+                            <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
+                                <img src="{{ asset('files/projects/main_images/' . $project->mainImage->media) }}" alt="Main Image" style="width: 100%; height: 100%; object-fit: cover;" class="ls-bg">
+                            </div>
+                        @else
+                            <!-- Default Image if no main image is uploaded -->
+                            <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
+                                <img src="{{ asset('files/projects/main_images/default.jpg') }}" alt="Default Image" style="width: 100%; height: 100%; object-fit: cover;" class="ls-bg">
+                            </div>
+                        @endif
 
+                        <!-- Additional Images Slides -->
+                        @foreach($project->images as $image)
+                            <div class="ls-slide" data-ls="duration:7500; transition2d:5; kenburnszoom:in; kenburnsscale:1.2;">
+                                <img src="{{ asset('files/projects/images/' . $image->media) }}" alt="Additional Image" style="width: 100%; height: 100%; object-fit: cover;" class="ls-bg">
+                            </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
     <!--============== Property Slider End ==============-->
 
     <!--============== Property Details Start ==============-->
