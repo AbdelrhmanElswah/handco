@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
@@ -72,6 +74,26 @@ Route::prefix('admin')->group(function () {
             Route::get('/{project}/edit', [ProjectController::class, 'edit'])->name('projects.edit'); // Show form to edit project
             Route::put('/{project}', [ProjectController::class, 'update'])->name('projects.update'); // Update project
             Route::delete('/{project}', [ProjectController::class, 'destroy'])->name('projects.destroy'); // Delete project
+        });
+
+        // Routes for Booking
+        Route::prefix('bookings')->group(function () {
+            Route::get('/', [BookingController::class, 'index'])->name('booking.index');
+            Route::get('/create', [BookingController::class, 'create'])->name('booking.create');
+            Route::post('/', [BookingController::class, 'store'])->name('booking.store');
+            Route::get('/{booking}/edit', [BookingController::class, 'edit'])->name('booking.edit');
+            Route::put('/{booking}', [BookingController::class, 'update'])->name('booking.update');
+            Route::delete('/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');
+        });
+
+// Routes for Blog
+        Route::prefix('blogs')->group(function () {
+            Route::get('/', [BlogController::class, 'index'])->name('blog.index');
+            Route::get('/create', [BlogController::class, 'create'])->name('blog.create');
+            Route::post('/', [BlogController::class, 'store'])->name('blog.store');
+            Route::get('/{blog}/edit', [BlogController::class, 'edit'])->name('blog.edit');
+            Route::put('/{blog}', [BlogController::class, 'update'])->name('blog.update');
+            Route::delete('/{blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
         });
 
 
