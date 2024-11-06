@@ -85,16 +85,28 @@
                     </ul>
                 </li>
 
-                <!-- About Us section -->
-                <li class="slide__category"><span class="category-name">About Us</span></li>
-                <li class="slide has-sub {{ request()->routeIs('about.*') }}">
+
+                <!-- Bookings section -->
+                <li class="slide__category"><span class="category-name">Bookings</span></li>
+                <li class="slide">
+                    <a href="{{ route('booking.index') }}" class="side-menu__item">
+                        <i class="fe fe-calendar side-menu__icon"></i>
+                        <span class="side-menu__label">Bookings</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                </li>
+
+                <!-- Blogs section -->
+                <li class="slide__category"><span class="category-name">Blogs</span></li>
+                <li class="slide has-sub {{ request()->routeIs('blogs.*') }}">
                     <a href="javascript:void(0);" class="side-menu__item">
-                        <i class="fe fe-info side-menu__icon"></i>
-                        <span class="side-menu__label">About Us</span>
+                        <i class="fe fe-file-text side-menu__icon"></i>
+                        <span class="side-menu__label">Blogs</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
-                        <li><a href="{{ route('about.create') }}" class="side-menu__item">Update</a></li>
+                        <li><a href="{{ route('blog.create') }}" class="side-menu__item">Add Blog</a></li>
+                        <li><a href="{{ route('blog.index') }}" class="side-menu__item">Show Blogs</a></li>
                     </ul>
                 </li>
 

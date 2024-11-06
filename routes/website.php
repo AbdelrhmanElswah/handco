@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\website\HomeController;
 use App\Http\Controllers\website\ProjectController;
@@ -14,6 +15,10 @@ Route::get('/contact', function () {
 Route::post('/contact/store',
     [ContactController::class, 'store'])
     ->name('contacts.store');
+
+Route::post('/booking',
+    [BookingController::class, 'store'])
+    ->name('booking.store');
 
 Route::get('/about-us', function () {
     return view('website.about');

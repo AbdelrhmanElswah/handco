@@ -79,11 +79,6 @@ Route::prefix('admin')->group(function () {
         // Routes for Booking
         Route::prefix('bookings')->group(function () {
             Route::get('/', [BookingController::class, 'index'])->name('booking.index');
-            Route::get('/create', [BookingController::class, 'create'])->name('booking.create');
-            Route::post('/', [BookingController::class, 'store'])->name('booking.store');
-            Route::get('/{booking}/edit', [BookingController::class, 'edit'])->name('booking.edit');
-            Route::put('/{booking}', [BookingController::class, 'update'])->name('booking.update');
-            Route::delete('/{booking}', [BookingController::class, 'destroy'])->name('booking.destroy');
         });
 
 // Routes for Blog

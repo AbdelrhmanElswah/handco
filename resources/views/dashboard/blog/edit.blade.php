@@ -1,0 +1,57 @@
+@extends('dashboard.partials.app')
+@section('content')
+
+    <div class="main-content app-content">
+        <div class="container-fluid">
+
+            <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
+                <h1 class="page-title fw-semibold fs-18 mb-0">Edit Category</h1>
+                <div class="ms-md-1 ms-0">
+                    <nav>
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Edit Category</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <div class="card custom-card">
+                <div class="card-body">
+                    <form method="POST" action="{{ route('category.update', $category->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="name">Title</label>
+                                    <input type="text" name="name" class="form-control" value="{{ old('name', $category->name) }}">
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea name="description" class="form-control" id="description">{{ old('description', $category->description) }}</textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-primary">Update Category</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection

@@ -13,50 +13,27 @@ class BookingController extends Controller
         $bookings = Booking::all();
         return view('dashboard.booking.index', compact('bookings'));
     }
-
-    public function create()
-    {
-        $projects = Project::all(); // Get all projects for the booking form
-        return view('dashboard.booking.create', compact('projects'));
-    }
-
     public function store(Request $request)
     {
         $request->validate([
             'project_id' => 'required|exists:projects,id',
             'name' => 'required|string|max:255',
-            'email' => 'required|email',
             'phone_number' => 'required|string|max:20',
+            'email' => 'required|email',
             'message' => 'nullable|string',
         ]);
 
-        Booking::create($request->only(['project_id', 'name', 'email', 'phone_number', 'message']));
-        return redirect()->route('booking.index')->with('success', 'Booking created successfully.');
-    }
+        // Retrieve the project
+        $project = Project::find($request->project_id);
 
-    public function edit(Booking $booking)
-    {
-        $projects = Project::all();
-        return view('dashboard.booking.edit', compact('booking', 'projects'));
-    }
+        // Check if the project is sold out
+        if ($project->status === 'sold_out') {
+            return redirect()->back()->with('error', 'This Property is sold out.');
+        }
 
-    public function update(Request $request, Booking $booking)
-    {
-        $request->validate([
-            'project_id' => 'required|exists:projects,id',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone_number' => 'required|string|max:20',
-            'message' => 'nullable|string',
-        ]);
+        // Create the booking if project is available
+        Booking::create($request->only(['project_id', 'name', 'phone_number', 'email', 'message']));
 
-        $booking->update($request->only(['project_id', 'name', 'email', 'phone_number', 'message']));
-        return redirect()->route('booking.index')->with('success', 'Booking updated successfully.');
-    }
-
-    public function destroy(Booking $booking)
-    {
-        $booking->delete();
-        return redirect()->route('booking.index')->with('success', 'Booking deleted successfully.');
+        return redirect()->back()->with('success', 'Booking created successfully');
     }
 }
