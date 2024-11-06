@@ -18,7 +18,11 @@ class ProjectController extends Controller
     public function show($id)
     {
         $project = Project::findOrFail($id);
-        return view('website.projects_show', compact('project'));
+        $recentProjects = Project::where('id', '!=', $id)
+            ->orderBy('created_at', 'desc')
+            ->take(4)
+            ->get();
+        return view('website.projects_show', compact('project', 'recentProjects'));
     }
 
 

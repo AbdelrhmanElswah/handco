@@ -40,50 +40,29 @@
 </div>
 
 <!--============== Recent Property Widget Start ==============-->
+<!--============== Recent Property Widget Start ==============-->
 <div class="widget widget_recent_property">
     <h5 class="text-secondary mb-4">Recent Projects</h5>
     <ul>
-        <li>
-            <img src="{{ url('/') }}/assets/images/thumbnaillist/01.jpg" alt="">
-            <div class="thumb-body">
-                <h6 class="listing-title"><a href="property-single-1.html">Nirala Appartment</a></h6>
-                <span class="listing-price">$3200<small>( Monthly )</small></span>
-                <ul class="d-flex quantity font-fifteen">
-                    <li title="Area"><span><i class="fa-solid fa-vector-square"></i></span>6500 Sqft</li>
-
-                </ul>
-            </div>
-        </li>
-        <li>
-            <img src="{{ url('/') }}/assets/images/thumbnaillist/02.jpg" alt="">
-            <div class="thumb-body">
-                <h6 class="listing-title"><a href="property-single-1.html">Condo House</a></h6>
-                <span class="listing-price">$11500<small>( Monthly )</small></span>
-                <ul class="d-flex quantity font-fifteen">
-                    <li title="Area"><span><i class="fa-solid fa-vector-square"></i></span>2200 Sqft</li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <img src="{{ url('/') }}/assets/images/thumbnaillist/03.jpg" alt="">
-            <div class="thumb-body">
-                <h6 class="listing-title"><a href="property-single-1.html">Luxury Condos</a></h6>
-                <span class="listing-price">$17000<small>( Monthly )</small></span>
-                <ul class="d-flex quantity font-fifteen">
-                    <li title="Area"><span><i class="fa-solid fa-vector-square"></i></span>3500 Sqft</li>
-                </ul>
-            </div>
-        </li>
-        <li>
-            <img src="{{ url('/') }}/assets/images/thumbnaillist/04.jpg" alt="">
-            <div class="thumb-body">
-                <h6 class="listing-title"><a href="property-single-1.html">Small Appartment</a></h6>
-                <span class="listing-price">$5200<small>( Monthly )</small></span>
-                <ul class="d-flex quantity font-fifteen">
-                    <li title="Area"><span><i class="fa-solid fa-vector-square"></i></span>1200 Sqft</li>
-                </ul>
-            </div>
-        </li>
+        @foreach($recentProjects as $recentProject)
+            <li>
+                <img src="{{ asset('files/projects/main_images/' . ($recentProject->mainImage->media ?? 'default.jpg')) }}" alt="{{ $recentProject->title }}">
+                <div class="thumb-body">
+                    <h6 class="listing-title">
+                        <a href="{{ route('projects.show', $recentProject->id) }}">{{ $recentProject->title }}</a>
+                    </h6>
+                    <span class="listing-price">${{ number_format($recentProject->price, 2) }}</span>
+                    <ul class="d-flex quantity font-fifteen">
+                        <li title="Area">
+                            <span><i class="fa-solid fa-vector-square"></i></span>
+                            {{ number_format($recentProject->floor_area) }} Sqft
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        @endforeach
     </ul>
 </div>
+<!--============== Recent Property Widget End ==============-->
+
 <!--============== Recent Property Widget End ==============-->
