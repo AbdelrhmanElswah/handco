@@ -41,6 +41,7 @@
                                     <th>Title</th>
                                     <th>Category</th>
                                     <th>Content</th>
+                                    <th>Media</th> <!-- Media column header -->
                                     <th>Created At</th>
                                     <th>Actions</th>
                                 </tr>
@@ -50,8 +51,20 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $blog->title }}</td>
-                                        <td>{{ $blog->category->name }}</td>
+                                        <td>{{ $blog->category->name ?? 'Uncategorized' }}</td>
                                         <td>{{ Str::limit($blog->content, 50) }}</td>
+                                        <!-- Media column with image or placeholder icon -->
+                                        <td>
+                                            @if($blog->mainImage)
+                                                <a href="{{ $blog->mainImage->media_link }}" target="_blank">
+                                                    <img src="{{ $blog->mainImage->media_link }}" alt="Blog Image" style="width: 40px; height: 40px; object-fit: cover; border-radius: 5px;">
+                                                </a>
+                                            @else
+                                                <span class="avatar avatar-sm avatar-rounded me-2">
+                                                    <i class="fas fa-image fa-2x text-secondary"></i>
+                                                </span>
+                                            @endif
+                                        </td>
                                         <td>{{ $blog->created_at->format('Y-m-d') }}</td>
                                         <td>
                                             <a href="{{ route('blog.edit', $blog->id) }}" class="btn btn-outline-secondary btn-sm">
