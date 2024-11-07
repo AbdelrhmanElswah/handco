@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\website\BlogController;
 use App\Http\Controllers\website\HomeController;
 use App\Http\Controllers\website\ProjectController;
 use Illuminate\Support\Facades\Route;
@@ -24,9 +25,7 @@ Route::get('/about-us', function () {
     return view('website.about');
 })->name('about');
 
-Route::get('/blogs', function () {
-    return view('website.blogs');
-})->name('blogs');
+Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
 
