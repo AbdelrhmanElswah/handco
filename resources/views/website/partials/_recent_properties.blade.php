@@ -6,7 +6,7 @@
                     <div class="me-auto">
                         <h2 class="d-table">Recent Projects</h2>
                     </div>
-                    <a href="property-grid-v1.html" class="ms-auto btn-link">View All Properties</a>
+                    <a href="{{ route('projects') }}" class="ms-auto btn-link">View All Properties</a>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
                                             <span class="featured bg-primary text-white">Featured</span>
                                         @endif
                                     </div>
-                                    <a href="#"><img src="{{ asset('files/projects/main_images/' . $project->mainImage->media) }}" alt="Image Not Found!"></a>
+                                    <a href="{{ route('projects.show', $project->id) }}"><img src="{{ asset('files/projects/main_images/' . $project->mainImage->media) }}" alt="Image Not Found!"></a>
                                     <a href="#" class="listing-ctg text-white">
                                         <i class="fa-solid fa-building"></i><span>{{ $project->category->name }}</span>
                                     </a>
@@ -39,7 +39,7 @@
                                 <div class="property_text p-4">
                                     <span class="listing-price">${{ number_format($project->price, 2) }}</span>
                                     <h5 class="listing-title">
-                                        <a href="#">{{ $project->title }}</a>
+                                        <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
                                     </h5>
                                       <span class="listing-location">
                                          <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="d-flex align-items-center post-meta mt-2 py-3 px-4 border-top">
                                     <div class="agent">
-                                        <a href="#" class="d-flex text-general align-items-center"><span>Book Now</span></a>
+                                        <a href="{{ route('projects.show', $project->id) }}" class="d-flex text-general align-items-center"><span>Book Now</span></a>
                                     </div>
                                     <div class="post-date ms-auto">
                                         <span>{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>

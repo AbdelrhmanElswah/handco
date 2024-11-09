@@ -1,3 +1,47 @@
+<style>
+    /* Inline styles for demonstration */
+    .full-row.bg-secondary {
+        background-color: #f8f9fa; /* Example background */
+    }
+
+    .property-grid-1 {
+        display: flex;
+        flex-direction: column;
+        height: 450px; /* Adjust this height as needed */
+        border: 1px solid #ccc; /* For visual differentiation */
+        margin-bottom: 20px;
+    }
+
+    .thumbnail-img {
+        height: 60%;
+        overflow: hidden;
+    }
+
+    .thumbnail-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .property_text {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 15px;
+    }
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        height: 450px; /* Consistent height across all items */
+    }
+
+    .post-meta {
+        border-top: 1px solid #eee; /* Styling for meta divider */
+    }
+</style>
+
 <div class="full-row bg-secondary">
     <div class="container">
         <div class="row">
@@ -15,7 +59,7 @@
                                     <div class="cata position-absolute">
                                         <span class="sale bg-secondary text-white">{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>
                                     </div>
-                                    <a href="#">
+                                    <a href="{{ route('projects.show', $project->id) }}">
                                         <img src="{{ asset('files/projects/main_images/' . $project->mainImage->media) }}" alt="Image Not Found!">
                                     </a>
                                     <a href="#" class="listing-ctg text-white">
@@ -28,7 +72,7 @@
                                 <div class="property_text p-4">
                                     <span class="listing-price">${{ number_format($project->price, 2) }}</span>
                                     <h5 class="listing-title">
-                                        <a href="#">{{ $project->title }}</a>
+                                        <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
                                     </h5>
 
                                     <!-- Google Maps Link for Location -->
@@ -99,7 +143,7 @@
                                 </div>
                                 <div class="d-flex align-items-center post-meta mt-2 py-3 px-4 border-top">
                                     <div class="agent">
-                                        <a href="#" class="d-flex text-general align-items-center"><span>Book Now</span></a>
+                                        <a href="{{ route('projects.show', $project->id) }}" class="d-flex text-general align-items-center"><span>Book Now</span></a>
                                     </div>
                                     <div class="post-date ms-auto">
                                         <span>{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>
