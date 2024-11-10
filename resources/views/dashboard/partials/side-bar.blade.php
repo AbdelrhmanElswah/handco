@@ -4,10 +4,10 @@
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
         <a href="{{ url('/admin') }}" class="header-logo">
-            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="desktop-logo">
-            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="toggle-logo">
-            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="desktop-dark">
-            <img src="{{ asset('dashboard/assets/logo.png') }}" alt="logo" class="toggle-dark">
+            <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo" class="desktop-logo">
+            <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo" class="toggle-logo">
+            <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo" class="desktop-dark">
+            <img src="{{ asset('assets/images/logo/logo-dark.png') }}" alt="logo" class="toggle-dark">
         </a>
     </div>
     <!-- End::main-sidebar-header -->
@@ -26,7 +26,7 @@
                 <!-- Main section -->
                 <li class="slide__category"><span class="category-name">Main</span></li>
                 <li class="slide">
-                    <a href="" class="side-menu__item">
+                    <a href="https://handcoproperties.com/" class="side-menu__item">
                         <i class="fe fe-globe side-menu__icon"></i>
                         <span class="side-menu__label">Website</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>

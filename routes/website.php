@@ -27,6 +27,8 @@ Route::get('/about-us', function () {
 
 Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');
 
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
+
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
 
 // Individual project details page route

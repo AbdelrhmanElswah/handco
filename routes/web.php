@@ -79,6 +79,9 @@ Route::prefix('admin')->group(function () {
         // Routes for Booking
         Route::prefix('bookings')->group(function () {
             Route::get('/', [BookingController::class, 'index'])->name('booking.index');
+
+            Route::get('/export', [BookingController::class, 'exportToCSV'])->name('bookings.export');
+
         });
 
 // Routes for Blog

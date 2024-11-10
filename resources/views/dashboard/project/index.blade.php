@@ -44,11 +44,8 @@
                                         <th>Category</th>
                                         <th>Location</th>
                                         <th>Status</th>
-                                        <th>Tags</th>
-                                        <th>Description</th>
-                                        <th>Floor Area (sq ft)</th>
+                                        <th>Area</th>
                                         <th>Featured</th>
-                                        <th>Selling Points</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
@@ -70,22 +67,6 @@
                                                     {{ ucfirst($project->status) }}
                                                 </span>
                                             </td>
-                                            <!-- Tags -->
-                                            <td>
-                                                @if(is_array($project->tags))
-                                                    <ul>
-                                                        @foreach($project->tags as $tag)
-                                                            <li>{{ $tag }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @else
-                                                    <span>-</span>
-                                                @endif
-                                            </td>
-                                            <!-- Description with a character limit -->
-                                            <td>
-                                                {{ Str::limit($project->description, 50) }}
-                                            </td>
                                             <!-- Floor Area -->
                                             <td>{{ $project->floor_area ? $project->floor_area . ' sq ft' : '-' }}</td>
 
@@ -94,18 +75,6 @@
                                               <span class="badge {{ $project->featured ? 'bg-success' : 'bg-danger' }}">
                                                            {{ $project->featured ? 'Yes' : 'No' }}
                                                              </span>
-                                            </td>
-                                            <!-- Selling Points -->
-                                            <td>
-                                                @if(is_array($project->selling_points))
-                                                    <ul>
-                                                        @foreach($project->selling_points as $point)
-                                                            <li>{{ $point['label'] }}: {{ $point['value'] }}</li>
-                                                        @endforeach
-                                                    </ul>
-                                                @else
-                                                    <span>-</span>
-                                                @endif
                                             </td>
                                             <!-- Actions -->
                                             <td>

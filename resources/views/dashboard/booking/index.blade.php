@@ -32,6 +32,8 @@
                     <div class="card custom-card">
                         <div class="card-header">
                             <div class="card-title">Bookings</div>
+                            <a href="{{ route('bookings.export') }}" class="btn btn-success ms-auto">Download to CSV</a>
+
                         </div>
                         <div class="card-body">
                             <table id="datatable-basic" class="table table-bordered text-nowrap" style="width:100%">

@@ -33,16 +33,16 @@
                             <div class="col">
                                 <div class="thumb-blog-cover-img blog-card">
                                     <div class="post-image">
-                                        <img src="{{ $blog->mainImage->media_link ?? asset('assets/images/default.png') }}" alt="Image not found!" class="blog-image">
+                                       <a href="{{ route('blogs.show', $blog->id) }}"><img src="{{ $blog->mainImage->media_link ?? asset('assets/images/default.png') }}" alt="Image not found!" class="blog-image"></a>
                                     </div>
                                     <div class="post-content">
                                         <div class="post-meta list-color-white mb-2">
-                                            <a href="#"><span>{{ $blog->category->name ?? 'Uncategorized' }}</span></a>
+                                            <span>{{ $blog->category->name ?? 'Uncategorized' }}</span>
                                         </div>
-                                        <h5><a href="#" class="transation text-white hover-text-primary d-block mb-2">{{ $blog->title }}</a></h5>
+                                        <h5><a href="{{ route('blogs.show', $blog->id) }}" class="transation text-white hover-text-primary d-block mb-2">{{ $blog->title }}</a></h5>
                                         <div class="post-meta font-small list-color-light">
-                                            <a href="#"><span>By Admin</span></a>
-                                            <a href="#"><span>{{ $blog->created_at->format('M d, Y') }}</span></a>
+                                            <span>By Admin</span>
+                                            <span>{{ $blog->created_at->format('M d, Y') }}</span>
                                         </div>
                                     </div>
                                 </div>
