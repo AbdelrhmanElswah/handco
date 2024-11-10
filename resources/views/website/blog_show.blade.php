@@ -59,7 +59,7 @@
                         <div class="summary mb-30">
                             <div class="post-image">
                                 <!-- Display the blog's main image or a default if not available -->
-                                <img src="{{ $blog->mainImage->media_link ?? asset('assets/images/default.png') }}" alt="Image not found!" style="width: 540px; height: auto;" class="img-fluid">
+                                <img src="{{ $blog->mainImage->media_link ?? asset('assets/images/default.png') }}" alt="Image not found!" style="width: 1024px; height: auto;" class="img-fluid">
                             </div>
                         </div>
                         <div class="single-post summary mb-30">
