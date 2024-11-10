@@ -37,7 +37,10 @@
                                 <span class="d-inline-block text-primary">{{ $project->category->name }}</span>
                                 <h5 class="modal-title mb-1">{{ $project->title }}</h5>
                                 <span class="mt-1 mb-3 d-block font-fifteen">
-                                    <i class="fas fa-map-marker-alt text-primary"></i> {{ $project->location }}
+                                         <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
+                                         <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
+                                         {{ $project->location_name }}
+                                          </a>
                                 </span>
                                 <div class="d-flex">
                                     <span class="text-secondary font-large">${{ number_format($project->price, 2) }}</span>
@@ -90,12 +93,6 @@
                                     </ul>
                                 </div>
                                 <div class="d-flex align-items-center post-meta mt-2 py-3 border-top">
-                                    <div class="agent">
-                                        <a href="#" class="d-flex text-general align-items-center">
-                                            <img class="rounded-circle me-2" src="{{ asset('assets/images/team/1.jpg') }}" alt="avatar">
-                                            <span>{{ $project->agent_name ?? 'Agent Name' }}</span>
-                                        </a>
-                                    </div>
                                     <div class="post-date ms-auto"><span>{{ $project->created_at->diffForHumans() }}</span></div>
                                 </div>
                             </div>
@@ -146,8 +143,10 @@
                                 <span class="d-inline-block text-primary">{{ $project->category->name }}</span>
                                 <h5 class="modal-title mb-1">{{ $project->title }}</h5>
                                 <span class="mt-1 mb-3 d-block font-fifteen">
-                                    <i class="fas fa-map-marker-alt text-primary"></i> {{ $project->location }}
-                                </span>
+                                         <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
+                                         <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
+                                         {{ $project->location_name }}
+                                          </a>                                </span>
                                 <div class="d-flex">
                                     <span class="text-secondary font-large">${{ number_format($project->price, 2) }}</span>
                                     <span class="text-white font-mini px-2 rounded product-status ms-5 my-1 bg-primary">
@@ -199,12 +198,6 @@
                                     </ul>
                                 </div>
                                 <div class="d-flex align-items-center post-meta mt-2 py-3 border-top">
-                                    <div class="agent">
-                                        <a href="#" class="d-flex text-general align-items-center">
-                                            <img class="rounded-circle me-2" src="{{ asset('assets/images/team/1.jpg') }}" alt="avatar">
-                                            <span>{{ $project->agent_name ?? 'Agent Name' }}</span>
-                                        </a>
-                                    </div>
                                     <div class="post-date ms-auto"><span>{{ $project->created_at->diffForHumans() }}</span></div>
                                 </div>
                             </div>
