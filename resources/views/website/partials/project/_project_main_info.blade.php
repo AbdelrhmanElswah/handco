@@ -6,8 +6,10 @@
             </div>
             <h4 class="listing-title"><a href="#">{{ $project->title }}</a></h4>
             <span class="listing-location">
-                <i class="fas fa-map-marker-alt text-primary"></i>
-                {{ $project->location ?? 'Location not provided' }}
+                <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
+                    <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
+                    {{ $project->location_name }}
+                </a>
             </span>
         </div>
         <div class="col-auto ms-auto xs-m-0 text-end xs-text-start pb-4">

@@ -36,7 +36,7 @@
                             <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom m-2" style="height: 200px;">
                                 <!-- Featured Tag -->
                                 @if($project->featured)
-                                    <span class="cata position-absolute sale bg-secondary text-white">Featured</span>
+                                    <span class="cata position-absolute sale bg-primary text-white">Featured</span>
                                 @endif
                                 <!-- Property Image -->
                                 <a href="{{ route('projects.show', $project->id) }}">
@@ -51,11 +51,12 @@
                                 <span class="d-inline-block text-primary">{{ $project->category->name }}</span>
                                 <h5 class="mt-2"><a class="font-400 text-secondary" href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a></h5>
                                 <!-- Location -->
-                                <span class="my-3 d-block">
-                                    <a href="https://maps.google.com/?q={{ $project->location }}" target="_blank">
-                                        <i class="fas fa-map-marker-alt text-primary"></i> {{ $project->location }}
-                                    </a>
-                                </span>
+                                <span class="listing-location">
+                                         <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
+                                         <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
+                                         {{ $project->location_name }}
+                                          </a>
+                                      </span>
                                 <!-- Quick Facts -->
                                 <ul class="d-flex font-fifteen" style="gap: 15px; list-style: none; padding: 0;">
                                     <li class="d-flex align-items-center">

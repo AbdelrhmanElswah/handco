@@ -1,47 +1,3 @@
-<style>
-    /* Inline styles for demonstration */
-    .full-row.bg-secondary {
-        background-color: #f8f9fa; /* Example background */
-    }
-
-    .property-grid-1 {
-        display: flex;
-        flex-direction: column;
-        height: 450px; /* Adjust this height as needed */
-        border: 1px solid #ccc; /* For visual differentiation */
-        margin-bottom: 20px;
-    }
-
-    .thumbnail-img {
-        height: 60%;
-        overflow: hidden;
-    }
-
-    .thumbnail-img img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .property_text {
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 15px;
-    }
-
-    .item {
-        display: flex;
-        flex-direction: column;
-        height: 450px; /* Consistent height across all items */
-    }
-
-    .post-meta {
-        border-top: 1px solid #eee; /* Styling for meta divider */
-    }
-</style>
-
 <div class="full-row bg-secondary">
     <div class="container">
         <div class="row">
@@ -77,15 +33,11 @@
 
                                     <!-- Google Maps Link for Location -->
                                     <span class="listing-location">
-                                        @if($project->location)
-                                            <a href="https://www.google.com/maps/search/?api=1&query={{ urlencode($project->location) }}" target="_blank" class="text-white" style="display: flex; align-items: center; color: inherit;">
-                                                <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
-                                                {{ $project->location }}
-                                            </a>
-                                        @else
-                                            <span class="text-muted">Location not available</span>
-                                        @endif
-                                    </span>
+                                         <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
+                                         <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
+                                         {{ $project->location_name }}
+                                          </a>
+                                      </span>
 
                                     <ul class="d-flex quantity font-fifteen" style="flex-wrap: wrap; gap: 10px;">
                                         <!-- Property Features (e.g., Beds, Baths, Area, etc.) -->
