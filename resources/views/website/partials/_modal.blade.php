@@ -1,15 +1,5 @@
 <!-- Loop for "Most Popular Projects" -->
 @foreach($popularProjects as $project)
-    <div class="item">
-        <!-- Project Details (existing code) -->
-        <!-- Quick View Button with dynamic ID -->
-        <li class="md-mx-none">
-            <a class="quick-view" href="#quick-view-{{ $project->id }}" data-bs-toggle="modal" title="Quick View">
-                <i class="flaticon-zoom-increasing-symbol flat-mini"></i>
-            </a>
-        </li>
-    </div>
-
     <!-- Modal for each project in Popular Projects -->
     <div class="overlay-dark modal fade quick-view-modal" id="quick-view-{{ $project->id }}" tabindex="-1" aria-labelledby="quick-view-label-{{ $project->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
@@ -106,16 +96,6 @@
 
 <!-- Loop for "Recent Projects" -->
 @foreach($recentProjects as $project)
-    <div class="item">
-        <!-- Project Details (existing code) -->
-        <!-- Quick View Button with dynamic ID -->
-        <li class="md-mx-none">
-            <a class="quick-view" href="#quick-view-{{ $project->id }}" data-bs-toggle="modal" title="Quick View">
-                <i class="flaticon-zoom-increasing-symbol flat-mini"></i>
-            </a>
-        </li>
-    </div>
-
     <!-- Modal for each project in Popular Projects -->
     <div class="overlay-dark modal fade quick-view-modal" id="quick-view-{{ $project->id }}" tabindex="-1" aria-labelledby="quick-view-label-{{ $project->id }}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
