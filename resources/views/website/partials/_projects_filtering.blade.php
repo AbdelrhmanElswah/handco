@@ -2,88 +2,80 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <form class="quick-search form-icon-right position-relative" action="#" method="post">
+                <form class="quick-search form-icon-right position-relative" action="{{ route('projects.index') }}" method="GET">
                     <div class="row row-cols-lg-6 row-cols-md-4 row-cols-1 g-3">
                         <div class="col">
-                            <input type="text" class="form-control" name="keyword" placeholder="Enter Keyword...">
+                            <input type="text" class="form-control" name="keyword" placeholder="Enter Keyword..." value="{{ request('keyword') }}">
                         </div>
+
+                        <!-- Property Types Dropdown -->
                         <div class="col">
-                            <select class="form-control">
-                                <option>Property Types</option>
-                                <option>House</option>
-                                <option>Office</option>
-                                <option>Apartment</option>
-                                <option>Condos</option>
-                                <option>Villa</option>
-                                <option>Small Family</option>
-                                <option>Single Room</option>
+                            <select class="form-control" name="category">
+                                <option value="">Property Types</option>
+                                @foreach($categories as $id => $name)
+                                    <option value="{{ $id }}" {{ request('category') == $id ? 'selected' : '' }}>{{ $name }}</option>
+                                @endforeach
                             </select>
                         </div>
+
+                        <!-- Payment Options Dropdown -->
                         <div class="col">
-                            <select class="form-control">
-                                <option>Payment Options</option>
-                                <option>Cash</option>
-                                <option>Installment</option>
+                            <select class="form-control" name="payment_option">
+                                <option value="">Payment Options</option>
+                                @foreach($paymentOptions as $option)
+                                    <option value="{{ $option }}" {{ request('payment_option') == $option ? 'selected' : '' }}>{{ $option }}</option>
+                                @endforeach
                             </select>
                         </div>
+
+                        <!-- Location Dropdown -->
                         <div class="col">
-                            <select class="form-control">
-                                <option>Location</option>
-                                <option>Dubai</option>
-                                <option>Abu Dhabi</option>
+                            <select class="form-control" name="location">
+                                <option value="">Location</option>
+                                @foreach($locations as $location)
+                                    <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>{{ $location }}</option>
+                                @endforeach
                             </select>
                         </div>
+
+                        <!-- Price Range (Min and Max) -->
                         <div class="col">
-                            <div class="position-relative">
-                                <button class="form-control price-toggle toggle-btn" data-target="#data-range-price">Price <i class="fas fa-angle-down font-mini icon-font y-center text-dark"></i></button>
-                                <div id="data-range-price" class="price_range price-range-toggle">
-                                    <div class="area-filter price-filter">
-                                                <span class="price-slider">
-												<input class="filter_price" type="text" name="price" value="0;10000000" />
-											</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="number" class="form-control" name="min_price" placeholder="Min Price" value="{{ request('min_price') }}">
                         </div>
                         <div class="col">
-                            <select class="form-control">
-                                <option>Bedrooms</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
+                            <input type="number" class="form-control" name="max_price" placeholder="Max Price" value="{{ request('max_price') }}">
+                        </div>
+
+                        <!-- Bedrooms Dropdown -->
+                        <div class="col">
+                            <select class="form-control" name="bedrooms">
+                                <option value="">Bedrooms</option>
+                                @foreach($bedrooms as $bedroom)
+                                    <option value="{{ $bedroom }}" {{ request('bedrooms') == $bedroom ? 'selected' : '' }}>{{ $bedroom }}</option>
+                                @endforeach
                             </select>
                         </div>
+
+                        <!-- Bathrooms Dropdown -->
                         <div class="col">
-                            <select class="form-control">
-                                <option>Bathrooms</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
+                            <select class="form-control" name="bathrooms">
+                                <option value="">Bathrooms</option>
+                                @foreach($bathrooms as $bathroom)
+                                    <option value="{{ $bathroom }}" {{ request('bathrooms') == $bathroom ? 'selected' : '' }}>{{ $bathroom }}</option>
+                                @endforeach
                             </select>
                         </div>
+
+                        <!-- Garage Option (Fixed) -->
                         <div class="col">
-                            <select class="form-control">
-                                <option>Garage</option>
-                                <option>Yes</option>
-                                <option>No</option>
+                            <select class="form-control" name="garage">
+                                <option value="">Garage</option>
+                                <option value="Yes" {{ request('garage') == 'Yes' ? 'selected' : '' }}>Yes</option>
+                                <option value="No" {{ request('garage') == 'No' ? 'selected' : '' }}>No</option>
                             </select>
                         </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="keyword" placeholder="Min Area">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" name="keyword" placeholder="Max Area">
-                        </div>
+
+                        <!-- Additional Options -->
                         <div class="col">
                             <div class="position-relative">
                                 <button class="form-control text-start toggle-btn" data-target="#aditional-check">Advanced <i class="fas fa-ellipsis-v font-mini icon-font y-center text-dark"></i></button>
@@ -93,59 +85,17 @@
                             <button class="btn btn-primary w-100">Search</button>
                         </div>
                     </div>
+
+                    <!-- Advanced Filters -->
                     <div id="aditional-check" class="aditional-features p-5">
-                        <h5 class="mb-3">Aditional Options</h5>
+                        <h5 class="mb-3">Additional Options</h5>
                         <ul class="row row-cols-md-4 row-cols-1 custom-check-box mb-4">
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck1">
-                                <label class="custom-control-label" for="customCheck1">Air Conditioning</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck2">
-                                <label class="custom-control-label" for="customCheck2">Garage Facility</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck3">
-                                <label class="custom-control-label" for="customCheck3">Swiming Pool</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck4">
-                                <label class="custom-control-label" for="customCheck4">Fire Security</label>
-                            </li>
-
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck5">
-                                <label class="custom-control-label" for="customCheck5">Fire Place Facility</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck6">
-                                <label class="custom-control-label" for="customCheck6">Play Ground</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck7">
-                                <label class="custom-control-label" for="customCheck7">Ferniture Include</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck8">
-                                <label class="custom-control-label" for="customCheck8">Marbel Floor</label>
-                            </li>
-
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck9">
-                                <label class="custom-control-label" for="customCheck9">Store Room</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck10">
-                                <label class="custom-control-label" for="customCheck10">Hight Class Door</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck11">
-                                <label class="custom-control-label" for="customCheck11">Floor Heating System</label>
-                            </li>
-                            <li class="col">
-                                <input type="checkbox" class="custom-control-input hide" id="customCheck12">
-                                <label class="custom-control-label" for="customCheck12">Garden Include</label>
-                            </li>
+                            @foreach($additionalOptions as $option)
+                                <li class="col">
+                                    <input type="checkbox" class="custom-control-input hide" id="customCheck{{ $loop->index }}" name="additional_options[]" value="{{ $option }}" {{ in_array($option, request('additional_options', [])) ? 'checked' : '' }}>
+                                    <label class="custom-control-label" for="customCheck{{ $loop->index }}">{{ $option }}</label>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                 </form>

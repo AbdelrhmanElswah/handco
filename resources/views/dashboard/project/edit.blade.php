@@ -56,13 +56,12 @@
                             <!-- Location Name and Google Maps Link -->
                             <div class="col-md-6 mb-3">
                                 <label for="location_name">Location Name</label>
-                                <input type="text" name="location_name" class="form-control" placeholder="Enter location name" value="{{ old('location_name', $location_name) }}">
+                                <input type="text" name="location_name" class="form-control" placeholder="Enter location name" value="{{ old('location_name', $project->location_name ?? '') }}">
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="location_link">Google Maps Link</label>
-                                <input type="url" name="location_link" class="form-control" placeholder="Enter Google Maps link" value="{{ old('location_link', $location_link) }}">
+                                <input type="url" name="location_link" class="form-control" placeholder="Enter Google Maps link" value="{{ old('location_link', $project->location_link ?? '') }}">
                             </div>
-
 
                             <!-- Tags (Bootstrap Tags Input) -->
                             <div class="col-md-6 mb-3">

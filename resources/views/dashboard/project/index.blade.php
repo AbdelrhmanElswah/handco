@@ -60,10 +60,11 @@
                                             <td>${{ number_format($project->price, 2) }}</td>
                                             <td>{{ $project->category->name }}</td>
                                             <td>
-                                                <a href="https://www.google.com/maps?q={{ urlencode($project->location) }}" target="_blank" title="View on Google Maps">
-                                                    <i class="fas fa-map-marker-alt text-primary"></i> {{ $project->location }}
+                                                <a href="{{ $project->location_link }}" target="_blank" title="View on Google Maps">
+                                                    <i class="fas fa-map-marker-alt text-primary"></i> {{ $project->location_name }}
                                                 </a>
                                             </td>
+
                                             <td>
                                                 <span class="badge {{ $project->status == 'available' ? 'bg-success' : 'bg-danger' }}">
                                                     {{ ucfirst($project->status) }}

@@ -37,8 +37,8 @@ class ProjectController extends Controller
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
-            'location_name' => 'required|string', // Validate location name
-            'location_link' => 'nullable|url', // Validate the Google Maps link
+            'location_name' => 'required|string|max:255',
+            'location_link' => 'required|url', // Validate the Google Maps link
             'tags' => 'nullable|array',
             'description' => 'nullable|string',
             'utilities_id' => 'required|exists:utilities,id',
@@ -55,14 +55,8 @@ class ProjectController extends Controller
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $location = $request->input('location_name');
-        if ($request->filled('location_link')) {
-            $location .= " ({$request->input('location_link')})";
-        }
-
         // Include the combined `location` field in the data to be saved
-        $projectData = $request->except(['main_image', 'images', 'location_name', 'location_link']);
-        $projectData['location'] = $location;
+        $projectData = $request->except(['main_image', 'images']);
 
         // Create the project without images
         $project = Project::create($projectData);
@@ -95,18 +89,7 @@ class ProjectController extends Controller
         $categories = Category::all();
         $utilities = Utility::all();
 
-        // Split `location` into `location_name` and `location_link`
-        $location = $project->location;
-        $location_name = $location;
-        $location_link = '';
-
-        // Check if location contains a link in parentheses
-        if (preg_match('/(.*)\s+\((https?:\/\/[^\)]+)\)$/', $location, $matches)) {
-            $location_name = $matches[1];
-            $location_link = $matches[2];
-        }
-
-        return view('dashboard.project.edit', compact('project', 'categories', 'utilities', 'location_name', 'location_link'));
+        return view('dashboard.project.edit', compact('project', 'categories', 'utilities'));
     }
 
 
@@ -134,14 +117,8 @@ class ProjectController extends Controller
             'images.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        $location = $request->input('location_name');
-        if ($request->filled('location_link')) {
-            $location .= " ({$request->input('location_link')})";
-        }
-
         // Prepare data for updating
-        $projectData = $request->except(['main_image', 'images', 'location_name', 'location_link']);
-        $projectData['location'] = $location;
+        $projectData = $request->except(['main_image', 'images']);
 
         // Update the project
         $project->update($projectData);

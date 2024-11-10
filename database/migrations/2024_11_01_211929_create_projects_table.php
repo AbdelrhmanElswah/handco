@@ -18,7 +18,8 @@ class CreateProjectsTable extends Migration
             $table->decimal('price', 10, 2); // Price with two decimal places
             $table->unsignedBigInteger('category_id'); // Foreign key for category
             $table->string('title'); // Project title
-            $table->string('location'); // Location to link to Google Maps
+            $table->string('location_name'); // Location to link to Google Maps
+            $table->string('location_link')->nullable(); // Location to link to Google Maps
             $table->json('tags')->nullable(); // Array of tags as JSON
             $table->text('description')->nullable(); // Description of the project
             $table->unsignedBigInteger('utilities_id'); // Foreign key for utilities
