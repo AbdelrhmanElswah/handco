@@ -33,13 +33,53 @@ class ProjectController extends Controller
         }
 
         // Filter by price range
-        if ($request->filled('min_price') && $request->filled('max_price')) {
-            $query->whereBetween('price', [(int) $request->min_price, (int) $request->max_price]);
+        if ($request->filled('min_price') || $request->filled('max_price')) {
+            $minPrice = $request->filled('min_price') ? (int) $request->min_price : null;
+            $maxPrice = $request->filled('max_price') ? (int) $request->max_price : null;
+
+            if ($minPrice && $maxPrice) {
+                $query->whereBetween('price', [$minPrice, $maxPrice]);
+            } elseif ($minPrice) {
+                $query->where('price', '>=', $minPrice);
+            } elseif ($maxPrice) {
+                $query->where('price', '<=', $maxPrice);
+            }
         }
 
+        // Filter by bedrooms
         if ($request->filled('bedrooms')) {
             $query->whereHas('utility', function ($q) use ($request) {
                 $q->where('bedrooms', $request->bedrooms);
+            });
+        }
+
+        // Filter by bathrooms
+        if ($request->filled('bathrooms')) {
+            $query->whereHas('utility', function ($q) use ($request) {
+                $q->where('bathrooms', $request->bathrooms);
+            });
+        }
+
+        // Filter by garage availability
+        if ($request->filled('garage')) {
+            $query->whereHas('utility', function ($q) use ($request) {
+                $q->where('garage_facility', $request->garage == 'Yes' ? 1 : 0);
+            });
+        }
+
+        // Filter by payment option
+        if ($request->filled('payment_option')) {
+            $query->where('payment_option', $request->payment_option);
+        }
+
+        // Filter by additional options
+        if ($request->filled('additional_options')) {
+            $options = $request->additional_options;
+
+            $query->whereHas('utility', function ($q) use ($options) {
+                foreach ($options as $option) {
+                    $q->where($option, 1); // Each option should have a corresponding column in the `utility` table
+                }
             });
         }
 
@@ -49,28 +89,20 @@ class ProjectController extends Controller
         // Fetch unique filter options from the database
         $categories = Category::pluck('name', 'id');
         $locations = Project::distinct()->pluck('location_name');
-        $paymentOptions = ['Cash', 'Installment']; // Define if fixed options
+        $paymentOptions = ['Cash', 'Installment'];
         $bedrooms = Utility::distinct()->pluck('bedrooms');
         $bathrooms = Utility::distinct()->pluck('bathrooms');
 
         $additionalOptions = [
-            'Air Conditioning',
-            'Garage Facility',
-            'Swimming Pool',
-            'Fire Security',
-            'Fire Place Facility',
-            'Play Ground',
-            'Furniture Include',
-            'Marble Floor',
-            'Store Room',
-            'High-Class Door',
-            'Floor Heating System',
-            'Garden Include',
+            'air_conditioning', 'garage_facility', 'swimming_pool', 'fire_security',
+            'fire_place_facility', 'play_ground', 'furniture_include', 'marble_floor',
+            'store_room', 'high_class_door', 'floor_heating_system', 'garden_include',
         ];
 
         // Pass projects and filter options to the view
         return view('website.projects', compact('projects', 'categories', 'locations', 'paymentOptions', 'bedrooms', 'bathrooms', 'additionalOptions'));
     }
+
 
     public function show($id)
     {
@@ -142,6 +174,11 @@ class ProjectController extends Controller
                 $q->where('garage_facility', $request->garage == 'Yes' ? 1 : 0);
             });
             $activeFilters['garage'] = $request->garage;
+        }
+
+        if (!empty($request->payment_option)) {
+            $query->where('payment_option', $request->payment_option);
+            $activeFilters['payment_option'] = $request->payment_option;
         }
 
         // Apply filters for additional options

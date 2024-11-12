@@ -22,7 +22,7 @@
         </div>
     </div>
 
-    @include('website.partials._projects_filtering')
+    @include('website.partials._featured_filtering')
 
     <div class="full-row pt-0">
         <div class="container">
