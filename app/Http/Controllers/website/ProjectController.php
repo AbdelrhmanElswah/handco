@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Project;
 use App\Models\Utility;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProjectController extends Controller
 {
@@ -18,23 +19,22 @@ class ProjectController extends Controller
 
         // Apply filters based on request parameters
         if ($request->filled('keyword')) {
-            $query->where('title', 'like', '%' . $request->keyword . '%')
-                ->orWhere('location', 'like', '%' . $request->keyword . '%');
+            $query->where('title', 'like', '%' . $request->keyword . '%');
         }
 
+        // Filter by category
         if ($request->filled('category')) {
             $query->where('category_id', $request->category);
         }
 
+        // Filter by location
         if ($request->filled('location')) {
-            $query->where('location', $request->location);
+            $query->where('location_name', 'like', '%' . $request->location . '%');
         }
 
-        if ($request->filled('min_price') || $request->filled('max_price')) {
-            $query->whereBetween('price', [
-                $request->input('min_price', 0),
-                $request->input('max_price', PHP_INT_MAX)
-            ]);
+        // Filter by price range
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $query->whereBetween('price', [(int) $request->min_price, (int) $request->max_price]);
         }
 
         if ($request->filled('bedrooms')) {
@@ -85,61 +85,99 @@ class ProjectController extends Controller
 
     public function featured(Request $request)
     {
-        $query = Project::query();
+        $query = Project::where('featured', true);
+
+        // Initialize an array to collect the active filters
+        $activeFilters = [];
 
         // Apply filters based on request parameters
-        if ($request->filled('keyword')) {
-            $query->where('title', 'like', '%' . $request->keyword . '%')
-                ->orWhere('location', 'like', '%' . $request->keyword . '%');
+        if (!empty($request->keyword)) {
+            $query->where('title', 'like', '%' . $request->keyword . '%');
+            $activeFilters['keyword'] = $request->keyword;
         }
 
-        if ($request->filled('category')) {
+        if (!empty($request->category)) {
             $query->where('category_id', $request->category);
+            $activeFilters['category'] = Category::find($request->category)->name ?? 'Unknown Category';
         }
 
-        if ($request->filled('location')) {
-            $query->where('location', $request->location);
+        if (!empty($request->location)) {
+            $query->where('location_name', 'like', '%' . $request->location . '%');
+            $activeFilters['location'] = $request->location;
         }
 
+        // Apply price filter
         if ($request->filled('min_price') || $request->filled('max_price')) {
-            $query->whereBetween('price', [
-                $request->input('min_price', 0),
-                $request->input('max_price', PHP_INT_MAX)
-            ]);
+            $minPrice = $request->filled('min_price') ? (int) $request->min_price : null;
+            $maxPrice = $request->filled('max_price') ? (int) $request->max_price : null;
+
+            if ($minPrice && $maxPrice) {
+                $query->whereBetween('price', [$minPrice, $maxPrice]);
+                $activeFilters['price_range'] = '$' . number_format($minPrice) . ' - $' . number_format($maxPrice);
+            } elseif ($minPrice) {
+                $query->where('price', '>=', $minPrice);
+                $activeFilters['price_range'] = 'Min: $' . number_format($minPrice);
+            } elseif ($maxPrice) {
+                $query->where('price', '<=', $maxPrice);
+                $activeFilters['price_range'] = 'Max: $' . number_format($maxPrice);
+            }
         }
 
         if ($request->filled('bedrooms')) {
             $query->whereHas('utility', function ($q) use ($request) {
                 $q->where('bedrooms', $request->bedrooms);
             });
+            $activeFilters['bedrooms'] = $request->bedrooms;
         }
 
-        $featuredProjects = Project::where('featured', true)
-            ->orderBy('created_at', 'desc')
-            ->paginate(9);
+        if ($request->filled('bathrooms')) {
+            $query->whereHas('utility', function ($q) use ($request) {
+                $q->where('bathrooms', $request->bathrooms);
+            });
+            $activeFilters['bathrooms'] = $request->bathrooms;
+        }
 
+        if ($request->filled('garage')) {
+            $query->whereHas('utility', function ($q) use ($request) {
+                $q->where('garage_facility', $request->garage == 'Yes' ? 1 : 0);
+            });
+            $activeFilters['garage'] = $request->garage;
+        }
 
+        // Apply filters for additional options
+        if ($request->filled('additional_options')) {
+            $options = $request->additional_options;
+
+            $query->whereHas('utility', function ($q) use ($options) {
+                foreach ($options as $option) {
+                    $q->where($option, 1); // Each option should have a corresponding column in the `utility` table
+                }
+            });
+
+            $activeFilters['additional_options'] = $options;
+        }
+
+        // Retrieve the filtered and paginated results
+        $featuredProjects = $query->orderBy('created_at', 'desc')->paginate(9);
+
+        // Other data for filters
         $categories = Category::pluck('name', 'id');
         $locations = Project::distinct()->pluck('location_name');
-        $paymentOptions = ['Cash', 'Installment']; // Define if fixed options
+        $paymentOptions = ['Cash', 'Installment'];
         $bedrooms = Utility::distinct()->pluck('bedrooms');
         $bathrooms = Utility::distinct()->pluck('bathrooms');
-
         $additionalOptions = [
-            'Air Conditioning',
-            'Garage Facility',
-            'Swimming Pool',
-            'Fire Security',
-            'Fire Place Facility',
-            'Play Ground',
-            'Furniture Include',
-            'Marble Floor',
-            'Store Room',
-            'High-Class Door',
-            'Floor Heating System',
-            'Garden Include',
+            'air_conditioning', 'garage_facility', 'swimming_pool', 'fire_security',
+            'fire_place_facility', 'play_ground', 'furniture_include', 'marble_floor',
+            'store_room', 'high_class_door', 'floor_heating_system', 'garden_include',
         ];
 
-        return view('website.featured_projects', compact('featuredProjects', 'categories', 'locations', 'paymentOptions', 'bedrooms', 'bathrooms', 'additionalOptions'));
+        return view('website.featured_projects', compact(
+            'featuredProjects', 'categories', 'locations', 'paymentOptions', 'bedrooms', 'bathrooms', 'additionalOptions', 'activeFilters'
+        ));
     }
+
+
+
+
 }

@@ -103,6 +103,17 @@
                                 </select>
                             </div>
 
+                            <!-- Payment Option -->
+                            <div class="col-md-6 mb-3">
+                                <label for="payment_option">Payment Option</label>
+                                <select name="payment_option" class="form-control">
+                                    <option value="">Select Payment Option</option>
+                                    <option value="Cash" {{ old('payment_option', $project->payment_option) == 'Cash' ? 'selected' : '' }}>Cash</option>
+                                    <option value="Installment" {{ old('payment_option', $project->payment_option) == 'Installment' ? 'selected' : '' }}>Installment</option>
+                                </select>
+                            </div>
+
+
                             <!-- Featured -->
                             <div class="col-md-6 mb-3">
                                 <label for="featured">Featured</label>

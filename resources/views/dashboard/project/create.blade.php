@@ -95,6 +95,16 @@
                                 <input type="number" name="floor_area" class="form-control" placeholder="Enter floor area" value="{{ old('floor_area') }}">
                             </div>
 
+                            <!-- Payment Option -->
+                            <div class="col-md-6 mb-3">
+                                <label for="payment_option">Payment Option</label>
+                                <select name="payment_option" class="form-control">
+                                    <option value="">Select Payment Option</option>
+                                    <option value="Cash" {{ old('payment_option') == 'Cash' ? 'selected' : '' }}>Cash</option>
+                                    <option value="Installment" {{ old('payment_option') == 'Installment' ? 'selected' : '' }}>Installment</option>
+                                </select>
+                            </div>
+
                             <!-- Status -->
                             <div class="col-md-6 mb-3">
                                 <label for="status">Status</label>

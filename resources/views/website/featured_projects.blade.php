@@ -27,6 +27,13 @@
     <div class="full-row pt-0">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
+                @if($featuredProjects->isEmpty())
+                    <div class="col-12 d-flex justify-content-center">
+                        <div class="alert alert-info text-center" role="alert" style="max-width: 600px; margin-top: 40px;">
+                            No projects found. Please adjust your search criteria and try again.
+                        </div>
+                    </div>
+                @else
                 <!-- Properties Grid -->
                 @foreach($featuredProjects as $project)
                     <div class="col mt-4">
@@ -48,17 +55,18 @@
                                 <h5 class="mt-2"><a class="font-400 text-secondary" href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a></h5>
                                 <!-- Location -->
                                 <span class="my-3 d-block">
-                                    <a href="https://maps.google.com/?q={{ $project->location }}" target="_blank">
-                                        <i class="fas fa-map-marker-alt text-primary"></i> {{ $project->location }}
-                                    </a>
+                                         <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
+                                         <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
+                                         {{ $project->location_name }}
+                                          </a>
                                 </span>
                                 <!-- Quick Facts -->
                                 <ul class="d-flex font-fifteen" style="gap: 15px; list-style: none; padding: 0;">
                                     <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-bed" style="margin-right: 5px;"></i> 7
+                                        <i class="fa-solid fa-bed" style="margin-right: 5px;"></i> {{ $project->utility->bedrooms }}
                                     </li>
                                     <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-shower" style="margin-right: 5px;"></i> 5
+                                        <i class="fa-solid fa-shower" style="margin-right: 5px;"></i> {{ $project->utility->bathrooms }}
                                     </li>
                                     <li class="d-flex align-items-center">
                                         <i class="fa-solid fa-vector-square" style="margin-right: 5px;"></i> {{ number_format($project->floor_area) }} Sqft
@@ -73,6 +81,7 @@
                         </div>
                     </div>
                 @endforeach
+                @endif
             </div>
             <!-- Pagination with Numeric Links -->
             <div class="row">

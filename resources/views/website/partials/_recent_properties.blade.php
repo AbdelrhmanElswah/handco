@@ -23,6 +23,9 @@
                                         @if($project->is_featured)
                                             <span class="featured bg-primary text-white">Featured</span>
                                         @endif
+                                        @if($project->payment_option)
+                                            <span class="payment bg-primary text-white ms-2">{{ $project->payment_option }}</span>
+                                        @endif
                                     </div>
                                     <a href="{{ route('projects.show', $project->id) }}"><img src="{{ asset('files/projects/main_images/' . $project->mainImage->media) }}" alt="Image Not Found!"></a>
                                     <a href="#" class="listing-ctg text-white">

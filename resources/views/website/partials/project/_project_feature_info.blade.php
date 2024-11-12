@@ -14,10 +14,12 @@
                     @if($project->utility->high_class_door) <li>High-Class Door</li> @endif
                     @if($project->utility->store_room) <li>Store Room</li> @endif
                     @if($project->utility->furnished) <li>Furnished</li> @endif
-                        @if($project->utility->air_conditioning) <li>Air Conditioning</li> @endif
-                        @if($project->utility->gym) <li>Gym</li> @endif
-
-
+                    @if($project->utility->air_conditioning) <li>Air Conditioning</li> @endif
+                    @if($project->utility->gym) <li>Gym</li> @endif
+                    @if($project->utility->garage_facility) <li>Garage Facility</li> @endif
+                    @if($project->utility->fire_place_facility) <li>Fire Place Facility</li> @endif
+                    @if($project->utility->marble_floor) <li>Marble Floor</li> @endif
+                    @if($project->utility->floor_heating_system) <li>Floor Heating System</li> @endif
                 @else
                     <li>No utilities information available.</li>
                 @endif

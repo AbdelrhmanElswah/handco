@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <form class="quick-search form-icon-right position-relative" action="{{ route('projects.index') }}" method="GET">
+                <form class="quick-search form-icon-right position-relative" action="{{ route('featured_projects') }}" method="GET">
                     <div class="row row-cols-lg-6 row-cols-md-4 row-cols-1 g-3">
                         <div class="col">
                             <input type="text" class="form-control" name="keyword" placeholder="Enter Keyword..." value="{{ request('keyword') }}">
@@ -30,12 +30,7 @@
 
                         <!-- Location Dropdown -->
                         <div class="col">
-                            <select class="form-control" name="location">
-                                <option value="">Location</option>
-                                @foreach($locations as $location)
-                                    <option value="{{ $location }}" {{ request('location') == $location ? 'selected' : '' }}>{{ $location }}</option>
-                                @endforeach
-                            </select>
+                            <input type="text" class="form-control" name="location" placeholder="Location" value="{{ request('location') }}">
                         </div>
 
                         <!-- Price Range (Min and Max) -->

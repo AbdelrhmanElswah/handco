@@ -24,8 +24,6 @@
 
     @include('website.partials._projects_filtering')
 
-
-
     <div class="full-row pt-0">
         <div class="container">
             <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -60,10 +58,10 @@
                                 <!-- Quick Facts -->
                                 <ul class="d-flex font-fifteen" style="gap: 15px; list-style: none; padding: 0;">
                                     <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-bed" style="margin-right: 5px;"></i> 7
+                                        <i class="fa-solid fa-bed" style="margin-right: 5px;"></i> {{ $project->utility->bedrooms }}
                                     </li>
                                     <li class="d-flex align-items-center">
-                                        <i class="fa-solid fa-shower" style="margin-right: 5px;"></i> 5
+                                        <i class="fa-solid fa-shower" style="margin-right: 5px;"></i> {{ $project->utility->bathrooms }}
                                     </li>
                                     <li class="d-flex align-items-center">
                                         <i class="fa-solid fa-vector-square" style="margin-right: 5px;"></i> {{ number_format($project->floor_area) }} Sqft

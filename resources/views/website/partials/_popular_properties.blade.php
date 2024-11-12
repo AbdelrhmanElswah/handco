@@ -14,6 +14,9 @@
                                 <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom">
                                     <div class="cata position-absolute">
                                         <span class="sale bg-secondary text-white">{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>
+                                        @if($project->payment_option)
+                                            <span class="payment bg-primary text-white ms-2">{{ $project->payment_option }}</span>
+                                        @endif
                                     </div>
                                     <a href="{{ route('projects.show', $project->id) }}">
                                         <img src="{{ asset('files/projects/main_images/' . $project->mainImage->media) }}" alt="Image Not Found!">

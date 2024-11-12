@@ -79,6 +79,55 @@
                                             Furnished
                                         </label>
                                     </div>
+                                    <!-- Additional Features Section -->
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="garage_facility" value="1" class="form-check-input me-2" {{ old('garage_facility') ? 'checked' : '' }}>
+                                            Garage Facility
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="fire_security" value="1" class="form-check-input me-2" {{ old('fire_security') ? 'checked' : '' }}>
+                                            Fire Security
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="fire_place_facility" value="1" class="form-check-input me-2" {{ old('fire_place_facility') ? 'checked' : '' }}>
+                                            Fire Place Facility
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="play_ground" value="1" class="form-check-input me-2" {{ old('play_ground') ? 'checked' : '' }}>
+                                            Play Ground
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="marble_floor" value="1" class="form-check-input me-2" {{ old('marble_floor') ? 'checked' : '' }}>
+                                            Marble Floor
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="store_room" value="1" class="form-check-input me-2" {{ old('store_room') ? 'checked' : '' }}>
+                                            Store Room
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="high_class_door" value="1" class="form-check-input me-2" {{ old('high_class_door') ? 'checked' : '' }}>
+                                            High-Class Door
+                                        </label>
+                                    </div>
+                                    <div class="col-md-3 mt-2">
+                                        <label class="form-check-label d-flex align-items-center">
+                                            <input type="checkbox" name="floor_heating_system" value="1" class="form-check-input me-2" {{ old('floor_heating_system') ? 'checked' : '' }}>
+                                            Floor Heating System
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 

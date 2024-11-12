@@ -37,6 +37,7 @@
                                     <span class="text-white font-mini px-2 rounded product-status ms-5 my-1 bg-primary">
                                         <i class="fas fa-check"></i> {{ $project->status === 'available' ? 'Available' : 'Sold Out' }}
                                     </span>
+
                                 </div>
                                 <div class="product-offers mt-3">
                                     <ul class="product-offers-list">
@@ -49,7 +50,7 @@
                                 </div>
                                 <hr>
                                 <div class="quantity">
-                                    <ul class="d-flex">
+                                    <ul class="d-flex list-unstyled gap-4">
                                         @if($project->utility && $project->utility->bedrooms)
                                             <li><span>Rooms:</span> {{ $project->utility->bedrooms }}</li>
                                         @endif
@@ -144,7 +145,7 @@
                                 </div>
                                 <hr>
                                 <div class="quantity">
-                                    <ul class="d-flex">
+                                    <ul class="d-flex list-unstyled gap-4">
                                         @if($project->utility && $project->utility->bedrooms)
                                             <li><span>Rooms:</span> {{ $project->utility->bedrooms }}</li>
                                         @endif
@@ -156,6 +157,7 @@
                                         @endif
                                         <li><span>Area:</span> {{ $project->floor_area }} Sqft</li>
                                     </ul>
+
                                 </div>
                                 <h5 class="text-secondary my-3">Description</h5>
                                 <p>{{ strip_tags($project->description) }}</p>

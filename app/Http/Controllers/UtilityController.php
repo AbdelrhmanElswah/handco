@@ -29,9 +29,32 @@ class UtilityController extends Controller
             'garden' => 'boolean',
             'air_conditioning' => 'boolean',
             'furnished' => 'boolean',
+            'garage_facility' => 'boolean',
+            'fire_security' => 'boolean',
+            'fire_place_facility' => 'boolean',
+            'play_ground' => 'boolean',
+            'marble_floor' => 'boolean',
+            'store_room' => 'boolean',
+            'high_class_door' => 'boolean',
+            'floor_heating_system' => 'boolean',
         ]);
 
-        Utility::create($request->all());
+        $data = $request->all();
+        $data['swimming_pool'] = $request->has('swimming_pool') ? 1 : 0;
+        $data['gym'] = $request->has('gym') ? 1 : 0;
+        $data['garden'] = $request->has('garden') ? 1 : 0;
+        $data['air_conditioning'] = $request->has('air_conditioning') ? 1 : 0;
+        $data['furnished'] = $request->has('furnished') ? 1 : 0;
+        $data['garage_facility'] = $request->has('garage_facility') ? 1 : 0;
+        $data['fire_security'] = $request->has('fire_security') ? 1 : 0;
+        $data['fire_place_facility'] = $request->has('fire_place_facility') ? 1 : 0;
+        $data['play_ground'] = $request->has('play_ground') ? 1 : 0;
+        $data['marble_floor'] = $request->has('marble_floor') ? 1 : 0;
+        $data['store_room'] = $request->has('store_room') ? 1 : 0;
+        $data['high_class_door'] = $request->has('high_class_door') ? 1 : 0;
+        $data['floor_heating_system'] = $request->has('floor_heating_system') ? 1 : 0;
+
+        Utility::create($data);
         return redirect()->route('utilities.index')->with('success', 'Utility created successfully.');
     }
 
@@ -51,11 +74,38 @@ class UtilityController extends Controller
             'garden' => 'boolean',
             'air_conditioning' => 'boolean',
             'furnished' => 'boolean',
+            'garage_facility' => 'boolean',
+            'fire_security' => 'boolean',
+            'fire_place_facility' => 'boolean',
+            'play_ground' => 'boolean',
+            'marble_floor' => 'boolean',
+            'store_room' => 'boolean',
+            'high_class_door' => 'boolean',
+            'floor_heating_system' => 'boolean',
         ]);
 
-        $utility->update($request->all());
+        // Set default values for checkboxes that may be missing in the request
+        $data = $request->all();
+        $data['swimming_pool'] = $request->has('swimming_pool') ? 1 : 0;
+        $data['gym'] = $request->has('gym') ? 1 : 0;
+        $data['garden'] = $request->has('garden') ? 1 : 0;
+        $data['air_conditioning'] = $request->has('air_conditioning') ? 1 : 0;
+        $data['furnished'] = $request->has('furnished') ? 1 : 0;
+        $data['garage_facility'] = $request->has('garage_facility') ? 1 : 0;
+        $data['fire_security'] = $request->has('fire_security') ? 1 : 0;
+        $data['fire_place_facility'] = $request->has('fire_place_facility') ? 1 : 0;
+        $data['play_ground'] = $request->has('play_ground') ? 1 : 0;
+        $data['marble_floor'] = $request->has('marble_floor') ? 1 : 0;
+        $data['store_room'] = $request->has('store_room') ? 1 : 0;
+        $data['high_class_door'] = $request->has('high_class_door') ? 1 : 0;
+        $data['floor_heating_system'] = $request->has('floor_heating_system') ? 1 : 0;
+
+        $utility->update($data);
+
+
         return redirect()->route('utilities.index')->with('success', 'Utility updated successfully.');
     }
+
 
     public function destroy(Utility $utility)
     {

@@ -17,6 +17,11 @@
             <span class="text-white font-mini px-2 rounded product-status ms-auto xs-m-0 py-1 bg-primary">
                 <i class="fas fa-check"></i> {{ $project->status ?? 'Available' }}
             </span>
+            @if($project->payment_option)
+                <span class="text-white font-mini px-2 rounded ms-2 py-1 bg-success">
+            <i class="fas fa-dollar-sign"></i> {{ $project->payment_option }}
+        </span>
+            @endif
         </div>
         <div class="col-12">
             <div class="product-offers mt-2">
@@ -31,14 +36,21 @@
 
             <hr>
             <div class="mt-2">
-                <ul class="list-three-fold-width d-table">
-                    <li><span class="font-500">Rooms:</span> {{ $project->utility->bedrooms ?? 'N/A' }}</li>
-                    <li><span class="font-500">Beds:</span> {{ $project->utility->beds ?? 'N/A' }}</li>
-                    <li><span class="font-500">Area:</span> {{ number_format($project->floor_area) }} Sqft</li>
-                    <li><span class="font-500">Baths:</span> {{ $project->utility->bathrooms ?? 'N/A' }}</li>
-                    <li><span class="font-500">Car Garage:</span> {{ $project->utility->parking_spaces ? 'Yes (' . $project->utility->parking_spaces . ' Capacity)' : 'No' }}</li>
-                    <li><span class="font-500">Swimming Pool:</span> {{ $project->utility->swimming_pool ? 'Yes' : 'No' }}</li>
+                <ul class="d-flex flex-wrap list-unstyled mb-0">
+                    <li class="me-4">
+                        <span class="fw-bold">Rooms:</span> {{ $project->utility->bedrooms ?? 'N/A' }}
+                    </li>
+                    <li class="me-4">
+                        <span class="fw-bold">Area:</span> {{ number_format($project->floor_area) }} Sqft
+                    </li>
+                    <li class="me-4">
+                        <span class="fw-bold">Baths:</span> {{ $project->utility->bathrooms ?? 'N/A' }}
+                    </li>
+                    <li>
+                        <span class="fw-bold">Car Garage:</span> {{ $project->utility->parking_spaces ? 'Yes (' . $project->utility->parking_spaces . ' Capacity)' : 'No' }}
+                    </li>
                 </ul>
+
             </div>
         </div>
     </div>
