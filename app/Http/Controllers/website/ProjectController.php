@@ -89,7 +89,7 @@ class ProjectController extends Controller
         // Fetch unique filter options from the database
         $categories = Category::pluck('name', 'id');
         $locations = Project::distinct()->pluck('location_name');
-        $paymentOptions = ['Cash', 'Installment'];
+        $paymentOptions = ['Off-Plan', 'Ready'];
         $bedrooms = Utility::distinct()->pluck('bedrooms');
         $bathrooms = Utility::distinct()->pluck('bathrooms');
 
@@ -200,7 +200,7 @@ class ProjectController extends Controller
         // Other data for filters
         $categories = Category::pluck('name', 'id');
         $locations = Project::distinct()->pluck('location_name');
-        $paymentOptions = ['Cash', 'Installment'];
+        $paymentOptions = ['Off-Plan', 'Ready'];
         $bedrooms = Utility::distinct()->pluck('bedrooms');
         $bathrooms = Utility::distinct()->pluck('bathrooms');
         $additionalOptions = [

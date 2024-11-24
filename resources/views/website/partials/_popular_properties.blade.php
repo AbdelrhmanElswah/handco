@@ -2,13 +2,13 @@
     <div class="container">
         <div class="row">
             <div class="col mb-5">
-                <h2 class="down-line text-white w-50 mx-auto text-center w-sm-100">Most Popular Projects</h2>
+                <h2 class="down-line text-white w-50 mx-auto text-center w-sm-100">Recent Properties</h2>
             </div>
         </div>
         <div class="row">
             <div class="col">
                 <div class="3block-carusel nav-disable owl-carousel">
-                    @foreach($popularProjects as $project)
+                    @foreach($recentProjects as $project)
                         <div class="item">
                             <div class="property-grid-1 property-block bg-white transation-this">
                                 <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom">

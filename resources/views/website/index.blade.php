@@ -80,7 +80,7 @@
     <!-- =============== Counting ================-->
 
     <!--============== Recent Property Start ==============-->
-    @include('website.partials._recent_properties', ['recentProjects' => $recentProjects])
+    @include('website.partials._recent_properties', ['popularProjects' => $popularProjects])
     <!--============== Recent Property End ==============-->
 
     <!--============== Property Category Start ==============-->
@@ -224,7 +224,7 @@
     <!--============== Testimonial Section End ==============-->
 
     <!--============== Popular Properties Start ==============-->
-    @include('website.partials._popular_properties', ['popularProjects' => $popularProjects])
+    @include('website.partials._popular_properties', ['recentProjects' => $recentProjects])
     <!--============== Popular Properties End ==============-->
 
     <!--============== Blog Section Start ==============-->
@@ -232,3 +232,28 @@
     <!--============== Blog Section End ==============-->
 
 @endsection
+
+
+
+<!-- Script to toggle Price and Advanced Options dropdowns -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".toggle-btn").forEach(function(button) {
+            button.addEventListener("click", function(event) {
+                event.preventDefault();
+                const target = document.querySelector(button.getAttribute("data-target"));
+                if (target) {
+                    target.classList.toggle("d-none"); // Toggles the visibility
+                }
+            });
+        });
+    });
+
+
+    function updatePriceInputs(value) {
+        const [min, max] = value.split(';');
+        document.getElementById('min_price').value = min;
+        document.getElementById('max_price').value = max;
+    }
+</script>
+

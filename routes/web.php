@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UtilityController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -93,6 +94,17 @@ Route::prefix('admin')->group(function () {
             Route::put('/{blog}', [BlogController::class, 'update'])->name('blog.update');
             Route::delete('/{blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
         });
+
+
+        Route::prefix('sliders')->group(function () {
+            Route::get('/', [SliderController::class, 'index'])->name('sliders.index');
+            Route::get('/create', [SliderController::class, 'create'])->name('sliders.create');
+            Route::post('/', [SliderController::class, 'store'])->name('sliders.store');
+            Route::get('/{slider}/edit', [SliderController::class, 'edit'])->name('sliders.edit');
+            Route::put('/{slider}', [SliderController::class, 'update'])->name('sliders.update');
+            Route::delete('/{slider}', [SliderController::class, 'destroy'])->name('sliders.destroy');
+        });
+
 
 
     });

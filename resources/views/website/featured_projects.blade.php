@@ -13,10 +13,10 @@
                     <nav aria-label="breadcrumb" class="mb-2">
                         <ol class="breadcrumb mb-0 bg-transparent p-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active text-primary" aria-current="page">Featured Projects</li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Hot Sale Properties</li>
                         </ol>
                     </nav>
-                    <h3 class="text-secondary">Featured Projects</h3>
+                    <h3 class="text-secondary">Hot Sale Properties</h3>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                         <div class="property-grid-1 bg-white property-block border transition hover-shadow">
                             <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom m-2" style="height: 200px;">
                                 <!-- Featured Tag -->
-                                <span class="cata position-absolute sale bg-primary text-white">Featured</span>
+                                <span class="cata position-absolute sale bg-primary text-white">Hot Sale</span>
                                 <!-- Property Image -->
                                 <a href="{{ route('projects.show', $project->id) }}">
                                     <img src="{{ asset('files/projects/main_images/' . ($project->mainImage->media ?? 'default.jpg')) }}" alt="Image Not Found!" style="width: 100%; height: 100%; object-fit: cover;">

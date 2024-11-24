@@ -29,71 +29,83 @@
                     <a href="https://handcoproperties.com/" class="side-menu__item">
                         <i class="fe fe-globe side-menu__icon"></i>
                         <span class="side-menu__label">Website</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                 </li>
+
+                <!-- Bookings section -->
+                <li class="slide__category"><span class="category-name">Leads</span></li>
+                <li class="slide">
+                    <a href="{{ route('booking.index') }}" class="side-menu__item">
+                        <i class="fe fe-briefcase side-menu__icon"></i>
+                        <span class="side-menu__label">Leads</span>
+                    </a>
+                </li>
+
 
                 <!-- Contact Us section -->
-                <li class="slide__category"><span class="category-name">Contact Us</span></li>
-                <li class="slide">
-                    <a href="{{ route('contact-us.index') }}" class="side-menu__item">
-                        <i class="fe fe-users side-menu__icon"></i>
-                        <span class="side-menu__label">Contact Us</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                </li>
+{{--                <li class="slide__category"><span class="category-name">Contact Us</span></li>--}}
+{{--                <li class="slide">--}}
+{{--                    <a href="{{ route('contact-us.index') }}" class="side-menu__item">--}}
+{{--                        <i class="fe fe-users side-menu__icon"></i>--}}
+{{--                        <span class="side-menu__label">Contact Us</span>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
 
                 <!-- Category section -->
-                <li class="slide__category"><span class="category-name">Category</span></li>
-                <li class="slide has-sub {{ request()->routeIs('category.*') }}">
+{{--                <li class="slide__category"><span class="category-name">Category</span></li>--}}
+{{--                <li class="slide has-sub {{ request()->routeIs('category.*') }}">--}}
+{{--                    <a href="javascript:void(0);" class="side-menu__item">--}}
+{{--                        <i class="fe fe-folder side-menu__icon"></i>--}}
+{{--                        <span class="side-menu__label">Category</span>--}}
+{{--                        <i class="fe fe-chevron-right side-menu__angle"></i>--}}
+{{--                    </a>--}}
+{{--                    <ul class="slide-menu child1">--}}
+{{--                        <li><a href="{{ route('category.create') }}" class="side-menu__item">Add Category</a></li>--}}
+{{--                        <li><a href="{{ route('category.index') }}" class="side-menu__item">Show Categories</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
+
+                <!-- Sliders section -->
+                <li class="slide__category"><span class="category-name">Sliders</span></li>
+                <li class="slide has-sub {{ request()->routeIs('sliders.*') }}">
                     <a href="javascript:void(0);" class="side-menu__item">
-                        <i class="fe fe-folder side-menu__icon"></i>
-                        <span class="side-menu__label">Category</span>
+                        <i class="fe fe-image side-menu__icon"></i>
+                        <span class="side-menu__label">Sliders</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
-                        <li><a href="{{ route('category.create') }}" class="side-menu__item">Add Category</a></li>
-                        <li><a href="{{ route('category.index') }}" class="side-menu__item">Show Categories</a></li>
+                        <li><a href="{{ route('sliders.create') }}" class="side-menu__item">Add Slider</a></li>
+                        <li><a href="{{ route('sliders.index') }}" class="side-menu__item">Show Sliders</a></li>
                     </ul>
                 </li>
+
 
                 <!-- Utilities section -->
-                <li class="slide__category"><span class="category-name">Utilities</span></li>
-                <li class="slide has-sub {{ request()->routeIs('utilities.*') }}">
-                    <a href="javascript:void(0);" class="side-menu__item">
-                        <i class="fe fe-settings side-menu__icon"></i>
-                        <span class="side-menu__label">Utilities</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1">
-                        <li><a href="{{ route('utilities.create') }}" class="side-menu__item">Add Utility</a></li>
-                        <li><a href="{{ route('utilities.index') }}" class="side-menu__item">Show Utilities</a></li>
-                    </ul>
-                </li>
+{{--                <li class="slide__category"><span class="category-name">Utilities</span></li>--}}
+{{--                <li class="slide has-sub {{ request()->routeIs('utilities.*') }}">--}}
+{{--                    <a href="javascript:void(0);" class="side-menu__item">--}}
+{{--                        <i class="fe fe-settings side-menu__icon"></i>--}}
+{{--                        <span class="side-menu__label">Utilities</span>--}}
+{{--                        <i class="fe fe-chevron-right side-menu__angle"></i>--}}
+{{--                    </a>--}}
+{{--                    <ul class="slide-menu child1">--}}
+{{--                        <li><a href="{{ route('utilities.create') }}" class="side-menu__item">Add Utility</a></li>--}}
+{{--                        <li><a href="{{ route('utilities.index') }}" class="side-menu__item">Show Utilities</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
 
                 <!-- Projects section -->
-                <li class="slide__category"><span class="category-name">Projects</span></li>
+                <li class="slide__category"><span class="category-name">Properties</span></li>
                 <li class="slide has-sub {{ request()->routeIs('projects.*') }}">
                     <a href="javascript:void(0);" class="side-menu__item">
                         <i class="fe fe-briefcase side-menu__icon"></i>
-                        <span class="side-menu__label">Projects</span>
+                        <span class="side-menu__label">Properties</span>
                         <i class="fe fe-chevron-right side-menu__angle"></i>
                     </a>
                     <ul class="slide-menu child1">
-                        <li><a href="{{ route('projects.create') }}" class="side-menu__item">Add Project</a></li>
-                        <li><a href="{{ route('projects.index') }}" class="side-menu__item">Show Projects</a></li>
+                        <li><a href="{{ route('projects.create') }}" class="side-menu__item">Add Property</a></li>
+                        <li><a href="{{ route('projects.index') }}" class="side-menu__item">Show Property</a></li>
                     </ul>
-                </li>
-
-
-                <!-- Bookings section -->
-                <li class="slide__category"><span class="category-name">Bookings</span></li>
-                <li class="slide">
-                    <a href="{{ route('booking.index') }}" class="side-menu__item">
-                        <i class="fe fe-calendar side-menu__icon"></i>
-                        <span class="side-menu__label">Bookings</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
                 </li>
 
                 <!-- Blogs section -->

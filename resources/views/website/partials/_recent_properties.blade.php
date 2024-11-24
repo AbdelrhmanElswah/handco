@@ -4,7 +4,7 @@
             <div class="col mb-4">
                 <div class="align-items-center d-flex">
                     <div class="me-auto">
-                        <h2 class="d-table">Recent Projects</h2>
+                        <h2 class="d-table">Most Popular Properties</h2>
                     </div>
                     <a href="{{ route('projects') }}" class="ms-auto btn-link">View All Properties</a>
                 </div>
@@ -13,7 +13,7 @@
         <div class="row">
             <div class="col">
                 <div class="3block-carusel nav-disable owl-carousel">
-                    @foreach($recentProjects as $project)
+                    @foreach($popularProjects as $project)
                         <div class="item">
                             <!-- Property Grid -->
                             <div class="property-grid-1 property-block bg-white transation-this">

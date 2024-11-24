@@ -87,7 +87,7 @@
     <div class="container">
         <div class="row row-cols-md-2 row-cols-1">
             <div class="col">
-                <span class="text-white">Copy Rights © 2024 - All Rights Reserved - Powered By <a href="https://teleoceans.com/" target="_blank">Telecoeans.com</a></span>
+                <span class="text-white">Copy Rights © 2024 - All Rights Reserved - Powered By <a href="https://teleoceans.com/" target="_blank">Teleoceans.com</a></span>
             </div>
             <div class="col">
                 <ul class="line-menu float-end list-color-gray">
@@ -101,6 +101,12 @@
 </div>
 <!--============== Copyright Section End ==============-->
 
-<!-- Scroll to top -->
-<div class="scroll-top-vertical xs-mx-none" style="background-color: #aa8353" id="scroll">Go Top <i class="ms-2 fa-solid fa-arrow-right-long"></i></div>
-<!-- End Scroll To top -->
+<!-- WhatsApp Floating Icon -->
+<a href="https://wa.me/+971527785359"
+   class="btn btn-success rounded-circle position-fixed d-flex align-items-center justify-content-center shadow"
+   style="bottom: 20px; right: 20px; width: 60px; height: 60px; z-index: 9999;"
+   target="_blank">
+    <i class="fab fa-whatsapp text-white" style="font-size: 24px;"></i>
+</a>
+
+

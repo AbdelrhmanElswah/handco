@@ -5,12 +5,12 @@
         <div class="container-fluid">
 
             <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-                <h1 class="page-title fw-semibold fs-18 mb-0">Add Project</h1>
+                <h1 class="page-title fw-semibold fs-18 mb-0">Add Property</h1>
                 <div class="ms-md-1 ms-0">
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Add Project</li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Property</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,19 +31,10 @@
                     <form method="POST" action="{{ route('projects.store') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
-                            <!-- Title and Price -->
-                            <div class="col-md-6 mb-3">
-                                <label for="title">Title</label>
-                                <input type="text" name="title" class="form-control" placeholder="Enter project title" value="{{ old('title') }}">
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="price">Price</label>
-                                <input type="number" name="price" class="form-control" placeholder="Enter price" value="{{ old('price') }}" step="0.01">
-                            </div>
 
                             <!-- Category -->
-                            <div class="col-md-6 mb-3">
-                                <label for="category_id">Category</label>
+                            <div class="col-md-12 mb-3">
+                                <label for="category_id" style="font-size: 21px">Category</label>
                                 <select name="category_id" class="form-control">
                                     <option value="">Select Category</option>
                                     @foreach($categories as $category)
@@ -51,96 +42,144 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <!-- Title and Price -->
+                            <div class="col-md-6 mb-3">
+                                <label for="title" style="font-size: 21px">Marketing Title</label>
+                                <input type="text" name="title" class="form-control" placeholder="Enter project title" value="{{ old('title') }}">
+                            </div>
+
+
 
                             <!-- Location Name and Google Maps Link -->
                             <div class="col-md-6 mb-3">
-                                <label for="location_name">Location Name</label>
+                                <label for="location_name" style="font-size: 21px">Location Name</label>
                                 <input type="text" name="location_name" class="form-control" placeholder="Enter location name" value="{{ old('location_name') }}">
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label for="location_link">Google Maps Link</label>
+                                <label for="location_link" style="font-size: 21px">Google Maps Link</label>
                                 <input type="url" name="location_link" class="form-control" placeholder="Enter Google Maps link" value="{{ old('location_link') }}">
                             </div>
 
                             <!-- Tags (Bootstrap Tags Input) -->
                             <div class="col-md-6 mb-3">
-                                <label for="tags">Tags</label>
+                                <label for="tags" style="font-size: 21px">Tags</label>
                                 <input type="text" name="tags[]" class="form-control" placeholder="Enter tags"
                                        value="{{ old('tags') ? implode(',', old('tags')) : '' }}" data-role="tagsinput">
                             </div>
-
-
-                            <!-- Description (WYSIWYG Editor) -->
-                            <div class="col-md-12 mb-3">
-                                <label for="description">Description</label>
-                                <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
-                            </div>
-
                             <!-- Utilities -->
-                            <div class="col-md-6 mb-3">
-                                <label for="utilities_id">Utilities</label>
-                                <select name="utilities_id" class="form-control">
-                                    <option value="">Select Utility</option>
-                                    @foreach($utilities as $utility)
-                                        <option value="{{ $utility->id }}" {{ old('utilities_id') == $utility->id ? 'selected' : '' }}>
-                                            {{ $utility->bedrooms }} Bedrooms, {{ $utility->bathrooms }} Bathrooms, {{ $utility->parking_spaces }} Parking Spaces
-                                        </option>
-                                    @endforeach
-                                </select>
+                            <div class="col-md-12 mb-3">
+                                <h3>Utilities</h3>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="bedrooms" style="font-size: 21px">Bedrooms</label>
+                                <input type="text" name="bedrooms" id="bedrooms" class="form-control" placeholder="Number of Bedrooms" value="{{ old('bedrooms') }}">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="bathrooms" style="font-size: 21px">Bathrooms</label>
+                                <input type="text" name="bathrooms" id="bathrooms" class="form-control" placeholder="Number of Bathrooms" value="{{ old('bathrooms') }}">
+                            </div>
+                            <!-- Floor Area -->
+                            <div class="col-md-4 mb-3">
+                                <label for="floor_area" style="font-size: 21px">Floor Area (sq ft)</label>
+                                <input type="text" name="floor_area" class="form-control" placeholder="Enter floor area" value="{{ old('floor_area') }}">
                             </div>
 
-                            <!-- Floor Area -->
-                            <div class="col-md-6 mb-3">
-                                <label for="floor_area">Floor Area (sq ft)</label>
-                                <input type="number" name="floor_area" class="form-control" placeholder="Enter floor area" value="{{ old('floor_area') }}">
+
+                            <!-- Boolean Utilities -->
+                            <div class="col-md-3">
+                                <input type="checkbox" name="swimming_pool" id="swimming_pool" {{ old('swimming_pool') ? 'checked' : '' }}>
+                                <label for="swimming_pool">Swimming Pool</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="gym" id="gym" {{ old('gym') ? 'checked' : '' }}>
+                                <label for="gym">Gym</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="garden" id="garden" {{ old('garden') ? 'checked' : '' }}>
+                                <label for="garden">Garden</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="air_conditioning" id="air_conditioning" {{ old('air_conditioning') ? 'checked' : '' }}>
+                                <label for="air_conditioning">Air Conditioning</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="furnished" id="furnished" {{ old('furnished') ? 'checked' : '' }}>
+                                <label for="furnished">Furnished</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="garage_facility" id="garage_facility" {{ old('garage_facility') ? 'checked' : '' }}>
+                                <label for="garage_facility">Garage Facility</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="fire_security" id="fire_security" {{ old('fire_security') ? 'checked' : '' }}>
+                                <label for="fire_security">Fire Security</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="fire_place_facility" id="fire_place_facility" {{ old('fire_place_facility') ? 'checked' : '' }}>
+                                <label for="fire_place_facility">Fire Place Facility</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="play_ground" id="play_ground" {{ old('play_ground') ? 'checked' : '' }}>
+                                <label for="play_ground">Play Ground</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="marble_floor" id="marble_floor" {{ old('marble_floor') ? 'checked' : '' }}>
+                                <label for="marble_floor">Marble Floor</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="store_room" id="store_room" {{ old('store_room') ? 'checked' : '' }}>
+                                <label for="store_room">Store Room</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="high_class_door" id="high_class_door" {{ old('high_class_door') ? 'checked' : '' }}>
+                                <label for="high_class_door">High-Class Door</label>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="floor_heating_system" id="floor_heating_system" {{ old('floor_heating_system') ? 'checked' : '' }}>
+                                <label for="floor_heating_system">Floor Heating System</label>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <!-- Hidden field to handle unchecked case -->
+                                <input type="hidden" name="featured" value="0">
+                                <div class="form-check">
+                                    <input type="checkbox" name="featured" class="form-check-input" id="featured" value="1" {{ old('featured') ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="featured" >Mark as Featured</label>
+                                </div>
                             </div>
 
                             <!-- Payment Option -->
-                            <div class="col-md-6 mb-3">
-                                <label for="payment_option">Payment Option</label>
+                            <div class="col-md-12 mb-3">
+                                <label for="payment_option" style="font-size: 21px">Property type</label>
                                 <select name="payment_option" class="form-control">
                                     <option value="">Select Payment Option</option>
-                                    <option value="Cash" {{ old('payment_option') == 'Cash' ? 'selected' : '' }}>Cash</option>
-                                    <option value="Installment" {{ old('payment_option') == 'Installment' ? 'selected' : '' }}>Installment</option>
+                                    <option value="off-plan" {{ old('payment_option') == 'off-plan' ? 'selected' : '' }}>Off-Plan</option>
+                                    <option value="ready" {{ old('payment_option') == 'ready' ? 'selected' : '' }}>Ready</option>
                                 </select>
                             </div>
 
-                            <!-- Status -->
                             <div class="col-md-6 mb-3">
-                                <label for="status">Status</label>
+                                <label for="status" style="font-size: 21px">Status</label>
                                 <select name="status" class="form-control">
                                     <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>Available</option>
                                     <option value="sold_out" {{ old('status') == 'sold_out' ? 'selected' : '' }}>Sold Out</option>
                                 </select>
                             </div>
 
-                            <!-- Featured -->
-                            <div class="col-md-6 mb-3">
-                                <label for="featured">Featured</label>
-                                <!-- Hidden field to handle unchecked case -->
-                                <input type="hidden" name="featured" value="0">
-                                <div class="form-check">
-                                    <input type="checkbox" name="featured" class="form-check-input" id="featured" value="1" {{ old('featured') ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="featured">Mark as Featured</label>
-                                </div>
-                            </div>
-
-
                             <!-- Main Image Upload -->
                             <div class="col-md-6 mb-3">
-                                <label for="main_image">Main Image</label>
+                                <label for="main_image" style="font-size: 21px">Main Image</label>
                                 <input type="file" name="main_image" class="form-control" required>
                             </div>
 
                             <!-- Additional Images Upload -->
                             <div class="col-md-6 mb-3">
-                                <label for="images">Additional Images</label>
+                                <label for="images" style="font-size: 21px">Additional Images</label>
                                 <input type="file" name="images[]" class="form-control" multiple>
                             </div>
 
                             <!-- Selling Points (Dynamic) -->
                             <div class="col-md-12 mb-3">
-                                <label for="selling_points">Selling Points</label>
+                                <label for="selling_points" style="font-size: 21px">Selling Points</label>
                                 <div id="selling_points_wrapper">
                                     <button type="button" class="btn btn-secondary btn-sm mb-2" onclick="addSellingPoint()">+ Add Selling Point</button>
                                     <div class="input-group mb-2" id="selling_point_0">
@@ -153,7 +192,7 @@
 
                             <!-- More Information (Dynamic) -->
                             <div class="col-md-12 mb-3">
-                                <label for="more_information">More Information</label>
+                                <label for="more_information" style="font-size: 21px">More Information</label>
                                 <div id="more_information_wrapper">
                                     <button type="button" class="btn btn-secondary btn-sm mb-2" onclick="addMoreInformation()">+ Add Information</button>
                                     <div class="input-group mb-2" id="info_0">
@@ -164,8 +203,20 @@
                                 </div>
                             </div>
 
+
+                            <div class="col-md-12 mb-3">
+                                <label for="price" style="font-size: 21px">Price</label>
+                                <input type="number" name="price" class="form-control" placeholder="Enter price" value="{{ old('price') }}" step="0.01">
+                            </div>
+
+                            <!-- Description (WYSIWYG Editor) -->
+                            <div class="col-md-12 mb-3">
+                                <label for="description" style="font-size: 21px">Description</label>
+                                <textarea name="description" id="description" class="form-control">{{ old('description') }}</textarea>
+                            </div>
+
                             <div class="col-md-12 mt-4">
-                                <button type="submit" class="btn btn-primary">Add Project</button>
+                                <button type="submit" class="btn btn-primary">Add Property</button>
                             </div>
                         </div>
                     </form>

@@ -10,16 +10,18 @@
 
 <div class="preloader">
     <div class="loader xy-center"></div>
+
 </div>
 
 <div id="page_wrapper" class="{{ $bg }}">
     <!--============== Header Section Start ==============-->
     @if ($headerType == '_header')
-        @include('website.partials._header')
+        @include('website.partials._header_pages')
     @elseif ($headerType == '_header_pages')
         @include('website.partials._header_pages')
     @endif
     <!--============== Header Section End ==============-->
+
 
     @yield('content')
 

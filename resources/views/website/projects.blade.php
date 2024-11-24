@@ -13,10 +13,10 @@
                     <nav aria-label="breadcrumb" class="mb-2">
                         <ol class="breadcrumb mb-0 bg-transparent p-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                            <li class="breadcrumb-item active text-primary" aria-current="page">Projects</li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Properties</li>
                         </ol>
                     </nav>
-                    <h3 class="text-secondary">Projects Listing</h3>
+                    <h3 class="text-secondary">Properties Listing</h3>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                             <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom m-2" style="height: 200px;">
                                 <!-- Featured Tag -->
                                 @if($project->featured)
-                                    <span class="cata position-absolute sale bg-primary text-white">Featured</span>
+                                    <span class="cata position-absolute sale bg-primary text-white">Hot Sale</span>
                                 @endif
                                 <!-- Property Image -->
                                 <a href="{{ route('projects.show', $project->id) }}">

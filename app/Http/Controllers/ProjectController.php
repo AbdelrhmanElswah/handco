@@ -33,6 +33,28 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
+
+        $checkboxFields = [
+            'swimming_pool',
+            'gym',
+            'garden',
+            'air_conditioning',
+            'furnished',
+            'garage_facility',
+            'fire_security',
+            'fire_place_facility',
+            'play_ground',
+            'marble_floor',
+            'store_room',
+            'high_class_door',
+            'floor_heating_system',
+        ];
+
+        foreach ($checkboxFields as $field) {
+            $request->merge([
+                $field => $request->has($field) ? true : false,
+            ]);
+        }
         $request->validate([
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -41,7 +63,6 @@ class ProjectController extends Controller
             'location_link' => 'required|url', // Validate the Google Maps link
             'tags' => 'nullable|array',
             'description' => 'nullable|string',
-            'utilities_id' => 'required|exists:utilities,id',
             'floor_area' => 'nullable|integer',
             'featured' => 'boolean',
             'status' => 'required|string|in:available,sold_out', // Validation for status
@@ -53,10 +74,54 @@ class ProjectController extends Controller
             'more_information.*.value' => 'required_with:more_information|string', // Value for each additional info
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+
+
+
+            // Validate utility fields
+            'bedrooms' => 'nullable|integer',
+            'bathrooms' => 'nullable|integer',
+            'swimming_pool' => 'boolean',
+            'gym' => 'boolean',
+            'garden' => 'boolean',
+            'air_conditioning' => 'boolean',
+            'furnished' => 'boolean',
+            'garage_facility' => 'boolean',
+            'fire_security' => 'boolean',
+            'fire_place_facility' => 'boolean',
+            'play_ground' => 'boolean',
+            'marble_floor' => 'boolean',
+            'store_room' => 'boolean',
+            'high_class_door' => 'boolean',
+            'floor_heating_system' => 'boolean',
         ]);
 
+
+        // Prepare utility data
+        $utilityData = [
+            'bedrooms' => $request->input('bedrooms'),
+            'bathrooms' => $request->input('bathrooms'),
+            'swimming_pool' => $request->has('swimming_pool'),
+            'gym' => $request->has('gym')? 1 : 0,
+            'garden' => $request->has('garden')? 1 : 0,
+            'air_conditioning' => $request->has('air_conditioning')? 1 : 0,
+            'furnished' => $request->has('furnished')? 1 : 0,
+            'garage_facility' => $request->has('garage_facility')? 1 : 0,
+            'fire_security' => $request->has('fire_security')? 1 : 0,
+            'fire_place_facility' => $request->has('fire_place_facility')? 1 : 0,
+            'play_ground' => $request->has('play_ground')? 1 : 0,
+            'marble_floor' => $request->has('marble_floor')? 1 : 0,
+            'store_room' => $request->has('store_room')? 1 : 0,
+            'high_class_door' => $request->has('high_class_door')? 1 : 0,
+            'floor_heating_system' => $request->has('floor_heating_system')? 1 : 0,
+        ];
+
+
+        // Create the utility record
+        $utility = Utility::create($utilityData);
+
         // Include the combined `location` field in the data to be saved
-        $projectData = $request->except(['main_image', 'images']);
+        $projectData = $request->except(['main_image', 'images', 'utilities_id']);
+        $projectData['utilities_id'] = $utility->id;
 
         // Create the project without images
         $project = Project::create($projectData);
@@ -95,6 +160,28 @@ class ProjectController extends Controller
 
     public function update(Request $request, Project $project)
     {
+        $checkboxFields = [
+            'swimming_pool',
+            'gym',
+            'garden',
+            'air_conditioning',
+            'furnished',
+            'garage_facility',
+            'fire_security',
+            'fire_place_facility',
+            'play_ground',
+            'marble_floor',
+            'store_room',
+            'high_class_door',
+            'floor_heating_system',
+        ];
+
+        foreach ($checkboxFields as $field) {
+            $request->merge([
+                $field => $request->has($field) ? true : false,
+            ]);
+        }
+
         $request->validate([
             'title' => 'sometimes|required|string|max:255',
             'price' => 'sometimes|required|numeric',
@@ -103,7 +190,6 @@ class ProjectController extends Controller
             'location_link' => 'sometimes|url',
             'tags' => 'sometimes|nullable|array',
             'description' => 'sometimes|nullable|string',
-            'utilities_id' => 'sometimes|required|exists:utilities,id',
             'floor_area' => 'sometimes|nullable|integer',
             'featured' => 'sometimes|required|boolean',
             'status' => 'sometimes|required|string|in:available,sold_out',
@@ -115,10 +201,52 @@ class ProjectController extends Controller
             'more_information.*.value' => 'sometimes|required_with:more_information|string',
             'main_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+
+
+            // Validate utility fields
+            'bedrooms' => 'nullable|integer',
+            'bathrooms' => 'nullable|integer',
+            'swimming_pool' => 'boolean',
+            'gym' => 'boolean',
+            'garden' => 'boolean',
+            'air_conditioning' => 'boolean',
+            'furnished' => 'boolean',
+            'garage_facility' => 'boolean',
+            'fire_security' => 'boolean',
+            'fire_place_facility' => 'boolean',
+            'play_ground' => 'boolean',
+            'marble_floor' => 'boolean',
+            'store_room' => 'boolean',
+            'high_class_door' => 'boolean',
+            'floor_heating_system' => 'boolean',
         ]);
 
+        // Prepare utility data
+        $utilityData = [
+            'bedrooms' => max(0, (int)$request->input('bedrooms')),
+            'bathrooms' => max(0, (int)$request->input('bathrooms')),
+            'swimming_pool' => $request->input('swimming_pool'),
+            'gym' => $request->input('gym'),
+            'garden' => $request->input('garden'),
+            'air_conditioning' => $request->input('air_conditioning'),
+            'furnished' => $request->input('furnished'),
+            'garage_facility' => $request->input('garage_facility'),
+            'fire_security' => $request->input('fire_security'),
+            'fire_place_facility' => $request->input('fire_place_facility'),
+            'play_ground' => $request->input('play_ground'),
+            'marble_floor' => $request->input('marble_floor'),
+            'store_room' => $request->input('store_room'),
+            'high_class_door' => $request->input('high_class_door'),
+            'floor_heating_system' => $request->input('floor_heating_system'),
+        ];
+
+        $utility = $project->utility;
+        $utility->update($utilityData);
+
+
         // Prepare data for updating
-        $projectData = $request->except(['main_image', 'images']);
+        $projectData = $request->except(['main_image', 'images', 'utilities_id']);
 
         // Update the project
         $project->update($projectData);

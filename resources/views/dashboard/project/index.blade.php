@@ -5,12 +5,12 @@
         <div class="container-fluid">
 
             <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
-                <h1 class="page-title fw-semibold fs-18 mb-0">Projects</h1>
+                <h1 class="page-title fw-semibold fs-18 mb-0">Property</h1>
                 <div class="ms-md-1 ms-0">
                     <nav>
                         <ol class="breadcrumb mb-0">
                             <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">All Projects</li>
+                            <li class="breadcrumb-item active" aria-current="page">All Property</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,7 +31,7 @@
                 <div class="col-xl-12">
                     <div class="card custom-card">
                         <div class="card-header">
-                            <div class="card-title">Projects</div>
+                            <div class="card-title">Property</div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

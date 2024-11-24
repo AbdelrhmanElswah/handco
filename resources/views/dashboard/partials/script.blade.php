@@ -121,6 +121,16 @@
             }
         }
     });
+
+
+    CKEDITOR.replace('content', {
+        removePlugins: 'uploadimage',
+        on: {
+            instanceReady: function(ev) {
+                ev.editor.showNotification = function() { return false; };
+            }
+        }
+    });
 </script>
 
 
