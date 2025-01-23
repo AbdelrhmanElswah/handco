@@ -48,34 +48,34 @@
 {{--                    </div>--}}
 
                     <!-- Card for Utilities -->
-                    <div class="col-xxl-6 col-lg-4 col-md-6">
-                        <div class="card custom-card overflow-hidden">
-                            <div class="card-body">
-                                <div class="d-flex align-items-top justify-content-between">
-                                    <div>
-                                    <span class="avatar avatar-md avatar-rounded bg-info">
-                                        <i class="fa fa-tools"></i> <!-- Icon for Utilities -->
-                                    </span>
-                                    </div>
-                                    <div class="flex-fill ms-3">
-                                        <div class="d-flex align-items-center justify-content-between flex-wrap">
-                                            <div>
-                                                <p class="text-muted mb-0">Total Utilities</p>
-                                                <h4 class="fw-semibold mt-1">{{ \App\Models\Utility::count() }}</h4>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between mt-1">
-                                            <div>
-                                                <a class="text-info" href="{{ route('utilities.index') }}">View All
-                                                    <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>
-                                            </div>
-                                            <div class="text-end"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="col-xxl-6 col-lg-4 col-md-6">--}}
+{{--                        <div class="card custom-card overflow-hidden">--}}
+{{--                            <div class="card-body">--}}
+{{--                                <div class="d-flex align-items-top justify-content-between">--}}
+{{--                                    <div>--}}
+{{--                                    <span class="avatar avatar-md avatar-rounded bg-info">--}}
+{{--                                        <i class="fa fa-tools"></i> <!-- Icon for Utilities -->--}}
+{{--                                    </span>--}}
+{{--                                    </div>--}}
+{{--                                    <div class="flex-fill ms-3">--}}
+{{--                                        <div class="d-flex align-items-center justify-content-between flex-wrap">--}}
+{{--                                            <div>--}}
+{{--                                                <p class="text-muted mb-0">Total Utilities</p>--}}
+{{--                                                <h4 class="fw-semibold mt-1">{{ \App\Models\Utility::count() }}</h4>--}}
+{{--                                            </div>--}}
+{{--                                        </div>--}}
+{{--                                        <div class="d-flex align-items-center justify-content-between mt-1">--}}
+{{--                                            <div>--}}
+{{--                                                <a class="text-info" href="{{ route('utilities.index') }}">View All--}}
+{{--                                                    <i class="ti ti-arrow-narrow-right ms-2 fw-semibold d-inline-block"></i></a>--}}
+{{--                                            </div>--}}
+{{--                                            <div class="text-end"></div>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <!-- Card for Projects -->
                     <div class="col-xxl-6 col-lg-4 col-md-6">

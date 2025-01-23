@@ -13,10 +13,11 @@
             </span>
         </div>
         <div class="col-auto ms-auto xs-m-0 text-end xs-text-start pb-4">
-            <span class="listing-price">${{ number_format($project->price, 2) }}</span>
+            <span class="listing-price">AED {{ number_format($project->price) }}</span>
             <span class="text-white font-mini px-2 rounded product-status ms-auto xs-m-0 py-1 bg-primary">
                 <i class="fas fa-check"></i> {{ $project->status ?? 'Available' }}
             </span>
+         
             @if($project->payment_option)
                 <span class="text-white font-mini px-2 rounded ms-2 py-1 bg-success">
             <i class="fas fa-dollar-sign"></i> {{ $project->payment_option }}
@@ -26,11 +27,13 @@
         <div class="col-12">
             <div class="product-offers mt-2">
                 <ul class="product-offers-list">
+                  @if($project->selling_points)
                     @foreach($project->selling_points as $point)
                         <li class="product-offer-item">
                             <strong>{{ $point['label'] }} </strong>{{ $point['value'] }}
                         </li>
                     @endforeach
+                  @endif
                 </ul>
             </div>
 
@@ -58,7 +61,7 @@
     <div class="row row-cols-1">
         <div class="col">
             <h5 class="mb-3">Description</h5>
-            <p>{{ strip_tags($project->description) }}</p>
+            <p>{!!$project->description!!}</p>
 
             <div class="short-description d-flex mt-3">
                 <span class="me-4 font-500">Highlights:</span>

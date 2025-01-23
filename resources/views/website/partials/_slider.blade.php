@@ -56,7 +56,7 @@
                    data-ls="offsetyin:100%; durationin:1500; delayin:1500; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
                     H&Co Properties offers a curated selection of over a million listings. Begin your journey to owning a property in Dubai today.
                 </p>
-                <a class="ls-l ls-hide-phone" href="property-grid-v1.html" target="_self"
+                <a class="ls-l ls-hide-phone" href="{{ route('projects') }}" target="_self "
                    data-ls="offsetyin:40; delayin:2000; clipin:0 0 100% 0; durationout:400; hover:true; hoverdurationin:300; hoveropacity:1; hoverbgcolor:#222; hovercolor:#aa8453;">
                     <p style="font-weight:500; text-align:center; cursor:pointer; padding-right:35px; padding-left:35px; font-weight:500; font-size:16px; font-family: 'Sen', sans-serif; line-height:40px; top:550px; left:50%; color:#fff; border-radius:30px; padding-top:10px; padding-bottom:10px; background:#aa8453; white-space:normal;">
                         Preview Listing

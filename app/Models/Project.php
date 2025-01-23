@@ -24,6 +24,8 @@ class Project extends Model
         'selling_points', // New field for selling points
         'more_information', // New field for more information
         'payment_option',
+        'rent_or_service'
+
 
     ];
 

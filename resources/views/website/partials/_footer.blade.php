@@ -6,7 +6,7 @@
                 <h3 class="text-white xs-text-center my-20 font-400">Are you looking for a House or Property?</h3>
             </div>
             <div class="col-lg-3 col-md-4">
-                <a href="#" class="btn btn-white y-center position-relative d-table xs-mx-auto ms-auto">Subscribe Now</a>
+                <a href="{{route('contact')}}" class="btn btn-white y-center position-relative d-table xs-mx-auto ms-auto">Subscribe Now</a>
             </div>
         </div>
     </div>
@@ -75,7 +75,7 @@
                     <p>
                         Need assistance? We’re here for you—schedule a free consultation today!
                     </p>
-                    <a href="#" class="btn btn-primary w-100">Book Now</a>
+                    <a href="{{route('projects')}}" class="btn btn-primary w-100">Book Now</a>
                 </div>
             </div>
         </div>

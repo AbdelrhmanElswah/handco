@@ -31,7 +31,7 @@ class ProjectController extends Controller
         return view('dashboard.project.create', compact('categories', 'utilities'));
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
     {
 
         $checkboxFields = [
@@ -48,6 +48,10 @@ class ProjectController extends Controller
             'store_room',
             'high_class_door',
             'floor_heating_system',
+            'balcony',
+            'view_of_landmarks',
+            'built_in_wardrobes'
+
         ];
 
         foreach ($checkboxFields as $field) {
@@ -60,24 +64,25 @@ class ProjectController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'location_name' => 'required|string|max:255',
-            'location_link' => 'required|url', // Validate the Google Maps link
+            'location_link' => 'required|url',
             'tags' => 'nullable|array',
             'description' => 'nullable|string',
             'floor_area' => 'nullable|integer',
             'featured' => 'boolean',
-            'status' => 'required|string|in:available,sold_out', // Validation for status
-            'selling_points' => 'nullable|array', // Validation for selling_points as an array
-            'selling_points.*.label' => 'required_with:selling_points|string', // Label for each selling point
-            'selling_points.*.value' => 'required_with:selling_points|string', // Value for each selling point
-            'more_information' => 'nullable|array', // Validation for more_information as an array
-            'more_information.*.label' => 'required_with:more_information|string', // Label for each additional info
-            'more_information.*.value' => 'required_with:more_information|string', // Value for each additional info
+            'status' => 'nullable|string|in:available,sold_out',
+            'rent_or_service' => 'nullable|string|in:rent,sale',
+            'selling_points' => 'nullable|array',
+            'selling_points.*.label' => 'required_with:selling_points|string',
+            'selling_points.*.value' => 'required_with:selling_points|string',
+            'more_information' => 'nullable|array',
+            'more_information.*.label' => 'required_with:more_information|string',
+            'more_information.*.value' => 'required_with:more_information|string',
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
 
 
 
-            // Validate utility fields
+
             'bedrooms' => 'nullable|integer',
             'bathrooms' => 'nullable|integer',
             'swimming_pool' => 'boolean',
@@ -93,26 +98,33 @@ class ProjectController extends Controller
             'store_room' => 'boolean',
             'high_class_door' => 'boolean',
             'floor_heating_system' => 'boolean',
+            'balcony' => 'boolean',
+            'view_of_landmarks' => 'boolean',
+            'built_in_wardrobes' => 'boolean'
         ]);
 
 
-        // Prepare utility data
+
         $utilityData = [
-            'bedrooms' => $request->input('bedrooms'),
-            'bathrooms' => $request->input('bathrooms'),
-            'swimming_pool' => $request->has('swimming_pool'),
-            'gym' => $request->has('gym')? 1 : 0,
-            'garden' => $request->has('garden')? 1 : 0,
-            'air_conditioning' => $request->has('air_conditioning')? 1 : 0,
-            'furnished' => $request->has('furnished')? 1 : 0,
-            'garage_facility' => $request->has('garage_facility')? 1 : 0,
-            'fire_security' => $request->has('fire_security')? 1 : 0,
-            'fire_place_facility' => $request->has('fire_place_facility')? 1 : 0,
-            'play_ground' => $request->has('play_ground')? 1 : 0,
-            'marble_floor' => $request->has('marble_floor')? 1 : 0,
-            'store_room' => $request->has('store_room')? 1 : 0,
-            'high_class_door' => $request->has('high_class_door')? 1 : 0,
-            'floor_heating_system' => $request->has('floor_heating_system')? 1 : 0,
+            'bedrooms' => max(0, (int)$request->input('bedrooms')),
+            'bathrooms' => max(0, (int)$request->input('bathrooms')),
+            'swimming_pool' => $request->input('swimming_pool'),
+            'gym' => $request->input('gym'),
+            'garden' => $request->input('garden'),
+            'air_conditioning' => $request->input('air_conditioning'),
+            'furnished' => $request->input('furnished'),
+            'garage_facility' => $request->input('garage_facility'),
+            'fire_security' => $request->input('fire_security'),
+            'fire_place_facility' => $request->input('fire_place_facility'),
+            'play_ground' => $request->input('play_ground'),
+            'marble_floor' => $request->input('marble_floor'),
+            'store_room' => $request->input('store_room'),
+            'high_class_door' => $request->input('high_class_door'),
+            'floor_heating_system' => $request->input('floor_heating_system'),
+            'balcony' => $request->input('balcony'),
+            'view_of_landmarks' => $request->input('view_of_landmarks'),
+            'built_in_wardrobes' => $request->input('built_in_wardrobes'),
+
         ];
 
 
@@ -122,6 +134,7 @@ class ProjectController extends Controller
         // Include the combined `location` field in the data to be saved
         $projectData = $request->except(['main_image', 'images', 'utilities_id']);
         $projectData['utilities_id'] = $utility->id;
+        $projectData['rent_or_service'] = $request->rent_or_service;
 
         // Create the project without images
         $project = Project::create($projectData);
@@ -174,6 +187,9 @@ class ProjectController extends Controller
             'store_room',
             'high_class_door',
             'floor_heating_system',
+            'balcony',
+            'view_of_landmarks',
+            'built_in_wardrobes'
         ];
 
         foreach ($checkboxFields as $field) {
@@ -193,6 +209,7 @@ class ProjectController extends Controller
             'floor_area' => 'sometimes|nullable|integer',
             'featured' => 'sometimes|required|boolean',
             'status' => 'sometimes|required|string|in:available,sold_out',
+            'rent_or_service' => 'nullable|string|in:rent,sale',
             'selling_points' => 'sometimes|nullable|array',
             'selling_points.*.label' => 'sometimes|required_with:selling_points|string',
             'selling_points.*.value' => 'sometimes|required_with:selling_points|string',
@@ -220,6 +237,9 @@ class ProjectController extends Controller
             'store_room' => 'boolean',
             'high_class_door' => 'boolean',
             'floor_heating_system' => 'boolean',
+            'balcony' => 'boolean',
+            'view_of_landmarks' => 'boolean',
+            'built_in_wardrobes' => 'boolean'
         ]);
 
         // Prepare utility data
@@ -239,6 +259,9 @@ class ProjectController extends Controller
             'store_room' => $request->input('store_room'),
             'high_class_door' => $request->input('high_class_door'),
             'floor_heating_system' => $request->input('floor_heating_system'),
+            'balcony' => $request->input('balcony'),
+            'view_of_landmarks' => $request->input('view_of_landmarks'),
+            'built_in_wardrobes' => $request->input('built_in_wardrobes'),
         ];
 
         $utility = $project->utility;
@@ -247,6 +270,7 @@ class ProjectController extends Controller
 
         // Prepare data for updating
         $projectData = $request->except(['main_image', 'images', 'utilities_id']);
+        $projectData['rent_or_service'] = $request->rent_or_service;
 
         // Update the project
         $project->update($projectData);

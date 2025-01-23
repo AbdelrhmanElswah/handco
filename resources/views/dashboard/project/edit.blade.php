@@ -9,7 +9,7 @@
                 <div class="ms-md-1 ms-0">
                     <nav>
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Edit Property</li>
                         </ol>
                     </nav>
@@ -44,22 +44,22 @@
                             </div>
 
                             <!-- Title-->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="title" style="font-size: 21px">Marketing Title</label>
                                 <input type="text" name="title" class="form-control" placeholder="Enter project title" value="{{ old('title', $project->title) }}">
                             </div>
                             <!-- Location Name and Google Maps Link -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="location_name" style="font-size: 21px">Location Name</label>
                                 <input type="text" name="location_name" class="form-control" placeholder="Enter location name" value="{{ old('location_name', $project->location_name ?? '') }}">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="location_link" style="font-size: 21px">Google Maps Link</label>
                                 <input type="url" name="location_link" class="form-control" placeholder="Enter Google Maps link" value="{{ old('location_link', $project->location_link ?? '') }}">
                             </div>
 
                             <!-- Tags (Bootstrap Tags Input) -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="tags" style="font-size: 21px">Tags</label>
                                 <input type="text" name="tags[]" class="form-control" placeholder="Enter tags" value="{{ old('tags') ? implode(',', old('tags')) : implode(',', $project->tags) }}" data-role="tagsinput">
                             </div>
@@ -81,11 +81,11 @@
                                 <input type="text" name="floor_area" class="form-control" placeholder="Enter floor area" value="{{ old('floor_area', $project->floor_area) }}">
                             </div>
 
-                            <div class="col-md-3">
+               <div class="col-md-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="swimming_pool" id="swimming_pool" {{ old('swimming_pool', $project->utility->swimming_pool) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="swimming_pool">
-                                        Swimming Pool
+                                        Shared Pool
                                     </label>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="gym" id="gym" {{ old('gym', $project->utility->gym) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="gym">
-                                        Gym
+                                        Shard Gym
                                     </label>
                                 </div>
                             </div>
@@ -109,7 +109,31 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="air_conditioning" id="air_conditioning" {{ old('air_conditioning', $project->utility->air_conditioning) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="air_conditioning">
-                                        Air Conditioning
+                                        Central A/C
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="balcony" id="balcony" {{ old('balcony', $project->utility->balcony) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="balcony">
+                                        Balcony
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="view_of_landmarks" id="view_of_landmarks" {{ old('view_of_landmarks', $project->utility->view_of_landmarks) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="view_of_landmarks">
+                                        View of Landmarks
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="built_in_wardrobes" id="built_in_wardrobes" {{ old('built_in_wardrobes', $project->utility->built_in_wardrobes) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="built_in_wardrobes">
+                                        Built-in Wardrobes
                                     </label>
                                 </div>
                             </div>
@@ -140,14 +164,14 @@
                             <div class="col-md-3">
                                 <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="fire_place_facility" id="fire_place_facility" {{ old('fire_place_facility', $project->utility->fire_place_facility) ? 'checked' : '' }}>
-                                <label for="fire_place_facility">Fire Place Facility</label>
+                                <label for="fire_place_facility">Children's Pool</label>
                                 </div>
                             </div>
                             <div class="col-md-3 ">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="play_ground" id="play_ground" {{ old('play_ground', $project->utility->play_ground) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="play_ground">
-                                        Playground
+                                        Children's Play Area
                                     </label>
                                 </div>
                             </div>
@@ -225,12 +249,22 @@
                                 <label for="images" style="font-size: 21px">Additional Images</label>
                                 <input type="file" name="images[]" class="form-control" multiple>
                             </div>
+                          
+                            <div class="col-md-6 mb-3">
+                                <label for="rent_or_service" style="font-size: 21px">Property Type</label>
+                                <select name="rent_or_service" class="form-control">
+                                    <option value="">Select Type</option>
+                                    <option value="rent" {{ $project->rent_or_service == 'rent' ? 'selected' : '' }}>Rent</option>
+                                    <option value="sale" {{ $project->rent_or_service == 'sale' ? 'selected' : '' }}>Sale</option>
+                                </select>
+                            </div>
 
                             <!-- Selling Points (Dynamic) -->
                             <div class="col-md-12 mb-3">
                                 <label for="selling_points" style="font-size: 21px">Selling Points</label>
                                 <div id="selling_points_wrapper">
                                     <button type="button" class="btn btn-secondary btn-sm mb-2" onclick="addSellingPoint()">+ Add Selling Point</button>
+                                  @if($project->selling_points)
                                     @foreach($project->selling_points as $index => $point)
                                         <div class="input-group mb-2" id="selling_point_{{ $index }}">
                                             <input type="text" name="selling_points[{{ $index }}][label]" class="form-control" placeholder="Label" value="{{ $point['label'] }}">
@@ -238,6 +272,7 @@
                                             <button type="button" class="btn btn-danger" onclick="removeSellingPoint({{ $index }})">Remove</button>
                                         </div>
                                     @endforeach
+                                  @endif
                                 </div>
                             </div>
 
@@ -246,6 +281,7 @@
                                 <label for="more_information" style="font-size: 21px">More Information</label>
                                 <div id="more_information_wrapper">
                                     <button type="button" class="btn btn-secondary btn-sm mb-2" onclick="addMoreInformation()">+ Add Information</button>
+                                  @if($project->more_information)
                                     @foreach($project->more_information as $index => $info)
                                         <div class="input-group mb-2" id="info_{{ $index }}">
                                             <input type="text" name="more_information[{{ $index }}][label]" class="form-control" placeholder="Label" value="{{ $info['label'] }}">
@@ -253,6 +289,7 @@
                                             <button type="button" class="btn btn-danger" onclick="removeMoreInformation({{ $index }})">Remove</button>
                                         </div>
                                     @endforeach
+                                  @endif
                                 </div>
                             </div>
 
@@ -267,6 +304,7 @@
                                 <textarea name="description" id="description" class="form-control">{{ old('description', $project->description) }}</textarea>
                             </div>
 
+
                             <div class="col-md-12 mt-4">
                                 <button type="submit" class="btn btn-primary">Update Property</button>
                             </div>
@@ -280,9 +318,18 @@
     <!-- WYSIWYG, Tags Input, and Dynamic Field Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+@php
+$selling_counter = 0;
+$more_counter = 0;
+if($project->selling_points)
+	$selling_counter = count($project?->selling_points);
+if($project->more_information)
+	$more_counter = count($project?->more_information);
+
+@endphp
     <script>
-        let sellingPointCount = {{ count($project->selling_points) }};
-        let moreInfoCount = {{ count($project->more_information) }};
+        let sellingPointCount = {{ $selling_counter }};
+        let moreInfoCount = {{ $more_counter }};
 
         $('input[data-role="tagsinput"]').tagsinput();
         CKEDITOR.replace('description');

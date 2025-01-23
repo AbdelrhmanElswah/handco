@@ -26,6 +26,9 @@ class Utility extends Model
         'store_room',
         'high_class_door',
         'floor_heating_system',
+        'balcony',
+        'view_of_landmarks',
+        'built_in_wardrobes',
     ];
 
     // Define relationships if needed, for example, a utility could be related to multiple projects

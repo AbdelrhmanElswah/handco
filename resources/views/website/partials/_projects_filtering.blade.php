@@ -84,14 +84,19 @@
                     <!-- Advanced Filters -->
                     <div id="aditional-check" class="aditional-features p-5">
                         <h5 class="mb-3">Additional Options</h5>
-                        <ul class="row row-cols-md-4 row-cols-1 custom-check-box mb-4">
-                            @foreach($additionalOptions as $option)
-                                <li class="col">
-                                    <input type="checkbox" class="custom-control-input hide" id="customCheck{{ $loop->index }}" name="additional_options[]" value="{{ $option }}" {{ in_array($option, request('additional_options', [])) ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="customCheck{{ $loop->index }}">{{ $option }}</label>
-                                </li>
-                            @endforeach
-                        </ul>
+<ul class="row row-cols-md-4 row-cols-1 custom-check-box mb-4">
+    @foreach($additionalOptions as $option)
+        @php
+            // Format the option to remove underscores and capitalize words
+            $formattedOption = ucwords(str_replace('_', ' ', $option));
+        @endphp
+        <li class="col">
+            <input type="checkbox" class="custom-control-input hide" id="customCheck{{ $loop->index }}" name="additional_options[]" value="{{ $option }}" {{ in_array($option, request('additional_options', [])) ? 'checked' : '' }}>
+            <label class="custom-control-label" for="customCheck{{ $loop->index }}">{{ $formattedOption }}</label>
+        </li>
+    @endforeach
+</ul>
+
                     </div>
                 </form>
                 <hr>

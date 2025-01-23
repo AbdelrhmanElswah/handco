@@ -3,6 +3,7 @@
         <div class="col">
             <h5 class="mb-3">More Information</h5>
             <ul style="list-style: none; padding: 0;">
+              @if($project->more_information)
                 @foreach($project->more_information as $info)
                     <li style="display: flex; align-items: center; margin-bottom: 10px;">
                         <!-- Icon based on label type -->
@@ -36,6 +37,7 @@
                         <span>{{ $info['value'] }}</span>
                     </li>
                 @endforeach
+              @endif
             </ul>
         </div>
     </div>

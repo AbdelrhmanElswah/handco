@@ -9,7 +9,7 @@
                 <div class="ms-md-1 ms-0">
                     <nav>
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">All Leads</li>
                         </ol>
                     </nav>
@@ -64,7 +64,7 @@
                                         <td>{{ $booking->name }}</td>
                                         <td>{{ $booking->email }}</td>
                                         <td>{{ $booking->phone_number }}</td>
-                                        <td>{{ $booking->message }}</td>
+                                        <td style="word-wrap: break-word; white-space: normal; max-width: 300px;">{{ $booking->message }}</td>
                                     </tr>
                                 @endforeach
                                 @foreach($contacts as $contact)
@@ -75,7 +75,7 @@
                                         <td>{{ $contact->name }}</td>
                                         <td>{{ $contact->email }}</td>
                                         <td>N/A</td>
-                                        <td>{{ $contact->message }}</td>
+                                        <td style="word-wrap: break-word; white-space: normal; max-width: 300px;">{{ $contact->message }}</td>
                                     </tr>
                                 @endforeach
                                 </tbody>

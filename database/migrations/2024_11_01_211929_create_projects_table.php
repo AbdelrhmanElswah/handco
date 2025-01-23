@@ -15,18 +15,23 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->decimal('price', 10, 2); // Price with two decimal places
-            $table->unsignedBigInteger('category_id'); // Foreign key for category
-            $table->string('title'); // Project title
-            $table->string('location_name'); // Location to link to Google Maps
-            $table->string('location_link')->nullable(); // Location to link to Google Maps
-            $table->json('tags')->nullable(); // Array of tags as JSON
-            $table->text('description')->nullable(); // Description of the project
-            $table->unsignedBigInteger('utilities_id'); // Foreign key for utilities
-            $table->unsignedInteger('floor_area')->nullable();
+            $table->decimal('price', 10, 2);
+            $table->string('rent_or_service')->nullable();
+            $table->unsignedBigInteger('category_id');
+            $table->string('title');
+            $table->string('location_name')->nullable();
+            $table->string('location_link')->nullable();
+            $table->json('tags')->nullable();
+            $table->text('description')->nullable();
+            $table->string('payment_option')->nullable();
+            $table->unsignedBigInteger('utilities_id');
+            $table->integer('floor_area')->unsigned()->nullable();
+            $table->boolean('featured')->default(false);
             $table->timestamps();
+            $table->string('status')->default('available');
+            $table->json('selling_points')->nullable();
+            $table->json('more_information')->nullable();
 
-            // Define foreign key constraints if the related tables exist
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('utilities_id')->references('id')->on('utilities')->onDelete('cascade');
         });

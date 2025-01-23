@@ -18,7 +18,7 @@ class MediaUploadService
             $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
 
             // Move file to the appropriate directory
-            $file->move(public_path('files/' . $path_file_name), $filename);
+              $file->move(base_path('files/' . $path_file_name), $filename);
 
             // Use the appropriate relationship based on 'info' parameter
             if ($info === 'main') {

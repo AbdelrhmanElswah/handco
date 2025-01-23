@@ -42,7 +42,7 @@
                                 </a>
                                 <!-- Price Tag -->
                                 <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px;">
-                                    ${{ number_format($project->price, 2) }}
+                                    AED {{ number_format($project->price) }}
                                 </span>
                             </div>
                             <div class="property_text p-3">

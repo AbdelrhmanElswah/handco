@@ -33,7 +33,7 @@
                                           </a>
                                 </span>
                                 <div class="d-flex">
-                                    <span class="text-secondary font-large">${{ number_format($project->price, 2) }}</span>
+                                    <span class="text-secondary font-large">AED {{ number_format($project->price, 2) }}</span>
                                     <span class="text-white font-mini px-2 rounded product-status ms-5 my-1 bg-primary">
                                         <i class="fas fa-check"></i> {{ $project->status === 'available' ? 'Available' : 'Sold Out' }}
                                     </span>
@@ -41,11 +41,13 @@
                                 </div>
                                 <div class="product-offers mt-3">
                                     <ul class="product-offers-list">
+                                      @if($project->selling_points)
                                         @foreach($project->selling_points as $point)
                                             <li class="product-offer-item">
                                                 <strong>{{ $point['label'] }}: </strong> {{ $point['value'] }}
                                             </li>
                                         @endforeach
+                                      @endif
                                     </ul>
                                 </div>
                                 <hr>
@@ -78,9 +80,11 @@
                                 <div class="more-info">
                                     <h5 class="text-secondary my-3">More Information</h5>
                                     <ul class="list-style-tick">
+                                      @if($project->more_information)
                                         @foreach($project->more_information as $info)
                                             <li>{{ $info['label'] }}: {{ $info['value'] }}</li>
                                         @endforeach
+                                      @endif
                                     </ul>
                                 </div>
                                 <div class="d-flex align-items-center post-meta mt-2 py-3 border-top">
@@ -136,11 +140,13 @@
                                 </div>
                                 <div class="product-offers mt-3">
                                     <ul class="product-offers-list">
+                                      @if($project->selling_points)
                                         @foreach($project->selling_points as $point)
                                             <li class="product-offer-item">
                                                 <strong>{{ $point['label'] }}: </strong> {{ $point['value'] }}
                                             </li>
                                         @endforeach
+                                      @endif
                                     </ul>
                                 </div>
                                 <hr>
@@ -174,9 +180,11 @@
                                 <div class="more-info">
                                     <h5 class="text-secondary my-3">More Information</h5>
                                     <ul class="list-style-tick">
+                                      @if($project->more_information)
                                         @foreach($project->more_information as $info)
                                             <li>{{ $info['label'] }}: {{ $info['value'] }}</li>
                                         @endforeach
+                                      @endif
                                     </ul>
                                 </div>
                                 <div class="d-flex align-items-center post-meta mt-2 py-3 border-top">

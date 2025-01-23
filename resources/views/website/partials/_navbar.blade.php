@@ -9,7 +9,7 @@
         <li class="nav-item {{ Request::is('featured-projects') ? 'active' : '' }}">
 
             <a class="nav-link" href="{{ route('featured_projects') }}">
-                Hot Sale</a>
+                Hot Listings</a>
         </li>
         <li class="nav-item {{ Request::is('blogs') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('blogs') }}">Blogs</a>

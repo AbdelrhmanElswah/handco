@@ -9,7 +9,7 @@
                 <div class="ms-md-1 ms-0">
                     <nav>
                         <ol class="breadcrumb mb-0">
-                            <li class="breadcrumb-item"><a href="{{ url('/home') }}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url('/admin') }}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Add Property</li>
                         </ol>
                     </nav>
@@ -43,7 +43,7 @@
                                 </select>
                             </div>
                             <!-- Title and Price -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="title" style="font-size: 21px">Marketing Title</label>
                                 <input type="text" name="title" class="form-control" placeholder="Enter project title" value="{{ old('title') }}">
                             </div>
@@ -51,17 +51,17 @@
 
 
                             <!-- Location Name and Google Maps Link -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="location_name" style="font-size: 21px">Location Name</label>
                                 <input type="text" name="location_name" class="form-control" placeholder="Enter location name" value="{{ old('location_name') }}">
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="location_link" style="font-size: 21px">Google Maps Link</label>
                                 <input type="url" name="location_link" class="form-control" placeholder="Enter Google Maps link" value="{{ old('location_link') }}">
                             </div>
 
                             <!-- Tags (Bootstrap Tags Input) -->
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <label for="tags" style="font-size: 21px">Tags</label>
                                 <input type="text" name="tags[]" class="form-control" placeholder="Enter tags"
                                        value="{{ old('tags') ? implode(',', old('tags')) : '' }}" data-role="tagsinput">
@@ -88,11 +88,11 @@
                             <!-- Boolean Utilities -->
                             <div class="col-md-3">
                                 <input type="checkbox" name="swimming_pool" id="swimming_pool" {{ old('swimming_pool') ? 'checked' : '' }}>
-                                <label for="swimming_pool">Swimming Pool</label>
+                                <label for="swimming_pool">Shared Pool</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="checkbox" name="gym" id="gym" {{ old('gym') ? 'checked' : '' }}>
-                                <label for="gym">Gym</label>
+                                <label for="gym">Shard Gym</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="checkbox" name="garden" id="garden" {{ old('garden') ? 'checked' : '' }}>
@@ -100,7 +100,19 @@
                             </div>
                             <div class="col-md-3">
                                 <input type="checkbox" name="air_conditioning" id="air_conditioning" {{ old('air_conditioning') ? 'checked' : '' }}>
-                                <label for="air_conditioning">Air Conditioning</label>
+                                <label for="air_conditioning">Central A/C</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="balcony" id="balcony" {{ old('balcony') ? 'checked' : '' }}>
+                                <label for="balcony">Balcony</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="view_of_landmarks" id="view_of_landmarks" {{ old('view_of_landmarks') ? 'checked' : '' }}>
+                                <label for="view_of_landmarks">View of Landmarks</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="checkbox" name="built_in_wardrobes" id="built_in_wardrobes" {{ old('built_in_wardrobes') ? 'checked' : '' }}>
+                                <label for="built_in_wardrobes">Built-in Wardrobes</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="checkbox" name="furnished" id="furnished" {{ old('furnished') ? 'checked' : '' }}>
@@ -116,11 +128,11 @@
                             </div>
                             <div class="col-md-3">
                                 <input type="checkbox" name="fire_place_facility" id="fire_place_facility" {{ old('fire_place_facility') ? 'checked' : '' }}>
-                                <label for="fire_place_facility">Fire Place Facility</label>
+                                <label for="fire_place_facility">Children's Pool</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="checkbox" name="play_ground" id="play_ground" {{ old('play_ground') ? 'checked' : '' }}>
-                                <label for="play_ground">Play Ground</label>
+                                <label for="play_ground">Children's Play Area</label>
                             </div>
                             <div class="col-md-3">
                                 <input type="checkbox" name="marble_floor" id="marble_floor" {{ old('marble_floor') ? 'checked' : '' }}>
@@ -138,6 +150,7 @@
                                 <input type="checkbox" name="floor_heating_system" id="floor_heating_system" {{ old('floor_heating_system') ? 'checked' : '' }}>
                                 <label for="floor_heating_system">Floor Heating System</label>
                             </div>
+
                             <div class="col-md-12 mb-3">
                                 <!-- Hidden field to handle unchecked case -->
                                 <input type="hidden" name="featured" value="0">
@@ -175,6 +188,15 @@
                             <div class="col-md-6 mb-3">
                                 <label for="images" style="font-size: 21px">Additional Images</label>
                                 <input type="file" name="images[]" class="form-control" multiple>
+                            </div>
+                          
+                            <div class="col-md-6 mb-3">
+                                <label for="rent_or_service" style="font-size: 21px">Property Type</label>
+                                <select name="rent_or_service" class="form-control">
+                                    <option value="">Select Option</option>
+                                    <option value="rent" {{ old('rent_or_service') == 'rent' ? 'selected' : '' }}>Rent</option>
+                                    <option value="sale" {{ old('rent_or_service') == 'sale' ? 'selected' : '' }}>Sale</option>
+                                </select>
                             </div>
 
                             <!-- Selling Points (Dynamic) -->
