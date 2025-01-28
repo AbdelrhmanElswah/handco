@@ -88,23 +88,50 @@
         <div class="container">
             <div class="row">
                 <div class="col mb-5">
-                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What You Are Looking
+                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What Are You Looking
                         for?</h2>
                     <span class="d-table w-50 w-sm-100 sub-title text-white fw-normal mx-auto text-center">Select what you are looking for.</span>
                 </div>
             </div>
             <div class="row row-cols-lg-5 row-cols-sm-4 row-cols-1 g-3 justify-content-center">
-                <!-- Property Categories (Example for 1 category) -->
+                
+            <!-- Property Categories (Example for 1 category) -->
+            @php
+            $icons = [
+                'Apartment' => 'fa fa-building',
+                'Villa' => 'fa fa-house-user',
+                'Townhouse' => 'fa fa-house-damage',
+                'Penthouse' => 'fa fa-building',
+                'Compound' => 'fa fa-city',
+                'Duplex' => 'fa fa-home',
+                'Full Floor' => 'fa fa-building',
+                'Half Floor' => 'fa fa-building',
+                'Whole Building' => 'fa fa-building',
+                'Bulk Rent Unit' => 'fa fa-boxes',
+                'Bungalow' => 'fa fa-home',
+                'Hotel & Hotel Apartment' => 'fa fa-hotel',
+                'Office Space' => 'fa fa-briefcase',
+            ];
+            @endphp
+                    
+            @foreach($allCategories as $category)
                 <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                    <a href="{{ route('projects') }}"
+                    class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
                         <div class="box-70px position-relative">
-                            <i class="flaticon-home flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            @if(array_key_exists($category->name, $icons))
+                                <i class="{{ $icons[$category->name] }} flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            @else
+                                <i class="flaticon-home flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            @endif
                         </div>
-                        <h6 class="d-block text-secondary">Living House</h6>
-                        <p>Preview listing of accommodation property living houses</p>
+                        
+                        <h6 class="d-block text-secondary">{{ $category->name }}</h6>
                     </a>
                 </div>
+            @endforeach
+
+<!--
                 <div class="col">
                     <a href="#"
                        class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
@@ -187,6 +214,8 @@
                         <p>The traveller people can findbest hotel here for living night</p>
                     </a>
                 </div>
+            -->
+
                 <!-- Add other categories here similarly -->
             </div>
         </div>

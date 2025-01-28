@@ -117,7 +117,7 @@ class ProjectController extends Controller
 
     public function featured(Request $request)
     {
-        $query = Project::where('featured', true);
+        $query = Project::where('featured', true);                
 
         // Initialize an array to collect the active filters
         $activeFilters = [];
