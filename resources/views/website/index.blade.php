@@ -116,7 +116,7 @@
                     
             @foreach($allCategories as $category)
                 <div class="col">
-                    <a href="{{ route('projects') }}"
+                    <a href="{{ route('projects', ['category' => $category->id]) }}"
                     class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
                         <div class="box-70px position-relative">
                             @if(array_key_exists($category->name, $icons))

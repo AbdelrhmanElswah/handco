@@ -16,7 +16,6 @@ class ProjectController extends Controller
     {
         // Start a query for Project model
         $query = Project::query();
-
         // Apply filters based on request parameters
         if ($request->filled('keyword')) {
             $query->where('title', 'like', '%' . $request->keyword . '%');
@@ -47,6 +46,7 @@ class ProjectController extends Controller
         }
 
         // Filter by bedrooms
+        //$bedrooms = $request->input('Bedrooms');
         if ($request->filled('bedrooms')) {
             $query->whereHas('utility', function ($q) use ($request) {
                 $q->where('bedrooms', $request->bedrooms);
