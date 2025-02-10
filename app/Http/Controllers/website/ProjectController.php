@@ -46,7 +46,6 @@ class ProjectController extends Controller
         }
 
         // Filter by bedrooms
-        //$bedrooms = $request->input('Bedrooms');
         if ($request->filled('bedrooms')) {
             $query->whereHas('utility', function ($q) use ($request) {
                 $q->where('bedrooms', $request->bedrooms);
