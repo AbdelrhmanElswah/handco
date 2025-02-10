@@ -115,6 +115,7 @@
             @endphp
                     
             @foreach($allCategories as $category)
+                @if($category->projects->isNotEmpty())
                 <div class="col">
                     <a href="{{ route('projects', ['category' => $category->id]) }}"
                     class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
@@ -129,6 +130,7 @@
                         <h6 class="d-block text-secondary">{{ $category->name }}</h6>
                     </a>
                 </div>
+                @endif
             @endforeach
 
 <!--
