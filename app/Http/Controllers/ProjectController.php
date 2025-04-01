@@ -249,8 +249,8 @@ class ProjectController extends Controller
             'more_information.*.value' => 'sometimes|required_with:more_information|string',
 
 
-            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:4048',
+            'main_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
+            'images.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
 
 
 
