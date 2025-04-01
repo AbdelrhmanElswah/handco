@@ -77,8 +77,8 @@ class ProjectController extends Controller
             'more_information' => 'nullable|array',
             'more_information.*.label' => 'required_with:more_information|string',
             'more_information.*.value' => 'required_with:more_information|string',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:4048',
 
 
 
@@ -216,8 +216,9 @@ class ProjectController extends Controller
             'more_information' => 'sometimes|nullable|array',
             'more_information.*.label' => 'sometimes|required_with:more_information|string',
             'more_information.*.value' => 'sometimes|required_with:more_information|string',
-            'main_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'images.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:4048',
 
 
 
