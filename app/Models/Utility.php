@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class Utility extends Model
 {
     use HasFactory;
@@ -29,6 +30,15 @@ class Utility extends Model
         'balcony',
         'view_of_landmarks',
         'built_in_wardrobes',
+
+        // NEW
+        'concierge',
+        'shared_spa',
+        'pets_allowed',
+        'lobby_in_building',
+        'view_of_water',
+        'security',
+        'covered_parking',
     ];
 
     // Define relationships if needed, for example, a utility could be related to multiple projects

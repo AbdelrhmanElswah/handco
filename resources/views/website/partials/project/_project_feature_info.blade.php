@@ -22,7 +22,15 @@
                     @if($project->utility->floor_heating_system) <li>Floor Heating System</li> @endif
                     @if($project->utility->balcony) <li>Balcony</li> @endif
                     @if($project->utility->view_of_landmarks) <li>View Of Landmarks</li> @endif
-                    @if($project->utility->built_in_wardrobes) <li>Built_in Wardrobes</li> @endif
+                    @if($project->utility->built_in_wardrobes) <li>Builtin Wardrobes</li> @endif
+                    <!-- NEW -->
+                    @if($project->utility->concierge) <li>Concierge</li> @endif
+                    @if($project->utility->shared_spa) <li>Shared Spa</li> @endif
+                    @if($project->utility->pets_allowed) <li>Pets Allowed</li> @endif
+                    @if($project->utility->lobby_in_building) <li>Lobby In Building</li> @endif
+                    @if($project->utility->view_of_water) <li>View Of Water</li> @endif
+                    @if($project->utility->security) <li>Security</li> @endif
+                    @if($project->utility->covered_parking) <li>Covered Parking</li> @endif
                 @else
                     <li>No utilities information available.</li>
                 @endif

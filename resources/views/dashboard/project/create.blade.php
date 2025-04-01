@@ -152,7 +152,7 @@
                             </div>
                             <!-- NEW -->
                             <div class="col-md-3 mb-3">
-                                <input type="checkbox" name="concierge" id="concierge" {{ old('Concierge') ? 'checked' : '' }}>
+                                <input type="checkbox" name="concierge" id="concierge" {{ old('concierge') ? 'checked' : '' }}>
                                 <label for="concierge">Concierge</label>
                             </div>
                             <div class="col-md-3 mb-3">
