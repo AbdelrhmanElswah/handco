@@ -45,9 +45,9 @@
                             </a>
                         </li>
                         <li>
-                            <a href="tel:971559202016">
+                            <a href="tel:+971 52 778 5359">
                                 <i class="fa fa-phone" aria-hidden="true"></i>
-                                +971 55 920 2016
+                                +971 52 778 5359
                             </a>
                         </li>
                         <li>

@@ -37,7 +37,7 @@
                             </li>
                             <li class="mb-3">
                                 <h6>Contact Number :</h6>
-                                <a class="text-black" href="tel:+971559202016">+971 55 920 2016</a>
+                                <a class="text-black" href="tel:+971527785359">+971527785359</a>
                             </li>
                             <li class="mb-3">
                                 <h6>Email Address :</h6>

@@ -88,7 +88,7 @@
         <div class="container">
             <div class="row">
                 <div class="col mb-5">
-                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What You Are Looking
+                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What You Are Looking 
                         for?</h2>
                     <span class="d-table w-50 w-sm-100 sub-title text-white fw-normal mx-auto text-center">Select what you are looking for.</span>
                 </div>

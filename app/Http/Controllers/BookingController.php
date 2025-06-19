@@ -16,29 +16,53 @@ class BookingController extends Controller
         $contacts = Contact::all();
         return view('dashboard.booking.index', compact('bookings', 'contacts'));
     }
-    public function store(Request $request)
-    {
-        $request->validate([
-            'project_id' => 'required|exists:projects,id',
-            'name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'email' => 'required|email',
-            'message' => 'nullable|string',
+    use Illuminate\Support\Facades\Http;
+
+public function store(Request $request)
+{
+    $request->validate([
+        'project_id' => 'required|exists:projects,id',
+        'name' => 'required|string|max:255',
+        'phone_number' => 'required|string|max:20',
+        'email' => 'required|email',
+        'message' => 'nullable|string',
+    ]);
+
+    $project = Project::find($request->project_id);
+
+    if ($project->status === 'sold_out') {
+        return redirect()->back()->with('error', 'This Property is sold out.');
+    }
+
+    Booking::create($request->only(['project_id', 'name', 'phone_number', 'email', 'message']));
+
+  
+    try {
+        $response = Http::withHeaders([
+            'X-PIXXI-TOKEN' => '***REMOVED***', 
+            'Content-Type' => 'application/json',
+        ])->post('https://dataapi.pixxicrm.ae/pixxiapi/webhook/v1/form', [
+            'formId' => 'dda077d2-085e-45ce-b20a-8b8237678348', 
+            'propertyId' => (string) ($project->id ?? ''),
+            'name' => $request->name,
+            'phone' => $request->phone_number,
+            'email' => $request->email,
+            'nationality' => 'UAE',
+            'extraData' => [
+                'message' => $request->message,
+                'project' => $project->title,
+            ],
         ]);
 
-        // Retrieve the project
-        $project = Project::find($request->project_id);
-
-        // Check if the project is sold out
-        if ($project->status === 'sold_out') {
-            return redirect()->back()->with('error', 'This Property is sold out.');
+        if (!$response->successful()) {
+            \Log::warning('Pixxi API error', ['body' => $response->body()]);
         }
-
-        // Create the booking if project is available
-        Booking::create($request->only(['project_id', 'name', 'phone_number', 'email', 'message']));
-
-        return redirect()->back()->with('success', 'Booking created successfully');
+    } catch (\Exception $e) {
+        \Log::error('Pixxi API exception', ['error' => $e->getMessage()]);
     }
+
+    return redirect()->back()->with('success', 'Booking created and sent to Pixxi CRM.');
+}
 
     public function exportToCSV()
     {
