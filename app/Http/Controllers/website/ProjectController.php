@@ -16,7 +16,6 @@ class ProjectController extends Controller
     {
         // Start a query for Project model
         $query = Project::query();
-
         // Apply filters based on request parameters
         if ($request->filled('keyword')) {
             $query->where('title', 'like', '%' . $request->keyword . '%');
@@ -117,7 +116,7 @@ class ProjectController extends Controller
 
     public function featured(Request $request)
     {
-        $query = Project::where('featured', true);
+        $query = Project::where('featured', true);                
 
         // Initialize an array to collect the active filters
         $activeFilters = [];

@@ -44,9 +44,9 @@
                         <!-- Bedrooms Dropdown -->
                         <div class="col">
                             <select class="form-control" name="bedrooms">
-                                <option value="">Bedrooms</option>
+                                <option value="" {{ is_null(request('bedrooms')) ? 'selected' : '' }}>Bedrooms</option>
                                 @foreach($bedrooms as $bedroom)
-                                    <option value="{{ $bedroom }}" {{ request('bedrooms') == $bedroom ? 'selected' : '' }}>{{ $bedroom }}</option>
+                                    <option value="{{ $bedroom }}" {{ request('bedrooms') == (string) $bedroom ? 'selected' : '' }}> {{ $bedroom }} </option>
                                 @endforeach
                             </select>
                         </div>

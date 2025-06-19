@@ -61,7 +61,8 @@ class HomeController extends Controller
         $recentProjectsQuery = clone $baseQuery;
 
         // Fetch the top 3 featured projects for "Most Popular Projects"
-        $popularProjects = $popularProjectsQuery->where('rent_or_service','sale')
+        $popularProjects = $popularProjectsQuery->where('featured', true)
+            ->where('rent_or_service', 'sale')
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();
@@ -83,7 +84,10 @@ class HomeController extends Controller
             'air_conditioning', 'garage_facility', 'swimming_pool', 'fire_security',
             'fire_place_facility', 'play_ground', 'furniture_include', 'marble_floor',
             'store_room', 'high_class_door', 'floor_heating_system', 'garden_include',
-        ];
+        ];        
+
+        // Fetch All Categories For Section
+        $allCategories = Category::all();
 
         // Pass variables to the view
         return view('website.index', compact(
@@ -97,7 +101,9 @@ class HomeController extends Controller
             'bathrooms',
             'additionalOptions',
             'sliders',
-            'latestBlogs'
+            'latestBlogs',
+            'allCategories'
+
         ));
     }
 

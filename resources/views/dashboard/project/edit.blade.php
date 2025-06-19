@@ -207,6 +207,70 @@
                                     </label>
                                 </div>
                             </div>
+                            <!-- NEW -->
+                            <div class="col-md-3 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="concierge" id="concierge" {{ old('_',
+$project->utility->concierge) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="concierge">
+                                        concierge
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="shared_spa" id="shared_spa" {{ old('shared_spa',
+$project->utility->shared_spa) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="shared_spa">
+                                        Shared Spa
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="pets_allowed" id="pets_allowed" {{ old('pets_allowed',
+$project->utility->pets_allowed) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="pets_allowed">
+                                        Pets Allowed
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="lobby_in_building" id="lobby_in_building" {{ old('lobby_in_building',
+$project->utility->lobby_in_building) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="lobby_in_building">
+                                        Lobby In Building
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="view_of_water" id="view_of_water" {{ old('view_of_water',
+$project->utility->view_of_water) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="view_of_water">
+                                        View Of Water
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="security" id="security" {{ old('security',
+$project->utility->security) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="security">
+                                        Security
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-3 mb-3 ">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="covered_parking" id="covered_parking" {{ old('covered_parking',
+$project->utility->covered_parking) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="security">
+                                        Covered Parking
+                                    </label>
+                                </div>
+                            </div>
 
                             <!-- Featured -->
                             <div class="col-md-12 mb-3">
@@ -249,7 +313,7 @@
                                 <label for="images" style="font-size: 21px">Additional Images</label>
                                 <input type="file" name="images[]" class="form-control" multiple>
                             </div>
-                          
+
                             <div class="col-md-6 mb-3">
                                 <label for="rent_or_service" style="font-size: 21px">Property Type</label>
                                 <select name="rent_or_service" class="form-control">

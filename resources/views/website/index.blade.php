@@ -1,11 +1,10 @@
 @extends('layouts.website', [
     'title' => 'Home Page',
     'headerType' => '_header',
-    'bg' => 'bg-white'
+    'bg' => 'bg-white',
 ])
 
 @section('content')
-
     <!--============== Slider Area Start ==============-->
     @include('website.partials._slider')
     <!--============== Slider Area End ==============-->
@@ -88,105 +87,139 @@
         <div class="container">
             <div class="row">
                 <div class="col mb-5">
-                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What You Are Looking 
+                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What Are You Looking
                         for?</h2>
-                    <span class="d-table w-50 w-sm-100 sub-title text-white fw-normal mx-auto text-center">Select what you are looking for.</span>
+                    <span class="d-table w-50 w-sm-100 sub-title text-white fw-normal mx-auto text-center">Select what you
+                        are looking for.</span>
                 </div>
             </div>
             <div class="row row-cols-lg-5 row-cols-sm-4 row-cols-1 g-3 justify-content-center">
+
                 <!-- Property Categories (Example for 1 category) -->
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i class="flaticon-home flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                @php
+                    $icons = [
+                        'Apartment' => 'fa fa-building',
+                        'Villa' => 'fa fa-house-user',
+                        'Townhouse' => 'fa fa-house-damage',
+                        'Penthouse' => 'fa fa-building',
+                        'Compound' => 'fa fa-city',
+                        'Duplex' => 'fa fa-home',
+                        'Full Floor' => 'fa fa-building',
+                        'Half Floor' => 'fa fa-building',
+                        'Whole Building' => 'fa fa-building',
+                        'Bulk Rent Unit' => 'fa fa-boxes',
+                        'Bungalow' => 'fa fa-home',
+                        'Hotel & Hotel Apartment' => 'fa fa-hotel',
+                        'Office Space' => 'fa fa-briefcase',
+                    ];
+                @endphp
+
+                @foreach ($allCategories as $category)
+                    @if ($category->projects->isNotEmpty())
+                        <div class="col">
+                            <a href="{{ route('projects', ['category' => $category->id]) }}"
+                                class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                                <div class="box-70px position-relative">
+                                    @if (array_key_exists($category->name, $icons))
+                                        <i
+                                            class="{{ $icons[$category->name] }} flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                                    @else
+                                        <i
+                                            class="flaticon-home flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                                    @endif
+                                </div>
+
+                                <h6 class="d-block text-secondary">{{ $category->name }}</h6>
+                            </a>
                         </div>
-                        <h6 class="d-block text-secondary">Living House</h6>
-                        <p>Preview listing of accommodation property living houses</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i class="flaticon-sketch-1 flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Solid Land</h6>
-                        <p>Hight listed solid use-able land in most popular area for development</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i
-                                class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Office Floor</h6>
-                        <p>Preview most popular are office building listed category</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i class="flaticon-shop flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Commercial</h6>
-                        <p>Listing Commercial property for business and factory development</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i class="flaticon-real-estate flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Hostel Room</h6>
-                        <p>if you are single looking for sinlge living, preview the hostel listing</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i
-                                class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Appartment</h6>
-                        <p>for family living appartment, find your best appartment in our directort list</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i class="flaticon-sketch flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Condo</h6>
-                        <p>In our directory we have listed luxury condo for rent and sale</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i class="flaticon-spa flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Villa House</h6>
-                        <p>Please who like villa house click here this category listed</p>
-                    </a>
-                </div>
-                <div class="col">
-                    <a href="#"
-                       class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                        <div class="box-70px position-relative">
-                            <i class="flaticon-bed flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                        </div>
-                        <h6 class="d-block text-secondary">Hotel Room</h6>
-                        <p>The traveller people can findbest hotel here for living night</p>
-                    </a>
-                </div>
+                    @endif
+                @endforeach
+
+                <!--
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i class="flaticon-sketch-1 flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Solid Land</h6>
+                            <p>Hight listed solid use-able land in most popular area for development</p>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i
+                                    class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Office Floor</h6>
+                            <p>Preview most popular are office building listed category</p>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i class="flaticon-shop flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Commercial</h6>
+                            <p>Listing Commercial property for business and factory development</p>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i class="flaticon-real-estate flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Hostel Room</h6>
+                            <p>if you are single looking for sinlge living, preview the hostel listing</p>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i
+                                    class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Appartment</h6>
+                            <p>for family living appartment, find your best appartment in our directort list</p>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i class="flaticon-sketch flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Condo</h6>
+                            <p>In our directory we have listed luxury condo for rent and sale</p>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i class="flaticon-spa flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Villa House</h6>
+                            <p>Please who like villa house click here this category listed</p>
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a href="#"
+                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
+                            <div class="box-70px position-relative">
+                                <i class="flaticon-bed flat-medium d-inline-block text-primary position-absolute xy-center"></i>
+                            </div>
+                            <h6 class="d-block text-secondary">Hotel Room</h6>
+                            <p>The traveller people can findbest hotel here for living night</p>
+                        </a>
+                    </div>
+                -->
+
                 <!-- Add other categories here similarly -->
             </div>
         </div>
@@ -230,7 +263,6 @@
     <!--============== Blog Section Start ==============-->
     @include('website.partials._blogs')
     <!--============== Blog Section End ==============-->
-
 @endsection
 
 
@@ -256,4 +288,3 @@
         document.getElementById('max_price').value = max;
     }
 </script>
-

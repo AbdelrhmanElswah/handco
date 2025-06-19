@@ -31,7 +31,14 @@
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/colors/color.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KH7CZLWXX9"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
+    gtag('config', 'G-KH7CZLWXX9');
+</script>
 
 <style>
     /* #1c2e4a */

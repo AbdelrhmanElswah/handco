@@ -150,6 +150,35 @@
                                 <input type="checkbox" name="floor_heating_system" id="floor_heating_system" {{ old('floor_heating_system') ? 'checked' : '' }}>
                                 <label for="floor_heating_system">Floor Heating System</label>
                             </div>
+                            <!-- NEW -->
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="concierge" id="concierge" {{ old('concierge') ? 'checked' : '' }}>
+                                <label for="concierge">Concierge</label>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="shared_spa" id="shared_spa" {{ old('shared_spa') ? 'checked' : '' }}>
+                                <label for="shared_spa">Shared Spa</label>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="pets_allowed" id="pets_allowed" {{ old('pets_allowed') ? 'checked' : '' }}>
+                                <label for="pets_allowed">Pets Allowed</label>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="lobby_in_building" id="lobby_in_building" {{ old('lobby_in_building') ? 'checked' : '' }}>
+                                <label for="lobby_in_building">Lobby in Building</label>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="view_of_water" id="view_of_water" {{ old('view_of_water') ? 'checked' : '' }}>
+                                <label for="view_of_water">View of Water</label>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="security" id="security" {{ old('security') ? 'checked' : '' }}>
+                                <label for="security">security</label>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <input type="checkbox" name="covered_parking" id="covered_parking" {{ old('covered_parking') ? 'checked' : '' }}>
+                                <label for="covered_parking">Covered Parking</label>
+                            </div>
 
                             <div class="col-md-12 mb-3">
                                 <!-- Hidden field to handle unchecked case -->
@@ -189,7 +218,7 @@
                                 <label for="images" style="font-size: 21px">Additional Images</label>
                                 <input type="file" name="images[]" class="form-control" multiple>
                             </div>
-                          
+
                             <div class="col-md-6 mb-3">
                                 <label for="rent_or_service" style="font-size: 21px">Property Type</label>
                                 <select name="rent_or_service" class="form-control">

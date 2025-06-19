@@ -50,8 +50,15 @@ class ProjectController extends Controller
             'floor_heating_system',
             'balcony',
             'view_of_landmarks',
-            'built_in_wardrobes'
-
+            'built_in_wardrobes',
+            // NEW
+            'concierge',
+            'shared_spa',
+            'pets_allowed',
+            'lobby_in_building',
+            'view_of_water',
+            'security',
+            'covered_parking',
         ];
 
         foreach ($checkboxFields as $field) {
@@ -77,8 +84,8 @@ class ProjectController extends Controller
             'more_information' => 'nullable|array',
             'more_information.*.label' => 'required_with:more_information|string',
             'more_information.*.value' => 'required_with:more_information|string',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
+            'images.*' => 'image|mimes:jpeg,png,jpg,gif,webp|max:4048',
 
 
 
@@ -100,7 +107,15 @@ class ProjectController extends Controller
             'floor_heating_system' => 'boolean',
             'balcony' => 'boolean',
             'view_of_landmarks' => 'boolean',
-            'built_in_wardrobes' => 'boolean'
+            'built_in_wardrobes' => 'boolean',
+            // NEW
+            'concierge' => 'boolean',
+            'shared_spa' => 'boolean',
+            'pets_allowed' => 'boolean',
+            'lobby_in_building' => 'boolean',
+            'view_of_water' => 'boolean',
+            'security' => 'boolean',
+            'covered_parking' => 'boolean',
         ]);
 
 
@@ -124,6 +139,14 @@ class ProjectController extends Controller
             'balcony' => $request->input('balcony'),
             'view_of_landmarks' => $request->input('view_of_landmarks'),
             'built_in_wardrobes' => $request->input('built_in_wardrobes'),
+            // NEW
+            'concierge' => $request->input('concierge'),
+            'shared_spa' => $request->input('shared_spa'),
+            'pets_allowed' => $request->input('pets_allowed'),
+            'lobby_in_building' => $request->input('lobby_in_building'),
+            'view_of_water' => $request->input('view_of_water'),
+            'security' => $request->input('security'),
+            'covered_parking' => $request->input('covered_parking'),
 
         ];
 
@@ -189,7 +212,15 @@ class ProjectController extends Controller
             'floor_heating_system',
             'balcony',
             'view_of_landmarks',
-            'built_in_wardrobes'
+            'built_in_wardrobes',
+            // NEW
+            'concierge',
+            'shared_spa',
+            'pets_allowed',
+            'lobby_in_building',
+            'view_of_water',
+            'security',
+            'covered_parking',
         ];
 
         foreach ($checkboxFields as $field) {
@@ -216,8 +247,10 @@ class ProjectController extends Controller
             'more_information' => 'sometimes|nullable|array',
             'more_information.*.label' => 'sometimes|required_with:more_information|string',
             'more_information.*.value' => 'sometimes|required_with:more_information|string',
-            'main_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'images.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
+
+            'main_image' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
+            'images.*' => 'sometimes|nullable|image|mimes:jpeg,png,jpg,gif,webp|max:4048',
 
 
 
@@ -239,7 +272,15 @@ class ProjectController extends Controller
             'floor_heating_system' => 'boolean',
             'balcony' => 'boolean',
             'view_of_landmarks' => 'boolean',
-            'built_in_wardrobes' => 'boolean'
+            'built_in_wardrobes' => 'boolean',
+            // NEW
+            'concierge' => 'boolean',
+            'shared_spa' => 'boolean',
+            'pets_allowed' => 'boolean',
+            'lobby_in_building' => 'boolean',
+            'view_of_water' => 'boolean',
+            'security' => 'boolean',
+            'covered_parking' => 'boolean',
         ]);
 
         // Prepare utility data
@@ -262,6 +303,15 @@ class ProjectController extends Controller
             'balcony' => $request->input('balcony'),
             'view_of_landmarks' => $request->input('view_of_landmarks'),
             'built_in_wardrobes' => $request->input('built_in_wardrobes'),
+            // NEW
+            'concierge' => $request->input('concierge'),
+            'shared_spa' => $request->input('shared_spa'),
+            'pets_allowed' => $request->input('pets_allowed'),
+            'lobby_in_building' => $request->input('lobby_in_building'),
+            'view_of_water' => $request->input('view_of_water'),
+            'security' => $request->input('security'),
+            'covered_parking' => $request->input('covered_parking'),
+
         ];
 
         $utility = $project->utility;
