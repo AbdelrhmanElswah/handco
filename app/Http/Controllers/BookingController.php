@@ -7,6 +7,7 @@ use App\Models\Contact;
 use App\Models\Project; // Assuming bookings are related to projects
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Illuminate\Support\Facades\Http;
 
 class BookingController extends Controller
 {
@@ -16,7 +17,8 @@ class BookingController extends Controller
         $contacts = Contact::all();
         return view('dashboard.booking.index', compact('bookings', 'contacts'));
     }
-    use Illuminate\Support\Facades\Http;
+  
+ 
 
 public function store(Request $request)
 {
@@ -34,35 +36,41 @@ public function store(Request $request)
         return redirect()->back()->with('error', 'This Property is sold out.');
     }
 
+    //  Create booking locally
     Booking::create($request->only(['project_id', 'name', 'phone_number', 'email', 'message']));
 
-  
+    //  Send to Pixxi CRM
     try {
         $response = Http::withHeaders([
-            'X-PIXXI-TOKEN' => '***REMOVED***', 
+            'X-PIXXI-TOKEN' => '***REMOVED***', // Pixxi API Token
             'Content-Type' => 'application/json',
         ])->post('https://dataapi.pixxicrm.ae/pixxiapi/webhook/v1/form', [
-            'formId' => 'dda077d2-085e-45ce-b20a-8b8237678348', 
-            'propertyId' => (string) ($project->id ?? ''),
+            'formId' => 'dda077d2-085e-45ce-b20a-8b8237678348', // Pixxi Form ID
             'name' => $request->name,
             'phone' => $request->phone_number,
             'email' => $request->email,
-            'nationality' => 'UAE',
+            'nationality' => 'UAE', 
             'extraData' => [
                 'message' => $request->message,
-                'project' => $project->title,
+                'project_title' => $project->title,
             ],
         ]);
 
+        // Logging errors if API call fails
         if (!$response->successful()) {
-            \Log::warning('Pixxi API error', ['body' => $response->body()]);
+            \Log::warning('Pixxi API error', [
+                'status' => $response->status(),
+                'body' => $response->body(),
+            ]);
         }
+
     } catch (\Exception $e) {
-        \Log::error('Pixxi API exception', ['error' => $e->getMessage()]);
+        \Log::error('Pixxi API exception', ['message' => $e->getMessage()]);
     }
 
     return redirect()->back()->with('success', 'Booking created and sent to Pixxi CRM.');
 }
+
 
     public function exportToCSV()
     {
