@@ -6,6 +6,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PixxiController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UtilityController;
@@ -102,6 +103,12 @@ Route::prefix('admin')->group(function () {
             Route::get('/{slider}/edit', [SliderController::class, 'edit'])->name('sliders.edit');
             Route::put('/{slider}', [SliderController::class, 'update'])->name('sliders.update');
             Route::delete('/{slider}', [SliderController::class, 'destroy'])->name('sliders.destroy');
+        });
+
+        // Pixxi Properties Routes
+        Route::prefix('pixxi-properties')->group(function () {
+            Route::get('/', [PixxiController::class, 'index'])->name('pixxi.properties.index');
+            Route::get('/{propertyId}', [PixxiController::class, 'show'])->name('pixxi.properties.show');
         });
 
 

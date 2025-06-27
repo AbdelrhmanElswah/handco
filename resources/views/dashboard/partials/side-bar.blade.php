@@ -18,7 +18,8 @@
         <!-- Start::nav -->
         <nav class="main-menu-container nav nav-pills flex-column sub-open">
             <div class="slide-left" id="slide-left">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24"
+                    viewBox="0 0 24 24">
                     <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path>
                 </svg>
             </div>
@@ -43,27 +44,27 @@
 
 
                 <!-- Contact Us section -->
-{{--                <li class="slide__category"><span class="category-name">Contact Us</span></li>--}}
-{{--                <li class="slide">--}}
-{{--                    <a href="{{ route('contact-us.index') }}" class="side-menu__item">--}}
-{{--                        <i class="fe fe-users side-menu__icon"></i>--}}
-{{--                        <span class="side-menu__label">Contact Us</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                {{--                <li class="slide__category"><span class="category-name">Contact Us</span></li> --}}
+                {{--                <li class="slide"> --}}
+                {{--                    <a href="{{ route('contact-us.index') }}" class="side-menu__item"> --}}
+                {{--                        <i class="fe fe-users side-menu__icon"></i> --}}
+                {{--                        <span class="side-menu__label">Contact Us</span> --}}
+                {{--                    </a> --}}
+                {{--                </li> --}}
 
                 <!-- Category section -->
-{{--                <li class="slide__category"><span class="category-name">Category</span></li>--}}
-{{--                <li class="slide has-sub {{ request()->routeIs('category.*') }}">--}}
-{{--                    <a href="javascript:void(0);" class="side-menu__item">--}}
-{{--                        <i class="fe fe-folder side-menu__icon"></i>--}}
-{{--                        <span class="side-menu__label">Category</span>--}}
-{{--                        <i class="fe fe-chevron-right side-menu__angle"></i>--}}
-{{--                    </a>--}}
-{{--                    <ul class="slide-menu child1">--}}
-{{--                        <li><a href="{{ route('category.create') }}" class="side-menu__item">Add Category</a></li>--}}
-{{--                        <li><a href="{{ route('category.index') }}" class="side-menu__item">Show Categories</a></li>--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
+                {{--                <li class="slide__category"><span class="category-name">Category</span></li> --}}
+                {{--                <li class="slide has-sub {{ request()->routeIs('category.*') }}"> --}}
+                {{--                    <a href="javascript:void(0);" class="side-menu__item"> --}}
+                {{--                        <i class="fe fe-folder side-menu__icon"></i> --}}
+                {{--                        <span class="side-menu__label">Category</span> --}}
+                {{--                        <i class="fe fe-chevron-right side-menu__angle"></i> --}}
+                {{--                    </a> --}}
+                {{--                    <ul class="slide-menu child1"> --}}
+                {{--                        <li><a href="{{ route('category.create') }}" class="side-menu__item">Add Category</a></li> --}}
+                {{--                        <li><a href="{{ route('category.index') }}" class="side-menu__item">Show Categories</a></li> --}}
+                {{--                    </ul> --}}
+                {{--                </li> --}}
 
                 <!-- Sliders section -->
                 <li class="slide__category"><span class="category-name">Sliders</span></li>
@@ -81,18 +82,18 @@
 
 
                 <!-- Utilities section -->
-{{--                <li class="slide__category"><span class="category-name">Utilities</span></li>--}}
-{{--                <li class="slide has-sub {{ request()->routeIs('utilities.*') }}">--}}
-{{--                    <a href="javascript:void(0);" class="side-menu__item">--}}
-{{--                        <i class="fe fe-settings side-menu__icon"></i>--}}
-{{--                        <span class="side-menu__label">Utilities</span>--}}
-{{--                        <i class="fe fe-chevron-right side-menu__angle"></i>--}}
-{{--                    </a>--}}
-{{--                    <ul class="slide-menu child1">--}}
-{{--                        <li><a href="{{ route('utilities.create') }}" class="side-menu__item">Add Utility</a></li>--}}
-{{--                        <li><a href="{{ route('utilities.index') }}" class="side-menu__item">Show Utilities</a></li>--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
+                {{--                <li class="slide__category"><span class="category-name">Utilities</span></li> --}}
+                {{--                <li class="slide has-sub {{ request()->routeIs('utilities.*') }}"> --}}
+                {{--                    <a href="javascript:void(0);" class="side-menu__item"> --}}
+                {{--                        <i class="fe fe-settings side-menu__icon"></i> --}}
+                {{--                        <span class="side-menu__label">Utilities</span> --}}
+                {{--                        <i class="fe fe-chevron-right side-menu__angle"></i> --}}
+                {{--                    </a> --}}
+                {{--                    <ul class="slide-menu child1"> --}}
+                {{--                        <li><a href="{{ route('utilities.create') }}" class="side-menu__item">Add Utility</a></li> --}}
+                {{--                        <li><a href="{{ route('utilities.index') }}" class="side-menu__item">Show Utilities</a></li> --}}
+                {{--                    </ul> --}}
+                {{--                </li> --}}
 
                 <!-- Projects section -->
                 <li class="slide__category"><span class="category-name">Properties</span></li>
@@ -122,11 +123,29 @@
                     </ul>
                 </li>
 
+                <!-- Pixxi CRM section -->
+                <li class="slide__category"><span class="category-name">Pixxi CRM</span></li>
+                <li class="slide has-sub {{ request()->routeIs('pixxi.properties.*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="fe fe-database side-menu__icon"></i>
+                        <span class="side-menu__label">Pixxi Properties</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li><a href="{{ route('pixxi.properties.index') }}" class="side-menu__item">All Properties</a>
+                        </li>
+                        <li><a href="{{ route('pixxi.properties.index', ['listingType' => 'SELL']) }}"
+                                class="side-menu__item">For Sale</a></li>
+                        <li><a href="{{ route('pixxi.properties.index', ['listingType' => 'RENT']) }}"
+                                class="side-menu__item">For Rent</a></li>
+                    </ul>
+                </li>
+
                 <!-- Logout section -->
                 <li class="slide__category"><span class="category-name">Log out</span></li>
                 <li class="slide">
                     <a href="{{ route('logout') }}" class="side-menu__item"
-                       onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="fe fe-log-out side-menu__icon"></i>
                         <span class="side-menu__label">Logout</span>
                     </a>
@@ -136,7 +155,8 @@
                 </li>
             </ul>
             <div class="slide-right" id="slide-right">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24"
+                    viewBox="0 0 24 24">
                     <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path>
                 </svg>
             </div>
