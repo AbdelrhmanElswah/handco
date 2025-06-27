@@ -124,22 +124,34 @@
                 </li>
 
                 <!-- Pixxi CRM section -->
-                <li class="slide__category"><span class="category-name">Pixxi CRM</span></li>
-                <li class="slide has-sub {{ request()->routeIs('pixxi.properties.*') ? 'active' : '' }}">
-                    <a href="javascript:void(0);" class="side-menu__item">
-                        <i class="fe fe-database side-menu__icon"></i>
-                        <span class="side-menu__label">Pixxi Properties</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1">
-                        <li><a href="{{ route('pixxi.properties.index') }}" class="side-menu__item">All Properties</a>
-                        </li>
-                        <li><a href="{{ route('pixxi.properties.index', ['listingType' => 'SELL']) }}"
-                                class="side-menu__item">For Sale</a></li>
-                        <li><a href="{{ route('pixxi.properties.index', ['listingType' => 'RENT']) }}"
-                                class="side-menu__item">For Rent</a></li>
-                    </ul>
-                </li>
+<li class="slide__category"><span class="category-name">Pixxi CRM</span></li>
+<li class="slide has-sub {{ request()->routeIs('pixxi.properties.*') ? 'active' : '' }}">
+    <a href="javascript:void(0);" class="side-menu__item">
+        <i class="fe fe-database side-menu__icon"></i>
+        <span class="side-menu__label">Pixxi Properties</span>
+        <i class="fe fe-chevron-right side-menu__angle"></i>
+    </a>
+    <ul class="slide-menu child1">
+        <li>
+            <a href="{{ route('pixxi.properties.index') }}"
+               class="side-menu__item {{ is_null(request('listingType')) && is_null(request('status')) ? 'active' : '' }}">
+               All Properties
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('pixxi.properties.index', ['listingType' => 'SELL', 'status' => 'ACTIVE']) }}"
+               class="side-menu__item {{ request('listingType') === 'SELL' && request('status') === 'ACTIVE' ? 'active' : '' }}">
+               For Sale
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('pixxi.properties.index', ['listingType' => 'RENT', 'status' => 'ACTIVE']) }}"
+               class="side-menu__item {{ request('listingType') === 'RENT' && request('status') === 'ACTIVE' ? 'active' : '' }}">
+               For Rent
+            </a>
+        </li>
+    </ul>
+</li>
 
                 <!-- Logout section -->
                 <li class="slide__category"><span class="category-name">Log out</span></li>
