@@ -34,23 +34,24 @@
                             <div class="widget widget_recent_property">
                                 <h5 class="text-secondary mb-4">Recent Projects</h5>
                                 <ul>
-                                    @foreach($recentProjects as $recentProject)
-                                        <li>
-                                            <img src="{{ asset('files/projects/main_images/' . ($recentProject->mainImage->media ?? 'default.jpg')) }}" alt="{{ $recentProject->title }}">
-                                            <div class="thumb-body">
-                                                <h6 class="listing-title">
-                                                    <a href="{{ route('projects.show', $recentProject->id) }}">{{ $recentProject->title }}</a>
-                                                </h6>
-                                                <span class="listing-price">${{ number_format($recentProject->price, 2) }}</span>
-                                                <ul class="d-flex quantity font-fifteen">
-                                                    <li title="Area">
-                                                        <span><i class="fa-solid fa-vector-square"></i></span>
-                                                        {{ number_format($recentProject->floor_area) }} Sqft
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
-                                    @endforeach
+                                   @foreach($recentProjects as $recentProject)
+    <li>
+        <img src="{{ $recentProject->mainImage->media_link ?? asset('images/default.jpg') }}" alt="{{ $recentProject->title }}">
+        <div class="thumb-body">
+            <h6 class="listing-title">
+                <a href="{{ route('projects.show', $recentProject->id) }}">{{ $recentProject->title }}</a>
+            </h6>
+            <span class="listing-price">AED {{ number_format($recentProject->price, 2) }}</span>
+            <ul class="d-flex quantity font-fifteen">
+                <li title="Area">
+                    <span><i class="fa-solid fa-vector-square"></i></span>
+                    {{ number_format($recentProject->floor_area) }} Sqft
+                </li>
+            </ul>
+        </div>
+    </li>
+@endforeach
+
                                 </ul>
                             </div>
                         </div>

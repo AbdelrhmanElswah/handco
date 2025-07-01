@@ -123,7 +123,7 @@
                     </ul>
                 </li>
 
-                <!-- Pixxi CRM section -->
+              <!-- Pixxi CRM section -->
 <li class="slide__category"><span class="category-name">Pixxi CRM</span></li>
 <li class="slide has-sub {{ request()->routeIs('pixxi.properties.*') ? 'active' : '' }}">
     <a href="javascript:void(0);" class="side-menu__item">
@@ -132,12 +132,7 @@
         <i class="fe fe-chevron-right side-menu__angle"></i>
     </a>
     <ul class="slide-menu child1">
-        <li>
-            <a href="{{ route('pixxi.properties.index') }}"
-               class="side-menu__item {{ is_null(request('listingType')) && is_null(request('status')) ? 'active' : '' }}">
-               All Properties
-            </a>
-        </li>
+       
         <li>
             <a href="{{ route('pixxi.properties.index', ['listingType' => 'SELL', 'status' => 'ACTIVE']) }}"
                class="side-menu__item {{ request('listingType') === 'SELL' && request('status') === 'ACTIVE' ? 'active' : '' }}">
@@ -152,6 +147,7 @@
         </li>
     </ul>
 </li>
+
 
                 <!-- Logout section -->
                 <li class="slide__category"><span class="category-name">Log out</span></li>

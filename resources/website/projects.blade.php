@@ -38,7 +38,7 @@
                                 @endif
                                 <!-- Property Image -->
                                 <a href="{{ route('projects.show', $project->id) }}">
-                                    <img src="{{ asset('files/projects/main_images/' . ($project->mainImage->media ?? 'default.jpg')) }}" alt="Image Not Found!" style="width: 100%; height: 100%; object-fit: cover;">
+                                    <img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!" style="width: 100%; height: 100%; object-fit: cover;">
                                 </a>
                                 <!-- Price Tag -->
                                 <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px;">

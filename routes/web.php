@@ -12,6 +12,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UtilityController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PixxiSyncController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
+Route::get('/sync-pixxi', [PixxiSyncController::class, 'sync']);
+
 Route::prefix('admin')->group(function () {
 
     Route::get('/', function () {

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Media extends Model
 {
@@ -34,8 +35,16 @@ class Media extends Model
         return $this->morphTo();
     }
 
-    public function getMediaLinkAttribute()
-    {
-        return asset('files/'.$this->path_file_name.'/'.$this->media);
+
+public function getMediaLinkAttribute()
+{
+    if (Str::startsWith($this->media, ['http://', 'https://'])) {
+        return $this->media;
     }
+
+    return asset('files/' . $this->path_file_name . '/' . $this->media);
+}
+
+
+    
 }

@@ -66,6 +66,7 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();
+
         // Fetch the latest projects for "Recent Projects"
         $recentProjects = $recentProjectsQuery->latest()
             ->take(3)

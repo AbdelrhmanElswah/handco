@@ -65,7 +65,8 @@
     <ul>
         @foreach($recentProjects as $recentProject)
             <li>
-                <img src="{{ asset('files/projects/main_images/' . ($recentProject->mainImage->media ?? 'default.jpg')) }}" alt="{{ $recentProject->title }}">
+               <img src="{{ $recentProject->mainImage->media_link ?? asset('images/default.jpg') }}" alt="{{ $recentProject->title }}">
+
                 <div class="thumb-body">
                     <h6 class="listing-title">
                         <a href="{{ route('projects.show', $recentProject->id) }}">{{ $recentProject->title }}</a>
