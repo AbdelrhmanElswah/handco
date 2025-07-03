@@ -18,7 +18,7 @@
                                     @endif
                                 </div>
                                 <a href="#">
-                                    <img class="w-100" src="{{ asset('files/projects/main_images/' . $project->mainImage->media) }}" alt="{{ $project->title }}">
+                                    <img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="{{ $project->title }}">
                                 </a>
                             </div>
                         </div>

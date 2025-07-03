@@ -14,7 +14,7 @@
                                 <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom">
                                     <div class="cata position-absolute">
                                         <span class="sale bg-secondary text-white">{{ $project->status === 'available' ? 'Available' : 'Sold Out' }}</span>
-                                        <span class="sale bg-secondary text-white">{{ $project->rent_or_service === 'sale' ? 'For Sale' : 'For Rent' }}</span>
+                                        <span class="sale bg-secondary text-white">{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
                                         @if($project->payment_option)
                                             <span class="payment bg-primary text-white">{{ $project->payment_option }}</span>
                                         @endif
@@ -103,7 +103,7 @@
                                         <a href="{{ route('projects.show', $project->id) }}" class="d-flex text-general align-items-center"><span>Book Now</span></a>
                                     </div>
                                     <div class="post-date ms-auto">
-                                        <span>{{ $project->rent_or_service === 'sale' ? 'For Sale' : 'For Rent' }}</span>
+                                        <span>{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
                                     </div>
                                 </div>
                             </div>

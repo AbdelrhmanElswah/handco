@@ -62,7 +62,7 @@ class HomeController extends Controller
 
         // Fetch the top 3 featured projects for "Most Popular Projects"
         $popularProjects = $popularProjectsQuery->where('featured', true)
-            ->where('rent_or_service', 'sale')
+            ->where('rent_or_service', 'sell')
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();

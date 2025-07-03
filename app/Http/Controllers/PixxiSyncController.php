@@ -21,6 +21,21 @@ class PixxiSyncController extends Controller
     public function sync(Request $request)
     {
         $listingType = strtoupper($request->get('listingType', 'SELL'));
+ $projects = Project::where('rent_or_service', $listingType)->get();
+
+    foreach ($projects as $project) {
+        // امسح الصور المرتبطة
+        $project->mainImage()->delete();
+        $project->images()->delete();
+
+        // امسح الـ utility
+        if ($project->utility) {
+            $project->utility->delete();
+        }
+
+        $project->delete();
+    }
+
 
         $response = Http::withHeaders([
             'Authorization' => $this->authToken,
