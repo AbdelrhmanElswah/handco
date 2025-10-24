@@ -25,7 +25,7 @@
                     <p style="top:450px; left:50%; text-align:center; font-weight:400; font-style:normal; text-decoration:none; width:650px; font-size:18px; color:#ffffff; line-height:30px; white-space:normal;"
                        class="ls-l ls-hide-phone"
                        data-ls="offsetyin:100%; durationin:1500; delayin:1500; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
-                        {{ strip_tags($slider->description) }}
+                        {{ html_entity_decode(strip_tags($slider->description)) }}
                     </p>
 
                     <!-- Button -->
