@@ -29,7 +29,6 @@
             <div class="row">
                 <div class="col-md-5 order-md-2">
                     <h4 class="down-line mb-4">Get In Touch</h4>
-                    <p>Get your free consultation now!</p>
                     <div class="mb-3">
                         <ul>
                             @if(isset($contactInfoSection) && $contactInfoSection)

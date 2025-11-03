@@ -61,6 +61,60 @@
                             </div>
                             @endif
 
+                            {{-- Social Links Section --}}
+                            @if($sectionKey === 'social_links_section')
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label style="font-size: 21px">Social Links</label>
+                                    <div id="social-links-container">
+                                        @php $socials = $cms->social_links ?? []; @endphp
+                                        @if(count($socials) > 0)
+                                            @foreach($socials as $index => $s)
+                                            <div class="card mb-2 social-link-card" data-social-index="{{ $index }}">
+                                                <div class="card-body">
+                                                    <div class="row g-2">
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="social_links[{{ $index }}][platform]" class="form-control" value="{{ $s['platform'] ?? '' }}" placeholder="Platform (e.g., Facebook)">
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <input type="text" name="social_links[{{ $index }}][url]" class="form-control" value="{{ $s['url'] ?? '' }}" placeholder="https://...">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="text" name="social_links[{{ $index }}][icon_class]" class="form-control" value="{{ $s['icon_class'] ?? 'fab fa-facebook-f' }}" placeholder="Icon class">
+                                                        </div>
+                                                        <div class="col-md-1 d-flex align-items-end">
+                                                            <button type="button" class="btn btn-outline-danger remove-social-link-btn"><i class="far fa-trash-alt"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                        @else
+                                            <div class="card mb-2 social-link-card" data-social-index="0">
+                                                <div class="card-body">
+                                                    <div class="row g-2">
+                                                        <div class="col-md-3">
+                                                            <input type="text" name="social_links[0][platform]" class="form-control" placeholder="Platform (e.g., Facebook)">
+                                                        </div>
+                                                        <div class="col-md-7">
+                                                            <input type="text" name="social_links[0][url]" class="form-control" placeholder="https://...">
+                                                        </div>
+                                                        <div class="col-md-1">
+                                                            <input type="text" name="social_links[0][icon_class]" class="form-control" value="fab fa-facebook-f" placeholder="Icon class">
+                                                        </div>
+                                                        <div class="col-md-1 d-flex align-items-end">
+                                                            <button type="button" class="btn btn-outline-danger remove-social-link-btn"><i class="far fa-trash-alt"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-social-link-btn"><i class="far fa-plus"></i> Add Social Link</button>
+                                </div>
+                            </div>
+                            @endif
+
                             {{-- Contact Info Section (phones, addresses, emails) --}}
                             @if($sectionKey === 'contact_info_section')
                             <div class="col-md-12 mb-3">
@@ -781,6 +835,43 @@
                 if (e.target.closest('.remove-accordion-item-btn')) {
                     const item = e.target.closest('.accordion-item-card');
                     item.remove();
+                }
+            });
+
+            // Social links add/remove
+            const addSocialBtn = document.getElementById('add-social-link-btn');
+            if (addSocialBtn) {
+                addSocialBtn.addEventListener('click', function() {
+                    const container = document.getElementById('social-links-container');
+                    const index = container.querySelectorAll('.social-link-card').length;
+                    const div = document.createElement('div');
+                    div.className = 'card mb-2 social-link-card';
+                    div.setAttribute('data-social-index', index);
+                    div.innerHTML = `
+                        <div class="card-body">
+                            <div class="row g-2">
+                                <div class="col-md-3">
+                                    <input type="text" name="social_links[${index}][platform]" class="form-control" placeholder="Platform (e.g., Facebook)">
+                                </div>
+                                <div class="col-md-7">
+                                    <input type="text" name="social_links[${index}][url]" class="form-control" placeholder="https://...">
+                                </div>
+                                <div class="col-md-1">
+                                    <input type="text" name="social_links[${index}][icon_class]" class="form-control" value="fab fa-facebook-f" placeholder="Icon class">
+                                </div>
+                                <div class="col-md-1 d-flex align-items-end">
+                                    <button type="button" class="btn btn-outline-danger remove-social-link-btn"><i class="far fa-trash-alt"></i></button>
+                                </div>
+                            </div>
+                        </div>`;
+                    container.appendChild(div);
+                });
+            }
+
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('.remove-social-link-btn')) {
+                    const card = e.target.closest('.social-link-card');
+                    card.remove();
                 }
             });
         });

@@ -81,6 +81,14 @@ class CmsController extends Controller
             $validationRules['contact_emails.*'] = 'nullable|email';
         }
 
+        // Social links validation
+        if ($cms->section_key === 'social_links_section') {
+            $validationRules['social_links'] = 'nullable|array';
+            $validationRules['social_links.*.platform'] = 'nullable|string|max:100';
+            $validationRules['social_links.*.url'] = 'nullable|url|max:1024';
+            $validationRules['social_links.*.icon_class'] = 'nullable|string|max:100';
+        }
+
         $request->validate($validationRules);
 
         // Handle partner logo uploads for about_partners section
@@ -157,6 +165,7 @@ class CmsController extends Controller
         $contactPhones = null;
         $contactAddresses = null;
         $contactEmails = null;
+        $socialLinks = null;
         if ($cms->section_key === 'contact_info_section') {
             $contactPhones = array_values(array_filter(($request->contact_phones ?? []), function ($item) {
                 return !empty(trim($item['title'] ?? '')) || !empty(trim($item['number'] ?? ''));
@@ -166,6 +175,10 @@ class CmsController extends Controller
             }));
             $contactEmails = array_values(array_filter(($request->contact_emails ?? []), function ($item) {
                 return !empty(trim($item ?? ''));
+            }));
+        } elseif ($cms->section_key === 'social_links_section') {
+            $socialLinks = array_values(array_filter(($request->social_links ?? []), function ($item) {
+                return !empty(trim($item['platform'] ?? '')) || !empty(trim($item['url'] ?? ''));
             }));
         }
 
@@ -180,6 +193,7 @@ class CmsController extends Controller
             'contact_phones' => !empty($contactPhones) ? $contactPhones : null,
             'contact_addresses' => !empty($contactAddresses) ? $contactAddresses : null,
             'contact_emails' => !empty($contactEmails) ? $contactEmails : null,
+            'social_links' => !empty($socialLinks) ? $socialLinks : null,
             'is_active' => $request->has('is_active') ? true : false,
         ]);
 

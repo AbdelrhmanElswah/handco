@@ -22,6 +22,7 @@ class CmsSection extends Model
         'contact_phones',
         'contact_addresses',
         'contact_emails',
+        'social_links',
         'is_active',
     ];
 
@@ -33,6 +34,7 @@ class CmsSection extends Model
         'contact_phones' => 'array',
         'contact_addresses' => 'array',
         'contact_emails' => 'array',
+        'social_links' => 'array',
         'is_active' => 'boolean',
     ];
 

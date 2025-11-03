@@ -36,5 +36,11 @@ class AppServiceProvider extends ServiceProvider
             $contactInfoSection = CmsSection::getByKey('contact_info_section');
             $view->with('contactInfoSection', $contactInfoSection);
         });
+
+        // Share social links to footer
+        View::composer('website.partials._footer', function ($view) {
+            $socialLinksSection = CmsSection::getByKey('social_links_section');
+            $view->with('socialLinksSection', $socialLinksSection);
+        });
     }
 }

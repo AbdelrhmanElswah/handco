@@ -182,5 +182,22 @@ class CmsSectionSeeder extends Seeder
                 'is_active' => true,
             ]
         );
+
+        // Social Links Section
+        CmsSection::updateOrCreate(
+            ['section_key' => 'social_links_section'],
+            [
+                'section_name' => 'Social Links Section',
+                'title' => 'Follow Us',
+                'social_links' => [
+                    ['platform' => 'Facebook', 'url' => '#', 'icon_class' => 'fab fa-facebook-f'],
+                    ['platform' => 'Twitter', 'url' => '#', 'icon_class' => 'fab fa-twitter'],
+                    ['platform' => 'LinkedIn', 'url' => '#', 'icon_class' => 'fab fa-linkedin-in'],
+                    ['platform' => 'Google Plus', 'url' => '#', 'icon_class' => 'fab fa-google-plus-g'],
+                    ['platform' => 'Pinterest', 'url' => '#', 'icon_class' => 'fab fa-pinterest-p'],
+                ],
+                'is_active' => true,
+            ]
+        );
     }
 }
