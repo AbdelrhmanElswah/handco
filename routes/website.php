@@ -22,7 +22,11 @@ Route::post('/booking',
     ->name('booking.store');
 
 Route::get('/about-us', function () {
-    return view('website.about');
+    $aboutPageBanner = \App\Models\CmsSection::getByKey('about_page_banner');
+    $aboutHeroBanner = \App\Models\CmsSection::getByKey('about_hero_banner');
+    $aboutPartners = \App\Models\CmsSection::getByKey('about_partners');
+    $missionVisionSection = \App\Models\CmsSection::getByKey('mission_vision_section');
+    return view('website.about', compact('aboutPageBanner', 'aboutHeroBanner', 'aboutPartners', 'missionVisionSection'));
 })->name('about');
 
 Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');

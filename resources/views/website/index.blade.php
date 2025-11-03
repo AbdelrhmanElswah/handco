@@ -14,31 +14,38 @@
     <!--============== Property Search Form End ==============-->
 
     <!-- =============== About ================-->
+    @if($mainServicesSection && $mainServicesSection->is_active)
     <div class="full-row" style="padding: 70px 0 30px 0">
         <div class="container">
             <div class="row">
+                @if($mainServicesSection->title)
                 <div class="col-lg-4">
-                    <h1 class="text-dark mb-0" style="line-height: 50px">Our <br> Main Services</h1>
+                    <h1 class="text-dark mb-0" style="line-height: 50px">{!! nl2br(e($mainServicesSection->title)) !!}</h1>
+                    <h6 class="text-dark mb-0" style="line-height: 50px; font-weight: 400;">{!! nl2br(e($mainServicesSection->subtitle)) !!}</h3>
                 </div>
+                @endif
+                @if($mainServicesSection->content)
                 <div class="col-lg-4">
                     <div class="py-2 pt-3">
                         <p>
-                            H&Co Properties provides expert real estate services in Dubai, helping you buy, sell, or
-                            invest with ease.
-                            From luxury homes to commercial spaces, we guide you every step of the way.
+                            {!! $mainServicesSection->content !!}
                         </p>
                     </div>
                 </div>
+                @endif
+                @if($mainServicesSection->list_items && count($mainServicesSection->list_items) > 0)
                 <div class="col-lg-3 d-flex justify-content-md-end">
                     <ul class="list-style-tick d-flex flex-column my-2">
-                        <li>Properties Sales and Listing</li>
-                        <li>Real Estate Investment and Consulting</li>
-                        <li>Property Management</li>
+                        @foreach($mainServicesSection->list_items as $item)
+                            <li>{{ $item }}</li>
+                        @endforeach
                     </ul>
                 </div>
+                @endif
             </div>
         </div>
     </div>
+    @endif
     <!-- =============== About ================-->
 
     <div class="full-row p-0">
@@ -52,30 +59,22 @@
     </div>
 
     <!-- =============== Counting ================-->
+    @if($countingSection && $countingSection->is_active && $countingSection->stats_items && count($countingSection->stats_items) > 0)
     <div class="full-row">
         <div class="container">
             <div class="row row-cols-lg-3 row-cols-1">
+                @foreach($countingSection->stats_items as $stat)
                 <div class="col">
                     <div class="d-flex flex-row text-uppercase">
-                        <h1 class="text-primary mb-0 pe-4">$15.4M</h1>
-                        <p>Owned from <br>Properties Transactions</p>
+                        <h1 class="text-primary mb-0 pe-4">{{ $stat['value'] ?? '' }}</h1>
+                        <p>{!! nl2br(e($stat['description'] ?? '')) !!}</p>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="d-flex flex-row text-uppercase">
-                        <h1 class="text-primary mb-0 pe-4">25K+</h1>
-                        <p>Owned from <br>Properties Transactions</p>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="d-flex flex-row text-uppercase">
-                        <h1 class="text-primary mb-0 pe-4">500</h1>
-                        <p>Owned from <br>Properties Transactions</p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </div>
     </div>
+    @endif
     <!-- =============== Counting ================-->
 
     <!--============== Recent Property Start ==============-->
@@ -129,7 +128,7 @@
                                     @endif
                                 </div>
 
-                                <h6 class="d-block text-secondary">{{ $category->name }}</h6>
+                                <h6 class="d-block text-secondary">{{ Str::of($category->name)->replace('_', ' ')->title() }}</h6>
                             </a>
                         </div>
                     @endif
@@ -227,33 +226,42 @@
     <!--============== Property Category End ==============-->
 
     <!--============== Testimonial Section Start ==============-->
+    @if($testimonialsSection && $testimonialsSection->is_active && $testimonialsSection->testimonials && count($testimonialsSection->testimonials) > 0)
     <div class="full-row">
         <div class="container">
             <div class="row">
                 <div class="col mb-5">
-                    <span class="text-primary tagline pb-2 d-table m-auto">Testimonial</span>
-                    <h2 class="down-line w-50 mx-auto mb-4 text-center w-sm-100">What Client Says About Us</h2>
+                    @if($testimonialsSection->subtitle)
+                    <span class="text-primary tagline pb-2 d-table m-auto">{{ $testimonialsSection->subtitle }}</span>
+                    @endif
+                    @if($testimonialsSection->title)
+                    <h2 class="down-line w-50 mx-auto mb-4 text-center w-sm-100">{{ $testimonialsSection->title }}</h2>
+                    @endif
                 </div>
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-7">
                     <div class="testimonial-simple text-center px-5">
                         <div class="text-carusel owl-carousel">
+                            @foreach($testimonialsSection->testimonials as $testimonial)
                             <div class="item">
                                 <i class="flaticon-right-quote flat-large text-primary d-table mx-auto"></i>
-                                <blockquote class="text-secondary fs-5 fst-italic">“ Posuere mus curabitur parturient
-                                    scelerisque ...”
-                                </blockquote>
-                                <h4 class="mt-4 font-400">Mark Wiggins</h4>
-                                <span class="text-primary font-fifteen">CEO ( Grodins Group )</span>
+                                <blockquote class="text-secondary fs-5 fst-italic">" {{ $testimonial['quote'] ?? '' }} "</blockquote>
+                                @if($testimonial['author'] ?? '')
+                                <h4 class="mt-4 font-400">{{ $testimonial['author'] }}</h4>
+                                @endif
+                                @if($testimonial['position'] ?? '')
+                                <span class="text-primary font-fifteen">{{ $testimonial['position'] }}</span>
+                                @endif
                             </div>
-                            <!-- Add other testimonials here -->
+                            @endforeach
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    @endif
     <!--============== Testimonial Section End ==============-->
 
     <!--============== Popular Properties Start ==============-->

@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CmsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PixxiController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UtilityController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\PixxiSyncController;
 
 /*
@@ -27,6 +29,13 @@ use App\Http\Controllers\PixxiSyncController;
 
 
 Route::get('/sync-pixxi', [PixxiSyncController::class, 'sync']);
+
+// Utility route to run migrations and seeders
+Route::get('/migrate-seed', function () {
+    Artisan::call('migrate', ['--force' => true]);
+    Artisan::call('db:seed', ['--force' => true]);
+    return response()->json(['status' => 'ok', 'migrated' => true, 'seeded' => true]);
+});
 
 Route::prefix('admin')->group(function () {
 
@@ -100,7 +109,7 @@ Route::prefix('admin')->group(function () {
             Route::put('/{blog}', [BlogController::class, 'update'])->name('blog.update');
             Route::delete('/{blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
         });
-      
+
               Route::prefix('sliders')->group(function () {
             Route::get('/', [SliderController::class, 'index'])->name('sliders.index');
             Route::get('/create', [SliderController::class, 'create'])->name('sliders.create');
@@ -114,6 +123,13 @@ Route::prefix('admin')->group(function () {
         Route::prefix('pixxi-properties')->group(function () {
             Route::get('/', [PixxiController::class, 'index'])->name('pixxi.properties.index');
             Route::get('/{propertyId}', [PixxiController::class, 'show'])->name('pixxi.properties.show');
+        });
+
+        // CMS Routes
+        Route::prefix('cms')->group(function () {
+            Route::get('/', [CmsController::class, 'index'])->name('cms.index');
+            Route::get('/{cms}/edit', [CmsController::class, 'edit'])->name('cms.edit');
+            Route::put('/{cms}', [CmsController::class, 'update'])->name('cms.update');
         });
 
 

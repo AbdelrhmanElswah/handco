@@ -32,17 +32,31 @@
                     <p>Get your free consultation now!</p>
                     <div class="mb-3">
                         <ul>
-                            <li class="mb-3">
-                                <h6 class="mb-0">Office Address :</h6> H&Co properties full address.
-                            </li>
-                            <li class="mb-3">
-                                <h6>Contact Number :</h6>
-                                <a class="text-black" href="tel:+971527785359">+971527785359</a>
-                            </li>
-                            <li class="mb-3">
-                                <h6>Email Address :</h6>
-                                <a class="text-black" href="mailto:info@handcoproperties.com">info@handcoproperties.com</a>
-                            </li>
+                            @if(isset($contactInfoSection) && $contactInfoSection)
+                                @if($contactInfoSection->contact_addresses)
+                                    @foreach($contactInfoSection->contact_addresses as $addr)
+                                    <li class="mb-3">
+                                        <h6 class="mb-0">{{ $addr['title'] ?? 'Address' }} :</h6> {{ $addr['content'] ?? '' }}
+                                    </li>
+                                    @endforeach
+                                @endif
+                                @if($contactInfoSection->contact_phones)
+                                    @foreach($contactInfoSection->contact_phones as $ph)
+                                    <li class="mb-3">
+                                        <h6>{{ $ph['title'] ?? 'Phone' }} :</h6>
+                                        <a class="text-black" href="tel:{{ $ph['number'] ?? '' }}">{{ $ph['number'] ?? '' }}</a>
+                                    </li>
+                                    @endforeach
+                                @endif
+                                @if($contactInfoSection->contact_emails)
+                                    @foreach($contactInfoSection->contact_emails as $em)
+                                    <li class="mb-3">
+                                        <h6>Email Address :</h6>
+                                        <a class="text-black" href="mailto:{{ $em }}">{{ $em }}</a>
+                                    </li>
+                                    @endforeach
+                                @endif
+                            @endif
                         </ul>
                     </div>
                     <h5 class="mb-2">Career Info</h5>

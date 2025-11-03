@@ -123,6 +123,15 @@
                     </ul>
                 </li>
 
+                <!-- CMS section -->
+                <li class="slide__category"><span class="category-name">CMS</span></li>
+                <li class="slide {{ request()->routeIs('cms.*') ? 'active' : '' }}">
+                    <a href="{{ route('cms.index') }}" class="side-menu__item">
+                        <i class="fe fe-edit side-menu__icon"></i>
+                        <span class="side-menu__label">Content Management</span>
+                    </a>
+                </li>
+
               <!-- Pixxi CRM section -->
 <li class="slide__category"><span class="category-name">Pixxi CRM</span></li>
 <li class="slide has-sub {{ request()->routeIs('pixxi.properties.*') ? 'active' : '' }}">
@@ -132,7 +141,7 @@
         <i class="fe fe-chevron-right side-menu__angle"></i>
     </a>
     <ul class="slide-menu child1">
-       
+
         <li>
             <a href="{{ route('pixxi.properties.index', ['listingType' => 'SELL', 'status' => 'ACTIVE']) }}"
                class="side-menu__item {{ request('listingType') === 'SELL' && request('status') === 'ACTIVE' ? 'active' : '' }}">

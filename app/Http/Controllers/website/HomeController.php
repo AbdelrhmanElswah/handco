@@ -5,6 +5,7 @@ namespace App\Http\Controllers\website;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\CmsSection;
 use App\Models\Project;
 use App\Models\Slider;
 use App\Models\Utility;
@@ -85,10 +86,15 @@ class HomeController extends Controller
             'air_conditioning', 'garage_facility', 'swimming_pool', 'fire_security',
             'fire_place_facility', 'play_ground', 'furniture_include', 'marble_floor',
             'store_room', 'high_class_door', 'floor_heating_system', 'garden_include',
-        ];        
+        ];
 
         // Fetch All Categories For Section
         $allCategories = Category::all();
+
+        // Fetch CMS Sections
+        $mainServicesSection = CmsSection::getByKey('main_services');
+        $countingSection = CmsSection::getByKey('counting_section');
+        $testimonialsSection = CmsSection::getByKey('testimonials_section');
 
         // Pass variables to the view
         return view('website.index', compact(
@@ -103,7 +109,10 @@ class HomeController extends Controller
             'additionalOptions',
             'sliders',
             'latestBlogs',
-            'allCategories'
+            'allCategories',
+            'mainServicesSection',
+            'countingSection',
+            'testimonialsSection'
 
         ));
     }

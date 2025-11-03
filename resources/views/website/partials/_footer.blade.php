@@ -3,10 +3,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-9 col-md-8">
-                <h3 class="text-white xs-text-center my-20 font-400">Are you looking for a House or Property?</h3>
+                <h3 class="text-white xs-text-center my-20 font-400">Discover your next opportunity in real estate</h3>
             </div>
             <div class="col-lg-3 col-md-4">
-                <a href="{{route('contact')}}" class="btn btn-white y-center position-relative d-table xs-mx-auto ms-auto">Subscribe Now</a>
+                <a href="{{route('contact')}}" class="btn btn-white y-center position-relative d-table xs-mx-auto ms-auto">Contact Us</a>
             </div>
         </div>
     </div>
@@ -38,24 +38,38 @@
                 <div class="footer-widget contact-widget mb-4">
                     <h3 class="widget-title mb-4">Contact Info</h3>
                     <ul>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-map-marked" aria-hidden="true"></i>
-                                Full address for H&Co
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tel:+971 52 778 5359">
-                                <i class="fa fa-phone" aria-hidden="true"></i>
-                                +971 52 778 5359
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mailto:info@handcoproperties.com">
-                                <i class="fa fa-envelope" aria-hidden="true"></i>
-                                info@handcoproperties.com
-                            </a>
-                        </li>
+                        @if(isset($contactInfoSection) && $contactInfoSection)
+                            @if($contactInfoSection->contact_addresses)
+                                @foreach($contactInfoSection->contact_addresses as $addr)
+                                <li>
+                                    <a href="#">
+                                        <i class="fa fa-map-marked" aria-hidden="true"></i>
+                                        {{ $addr['title'] ?? 'Address' }} : {{ $addr['content'] ?? '' }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            @endif
+                            @if($contactInfoSection->contact_phones)
+                                @foreach($contactInfoSection->contact_phones as $ph)
+                                <li>
+                                    <a href="tel:{{ $ph['number'] ?? '' }}">
+                                        <i class="fa fa-phone" aria-hidden="true"></i>
+                                        {{ $ph['title'] ?? 'Phone' }} : {{ $ph['number'] ?? '' }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            @endif
+                            @if($contactInfoSection->contact_emails)
+                                @foreach($contactInfoSection->contact_emails as $em)
+                                <li>
+                                    <a href="mailto:{{ $em }}">
+                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                        {{ $em }}
+                                    </a>
+                                </li>
+                                @endforeach
+                            @endif
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -87,7 +101,7 @@
     <div class="container">
         <div class="row row-cols-md-2 row-cols-1">
             <div class="col">
-                <span class="text-white">Copy Rights © 2024 - All Rights Reserved - Powered By <a href="https://teleoceans.com/" target="_blank">Teleoceans.com</a></span>
+                <span class="text-white">Copy Rights © 2025 - All Rights Reserved - Powered By <a href="https://teleoceans.com/" target="_blank">Teleoceans.com</a></span>
             </div>
             <div class="col">
                 <ul class="line-menu float-end list-color-gray">
