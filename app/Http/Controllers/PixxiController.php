@@ -28,8 +28,8 @@ class PixxiController extends Controller
     private function fetchPixxiProperties($listingType = 'SELL', $status = 'ACTIVE', $page = 1)
     {
         try {
-            $response = Http::withHeaders([
-                'Authorization'   => 'Bearer ' . $this->authToken,
+            // Headers matching Postman request (only X-PIXXI-TOKEN is required)
+            $response = Http::timeout(30)->withHeaders([
                 'Content-Type'    => 'application/json',
                 'Accept'          => 'application/json',
                 'X-PIXXI-TOKEN'   => $this->pixxiToken
@@ -39,18 +39,62 @@ class PixxiController extends Controller
                 'page'        => $page
             ]);
 
+            $statusCode = $response->status();
+
             if ($response->successful()) {
-                return $response->json();
+                $data = $response->json();
+                // Ensure response has the expected structure
+                if (!isset($data['statusCode'])) {
+                    $data['statusCode'] = 200;
+                }
+                return $data;
             } else {
-                Log::error('Pixxi API Error: ' . $response->body());
+                $errorMessage = $response->json()['message'] ?? $response->body();
+                
+                Log::error('Pixxi API Error', [
+                    'status_code' => $statusCode,
+                    'error' => $errorMessage,
+                    'listing_type' => $listingType,
+                    'status' => $status,
+                    'page' => $page
+                ]);
+
+                $message = 'Failed to fetch properties';
+                if ($statusCode == 401) {
+                    $message = 'Token expired! Please update the token in PixxiController.';
+                } elseif ($statusCode == 403) {
+                    $message = 'Access forbidden! Check token permissions.';
+                } elseif ($statusCode == 404) {
+                    $message = 'API endpoint not found.';
+                } elseif ($statusCode >= 500) {
+                    $message = 'Pixxi server error. Please try again later.';
+                } elseif (!empty($errorMessage)) {
+                    $message = $errorMessage;
+                }
+
                 return [
-                    'statusCode' => 500,
-                    'message' => 'Failed to fetch properties',
+                    'statusCode' => $statusCode,
+                    'message' => $message,
                     'data' => ['list' => [], 'totalListings' => 0, 'totalSize' => 0]
                 ];
             }
+        } catch (\Illuminate\Http\Client\ConnectionException $e) {
+            Log::error('Pixxi API Connection Exception', [
+                'error' => $e->getMessage(),
+                'listing_type' => $listingType
+            ]);
+            return [
+                'statusCode' => 503,
+                'message' => 'Connection Error: Unable to connect to Pixxi API. Please check your internet connection.',
+                'data' => ['list' => [], 'totalListings' => 0, 'totalSize' => 0]
+            ];
         } catch (\Exception $e) {
-            Log::error('Pixxi API Exception: ' . $e->getMessage());
+            Log::error('Pixxi API Exception', [
+                'error' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'listing_type' => $listingType
+            ]);
             return [
                 'statusCode' => 500,
                 'message' => 'API connection failed: ' . $e->getMessage(),

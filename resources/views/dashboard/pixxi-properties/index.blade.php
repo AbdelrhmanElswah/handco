@@ -412,10 +412,20 @@
                                 <div class="text-center py-5">
                                     <i class="fe fe-home fa-3x text-muted mb-3"></i>
                                     <h4 class="mt-3">
-                                        {{ $properties['statusCode'] == 200 ? 'No Properties Found' : 'Connection Error' }}
+                                        @if ($properties['statusCode'] == 200)
+                                            No Properties Found
+                                        @else
+                                            Connection Error
+                                        @endif
                                     </h4>
                                     <p class="text-muted">
-                                        {{ $properties['message'] ?? 'No properties available with current filters.' }}</p>
+                                        {{ $properties['message'] ?? 'No properties available with current filters.' }}
+                                        @if(isset($properties['statusCode']) && $properties['statusCode'] == 401)
+                                            <br><small class="text-danger mt-2 d-block">⚠️ Please update the token in PixxiController.</small>
+                                        @elseif(isset($properties['statusCode']) && $properties['statusCode'] == 503)
+                                            <br><small class="text-warning mt-2 d-block">⚠️ Please check your internet connection and try again.</small>
+                                        @endif
+                                    </p>
                                     <button onclick="location.reload()" class="btn btn-primary">
                                         <i class="fe fe-refresh-cw"></i> Try Again
                                     </button>
