@@ -24,7 +24,7 @@
                                 <h5 class="d-block font-400 mb-3">
                                     <a href="{{ route('blogs.show', $blog->id) }}" class="transation text-dark hover-text-primary">{{ $blog->title }}</a>
                                 </h5>
-                                <p>{{ Str::limit(strip_tags($blog->content), 100) }}</p>
+                                <p>{{ Str::limit(html_entity_decode(strip_tags($blog->content)), 100) }}</p>
                                 <div class="post-meta text-uppercase">
                                     <a href="#"><span>By Admin</span></a>
                                     <a href="#"><span>{{ $blog->created_at->format('M d, Y') }}</span></a>
