@@ -97,13 +97,26 @@
                                 @endif
 
                                 {{-- Pagination Links --}}
-                                @foreach ($featuredProjects->links()->elements[0] as $page => $url)
-                                    @if ($page == $featuredProjects->currentPage())
-                                        <li class="page-item active"><a class="page-link">{{ $page }}</a></li>
-                                    @else
-                                        <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
-                                    @endif
-                                @endforeach
+                                @php
+                                    $elements = $featuredProjects->links()->elements;
+                                @endphp
+                                @if (!empty($elements))
+                                    @foreach ($elements as $element)
+                                        @if (is_string($element))
+                                            <li class="page-item disabled">
+                                                <span class="page-link">{{ $element }}</span>
+                                            </li>
+                                        @elseif (is_array($element))
+                                            @foreach ($element as $page => $url)
+                                                @if ($page == $featuredProjects->currentPage())
+                                                    <li class="page-item active"><a class="page-link">{{ $page }}</a></li>
+                                                @else
+                                                    <li class="page-item"><a class="page-link" href="{{ $url }}">{{ $page }}</a></li>
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    @endforeach
+                                @endif
 
                                 {{-- Next Page Link --}}
                                 @if ($featuredProjects->hasMorePages())

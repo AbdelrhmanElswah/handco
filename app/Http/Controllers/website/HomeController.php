@@ -74,7 +74,7 @@ class HomeController extends Controller
             ->get();
 
         // Execute the filtered projects query with pagination for main listing
-        $filteredProjects = $baseQuery->orderBy('created_at', 'desc')->paginate(9);
+        $filteredProjects = $baseQuery->orderBy('created_at', 'desc')->paginate(9)->appends($request->query());
 
         // Fetch unique filter options from the database
         $categories = Category::pluck('name', 'id');

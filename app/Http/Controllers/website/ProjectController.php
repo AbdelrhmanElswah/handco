@@ -83,7 +83,7 @@ class ProjectController extends Controller
         }
 
         // Get projects with applied filters and paginate results
-        $projects = $query->orderBy('created_at', 'desc')->paginate(9);
+        $projects = $query->orderBy('created_at', 'desc')->paginate(9)->appends($request->query());
 
         // Fetch unique filter options from the database
         $categories = Category::pluck('name', 'id');
@@ -194,7 +194,7 @@ class ProjectController extends Controller
         }
 
         // Retrieve the filtered and paginated results
-        $featuredProjects = $query->orderBy('created_at', 'desc')->paginate(9);
+        $featuredProjects = $query->orderBy('created_at', 'desc')->paginate(9)->appends($request->query());
 
         // Other data for filters
         $categories = Category::pluck('name', 'id');
