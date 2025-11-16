@@ -47,8 +47,13 @@ class ProjectController extends Controller
 
         // Filter by bedrooms
         if ($request->filled('bedrooms')) {
-            $query->whereHas('utility', function ($q) use ($request) {
-                $q->where('bedrooms', $request->bedrooms);
+            $bedroomsValue = $request->bedrooms;
+            $query->whereHas('utility', function ($q) use ($bedroomsValue) {
+                if ($bedroomsValue === '6+') {
+                    $q->where('bedrooms', '>=', 6);
+                } else {
+                    $q->where('bedrooms', $bedroomsValue);
+                }
             });
         }
 
@@ -90,10 +95,8 @@ class ProjectController extends Controller
         $locations = Project::distinct()->pluck('location_name');
         $paymentOptions = ['Off-Plan', 'Ready'];
         
-        // Get bedrooms from database and merge with common default values
-        $bedroomsFromDb = Utility::distinct()->whereNotNull('bedrooms')->pluck('bedrooms')->filter()->sort()->values();
-        $defaultBedrooms = collect([1, 2, 3, 4, 5, 6]);
-        $bedrooms = $defaultBedrooms->merge($bedroomsFromDb)->unique()->sort()->values();
+        // Bedrooms options: 1, 2, 3, 4, 5, 6, 6+
+        $bedrooms = collect([1, 2, 3, 4, 5, 6, '6+']);
         
         // Get bathrooms from database and merge with common default values
         $bathroomsFromDb = Utility::distinct()->whereNotNull('bathrooms')->pluck('bathrooms')->filter()->sort()->values();
@@ -163,10 +166,15 @@ class ProjectController extends Controller
         }
 
         if ($request->filled('bedrooms')) {
-            $query->whereHas('utility', function ($q) use ($request) {
-                $q->where('bedrooms', $request->bedrooms);
+            $bedroomsValue = $request->bedrooms;
+            $query->whereHas('utility', function ($q) use ($bedroomsValue) {
+                if ($bedroomsValue === '6+') {
+                    $q->where('bedrooms', '>=', 6);
+                } else {
+                    $q->where('bedrooms', $bedroomsValue);
+                }
             });
-            $activeFilters['bedrooms'] = $request->bedrooms;
+            $activeFilters['bedrooms'] = $bedroomsValue;
         }
 
         if ($request->filled('bathrooms')) {
@@ -209,10 +217,8 @@ class ProjectController extends Controller
         $locations = Project::distinct()->pluck('location_name');
         $paymentOptions = ['Off-Plan', 'Ready'];
         
-        // Get bedrooms from database and merge with common default values
-        $bedroomsFromDb = Utility::distinct()->whereNotNull('bedrooms')->pluck('bedrooms')->filter()->sort()->values();
-        $defaultBedrooms = collect([1, 2, 3, 4, 5, 6]);
-        $bedrooms = $defaultBedrooms->merge($bedroomsFromDb)->unique()->sort()->values();
+        // Bedrooms options: 1, 2, 3, 4, 5, 6, 6+
+        $bedrooms = collect([1, 2, 3, 4, 5, 6, '6+']);
         
         // Get bathrooms from database and merge with common default values
         $bathroomsFromDb = Utility::distinct()->whereNotNull('bathrooms')->pluck('bathrooms')->filter()->sort()->values();
