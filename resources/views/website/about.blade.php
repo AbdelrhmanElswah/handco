@@ -43,9 +43,9 @@
                         </h3>
                         @endif
                         @if($aboutHeroBanner->content)
-                        <p>
-                            {!! nl2br(e($aboutHeroBanner->content)) !!}
-                        </p>
+                        <div>
+                            {!! $aboutHeroBanner->content !!}
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -112,9 +112,9 @@
                                     {{ $item['title'] ?? '' }}
                                 </a>
                                 <div class="ac-collapse {{ ($item['is_active'] ?? false) ? 'show' : '' }}" @if($item['is_active'] ?? false) style="display: block;" @endif>
-                                    <p>
-                                        {!! nl2br(e($item['content'] ?? '')) !!}
-                                    </p>
+                                    <div>
+                                        {!! $item['content'] ?? '' !!}
+                                    </div>
                                 </div>
                             </div>
                             @endforeach
