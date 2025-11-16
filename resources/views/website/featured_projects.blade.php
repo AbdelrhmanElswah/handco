@@ -40,13 +40,13 @@
                         <div class="property-grid-1 bg-white property-block border transition hover-shadow">
                             <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom m-2" style="height: 200px;">
                                 <!-- Featured Tag -->
-                                <span class="cata position-absolute sale bg-primary text-white">Hot Sale</span>
+                                <span class="cata position-absolute sale bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Hot Sale</span>
                                 <!-- Property Image -->
                                 <a href="{{ route('projects.show', $project->id) }}">
                                     <img src="{{ asset('files/projects/main_images/' . ($project->mainImage->media ?? 'default.jpg')) }}" alt="Image Not Found!" style="width: 100%; height: 100%; object-fit: cover;">
                                 </a>
                                 <!-- Price Tag -->
-                                <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px;">
+                                <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
                                     AED {{ number_format($project->price) }}
                                 </span>
                             </div>

@@ -8,21 +8,21 @@
                     <img width="1920" height="960" src="{{ asset('files/sliders/main_images/' . $slider->mainImage->media) }}" class="ls-bg" alt="Slider Image"/>
 
                     <!-- Subtitle -->
-                    <p style="font-size:20px; font-weight:400; top:320px; left:50%; text-align:center; font-family: 'Sen', sans-serif;"
+                    <p style="font-size:20px; font-weight:400; top:320px; left:50%; text-align:center; font-family: 'Sen', sans-serif; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);"
                        class="ls-l ls-hide-phone text-white"
                        data-ls="offsetyin:100%; durationin:1500; delayin:500; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
                         {{ $slider->subtitle }}
                     </p>
 
                     <!-- Title -->
-                    <p style="font-size:48px; font-weight:700; top:370px; left:50%; text-align:center; font-family: 'Sen', sans-serif;"
+                    <p style="font-size:48px; font-weight:700; top:370px; left:50%; text-align:center; font-family: 'Sen', sans-serif; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);"
                        class="ls-l ls-hide-phone text-white"
                        data-ls="offsetyin:100%; durationin:1500; delayin:1000; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
                         {{ $slider->title }}
                     </p>
 
                     <!-- Description -->
-                    <p style="top:450px; left:50%; text-align:center; font-weight:400; font-style:normal; text-decoration:none; width:650px; font-size:18px; color:#ffffff; line-height:30px; white-space:normal;"
+                    <p style="top:450px; left:50%; text-align:center; font-weight:400; font-style:normal; text-decoration:none; width:650px; font-size:18px; color:#ffffff; line-height:30px; white-space:normal; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);"
                        class="ls-l ls-hide-phone"
                        data-ls="offsetyin:100%; durationin:1500; delayin:1500; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
                         {{ html_entity_decode(strip_tags($slider->description)) }}
@@ -41,17 +41,17 @@
             <!-- Default Static Slides -->
             <div class="ls-slide" data-ls="bgsize:cover; bgposition:50% 50%; duration:12000; transition2d:104; kenburnsscale:1.00;">
                 <img width="1920" height="960" src="{{ asset('assets/images/slider/2.png') }}" class="ls-bg" alt=""/>
-                <p style="font-size:20px; font-weight:400; top:320px; left:50%; font-family: 'Sen', sans-serif;"
+                <p style="font-size:20px; font-weight:400; top:320px; left:50%; font-family: 'Sen', sans-serif; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);"
                    class="ls-l ls-hide-phone text-white"
                    data-ls="offsetyin:100%; durationin:1500; delayin:500; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
                     Find Your Perfect Property in Dubai
                 </p>
-                <p style="font-size:48px; font-weight:700; top:370px; left:50%; font-family: 'Sen', sans-serif;"
+                <p style="font-size:48px; font-weight:700; top:370px; left:50%; font-family: 'Sen', sans-serif; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);"
                    class="ls-l ls-hide-phone text-white"
                    data-ls="offsetyin:100%; durationin:1500; delayin:1000; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
-                    Discover Dubai’s Finest Properties
+                    Discover Dubai's Finest Properties
                 </p>
-                <p style="top:450px; left:50%; text-align:center; font-weight:400; font-style:normal; text-decoration:none; width:650px; font-size:18px; color:#ffffff; line-height:30px; white-space:normal;"
+                <p style="top:450px; left:50%; text-align:center; font-weight:400; font-style:normal; text-decoration:none; width:650px; font-size:18px; color:#ffffff; line-height:30px; white-space:normal; text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 0, 0, 0.5);"
                    class="ls-l ls-hide-phone"
                    data-ls="offsetyin:100%; durationin:1500; delayin:1500; clipin:0 0 100% 0; durationout:400; parallaxlevel:0;">
                     H&Co Properties offers a curated selection of over a million listings. Begin your journey to owning a property in Dubai today.

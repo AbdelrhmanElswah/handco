@@ -19,18 +19,18 @@
                             <div class="property-grid-1 property-block bg-white transation-this">
                                 <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom">
                                     <div class="cata position-absolute">
-                                        <span class="sale bg-secondary text-white">{{ $project->status === 'available' ? 'Available' : 'Sold Out' }}</span>
-                                        <span class="sale bg-secondary text-white">{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
+                                        <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->status === 'available' ? 'Available' : 'Sold Out' }}</span>
+                                        <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
                                         @if($project->is_featured)
-                                            <span class="featured bg-primary text-white">Featured</span>
+                                            <span class="featured bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Featured</span>
                                         @endif
                                         @if($project->payment_option)
-                                            <span class="payment bg-primary text-white">{{ $project->payment_option }}</span>
+                                            <span class="payment bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->payment_option }}</span>
                                         @endif
                                     </div>
                                     <a href="{{ route('projects.show', $project->id) }}"><img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!">
 </a>
-                                    <a href="#" class="listing-ctg text-white">
+                                    <a href="#" class="listing-ctg text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); background-color: rgba(0, 0, 0, 0.6); padding: 5px 10px; border-radius: 3px; display: inline-block;">
                                         <i class="fa-solid fa-building"></i><span>{{ $project->category->name }}</span>
                                     </a>
                                     <ul class="position-absolute quick-meta">

@@ -12,9 +12,9 @@
                         <div class="col">
                             <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom m-2">
                                 <div class="cata position-absolute">
-                                    <span class="sale bg-secondary text-white">{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>
+                                    <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>
                                     @if($project->featured)
-                                        <span class="featured bg-primary text-white">Featured</span>
+                                        <span class="featured bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Featured</span>
                                     @endif
                                 </div>
                                 <a href="#">
@@ -113,9 +113,9 @@
                         <div class="col">
                             <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom m-2">
                                 <div class="cata position-absolute">
-                                    <span class="sale bg-secondary text-white">{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>
+                                    <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->status === 'available' ? 'For Sale' : 'Sold Out' }}</span>
                                     @if($project->featured)
-                                        <span class="featured bg-primary text-white">Featured</span>
+                                        <span class="featured bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Featured</span>
                                     @endif
                                 </div>
                                 <a href="#">
