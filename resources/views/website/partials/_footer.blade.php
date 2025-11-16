@@ -27,9 +27,44 @@
                     investing in premium properties across the UAE.
                 </p>
                 <div class="footer-widget media-widget mb-4">
-                    @if(isset($socialLinksSection) && $socialLinksSection && $socialLinksSection->social_links)
+                    @if(isset($socialLinksSection) && $socialLinksSection && $socialLinksSection->is_active && !empty($socialLinksSection->social_links))
                         @foreach($socialLinksSection->social_links as $s)
-                            <a href="{{ $s['url'] ?? '#' }}" target="_blank"><i class="{{ $s['icon_class'] ?? 'fab fa-link' }}"></i></a>
+                            @php
+                                $url = $s['url'] ?? '#';
+                                $platform = strtolower($s['platform'] ?? '');
+                                $platformName = $s['platform'] ?? 'Social Link';
+                                
+                                // Determine correct icon based on platform name or URL
+                                $iconClass = 'fab fa-link'; // default
+                                
+                                if (stripos($platform, 'instagram') !== false || stripos($url, 'instagram.com') !== false) {
+                                    $iconClass = 'fab fa-instagram';
+                                } elseif (stripos($platform, 'linkedin') !== false || stripos($url, 'linkedin.com') !== false) {
+                                    $iconClass = 'fab fa-linkedin-in';
+                                } elseif (stripos($platform, 'facebook') !== false || stripos($url, 'facebook.com') !== false) {
+                                    $iconClass = 'fab fa-facebook-f';
+                                } elseif (stripos($platform, 'twitter') !== false || stripos($url, 'twitter.com') !== false || stripos($url, 'x.com') !== false) {
+                                    $iconClass = 'fab fa-twitter';
+                                } elseif (stripos($platform, 'tiktok') !== false || stripos($url, 'tiktok.com') !== false) {
+                                    $iconClass = 'fab fa-tiktok';
+                                } elseif (stripos($platform, 'google') !== false || stripos($url, 'google.com') !== false || stripos($url, 'share.google') !== false) {
+                                    $iconClass = 'fab fa-google';
+                                } elseif (stripos($platform, 'youtube') !== false || stripos($url, 'youtube.com') !== false) {
+                                    $iconClass = 'fab fa-youtube';
+                                } elseif (stripos($platform, 'pinterest') !== false || stripos($url, 'pinterest.com') !== false) {
+                                    $iconClass = 'fab fa-pinterest-p';
+                                } elseif (stripos($platform, 'whatsapp') !== false || stripos($url, 'wa.me') !== false || stripos($url, 'whatsapp.com') !== false) {
+                                    $iconClass = 'fab fa-whatsapp';
+                                } elseif (!empty($s['icon_class']) && stripos($s['icon_class'], 'fa-') !== false) {
+                                    // Use provided icon if it's a valid Font Awesome class
+                                    $iconClass = $s['icon_class'];
+                                }
+                            @endphp
+                            @if(!empty($url) && $url !== '#' && filter_var($url, FILTER_VALIDATE_URL))
+                                <a href="{{ $url }}" target="_blank" rel="noopener noreferrer" aria-label="{{ $platformName }}" class="social-link-item">
+                                    <i class="{{ $iconClass }}"></i>
+                                </a>
+                            @endif
                         @endforeach
                     @endif
                 </div>
