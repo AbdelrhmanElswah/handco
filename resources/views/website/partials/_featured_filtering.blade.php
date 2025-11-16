@@ -19,7 +19,7 @@
                         </div>
 
                         <!-- Payment Options Dropdown -->
-                        <div class="col">
+                        <div class="col" style="display: none;">
                             <select class="form-control" name="payment_option">
                                 <option value="">Payment Options</option>
                                 @foreach($paymentOptions as $option)
@@ -45,19 +45,39 @@
                         <div class="col">
                             <select class="form-control" name="bedrooms">
                                 <option value="" {{ is_null(request('bedrooms')) ? 'selected' : '' }}>Bedrooms</option>
-                                @foreach($bedrooms as $bedroom)
-                                    <option value="{{ $bedroom }}" {{ request('bedrooms') == (string) $bedroom ? 'selected' : '' }}> {{ $bedroom }} </option>
-                                @endforeach
+                                @if(isset($bedrooms) && $bedrooms->count() > 0)
+                                    @foreach($bedrooms as $bedroom)
+                                        <option value="{{ $bedroom }}" {{ request('bedrooms') == (string) $bedroom ? 'selected' : '' }}>{{ $bedroom }}</option>
+                                    @endforeach
+                                @else
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7+">7+</option>
+                                @endif
                             </select>
                         </div>
 
                         <!-- Bathrooms Dropdown -->
-                        <div class="col">
+                        <div class="col" style="display: none;">
                             <select class="form-control" name="bathrooms">
-                                <option value="">Bathrooms</option>
-                                @foreach($bathrooms as $bathroom)
-                                    <option value="{{ $bathroom }}" {{ request('bathrooms') == $bathroom ? 'selected' : '' }}>{{ $bathroom }}</option>
-                                @endforeach
+                                <option value="" {{ is_null(request('bathrooms')) ? 'selected' : '' }}>Bathrooms</option>
+                                @if(isset($bathrooms) && $bathrooms->count() > 0)
+                                    @foreach($bathrooms as $bathroom)
+                                        <option value="{{ $bathroom }}" {{ request('bathrooms') == (string) $bathroom ? 'selected' : '' }}>{{ $bathroom }}</option>
+                                    @endforeach
+                                @else
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7+">7+</option>
+                                @endif
                             </select>
                         </div>
 

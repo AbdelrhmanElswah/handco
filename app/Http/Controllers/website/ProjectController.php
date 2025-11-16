@@ -89,8 +89,16 @@ class ProjectController extends Controller
         $categories = Category::pluck('name', 'id');
         $locations = Project::distinct()->pluck('location_name');
         $paymentOptions = ['Off-Plan', 'Ready'];
-        $bedrooms = Utility::distinct()->pluck('bedrooms');
-        $bathrooms = Utility::distinct()->pluck('bathrooms');
+        
+        // Get bedrooms from database and merge with common default values
+        $bedroomsFromDb = Utility::distinct()->whereNotNull('bedrooms')->pluck('bedrooms')->filter()->sort()->values();
+        $defaultBedrooms = collect([1, 2, 3, 4, 5, 6]);
+        $bedrooms = $defaultBedrooms->merge($bedroomsFromDb)->unique()->sort()->values();
+        
+        // Get bathrooms from database and merge with common default values
+        $bathroomsFromDb = Utility::distinct()->whereNotNull('bathrooms')->pluck('bathrooms')->filter()->sort()->values();
+        $defaultBathrooms = collect([1, 2, 3, 4, 5, 6]);
+        $bathrooms = $defaultBathrooms->merge($bathroomsFromDb)->unique()->sort()->values();
 
         $additionalOptions = [
             'air_conditioning', 'garage_facility', 'swimming_pool', 'fire_security',
@@ -200,8 +208,16 @@ class ProjectController extends Controller
         $categories = Category::pluck('name', 'id');
         $locations = Project::distinct()->pluck('location_name');
         $paymentOptions = ['Off-Plan', 'Ready'];
-        $bedrooms = Utility::distinct()->pluck('bedrooms');
-        $bathrooms = Utility::distinct()->pluck('bathrooms');
+        
+        // Get bedrooms from database and merge with common default values
+        $bedroomsFromDb = Utility::distinct()->whereNotNull('bedrooms')->pluck('bedrooms')->filter()->sort()->values();
+        $defaultBedrooms = collect([1, 2, 3, 4, 5, 6]);
+        $bedrooms = $defaultBedrooms->merge($bedroomsFromDb)->unique()->sort()->values();
+        
+        // Get bathrooms from database and merge with common default values
+        $bathroomsFromDb = Utility::distinct()->whereNotNull('bathrooms')->pluck('bathrooms')->filter()->sort()->values();
+        $defaultBathrooms = collect([1, 2, 3, 4, 5, 6]);
+        $bathrooms = $defaultBathrooms->merge($bathroomsFromDb)->unique()->sort()->values();
         $additionalOptions = [
             'air_conditioning', 'garage_facility', 'swimming_pool', 'fire_security',
             'fire_place_facility', 'play_ground', 'furniture_include', 'marble_floor',
