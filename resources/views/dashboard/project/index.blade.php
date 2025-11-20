@@ -45,6 +45,7 @@
                                         <th>Location</th>
                                         <th>Status</th>
                                         <th>Area</th>
+                                        <th>Garage</th>
                                         <th>Featured</th>
                                         <th>Action</th>
                                     </tr>
@@ -69,6 +70,17 @@
                                             </td>
                                             <!-- Floor Area -->
                                             <td>{{ $project->floor_area ? $project->floor_area . ' sq ft' : '-' }}</td>
+
+                                            <!-- Garage Status -->
+                                            <td>
+                                                @if($project->utility)
+                                                    <span class="badge {{ $project->utility->garage_facility ? 'bg-success' : 'bg-secondary' }}">
+                                                        {{ $project->utility->garage_facility ? 'Yes' : 'No' }}
+                                                    </span>
+                                                @else
+                                                    <span class="badge bg-warning">N/A</span>
+                                                @endif
+                                            </td>
 
                                             <!-- Featured Status -->
                                             <td>

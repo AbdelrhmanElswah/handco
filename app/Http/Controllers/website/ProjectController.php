@@ -14,6 +14,14 @@ class ProjectController extends Controller
 
     public function index(Request $request)
     {
+        // Log all request parameters for debugging
+        Log::info('Projects Index - All Request Parameters', [
+            'all_params' => $request->all(),
+            'garage_param' => $request->garage,
+            'garage_filled' => $request->filled('garage'),
+            'url' => $request->fullUrl(),
+        ]);
+        
         // Start a query for Project model
         $query = Project::query();
         // Apply filters based on request parameters
@@ -66,9 +74,32 @@ class ProjectController extends Controller
 
         // Filter by garage availability
         if ($request->filled('garage')) {
-            $query->whereHas('utility', function ($q) use ($request) {
-                $q->where('garage_facility', $request->garage == 'Yes' ? 1 : 0);
+            $garageValue = $request->garage;
+            $garageBoolean = $garageValue == 'Yes' ? 1 : 0;
+            
+            Log::info('Garage Filter Debug', [
+                'garage_request_value' => $garageValue,
+                'garage_value_type' => gettype($garageValue),
+                'garage_value_length' => strlen($garageValue),
+                'garage_boolean_value' => $garageBoolean,
+                'comparison_Yes' => $garageValue == 'Yes',
+                'comparison_Yes_strict' => $garageValue === 'Yes',
+                'projects_count_before' => $query->count(),
+            ]);
+            
+            $query->whereHas('utility', function ($q) use ($garageBoolean, $garageValue) {
+                Log::info('Garage Query Inside whereHas', [
+                    'garage_boolean' => $garageBoolean,
+                    'garage_original_value' => $garageValue,
+                ]);
+                $q->where('garage_facility', $garageBoolean);
             });
+            
+            Log::info('Garage Filter Applied', [
+                'projects_count_after' => $query->count(),
+                'sql_query' => $query->toSql(),
+                'sql_bindings' => $query->getBindings(),
+            ]);
         }
 
         // Filter by payment option
@@ -89,6 +120,32 @@ class ProjectController extends Controller
 
         // Get projects with applied filters and paginate results
         $projects = $query->orderBy('created_at', 'desc')->paginate(9)->appends($request->query());
+
+        // Log database statistics for garage
+        $projectsWithGarage = Project::whereHas('utility', function ($q) {
+            $q->where('garage_facility', 1);
+        })->count();
+        $projectsWithoutGarage = Project::whereHas('utility', function ($q) {
+            $q->where('garage_facility', 0);
+        })->count();
+        $projectsWithoutUtility = Project::whereDoesntHave('utility')->count();
+        $totalProjects = Project::count();
+        
+        // Sample some utility records to see actual values
+        $sampleUtilities = Utility::select('id', 'garage_facility')
+            ->whereNotNull('garage_facility')
+            ->take(5)
+            ->get()
+            ->toArray();
+        
+        Log::info('Garage Database Statistics', [
+            'projects_with_garage' => $projectsWithGarage,
+            'projects_without_garage' => $projectsWithoutGarage,
+            'projects_without_utility' => $projectsWithoutUtility,
+            'total_projects' => $totalProjects,
+            'filtered_results_count' => $projects->total(),
+            'sample_utilities' => $sampleUtilities,
+        ]);
 
         // Fetch unique filter options from the database
         $categories = Category::pluck('name', 'id');
@@ -185,10 +242,21 @@ class ProjectController extends Controller
         }
 
         if ($request->filled('garage')) {
-            $query->whereHas('utility', function ($q) use ($request) {
-                $q->where('garage_facility', $request->garage == 'Yes' ? 1 : 0);
+            $garageValue = $request->garage;
+            $garageBoolean = $garageValue == 'Yes' ? 1 : 0;
+            
+            Log::info('Featured Projects - Garage Filter Debug', [
+                'garage_request_value' => $garageValue,
+                'garage_value_type' => gettype($garageValue),
+                'garage_boolean_value' => $garageBoolean,
+                'comparison_Yes' => $garageValue == 'Yes',
+                'comparison_Yes_strict' => $garageValue === 'Yes',
+            ]);
+            
+            $query->whereHas('utility', function ($q) use ($garageBoolean) {
+                $q->where('garage_facility', $garageBoolean);
             });
-            $activeFilters['garage'] = $request->garage;
+            $activeFilters['garage'] = $garageValue;
         }
 
         if (!empty($request->payment_option)) {

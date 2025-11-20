@@ -20,7 +20,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = Project::all();
+        $projects = Project::with('utility')->get();
         return view('dashboard.project.index', compact('projects'));
     }
 
@@ -64,7 +64,7 @@ class ProjectController extends Controller
             'price' => 'required|numeric',
             'category_id' => 'required|exists:categories,id',
             'location_name' => 'required|string|max:255',
-            'location_link' => 'required|url',
+            'location_link' => 'nullable|url',
             'tags' => 'nullable|array',
             'description' => 'nullable|string',
             'floor_area' => 'nullable|integer',
@@ -203,7 +203,7 @@ class ProjectController extends Controller
             'price' => 'sometimes|required|numeric',
             'category_id' => 'sometimes|required|exists:categories,id',
             'location_name' => 'sometimes|string',
-            'location_link' => 'sometimes|url',
+            'location_link' => 'sometimes|nullable|url',
             'tags' => 'sometimes|nullable|array',
             'description' => 'sometimes|nullable|string',
             'floor_area' => 'sometimes|nullable|integer',
