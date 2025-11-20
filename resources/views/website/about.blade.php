@@ -28,22 +28,24 @@
 
     <!--============== Banner Start ==============-->
     @if($aboutHeroBanner && $aboutHeroBanner->is_active)
-    <div class="full-row paraxify" style="background-image: url(assets/images/bg-4.jpg); background-repeat: no-repeat; background-position: center center; background-size: cover;">
-        <div class="container">
+    <div class="full-row paraxify position-relative" style="background-image: url(assets/images/bg-4.jpg); background-repeat: no-repeat; background-position: center center; background-size: cover;">
+        <!-- Gradient Overlay -->
+        <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%); z-index: 1;"></div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row">
                 <div class="col-xl-6 col-lg-8">
                     <div class="text-white">
                         @if($aboutHeroBanner->subtitle)
                         <span class="tagline text-primary"
-                              style="text-shadow: 2px 2px rgba(0, 0, 0, 0.4)">{{ $aboutHeroBanner->subtitle }}</span>
+                              style="text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.6); font-weight: 600;">{{ $aboutHeroBanner->subtitle }}</span>
                         @endif
                         @if($aboutHeroBanner->title)
-                        <h3 class="mb-4 text-white">
+                        <h3 class="mb-4 text-white" style="text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 0, 0, 0.7); font-weight: 700;">
                             {{ $aboutHeroBanner->title }}
                         </h3>
                         @endif
                         @if($aboutHeroBanner->content)
-                        <div>
+                        <div style="text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.6);">
                             {!! $aboutHeroBanner->content !!}
                         </div>
                         @endif

@@ -48,4 +48,53 @@
     :root {
         --theme-secondary-color: #1c2e4a !important;
     }
+
+    /* Image Gradient Overlay for Text Readability */
+    .paraxify {
+        position: relative;
+    }
+
+    .paraxify::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.5) 50%, rgba(0, 0, 0, 0.7) 100%);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* Enhanced Text Shadow for Better Readability */
+    .text-over-image {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9), 0 0 15px rgba(0, 0, 0, 0.7), 0 0 25px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    /* Slider Text Enhancement */
+    #slider .ls-l {
+        text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.6) !important;
+    }
+
+    /* Slider Gradient Overlay */
+    #slider {
+        position: relative;
+    }
+
+    #slider::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.6) 100%);
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    #slider .ls-slide {
+        position: relative;
+        z-index: 2;
+    }
 </style>
