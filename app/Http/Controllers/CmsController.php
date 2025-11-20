@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CmsSection;
+use App\Services\MediaUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
@@ -11,6 +12,13 @@ use Illuminate\Support\Str;
 
 class CmsController extends Controller
 {
+    protected $mediaUploadService;
+
+    public function __construct(MediaUploadService $mediaUploadService)
+    {
+        $this->mediaUploadService = $mediaUploadService;
+    }
+
     /**
      * Display a listing of CMS sections
      */
@@ -63,6 +71,11 @@ class CmsController extends Controller
             $validationRules['existing_logos'] = 'nullable|array';
         }
 
+        // Add validation for background image if editing about_hero_banner or mission_vision_section
+        if (in_array($cms->section_key, ['about_hero_banner', 'mission_vision_section'])) {
+            $validationRules['background_image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+
         // Footer CTA validation
         if ($cms->section_key === 'footer_register_cta') {
             $validationRules['button_text'] = 'nullable|string|max:255';
@@ -90,6 +103,41 @@ class CmsController extends Controller
         }
 
         $request->validate($validationRules);
+
+        // Handle background image upload for about_hero_banner and mission_vision_section
+        if (in_array($cms->section_key, ['about_hero_banner', 'mission_vision_section']) && $request->hasFile('background_image')) {
+            $uploadPath = 'cms/about-us';
+            
+            // Create directory if it doesn't exist (in public/files)
+            if (!file_exists(public_path('files/' . $uploadPath))) {
+                mkdir(public_path('files/' . $uploadPath), 0755, true);
+            }
+
+            // Delete old background image if exists
+            if ($cms->backgroundImage) {
+                $oldImagePath = public_path('files/' . $cms->backgroundImage->path_file_name . '/' . $cms->backgroundImage->media);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+                $cms->backgroundImage()->delete();
+            }
+
+            // Upload new background image directly using the relationship
+            $file = $request->file('background_image');
+            $now = Carbon::now();
+            $randomString = Str::random(10);
+            $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
+
+            // Move file to the appropriate directory (in public/files)
+            $file->move(public_path('files/' . $uploadPath), $filename);
+
+            // Create media record using backgroundImage relationship
+            $cms->backgroundImage()->create([
+                'media' => $filename,
+                'info' => 'background',
+                'path_file_name' => $uploadPath,
+            ]);
+        }
 
         // Handle partner logo uploads for about_partners section
         if ($cms->section_key === 'about_partners') {
@@ -183,9 +231,9 @@ class CmsController extends Controller
         }
 
         $cms->update([
-            'title' => $request->title,
-            'subtitle' => $request->subtitle,
-            'content' => $request->content,
+            'title' => $request->input('title'),
+            'subtitle' => $request->input('subtitle'),
+            'content' => $request->input('content'),
             'list_items' => !empty($listItems) ? $listItems : null,
             'stats_items' => !empty($statsItems) ? $statsItems : null,
             'testimonials' => !empty($testimonials) ? $testimonials : null,

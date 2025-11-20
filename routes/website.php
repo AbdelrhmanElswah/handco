@@ -23,9 +23,22 @@ Route::post('/booking',
 
 Route::get('/about-us', function () {
     $aboutPageBanner = \App\Models\CmsSection::getByKey('about_page_banner');
+    if ($aboutPageBanner) {
+        $aboutPageBanner->load('backgroundImage');
+    }
+    
     $aboutHeroBanner = \App\Models\CmsSection::getByKey('about_hero_banner');
+    if ($aboutHeroBanner) {
+        $aboutHeroBanner->load('backgroundImage');
+    }
+    
     $aboutPartners = \App\Models\CmsSection::getByKey('about_partners');
+    
     $missionVisionSection = \App\Models\CmsSection::getByKey('mission_vision_section');
+    if ($missionVisionSection) {
+        $missionVisionSection->load('backgroundImage');
+    }
+    
     return view('website.about', compact('aboutPageBanner', 'aboutHeroBanner', 'aboutPartners', 'missionVisionSection'));
 })->name('about');
 

@@ -28,7 +28,7 @@
 
     <!--============== Banner Start ==============-->
     @if($aboutHeroBanner && $aboutHeroBanner->is_active)
-    <div class="full-row paraxify position-relative" style="background-image: url(assets/images/bg-4.jpg); background-repeat: no-repeat; background-position: center center; background-size: cover;">
+    <div class="full-row paraxify position-relative" style="background-image: url({{ $aboutHeroBanner->backgroundImage ? $aboutHeroBanner->backgroundImage->media_link : asset('assets/images/bg-4.jpg') }}); background-repeat: no-repeat; background-position: center center; background-size: cover;">
         <!-- Gradient Overlay -->
         <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.6) 100%); z-index: 1;"></div>
         <div class="container position-relative" style="z-index: 2;">
@@ -98,7 +98,9 @@
     <div class="full-row bg-light pb-0">
         <div class="container-fluid">
             <div class="row row-cols-xl-2 row-cols-1">
-                <div class="col px-0"><img src="assets/images/about-bg.jpg" alt="image not found"></div>
+                <div class="col px-0">
+                    <img src="{{ $missionVisionSection->backgroundImage ? $missionVisionSection->backgroundImage->media_link : asset('assets/images/about-bg.jpg') }}" alt="image not found" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
                 <div class="col bg-white" style="margin-top: -100px;">
                     <div class="w-75 w-lg-100 sm-px-0" style="padding:50px 80px">
                         @if($missionVisionSection->title)

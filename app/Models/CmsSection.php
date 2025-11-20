@@ -45,4 +45,20 @@ class CmsSection extends Model
     {
         return static::where('section_key', $key)->where('is_active', true)->first();
     }
+
+    /**
+     * Define a one-to-one relationship for the background image.
+     */
+    public function backgroundImage()
+    {
+        return $this->morphOne(Media::class, 'modelable')->where('info', 'background');
+    }
+
+    /**
+     * Define a one-to-one relationship for the section image.
+     */
+    public function sectionImage()
+    {
+        return $this->morphOne(Media::class, 'modelable')->where('info', 'section');
+    }
 }

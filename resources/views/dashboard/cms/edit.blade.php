@@ -242,6 +242,26 @@
                             </div>
                             @endif
 
+                            {{-- Background Image Upload for about_hero_banner --}}
+                            @if($sectionKey === 'about_hero_banner')
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label style="font-size: 21px">Background Image</label>
+                                    @if($cms->backgroundImage)
+                                    <div class="mb-3">
+                                        <label class="form-label">Current Image:</label>
+                                        <div class="mb-2">
+                                            <img src="{{ $cms->backgroundImage->media_link }}" alt="Background Image" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; border-radius: 4px;">
+                                        </div>
+                                        <small class="text-muted d-block">Upload a new image to replace the current one</small>
+                                    </div>
+                                    @endif
+                                    <input type="file" name="background_image" class="form-control" accept="image/*">
+                                    <small class="form-text text-muted d-block">Upload a background image for the About Us hero banner section</small>
+                                </div>
+                            </div>
+                            @endif
+
                             {{-- Footer CTA fields (button text/link) --}}
                             @if($sectionKey === 'footer_register_cta')
                             <div class="col-md-12 mb-3">
@@ -466,6 +486,26 @@
                                         <i class="far fa-plus"></i> Add Testimonial
                                     </button>
                                     <small class="form-text text-muted d-block">Add client testimonials with quotes, author names, and positions</small>
+                                </div>
+                            </div>
+                            @endif
+
+                            {{-- Background Image Upload for mission_vision_section --}}
+                            @if($sectionKey === 'mission_vision_section')
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label style="font-size: 21px">Section Image</label>
+                                    @if($cms->backgroundImage)
+                                    <div class="mb-3">
+                                        <label class="form-label">Current Image:</label>
+                                        <div class="mb-2">
+                                            <img src="{{ $cms->backgroundImage->media_link }}" alt="Section Image" class="img-fluid" style="max-height: 200px; border: 1px solid #ddd; border-radius: 4px;">
+                                        </div>
+                                        <small class="text-muted d-block">Upload a new image to replace the current one</small>
+                                    </div>
+                                    @endif
+                                    <input type="file" name="background_image" class="form-control" accept="image/*">
+                                    <small class="form-text text-muted d-block">Upload an image for the Mission & Vision section</small>
                                 </div>
                             </div>
                             @endif
