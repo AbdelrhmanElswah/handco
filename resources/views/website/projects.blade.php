@@ -81,59 +81,96 @@
             <div class="row">
                 <div class="col mt-5">
                     @if ($projects->hasPages())
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination pagination-dotted-active justify-content-center">
+                        <div class="d-flex flex-column align-items-center">
+                            <!-- Results Info -->
+                            <div class="mb-3 text-muted">
+                                <span>Showing {{ $projects->firstItem() }} to {{ $projects->lastItem() }} of {{ $projects->total() }} properties</span>
+                            </div>
+                            
+                            <!-- Pagination Navigation -->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-lg justify-content-center mb-0">
+                                    {{-- Previous Page Link --}}
+                                    @if ($projects->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link" aria-label="Previous">
+                                                <i class="fa-solid fa-chevron-left"></i> Previous
+                                            </span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $projects->previousPageUrl() }}" rel="prev" aria-label="Previous">
+                                                <i class="fa-solid fa-chevron-left"></i> Previous
+                                            </a>
+                                        </li>
+                                    @endif
 
-                                {{-- Previous Page Link --}}
-                                @if ($projects->onFirstPage())
-                                    <li class="page-item disabled">
-                                        <a class="page-link">Previous Page</a>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $projects->previousPageUrl() }}" rel="prev">Previous Page</a>
-                                    </li>
-                                @endif
+                                    {{-- Pagination Links --}}
+                                    @php
+                                        $currentPage = $projects->currentPage();
+                                        $lastPage = $projects->lastPage();
+                                        $start = max(1, $currentPage - 2);
+                                        $end = min($lastPage, $currentPage + 2);
+                                    @endphp
 
-                                {{-- Pagination Links --}}
-                                @php
-                                    $elements = $projects->links()->elements;
-                                @endphp
-                                @if (!empty($elements))
-                                    @foreach ($elements as $element)
-                                        @if (is_string($element))
+                                    {{-- First Page --}}
+                                    @if ($start > 1)
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $projects->url(1) }}">1</a>
+                                        </li>
+                                        @if ($start > 2)
                                             <li class="page-item disabled">
-                                                <span class="page-link">{{ $element }}</span>
+                                                <span class="page-link">...</span>
                                             </li>
-                                        @elseif (is_array($element))
-                                            @foreach ($element as $page => $url)
-                                                @if ($page == $projects->currentPage())
-                                                    <li class="page-item active">
-                                                        <a class="page-link">{{ $page }}</a>
-                                                    </li>
-                                                @else
-                                                    <li class="page-item">
-                                                        <a class="page-link" href="{{ $url }}">{{ $page }}</a>
-                                                    </li>
-                                                @endif
-                                            @endforeach
                                         @endif
-                                    @endforeach
-                                @endif
+                                    @endif
 
-                                {{-- Next Page Link --}}
-                                @if ($projects->hasMorePages())
-                                    <li class="page-item">
-                                        <a class="page-link" href="{{ $projects->nextPageUrl() }}" rel="next">Next Page</a>
-                                    </li>
-                                @else
-                                    <li class="page-item disabled">
-                                        <a class="page-link">Next Page</a>
-                                    </li>
-                                @endif
+                                    {{-- Page Numbers --}}
+                                    @for ($page = $start; $page <= $end; $page++)
+                                        @if ($page == $currentPage)
+                                            <li class="page-item active">
+                                                <span class="page-link">{{ $page }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $projects->url($page) }}">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endfor
 
-                            </ul>
-                        </nav>
+                                    {{-- Last Page --}}
+                                    @if ($end < $lastPage)
+                                        @if ($end < $lastPage - 1)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $projects->url($lastPage) }}">{{ $lastPage }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Next Page Link --}}
+                                    @if ($projects->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $projects->nextPageUrl() }}" rel="next" aria-label="Next">
+                                                Next <i class="fa-solid fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link" aria-label="Next">
+                                                Next <i class="fa-solid fa-chevron-right"></i>
+                                            </span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
+                        </div>
+                    @else
+                        <div class="text-center text-muted mt-3">
+                            <p>Showing all {{ $projects->total() }} properties</p>
+                        </div>
                     @endif
                 </div>
             </div>
