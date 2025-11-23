@@ -37,6 +37,18 @@ class UtilityController extends Controller
             'store_room' => 'boolean',
             'high_class_door' => 'boolean',
             'floor_heating_system' => 'boolean',
+            'smart_home_system' => 'boolean',
+            'central_heating_hvac' => 'boolean',
+            'walk_in_closets' => 'boolean',
+            'en_suite_bathrooms' => 'boolean',
+            'built_in_kitchen_appliances' => 'boolean',
+            'laundry_room' => 'boolean',
+            'bbq_area' => 'boolean',
+            'gated_community_access' => 'boolean',
+            'guest_house_maids_room' => 'boolean',
+            'private_pool' => 'boolean',
+            'landscaped_garden' => 'boolean',
+            'covered_parking' => 'boolean',
         ]);
 
         $data = $request->all();
@@ -53,6 +65,18 @@ class UtilityController extends Controller
         $data['store_room'] = $request->has('store_room') ? 1 : 0;
         $data['high_class_door'] = $request->has('high_class_door') ? 1 : 0;
         $data['floor_heating_system'] = $request->has('floor_heating_system') ? 1 : 0;
+        $data['smart_home_system'] = $request->has('smart_home_system') ? 1 : 0;
+        $data['central_heating_hvac'] = $request->has('central_heating_hvac') ? 1 : 0;
+        $data['walk_in_closets'] = $request->has('walk_in_closets') ? 1 : 0;
+        $data['en_suite_bathrooms'] = $request->has('en_suite_bathrooms') ? 1 : 0;
+        $data['built_in_kitchen_appliances'] = $request->has('built_in_kitchen_appliances') ? 1 : 0;
+        $data['laundry_room'] = $request->has('laundry_room') ? 1 : 0;
+        $data['bbq_area'] = $request->has('bbq_area') ? 1 : 0;
+        $data['gated_community_access'] = $request->has('gated_community_access') ? 1 : 0;
+        $data['guest_house_maids_room'] = $request->has('guest_house_maids_room') ? 1 : 0;
+        $data['private_pool'] = $request->has('private_pool') ? 1 : 0;
+        $data['landscaped_garden'] = $request->has('landscaped_garden') ? 1 : 0;
+        $data['covered_parking'] = $request->has('covered_parking') ? 1 : 0;
 
         Utility::create($data);
         return redirect()->route('utilities.index')->with('success', 'Utility created successfully.');

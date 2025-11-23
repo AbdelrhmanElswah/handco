@@ -86,6 +86,10 @@ class HomeController extends Controller
             'air_conditioning', 'garage_facility', 'swimming_pool', 'fire_security',
             'fire_place_facility', 'play_ground', 'furniture_include', 'marble_floor',
             'store_room', 'high_class_door', 'floor_heating_system', 'garden_include',
+            'smart_home_system', 'central_heating_hvac', 'walk_in_closets', 'en_suite_bathrooms',
+            'built_in_kitchen_appliances', 'laundry_room', 'bbq_area', 'gated_community_access',
+            'guest_house_maids_room', 'private_pool', 'landscaped_garden', 'covered_parking',
+            'balcony',
         ];
 
         // Fetch All Categories For Section
