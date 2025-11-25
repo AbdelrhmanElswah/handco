@@ -20,9 +20,9 @@
             <div class="row align-items-start">
                 @if($mainServicesSection->title)
                 <div class="col-lg-4">
-                    <h1 class="mb-0" style="line-height: 50px; color: #001f3f;">{!! nl2br(e($mainServicesSection->title)) !!}</h1>
+                    <h1 class="mb-0 text-secondary" style="line-height: 50px;">{!! nl2br(e($mainServicesSection->title)) !!}</h1>
                     @if($mainServicesSection->subtitle)
-                    <h6 class="mb-0" style="line-height: 50px; font-weight: 400; color: #001f3f;">{!! nl2br(e($mainServicesSection->subtitle)) !!}</h6>
+                    <h6 class="mb-0 text-secondary" style="line-height: 50px; font-weight: 400;">{!! nl2br(e($mainServicesSection->subtitle)) !!}</h6>
                     @endif
                 </div>
                 @endif
