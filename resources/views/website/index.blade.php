@@ -20,26 +20,26 @@
             <div class="row align-items-start">
                 @if($mainServicesSection->title)
                 <div class="col-lg-4">
-                    <h1 class="text-dark mb-0" style="line-height: 50px">{!! nl2br(e($mainServicesSection->title)) !!}</h1>
+                    <h1 class="mb-0" style="line-height: 50px; color: #001f3f;">{!! nl2br(e($mainServicesSection->title)) !!}</h1>
                     @if($mainServicesSection->subtitle)
-                    <h6 class="text-dark mb-0" style="line-height: 50px; font-weight: 400;">{!! nl2br(e($mainServicesSection->subtitle)) !!}</h6>
+                    <h6 class="mb-0" style="line-height: 50px; font-weight: 400; color: #001f3f;">{!! nl2br(e($mainServicesSection->subtitle)) !!}</h6>
                     @endif
                 </div>
                 @endif
                 @if($mainServicesSection->content)
                 <div class="col-lg-4">
-                    <div>
-                        <p class="mb-0">
+                    <div style="padding-top: 0;">
+                        <p class="mb-0" style="text-align: left;">
                             {!! $mainServicesSection->content !!}
                         </p>
                     </div>
                 </div>
                 @endif
                 @if($mainServicesSection->list_items && count($mainServicesSection->list_items) > 0)
-                <div class="col-lg-3 offset-lg-1 d-flex justify-content-md-end">
-                    <ul class="list-style-tick d-flex flex-column mb-0">
+                <div class="col-lg-3 offset-lg-1">
+                    <ul class="list-style-tick d-flex flex-column mb-0" style="padding-left: 0; margin-top: 0;">
                         @foreach($mainServicesSection->list_items as $item)
-                            <li>{{ $item }}</li>
+                            <li style="text-align: left;">{{ $item }}</li>
                         @endforeach
                     </ul>
                 </div>
