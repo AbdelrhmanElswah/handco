@@ -62,7 +62,7 @@
 
                         <!-- Search Button -->
                         <div class="col">
-                            <button type="submit" class="btn btn-primary w-100">Search</button>
+                            <button type="submit" class="btn btn-primary w-100">View Listings</button>
                         </div>
                     </div>
 
