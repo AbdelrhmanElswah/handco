@@ -29,9 +29,12 @@ class ProjectController extends Controller
             $query->where('title', 'like', '%' . $request->keyword . '%');
         }
 
-        // Filter by category
+        // Filter by category (by name)
         if ($request->filled('category')) {
-            $query->where('category_id', $request->category);
+            $categoryName = $request->category;
+            $query->whereHas('category', function ($q) use ($categoryName) {
+                $q->where('name', 'like', '%' . $categoryName . '%');
+            });
         }
 
         // Filter by location
@@ -202,8 +205,11 @@ class ProjectController extends Controller
         }
 
         if (!empty($request->category)) {
-            $query->where('category_id', $request->category);
-            $activeFilters['category'] = Category::find($request->category)->name ?? 'Unknown Category';
+            $categoryName = $request->category;
+            $query->whereHas('category', function ($q) use ($categoryName) {
+                $q->where('name', 'like', '%' . $categoryName . '%');
+            });
+            $activeFilters['category'] = $categoryName;
         }
 
         if (!empty($request->location)) {

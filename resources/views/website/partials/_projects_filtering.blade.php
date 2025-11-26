@@ -12,9 +12,12 @@
                         <div class="col">
                             <select class="form-control" name="category">
                                 <option value="">Property Types</option>
-                                @foreach($categories as $id => $name)
-                                    <option value="{{ $id }}" {{ request('category') == $id ? 'selected' : '' }}>{{ $name }}</option>
-                                @endforeach
+                                <option value="Apartment" {{ request('category') == 'Apartment' ? 'selected' : '' }}>Apartments</option>
+                                <option value="Villa" {{ request('category') == 'Villa' ? 'selected' : '' }}>Villas</option>
+                                <option value="Townhouse" {{ request('category') == 'Townhouse' ? 'selected' : '' }}>Townhouses</option>
+                                <option value="Penthouse" {{ request('category') == 'Penthouse' ? 'selected' : '' }}>Penthouses</option>
+                                <option value="Duplex" {{ request('category') == 'Duplex' ? 'selected' : '' }}>Duplex</option>
+                                <option value="Commercial Spaces" {{ request('category') == 'Commercial Spaces' ? 'selected' : '' }}>Commercial Spaces</option>
                             </select>
                         </div>
 
@@ -97,7 +100,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <button class="btn btn-primary w-100">Search</button>
+                            <button class="btn btn-primary w-100">View Listings</button>
                         </div>
                     </div>
 

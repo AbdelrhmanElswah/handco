@@ -26,8 +26,12 @@ class HomeController extends Controller
             $baseQuery->where('title', 'like', '%' . $request->keyword . '%');
         }
 
+        // Filter by category (by name)
         if ($request->filled('category')) {
-            $baseQuery->where('category_id', $request->category);
+            $categoryName = $request->category;
+            $baseQuery->whereHas('category', function ($q) use ($categoryName) {
+                $q->where('name', 'like', '%' . $categoryName . '%');
+            });
         }
 
         if ($request->filled('location')) {
