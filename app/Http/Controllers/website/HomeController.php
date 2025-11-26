@@ -61,9 +61,10 @@ class HomeController extends Controller
         $popularProjectsQuery = clone $baseQuery;
         $recentProjectsQuery = clone $baseQuery;
 
-        // Fetch the top 3 featured projects for "Most Popular Projects"
+        // Fetch the top 3 featured off-plan projects for "Featured Projects"
         $popularProjects = $popularProjectsQuery->where('featured', true)
             ->where('rent_or_service', 'sell')
+            ->where('payment_option', 'off-plan')
             ->orderBy('created_at', 'desc')
             ->take(3)
             ->get();

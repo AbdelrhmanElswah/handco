@@ -4,9 +4,9 @@
             <div class="col mb-4">
                 <div class="align-items-center d-flex">
                     <div class="me-auto">
-                        <h2 class="d-table">Hot Deals</h2>
+                        <h2 class="d-table">Featured Projects</h2>
                     </div>
-                    <a href="{{ route('projects') }}" class="ms-auto btn-link">View All Properties</a>
+                    <a href="{{ route('featured_projects') }}" class="ms-auto btn-link">View All</a>
                 </div>
             </div>
         </div>

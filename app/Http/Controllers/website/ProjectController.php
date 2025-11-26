@@ -188,7 +188,9 @@ class ProjectController extends Controller
 
     public function featured(Request $request)
     {
-        $query = Project::where('featured', true);                
+        // Show only off-plan projects
+        $query = Project::where('featured', true)
+            ->where('payment_option', 'off-plan');                
 
         // Initialize an array to collect the active filters
         $activeFilters = [];
