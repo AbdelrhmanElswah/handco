@@ -15,6 +15,7 @@
                                     <div class="cata position-absolute">
                                         <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->status === 'available' ? 'Available' : 'Sold Out' }}</span>
                                         <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
+                                        <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->category->name }}</span>
                                         @if($project->payment_option)
                                             <span class="payment bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->payment_option }}</span>
                                         @endif
@@ -23,11 +24,8 @@
                                 <img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!">
 
                                     </a>
-                                    <a href="#" class="listing-ctg text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); background-color: rgba(0, 0, 0, 0.6); padding: 5px 10px; border-radius: 3px; display: inline-block;">
-                                        <i class="fa-solid fa-building"></i><span>{{ $project->category->name }}</span>
-                                    </a>
                                     <ul class="position-absolute quick-meta">
-                                        <li class="md-mx-none"><a class="quick-view" href="#quick-view-{{ $project->id }}" title="Quick View"><i class="flaticon-zoom-increasing-symbol flat-mini"></i></a></li>
+                                        <li class="md-mx-none"><a class="quick-view" href="#quick-view-{{ $project->id }}" title="Quick View" style="opacity: 0;"><i class="flaticon-zoom-increasing-symbol flat-mini"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="property_text p-4">
