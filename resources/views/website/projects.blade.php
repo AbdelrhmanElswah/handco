@@ -41,7 +41,7 @@
                                     <img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!" style="width: 100%; height: 100%; object-fit: cover;">
                                 </a>
                                 <!-- Price Tag -->
-                                <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #000; color: #fff; padding: 5px 10px; border-radius: 5px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
+                                <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #001f3f; color: #fff; padding: 5px 10px; border-radius: 5px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
                                     AED {{ number_format($project->price) }}
                                 </span>
                             </div>

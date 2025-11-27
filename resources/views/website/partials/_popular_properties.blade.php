@@ -29,7 +29,7 @@
                                     </ul>
                                 </div>
                                 <div class="property_text p-4">
-                                    <span class="listing-price">AED {{ number_format($project->price) }}</span>
+                                    <span class="listing-price" style="color: #001f3f;">AED {{ number_format($project->price) }}</span>
                                     <h5 class="listing-title">
                                         <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
                                     </h5>
