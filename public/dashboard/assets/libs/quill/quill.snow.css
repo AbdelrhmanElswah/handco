@@ -592,22 +592,22 @@
   display: none;
 }
 .ql-snow .ql-editor h1 {
-  font-size: 2em;
+  font-size: 2.5em;
 }
 .ql-snow .ql-editor h2 {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 .ql-snow .ql-editor h3 {
-  font-size: 1.17em;
+  font-size: 1.75em;
 }
 .ql-snow .ql-editor h4 {
-  font-size: 1em;
+  font-size: 1.5em;
 }
 .ql-snow .ql-editor h5 {
-  font-size: 0.83em;
+  font-size: 1.25em;
 }
 .ql-snow .ql-editor h6 {
-  font-size: 0.67em;
+  font-size: 1.125em;
 }
 .ql-snow .ql-editor a {
   text-decoration: underline;
@@ -773,22 +773,22 @@
   content: 'Heading 6';
 }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
-  font-size: 2em;
+  font-size: 2.5em;
 }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
-  font-size: 1.5em;
+  font-size: 2em;
 }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
-  font-size: 1.17em;
+  font-size: 1.75em;
 }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="4"]::before {
-  font-size: 1em;
+  font-size: 1.5em;
 }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="5"]::before {
-  font-size: 0.83em;
+  font-size: 1.25em;
 }
 .ql-snow .ql-picker.ql-header .ql-picker-item[data-value="6"]::before {
-  font-size: 0.67em;
+  font-size: 1.125em;
 }
 .ql-snow .ql-picker.ql-font {
   width: 108px;
