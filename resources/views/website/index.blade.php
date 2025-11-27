@@ -67,9 +67,9 @@
             <div class="row row-cols-lg-3 row-cols-1">
                 @foreach($countingSection->stats_items as $stat)
                 <div class="col">
-                    <div class="d-flex flex-row text-uppercase">
+                    <div class="d-flex flex-row align-items-center text-uppercase">
                         <h1 class="text-primary mb-0 pe-4">{{ $stat['value'] ?? '' }}</h1>
-                        <p>{!! nl2br(e($stat['description'] ?? '')) !!}</p>
+                        <p class="mb-0">{!! nl2br(e($stat['description'] ?? '')) !!}</p>
                     </div>
                 </div>
                 @endforeach
