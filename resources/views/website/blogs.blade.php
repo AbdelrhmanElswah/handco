@@ -87,10 +87,15 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.8); /* Overlay background color */
+            background-color: rgba(0, 0, 0, 0.4); /* Overlay background color - reduced opacity for better image visibility */
             color: white;
             padding: 15px;
             box-sizing: border-box;
+        }
+
+        /* Reduce overlay-secondary opacity for better image visibility */
+        .overlay-secondary::before {
+            background-color: rgba(28, 46, 74, 0.3) !important; /* Reduced from 0.8 to 0.3 */
         }
     </style>
 @endsection

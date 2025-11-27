@@ -1,4 +1,10 @@
 <div class="full-row bg-light">
+    <style>
+        /* Reduce overlay-secondary opacity for better image visibility in blog cards */
+        .thumb-blog-overlay .overlay-secondary::before {
+            background-color: rgba(28, 46, 74, 0.3) !important; /* Reduced from 0.8 to 0.3 */
+        }
+    </style>
     <div class="container">
         <div class="row">
             <div class="col">
