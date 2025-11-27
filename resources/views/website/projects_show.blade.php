@@ -60,12 +60,12 @@
     <!--============== Property Details Start ==============-->
     <div class="full-row pt-30">
         <div class="container">
-            <div class="row">
-                <div class="col-xl-4 order-xl-2">
+            <div class="row property-details-row" style="display: flex; align-items: stretch;">
+                <div class="col-xl-4 order-xl-2 property-sidebar" style="display: flex; flex-direction: column;">
                     @include('website.partials.project._project_sidemenu')
                 </div>
 
-                <div class="col-xl-8 order-xl-1">
+                <div class="col-xl-8 order-xl-1 property-content" style="display: flex; flex-direction: column;">
                     @include('website.partials.project._project_main_info')
                     @include('website.partials.project._project_more_info')
                     @include('website.partials.project._project_feature_info')
@@ -74,4 +74,20 @@
         </div>
     </div>
     <!--============== Property Details End ==============-->
+    
+    <style>
+        @media (min-width: 1200px) {
+            .property-details-row {
+                align-items: stretch;
+            }
+            .property-sidebar,
+            .property-content {
+                display: flex;
+                flex-direction: column;
+            }
+            .property-content > div:last-child {
+                flex: 1;
+            }
+        }
+    </style>
 @endsection

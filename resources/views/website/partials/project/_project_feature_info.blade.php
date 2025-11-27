@@ -1,4 +1,4 @@
-<div class="property-overview border rounded bg-white p-30 mb-30">
+<div class="property-overview border rounded bg-white p-30 mb-30" style="flex: 1;">
     <div class="row row-cols-1">
         <div class="col">
             <h5 class="mb-3">Property Features</h5>

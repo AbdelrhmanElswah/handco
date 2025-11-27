@@ -71,7 +71,7 @@
                     <h6 class="listing-title">
                         <a href="{{ route('projects.show', $recentProject->id) }}">{{ $recentProject->title }}</a>
                     </h6>
-                    <span class="listing-price">${{ number_format($recentProject->price, 2) }}</span>
+                    <span class="listing-price">AED {{ number_format($recentProject->price, 2) }}</span>
                     <ul class="d-flex quantity font-fifteen">
                         <li title="Area">
                             <span><i class="fa-solid fa-vector-square"></i></span>

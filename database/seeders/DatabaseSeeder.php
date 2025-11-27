@@ -22,5 +22,5 @@ class DatabaseSeeder extends Seeder
            'email' => 'accounts@teleoceans.com',
            'password' => Hash::make('mmnnww123')
          ]);
-    }
-}
+
+        }
