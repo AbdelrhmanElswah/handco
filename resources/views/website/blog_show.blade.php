@@ -70,8 +70,7 @@
                                 <!-- Display the blog's title dynamically -->
                                 <h3 class="mb-2 text-secondary">{{ $blog->title }}</h3>
                                 <div class="post-meta list-color-general mb-4">
-                                    <!-- Display the author's name and the date dynamically -->
-                                    <a href="#"><i class="flaticon-user-silhouette flat-mini"></i> <span>By Admin</span></a>
+                                    <!-- Display the date dynamically -->
                                     <a href="#"><i class="flaticon-calendar flat-mini"></i> <span>{{ $blog->created_at->format('M d, Y') }}</span></a>
                                 </div>
                             </div>

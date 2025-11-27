@@ -41,7 +41,6 @@
                                         </div>
                                         <h5><a href="{{ route('blogs.show', $blog->id) }}" class="transation text-white hover-text-primary d-block mb-2">{{ $blog->title }}</a></h5>
                                         <div class="post-meta font-small list-color-light">
-                                            <span>By Admin</span>
                                             <span>{{ $blog->created_at->format('M d, Y') }}</span>
                                         </div>
                                     </div>

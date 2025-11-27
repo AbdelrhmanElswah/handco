@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col">
                 <span class="pb-2 d-table w-50 w-sm-100 text-primary m-auto text-center tagline">Our Recent Post</span>
-                <h2 class="down-line w-50 w-sm-100 mx-auto text-center mb-5">Market Updates, Expert Tips, and Property Insights</h2>
+                <h2 class="down-line w-50 w-sm-100 mx-auto text-center mb-5">Latest News & Insights</h2>
             </div>
         </div>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">
@@ -26,7 +26,6 @@
                                 </h5>
                                 <p>{{ Str::limit(html_entity_decode(strip_tags($blog->content)), 100) }}</p>
                                 <div class="post-meta text-uppercase">
-                                    <a href="#"><span>By Admin</span></a>
                                     <a href="#"><span>{{ $blog->created_at->format('M d, Y') }}</span></a>
                                 </div>
                             </div>
