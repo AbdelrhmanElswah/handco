@@ -110,11 +110,11 @@
             </div>
             <div class="col">
                 <div class="footer-widget footer-nav mb-4">
-                    <h3 class="widget-title mb-4">Quick Links</h3>
+                    <h3 class="widget-title mb-4">Essential Links</h3>
                     <ul>
-                        <li><a href="#">Properties</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Free Consultation</a></li>
+                        <li><a href="{{ route('projects') }}">Properties</a></li>
+                        <li><a href="{{ route('about') }}">About Us</a></li>
+                        <li><a href="{{ route('contact') }}">Free Consultation</a></li>
                     </ul>
                 </div>
             </div>
