@@ -64,4 +64,4 @@ php artisan view:cache\n\
 exec php artisan octane:start --server=swoole --host=0.0.0.0 --port=9000\n\
 ' > /start.sh && chmod +x /start.sh
 
-CMD ["sh", "-c", "echo 'APP_KEY:' $APP_KEY && php artisan config:cache && php artisan route:cache && php artisan view:cache && php artisan octane:start --server=swoole --host=0.0.0.0 --port=9000"]
+CMD ["sh", "-c", "php artisan octane:install --server=swoole --force 2>/dev/null || true && php artisan config:cache 2>/dev/null || php artisan config:clear && php artisan route:cache 2>/dev/null || true && php artisan view:cache 2>/dev/null || true && exec php artisan octane:start --server=swoole --host=0.0.0.0 --port=9000"]
