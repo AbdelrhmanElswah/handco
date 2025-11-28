@@ -7,7 +7,7 @@
             <!-- Dynamic Slides -->
             @foreach($sliders as $slider)
                 <div class="ls-slide" data-ls="bgsize:cover; bgposition:50% 50%; duration:12000; transition2d:104; kenburnsscale:1.00;">
-                    <img width="1920" height="960" src="{{ asset('files/sliders/main_images/' . $slider->mainImage->media) }}" class="ls-bg" alt="Slider Image"/>
+                    <img width="1920" height="960" src="{{ $slider->mainImage->media_link }}" class="ls-bg" alt="Slider Image"/>
 
                     <!-- Subtitle -->
                     <p style="font-size:20px; font-weight:400; top:320px; left:50%; text-align:center; font-family: 'Sen', sans-serif; text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 0, 0, 0.6); z-index: 20; position: relative;"

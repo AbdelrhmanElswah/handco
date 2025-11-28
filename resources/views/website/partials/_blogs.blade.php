@@ -18,7 +18,8 @@
                     <div class="col">
                         <div class="thumb-blog-overlay bg-white hover-text-PushUpBottom mb-4">
                             <div class="post-image position-relative overlay-secondary">
-                              <a href="{{ route('blogs.show', $blog->id) }}"> <img src="{{ $blog->mainImage->media_link ?? asset('assets/images/default.png') }}" alt="Image not found!">
+                              <a href="{{ route('blogs.show', $blog->id) }}">
+                                <img src="{{ $blog->mainImage->media_link ?? asset('assets/images/default.png') }}" alt="Image not found!">
                               </a>
                                 <div class="position-absolute xy-center">
                                     <div class="overflow-hidden text-center">

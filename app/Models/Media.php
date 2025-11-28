@@ -42,9 +42,14 @@ public function getMediaLinkAttribute()
         return $this->media;
     }
 
+    $s3Url = env('AWS_URL');
+    if ($s3Url) {
+        return rtrim($s3Url, '/') . '/handco/' . $this->path_file_name . '/' . $this->media;
+    }
+
     return asset('files/' . $this->path_file_name . '/' . $this->media);
 }
 
 
-    
+
 }
