@@ -194,8 +194,8 @@ class CmsController extends Controller
                             // Set visibility to public
                             Storage::disk('s3')->setVisibility($s3Path, 'public');
 
-                            // Store the full S3 URL
-                            $s3Url = env('AWS_URL');
+                            // Store the full S3 URL - use config instead of env() for production compatibility
+                            $s3Url = config('filesystems.disks.s3.url');
                             if ($s3Url) {
                                 $listItems[] = rtrim($s3Url, '/') . '/handco/' . $uploadPath . '/' . $filename;
                             } else {

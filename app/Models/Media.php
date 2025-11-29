@@ -42,7 +42,8 @@ public function getMediaLinkAttribute()
         return $this->media;
     }
 
-    $s3Url = env('AWS_URL');
+    // Use config instead of env() for production compatibility
+    $s3Url = config('filesystems.disks.s3.url');
     if ($s3Url) {
         return rtrim($s3Url, '/') . '/handco/' . $this->path_file_name . '/' . $this->media;
     }
