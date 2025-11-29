@@ -4,6 +4,8 @@ namespace App\Services;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class MediaUploadService
 {
@@ -13,12 +15,37 @@ class MediaUploadService
         $files = is_array($files) ? $files : [$files];
 
         foreach ($files as $file) {
-            $now = \Carbon\Carbon::now();
-            $randomString = \Str::random(10);
+            $now = Carbon::now();
+            $randomString = Str::random(10);
             $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
 
-            // Move file to the appropriate directory
-              $file->move(base_path('files/' . $path_file_name), $filename);
+            // Upload file to S3
+            $s3Path = 'handco/' . $path_file_name . '/' . $filename;
+
+            try {
+                // Read file content and upload to S3
+                $fileContents = file_get_contents($file->getRealPath());
+
+                if ($fileContents === false) {
+                    throw new \Exception('Failed to read file contents');
+                }
+
+                // Upload to S3
+                $uploaded = Storage::disk('s3')->put($s3Path, $fileContents);
+
+                if (!$uploaded) {
+                    throw new \Exception('Failed to upload file to S3');
+                }
+
+                // Set visibility to public so files are accessible via URL
+                Storage::disk('s3')->setVisibility($s3Path, 'public');
+            } catch (\Exception $e) {
+                Log::error('S3 Upload Error: ' . $e->getMessage(), [
+                    'path' => $s3Path,
+                    'filename' => $filename,
+                ]);
+                throw $e;
+            }
 
             // Use the appropriate relationship based on 'info' parameter
             if ($info === 'main') {

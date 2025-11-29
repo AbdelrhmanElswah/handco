@@ -7,6 +7,7 @@ use App\Services\MediaUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 
@@ -107,29 +108,46 @@ class CmsController extends Controller
         // Handle background image upload for about_hero_banner and mission_vision_section
         if (in_array($cms->section_key, ['about_hero_banner', 'mission_vision_section']) && $request->hasFile('background_image')) {
             $uploadPath = 'cms/about-us';
-            
-            // Create directory if it doesn't exist (in public/files)
-            if (!file_exists(public_path('files/' . $uploadPath))) {
-                mkdir(public_path('files/' . $uploadPath), 0755, true);
-            }
 
-            // Delete old background image if exists
+            // Delete old background image from S3 if exists
             if ($cms->backgroundImage) {
-                $oldImagePath = public_path('files/' . $cms->backgroundImage->path_file_name . '/' . $cms->backgroundImage->media);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
+                $oldS3Path = 'handco/' . $cms->backgroundImage->path_file_name . '/' . $cms->backgroundImage->media;
+                if (Storage::disk('s3')->exists($oldS3Path)) {
+                    Storage::disk('s3')->delete($oldS3Path);
                 }
                 $cms->backgroundImage()->delete();
             }
 
-            // Upload new background image directly using the relationship
+            // Upload new background image to S3
             $file = $request->file('background_image');
             $now = Carbon::now();
             $randomString = Str::random(10);
             $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
+            $s3Path = 'handco/' . $uploadPath . '/' . $filename;
 
-            // Move file to the appropriate directory (in public/files)
-            $file->move(public_path('files/' . $uploadPath), $filename);
+            try {
+                // Upload to S3
+                $fileContents = file_get_contents($file->getRealPath());
+
+                if ($fileContents === false) {
+                    throw new \Exception('Failed to read file contents');
+                }
+
+                $uploaded = Storage::disk('s3')->put($s3Path, $fileContents);
+
+                if (!$uploaded) {
+                    throw new \Exception('Failed to upload file to S3');
+                }
+
+                // Set visibility to public
+                Storage::disk('s3')->setVisibility($s3Path, 'public');
+            } catch (\Exception $e) {
+                Log::error('S3 Upload Error (Background Image): ' . $e->getMessage(), [
+                    'path' => $s3Path ?? null,
+                    'filename' => $filename,
+                ]);
+                throw $e;
+            }
 
             // Create media record using backgroundImage relationship
             $cms->backgroundImage()->create([
@@ -152,22 +170,46 @@ class CmsController extends Controller
             if ($request->hasFile('partner_logos')) {
                 $uploadPath = 'partners';
 
-                // Create directory if it doesn't exist
-                if (!file_exists(public_path('files/' . $uploadPath))) {
-                    mkdir(public_path('files/' . $uploadPath), 0755, true);
-                }
-
                 foreach ($request->file('partner_logos') as $file) {
                     if ($file && $file->isValid()) {
                         $now = Carbon::now();
                         $randomString = Str::random(10);
                         $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
+                        $s3Path = 'handco/' . $uploadPath . '/' . $filename;
 
-                        // Move file to public/files/partners directory
-                        $file->move(public_path('files/' . $uploadPath), $filename);
+                        try {
+                            // Upload to S3
+                            $fileContents = file_get_contents($file->getRealPath());
 
-                        // Store the full URL
-                        $listItems[] = asset('files/' . $uploadPath . '/' . $filename);
+                            if ($fileContents === false) {
+                                throw new \Exception('Failed to read file contents');
+                            }
+
+                            $uploaded = Storage::disk('s3')->put($s3Path, $fileContents);
+
+                            if (!$uploaded) {
+                                throw new \Exception('Failed to upload file to S3');
+                            }
+
+                            // Set visibility to public
+                            Storage::disk('s3')->setVisibility($s3Path, 'public');
+
+                            // Store the full S3 URL
+                            $s3Url = env('AWS_URL');
+                            if ($s3Url) {
+                                $listItems[] = rtrim($s3Url, '/') . '/handco/' . $uploadPath . '/' . $filename;
+                            } else {
+                                // Fallback to asset if AWS_URL is not set
+                                $listItems[] = asset('files/' . $uploadPath . '/' . $filename);
+                            }
+                        } catch (\Exception $e) {
+                            Log::error('S3 Upload Error (Partner Logo): ' . $e->getMessage(), [
+                                'path' => $s3Path,
+                                'filename' => $filename,
+                            ]);
+                            // Continue with next file instead of breaking
+                            continue;
+                        }
                     }
                 }
             }

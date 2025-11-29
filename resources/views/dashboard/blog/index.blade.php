@@ -52,7 +52,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $blog->title }}</td>
                                         <td>{{ $blog->category->name ?? 'Uncategorized' }}</td>
-                                        <td>{{ Str::limit($blog->content, 50) }}</td>
+                                        <td>{{ Str::limit(strip_tags($blog->content), 50) }}</td>
                                         <!-- Media column with image or placeholder icon -->
                                         <td>
                                             @if($blog->mainImage)
