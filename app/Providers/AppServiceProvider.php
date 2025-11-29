@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\URL;
 use App\Models\CmsSection;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +26,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Force HTTPS in production environment
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         // Share footer CTA with footer partial
         View::composer('website.partials._footer', function ($view) {
             $footerRegisterCta = CmsSection::getByKey('footer_register_cta');
