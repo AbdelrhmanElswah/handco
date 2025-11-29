@@ -43,6 +43,13 @@
     gtag('config', 'G-KH7CZLWXX9');
 </script>
 
+<!-- Teleoceans Analytics -->
+<script
+    src="https://analytics.teleoceans-servers.cloud/api/script.js"
+    data-site-id="8"
+    defer
+></script>
+
 <style>
     /* #1c2e4a */
     :root {
