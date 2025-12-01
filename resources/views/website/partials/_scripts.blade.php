@@ -17,21 +17,28 @@
 <script src="{{ asset('assets/js/paraxify.js') }}"></script>
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 <script>
-    $('#slider').layerSlider({
-        sliderVersion: '6.0.0',
-        type: 'fullwidth',
-        responsiveUnder: 0,
-        maxRatio: 1,
-        slideBGSize: 'auto',
-        hideUnder: 0,
-        hideOver: 100000,
-        skin: 'outline',
-        fitScreenWidth: true,
-        fullSizeMode: 'fitheight',
-        navButtons: false,
-        navStartStop: false,
-        height: 840,
-        skinsPath: '{{ asset('assets/skins/') }}'
+    $(document).ready(function() {
+        // Disable all slider animations permanently
+        $('#slider .ls-l[data-ls]').each(function() {
+            $(this).removeAttr('data-ls');
+        });
+        
+        $('#slider').layerSlider({
+            sliderVersion: '6.0.0',
+            type: 'fullwidth',
+            responsiveUnder: 0,
+            maxRatio: 1,
+            slideBGSize: 'auto',
+            hideUnder: 0,
+            hideOver: 100000,
+            skin: 'outline',
+            fitScreenWidth: true,
+            fullSizeMode: 'fitheight',
+            navButtons: false,
+            navStartStop: false,
+            height: 840,
+            skinsPath: '{{ asset('assets/skins/') }}'
+        });
     });
 </script>
 
