@@ -141,8 +141,6 @@
             <div class="col">
                 <ul class="line-menu float-end list-color-gray">
                     <li><a href="#">Privacy & Policy</a></li>
-                    <li>|</li>
-                    <li><a href="#">Site Map</a></li>
                 </ul>
             </div>
         </div>
