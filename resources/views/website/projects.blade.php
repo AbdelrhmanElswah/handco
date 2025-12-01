@@ -16,7 +16,7 @@
                             <li class="breadcrumb-item active text-primary" aria-current="page">Properties</li>
                         </ol>
                     </nav>
-                    <h3 class="text-secondary">Properties Listing</h3>
+                    <h1 class="text-secondary fw-bold" style="font-size: 2.5rem;">Properties Listing</h1>
                 </div>
             </div>
         </div>

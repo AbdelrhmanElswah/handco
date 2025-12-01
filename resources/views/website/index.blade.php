@@ -20,7 +20,7 @@
             <div class="row align-items-start">
                 @if($mainServicesSection->title)
                 <div class="col-lg-4">
-                    <h1 class="mb-0 text-secondary" style="line-height: 50px;">{!! nl2br(e($mainServicesSection->title)) !!}</h1>
+                    <h1 class="mb-0 text-secondary fw-bold" style="line-height: 50px; font-size: 2.5rem;">{!! nl2br(e($mainServicesSection->title)) !!}</h1>
                     @if($mainServicesSection->subtitle)
                     <h6 class="mb-0 text-secondary" style="line-height: 50px; font-weight: 400;">{!! nl2br(e($mainServicesSection->subtitle)) !!}</h6>
                     @endif
@@ -88,8 +88,8 @@
         <div class="container">
             <div class="row">
                 <div class="col mb-5">
-                    <h2 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100">What Are You Looking
-                        for?</h2>
+                    <h1 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100 fw-bold" style="font-size: 2.5rem;">What Are You Looking
+                        for?</h1>
                     <span class="d-table w-50 w-sm-100 sub-title text-white fw-normal mx-auto text-center">Select what you
                         are looking for.</span>
                 </div>
@@ -237,7 +237,7 @@
                     <span class="text-primary tagline pb-2 d-table m-auto">{{ $testimonialsSection->subtitle }}</span>
                     @endif
                     @if($testimonialsSection->title)
-                    <h2 class="down-line w-50 mx-auto mb-4 text-center w-sm-100">{{ $testimonialsSection->title }}</h2>
+                    <h1 class="down-line w-50 mx-auto mb-4 text-center w-sm-100 fw-bold" style="font-size: 2.5rem;">{{ $testimonialsSection->title }}</h1>
                     @endif
                 </div>
             </div>

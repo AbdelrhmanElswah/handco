@@ -4,7 +4,7 @@
             <div class="col mb-4">
                 <div class="align-items-center d-flex">
                     <div class="me-auto">
-                        <h2 class="d-table">Featured Projects</h2>
+                        <h1 class="d-table fw-bold" style="font-size: 2.5rem;">Featured Projects</h1>
                     </div>
                     <a href="{{ route('featured_projects') }}" class="ms-auto btn-link">View All</a>
                 </div>

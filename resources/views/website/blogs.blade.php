@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h3 class="text-secondary">Real Estate Blog & News</h3>
+                    <h1 class="text-secondary fw-bold" style="font-size: 2.5rem;">Real Estate Blog & News</h1>
                     <nav aria-label="breadcrumb" class="mb-2">
                         <ol class="breadcrumb mb-0 bg-transparent p-0">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>

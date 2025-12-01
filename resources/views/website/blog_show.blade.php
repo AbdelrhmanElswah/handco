@@ -10,7 +10,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col">
-                        <h3 class="text-secondary">{{ $blog['title'] }}</h3>
+                        <h1 class="text-secondary fw-bold" style="font-size: 2.5rem;">{{ $blog['title'] }}</h1>
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb mb-0 bg-transparent p-0">
                                 <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -68,7 +68,7 @@
                                 <!-- Display the blog's category name or a default value -->
                                 <span class="d-inline-block text-primary">{{ $blog->category->name ?? 'Uncategorized' }}</span>
                                 <!-- Display the blog's title dynamically -->
-                                <h3 class="mb-2 text-secondary">{{ $blog->title }}</h3>
+                                <h1 class="mb-2 text-secondary fw-bold" style="font-size: 2.5rem;">{{ $blog->title }}</h1>
                                 <div class="post-meta list-color-general mb-4">
                                     <!-- Display the date dynamically -->
                                     <a href="#"><i class="flaticon-calendar flat-mini"></i> <span>{{ $blog->created_at->format('M d, Y') }}</span></a>

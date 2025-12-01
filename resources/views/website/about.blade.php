@@ -69,7 +69,7 @@
                         <span class="tagline-2 text-primary">{{ $aboutPartners->subtitle }}</span>
                         @endif
                         @if($aboutPartners->title)
-                        <h2 class="text-secondary mb-0">{{ $aboutPartners->title }}</h2>
+                        <h1 class="text-secondary mb-0 fw-bold" style="font-size: 2.5rem;">{{ $aboutPartners->title }}</h1>
                         @endif
                     </div>
                 </div>
@@ -104,9 +104,9 @@
                 <div class="col bg-white" style="margin-top: -100px;">
                     <div class="w-75 w-lg-100 sm-px-0" style="padding:50px 80px">
                         @if($missionVisionSection->title)
-                        <h2 class="text-secondary mb-5">
+                        <h1 class="text-secondary mb-5 fw-bold" style="font-size: 2.5rem;">
                             {{ $missionVisionSection->title }}
-                        </h2>
+                        </h1>
                         @endif
                         @if($missionVisionSection->accordion_items && count($missionVisionSection->accordion_items) > 0)
                         <div class="bb-accordion ac-single-show accordion-plus-left">

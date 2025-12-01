@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col mb-5">
-                <h2 class="down-line text-white w-50 mx-auto text-center w-sm-100">Recent Properties</h2>
+                <h1 class="down-line text-white w-50 mx-auto text-center w-sm-100 fw-bold" style="font-size: 2.5rem;">Recent Properties</h1>
             </div>
         </div>
         <div class="row">

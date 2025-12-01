@@ -16,7 +16,7 @@
                             <li class="breadcrumb-item active text-primary" aria-current="page">Featured Projects</li>
                         </ol>
                     </nav>
-                    <h3 class="text-secondary">Featured Projects</h3>
+                    <h1 class="text-secondary fw-bold" style="font-size: 2.5rem;">Featured Projects</h1>
                 </div>
             </div>
         </div>

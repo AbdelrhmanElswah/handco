@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h3 class="text-secondary">{{ $project['title'] }}</h3>
+                    <h1 class="text-secondary fw-bold" style="font-size: 2.5rem;">{{ $project['title'] }}</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 bg-transparent p-0">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>

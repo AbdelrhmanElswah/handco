@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col">
                 <span class="pb-2 d-table w-50 w-sm-100 text-primary m-auto text-center tagline">Our Recent Post</span>
-                <h2 class="down-line w-50 w-sm-100 mx-auto text-center mb-5">Latest News & Insights</h2>
+                <h1 class="down-line w-50 w-sm-100 mx-auto text-center mb-5 fw-bold" style="font-size: 2.5rem;">Latest News & Insights</h1>
             </div>
         </div>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">

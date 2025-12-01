@@ -10,7 +10,7 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h3 class="text-secondary">Contact</h3>
+                    <h1 class="text-secondary fw-bold" style="font-size: 2.5rem;">Contact</h1>
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb mb-0 bg-transparent p-0">
                             <li class="breadcrumb-item"><a href="/">Home</a></li>
@@ -28,7 +28,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-5 order-md-2">
-                    <h4 class="down-line mb-4">Get In Touch</h4>
+                    <h1 class="down-line mb-4 fw-bold" style="font-size: 2.5rem;">Get In Touch</h1>
                     <div class="mb-3">
                         <ul>
                             @if(isset($contactInfoSection) && $contactInfoSection)
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="col-md-7 order-md-1">
-                    <h4 class="down-line mb-4">Send Message</h4>
+                    <h1 class="down-line mb-4 fw-bold" style="font-size: 2.5rem;">Send Message</h1>
 
                     <!-- Display Success Message -->
                     @if (session('success'))
