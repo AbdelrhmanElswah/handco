@@ -95,8 +95,10 @@ class SliderController extends Controller
             // Delete the old main image
             if ($slider->mainImage) {
                 $s3Key = config('filesystems.disks.s3.key');
+                $s3Secret = config('filesystems.disks.s3.secret');
                 $s3Url = config('filesystems.disks.s3.url');
-                $isLocal = app()->environment('local') || !$s3Key || !$s3Url;
+                $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
+                $isLocal = app()->environment('local') || !$s3Configured;
                 
                 if ($isLocal) {
                     // Delete from local storage

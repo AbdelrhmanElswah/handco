@@ -15,10 +15,12 @@ class MediaUploadService
         $files = is_array($files) ? $files : [$files];
 
         // Check if we should use local storage
-        // Use local only if: environment is 'local' OR S3 is not configured (no key or no URL)
+        // Use local only if: environment is 'local' OR S3 is not fully configured
         $s3Key = config('filesystems.disks.s3.key');
+        $s3Secret = config('filesystems.disks.s3.secret');
         $s3Url = config('filesystems.disks.s3.url');
-        $isLocal = app()->environment('local') || !$s3Key || !$s3Url;
+        $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
+        $isLocal = app()->environment('local') || !$s3Configured;
 
         foreach ($files as $file) {
             $now = Carbon::now();
