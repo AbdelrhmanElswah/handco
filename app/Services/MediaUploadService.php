@@ -14,8 +14,11 @@ class MediaUploadService
         // Ensure $files is an array for handling multiple files or single file.
         $files = is_array($files) ? $files : [$files];
 
-        // Check if we're in local environment
-        $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+        // Check if we should use local storage
+        // Use local only if: environment is 'local' OR S3 is not configured (no key or no URL)
+        $s3Key = config('filesystems.disks.s3.key');
+        $s3Url = config('filesystems.disks.s3.url');
+        $isLocal = app()->environment('local') || !$s3Key || !$s3Url;
 
         foreach ($files as $file) {
             $now = Carbon::now();

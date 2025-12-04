@@ -94,7 +94,10 @@ class SliderController extends Controller
         if ($request->hasFile('main_image')) {
             // Delete the old main image
             if ($slider->mainImage) {
-                $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+                $s3Key = config('filesystems.disks.s3.key');
+                $s3Url = config('filesystems.disks.s3.url');
+                $isLocal = app()->environment('local') || !$s3Key || !$s3Url;
+                
                 if ($isLocal) {
                     // Delete from local storage
                     $filePath = public_path('files/sliders/main_images/' . $slider->mainImage->media);
@@ -129,7 +132,10 @@ class SliderController extends Controller
     {
         // Delete the main image
         if ($slider->mainImage) {
-            $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+            $s3Key = config('filesystems.disks.s3.key');
+            $s3Url = config('filesystems.disks.s3.url');
+            $isLocal = app()->environment('local') || !$s3Key || !$s3Url;
+            
             if ($isLocal) {
                 // Delete from local storage
                 $filePath = public_path('files/sliders/main_images/' . $slider->mainImage->media);

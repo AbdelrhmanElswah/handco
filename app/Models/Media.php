@@ -48,24 +48,18 @@ public function getMediaLinkAttribute()
         return $this->media;
     }
 
-    // Check if we're in local environment or S3 is not configured
-    $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+    $path = $this->path_file_name ? $this->path_file_name . '/' : '';
     
-    if ($isLocal) {
-        // Return local file path
-        $path = $this->path_file_name ? $this->path_file_name . '/' : '';
-        return asset('files/' . $path . $this->media);
-    }
-
-    // Use S3 URL for production
+    // Check if S3 is configured (has key and URL)
+    $s3Key = config('filesystems.disks.s3.key');
     $s3Url = config('filesystems.disks.s3.url');
-    if ($s3Url) {
-        $path = $this->path_file_name ? $this->path_file_name . '/' : '';
+    
+    // Use S3 if configured and not in local environment
+    if ($s3Key && $s3Url && !app()->environment('local')) {
         return rtrim($s3Url, '/') . '/handco/' . $path . $this->media;
     }
 
-    // Fallback to local if S3 URL is not configured
-    $path = $this->path_file_name ? $this->path_file_name . '/' : '';
+    // Use local storage for local environment or if S3 is not configured
     return asset('files/' . $path . $this->media);
 }
 
