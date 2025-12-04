@@ -199,5 +199,24 @@ class CmsSectionSeeder extends Seeder
                 'is_active' => true,
             ]
         );
+
+        // Delete old Privacy & Policy sections (if they exist)
+        CmsSection::whereIn('section_key', ['privacy_page_banner', 'privacy_hero_banner', 'privacy_content_section'])->delete();
+
+        // Privacy & Policy Section
+        CmsSection::updateOrCreate(
+            ['section_key' => 'privacy_policy_section'],
+            [
+                'section_name' => 'Privacy & Policy Section',
+                'title' => 'Privacy & Policy',
+                'subtitle' => 'Your Privacy Matters to Us',
+                'content' => '<h3>Information We Collect</h3><p>We collect information that you provide directly to us, including your name, email address, phone number, and any other information you choose to provide when using our services.</p><h3>How We Use Your Information</h3><p>We use the information we collect to provide, maintain, and improve our services, process transactions, and communicate with you about our services.</p><h3>Data Security</h3><p>We implement appropriate security measures to protect your personal information against unauthorized access, alteration, disclosure, or destruction.</p><h3>Contact Us</h3><p>If you have any questions about this Privacy Policy, please contact us at info@handcoproperties.com</p>',
+                'list_items' => null,
+                'stats_items' => null,
+                'testimonials' => null,
+                'accordion_items' => null,
+                'is_active' => true,
+            ]
+        );
     }
 }

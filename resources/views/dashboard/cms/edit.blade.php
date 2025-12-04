@@ -42,7 +42,7 @@
                             @endphp
 
                             {{-- Show Title and Subtitle for common sections including footer_register_cta --}}
-                            @if(in_array($sectionKey, ['main_services', 'testimonials_section', 'about_page_banner', 'about_hero_banner', 'about_partners', 'mission_vision_section', 'footer_register_cta']))
+                            @if(in_array($sectionKey, ['main_services', 'testimonials_section', 'about_page_banner', 'about_hero_banner', 'about_partners', 'mission_vision_section', 'footer_register_cta', 'privacy_policy_section']))
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="title" style="font-size: 21px">Title</label>
@@ -231,13 +231,14 @@
                             </div>
                             @endif
 
-                            {{-- Show Content for main_services and about_hero_banner --}}
-                            @if(in_array($sectionKey, ['main_services', 'about_hero_banner']))
+                            {{-- Show Content for main_services, about_hero_banner, and privacy_policy_section --}}
+                            @if(in_array($sectionKey, ['main_services', 'about_hero_banner', 'privacy_policy_section']))
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="content" style="font-size: 21px">Content/Description</label>
-                                    <textarea name="content" class="form-control" rows="5"
+                                    <textarea name="content" id="content" class="form-control" rows="10"
                                               placeholder="Main content or description">{{ old('content', $cms->content) }}</textarea>
+                                    <small class="form-text text-muted">You can use HTML formatting in this field</small>
                                 </div>
                             </div>
                             @endif

@@ -112,6 +112,7 @@
                         <ul>
                             <li><a href="{{ route('projects') }}">Properties</a></li>
                             <li><a href="{{ route('about') }}">About Us</a></li>
+                            <li><a href="{{ route('privacy') }}">Privacy & Policy</a></li>
                             <li><a href="{{ route('contact') }}">Free Consultation</a></li>
                         </ul>
                     </div>
@@ -185,7 +186,7 @@
                 </div>
                 <div class="col">
                     <ul class="line-menu float-end list-color-gray">
-                        <li><a href="#">Privacy & Policy</a></li>
+                        <li><a href="{{ route('privacy') }}">Privacy & Policy</a></li>
                     </ul>
                 </div>
             </div>

@@ -42,6 +42,15 @@ Route::get('/about-us', function () {
     return view('website.about', compact('aboutPageBanner', 'aboutHeroBanner', 'aboutPartners', 'missionVisionSection'));
 })->name('about');
 
+Route::get('/privacy-policy', function () {
+    $privacySection = \App\Models\CmsSection::getByKey('privacy_policy_section');
+    if ($privacySection) {
+        $privacySection->load('backgroundImage');
+    }
+
+    return view('website.privacy', compact('privacySection'));
+})->name('privacy');
+
 Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');
 
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');

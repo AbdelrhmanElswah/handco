@@ -17,6 +17,9 @@
         <li class="nav-item {{ Request::is('about-us') ? 'active' : '' }}">
             <a class="nav-link" href="{{ route('about') }}">About Us</a>
         </li>
+        <li class="nav-item {{ Request::is('privacy-policy') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('privacy') }}">Privacy & Policy</a>
+        </li>
     </ul>
     <a href="{{ route('contact') }}" class="btn btn-primary add-listing-btn">Contact Us</a>
 </div>
