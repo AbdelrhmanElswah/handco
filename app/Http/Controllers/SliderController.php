@@ -94,7 +94,18 @@ class SliderController extends Controller
         if ($request->hasFile('main_image')) {
             // Delete the old main image
             if ($slider->mainImage) {
-                Storage::disk('public')->delete('files/sliders/main_images/'.$slider->mainImage->path);
+                $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+                if ($isLocal) {
+                    // Delete from local storage
+                    $filePath = public_path('files/sliders/main_images/' . $slider->mainImage->media);
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                } else {
+                    // Delete from S3
+                    $s3Path = 'handco/sliders/main_images/' . $slider->mainImage->media;
+                    Storage::disk('s3')->delete($s3Path);
+                }
                 $slider->mainImage()->delete();
             }
 
@@ -118,10 +129,20 @@ class SliderController extends Controller
     {
         // Delete the main image
         if ($slider->mainImage) {
-            Storage::disk('public')->delete('files/sliders/main_images/'.$slider->mainImage->path);
+            $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+            if ($isLocal) {
+                // Delete from local storage
+                $filePath = public_path('files/sliders/main_images/' . $slider->mainImage->media);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            } else {
+                // Delete from S3
+                $s3Path = 'handco/sliders/main_images/' . $slider->mainImage->media;
+                Storage::disk('s3')->delete($s3Path);
+            }
             $slider->mainImage()->delete();
         }
-
 
         $slider->delete();
 

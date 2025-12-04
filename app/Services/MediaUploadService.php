@@ -14,37 +14,60 @@ class MediaUploadService
         // Ensure $files is an array for handling multiple files or single file.
         $files = is_array($files) ? $files : [$files];
 
+        // Check if we're in local environment
+        $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+
         foreach ($files as $file) {
             $now = Carbon::now();
             $randomString = Str::random(10);
             $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
 
-            // Upload file to S3
-            $s3Path = 'handco/' . $path_file_name . '/' . $filename;
+            if ($isLocal) {
+                // Upload to local storage (public/files/)
+                try {
+                    // Ensure directory exists
+                    $uploadPath = public_path('files/' . $path_file_name);
+                    if (!file_exists($uploadPath)) {
+                        mkdir($uploadPath, 0755, true);
+                    }
 
-            try {
-                // Read file content and upload to S3
-                $fileContents = file_get_contents($file->getRealPath());
-
-                if ($fileContents === false) {
-                    throw new \Exception('Failed to read file contents');
+                    // Move file to public directory
+                    $file->move($uploadPath, $filename);
+                } catch (\Exception $e) {
+                    Log::error('Local Upload Error: ' . $e->getMessage(), [
+                        'path' => $uploadPath,
+                        'filename' => $filename,
+                    ]);
+                    throw $e;
                 }
+            } else {
+                // Upload to S3 (production)
+                $s3Path = 'handco/' . $path_file_name . '/' . $filename;
 
-                // Upload to S3
-                $uploaded = Storage::disk('s3')->put($s3Path, $fileContents);
+                try {
+                    // Read file content and upload to S3
+                    $fileContents = file_get_contents($file->getRealPath());
 
-                if (!$uploaded) {
-                    throw new \Exception('Failed to upload file to S3');
+                    if ($fileContents === false) {
+                        throw new \Exception('Failed to read file contents');
+                    }
+
+                    // Upload to S3 with public visibility using options
+                    $uploaded = Storage::disk('s3')->put($s3Path, $fileContents, [
+                        'visibility' => 'public',
+                        'ContentType' => $file->getMimeType(),
+                    ]);
+
+                    if (!$uploaded) {
+                        throw new \Exception('Failed to upload file to S3');
+                    }
+                } catch (\Exception $e) {
+                    Log::error('S3 Upload Error: ' . $e->getMessage(), [
+                        'path' => $s3Path,
+                        'filename' => $filename,
+                    ]);
+                    throw $e;
                 }
-
-                // Set visibility to public so files are accessible via URL
-                Storage::disk('s3')->setVisibility($s3Path, 'public');
-            } catch (\Exception $e) {
-                Log::error('S3 Upload Error: ' . $e->getMessage(), [
-                    'path' => $s3Path,
-                    'filename' => $filename,
-                ]);
-                throw $e;
             }
 
             // Use the appropriate relationship based on 'info' parameter

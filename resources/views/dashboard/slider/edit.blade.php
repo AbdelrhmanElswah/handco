@@ -61,7 +61,7 @@
                                     <label for="main_image" style="font-size: 21px">Main Image</label>
                                     <input type="file" name="main_image" class="form-control">
                                     @if($slider->mainImage)
-                                        <img src="{{ asset('files/sliders/main_images/' . $slider->mainImage->path) }}" alt="Main Image" class="img-fluid mt-2" width="150">
+                                        <img src="{{ $slider->mainImage->media_link }}" alt="Main Image" class="img-fluid mt-2" width="150">
                                     @endif
                                 </div>
                             </div>

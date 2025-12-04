@@ -38,17 +38,35 @@ class Media extends Model
 
 public function getMediaLinkAttribute()
 {
+    // Return empty if media filename is not set
+    if (empty($this->media)) {
+        return '';
+    }
+
+    // If media is already a full URL, return it as is
     if (Str::startsWith($this->media, ['http://', 'https://'])) {
         return $this->media;
     }
 
-    // Use config instead of env() for production compatibility
-    $s3Url = config('filesystems.disks.s3.url');
-    if ($s3Url) {
-        return rtrim($s3Url, '/') . '/handco/' . $this->path_file_name . '/' . $this->media;
+    // Check if we're in local environment or S3 is not configured
+    $isLocal = app()->environment('local') || !config('filesystems.disks.s3.key');
+    
+    if ($isLocal) {
+        // Return local file path
+        $path = $this->path_file_name ? $this->path_file_name . '/' : '';
+        return asset('files/' . $path . $this->media);
     }
 
-    return asset('files/' . $this->path_file_name . '/' . $this->media);
+    // Use S3 URL for production
+    $s3Url = config('filesystems.disks.s3.url');
+    if ($s3Url) {
+        $path = $this->path_file_name ? $this->path_file_name . '/' : '';
+        return rtrim($s3Url, '/') . '/handco/' . $path . $this->media;
+    }
+
+    // Fallback to local if S3 URL is not configured
+    $path = $this->path_file_name ? $this->path_file_name . '/' : '';
+    return asset('files/' . $path . $this->media);
 }
 
 
