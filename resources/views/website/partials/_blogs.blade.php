@@ -4,6 +4,59 @@
         .thumb-blog-overlay .overlay-secondary::before {
             background-color: rgba(28, 46, 74, 0.3) !important; /* Reduced from 0.8 to 0.3 */
         }
+        
+        /* Fixed card height - ensures all cards have the same size */
+        .thumb-blog-overlay {
+            height: 500px; /* Fixed height for all cards */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Fixed image section height */
+        .thumb-blog-overlay .post-image {
+            height: 250px; /* Fixed height for image section */
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        
+        /* Image styling - ensures images fill the space properly */
+        .thumb-blog-overlay .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ensures image covers the entire area while maintaining aspect ratio */
+            object-position: center;
+        }
+        
+        /* Content section - takes remaining space */
+        .thumb-blog-overlay .post-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        /* Title styling */
+        .thumb-blog-overlay .post-content h5 {
+            flex-shrink: 0;
+            min-height: 60px; /* Minimum height for title area */
+        }
+        
+        /* Paragraph styling - allows text overflow */
+        .thumb-blog-overlay .post-content p {
+            flex: 1;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* Limit to 3 lines */
+            -webkit-box-orient: vertical;
+            text-overflow: ellipsis;
+        }
+        
+        /* Meta section - fixed at bottom */
+        .thumb-blog-overlay .post-meta {
+            flex-shrink: 0;
+            margin-top: auto;
+        }
     </style>
     <div class="container">
         <div class="row">
