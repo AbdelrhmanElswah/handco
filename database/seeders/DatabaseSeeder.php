@@ -23,4 +23,6 @@ class DatabaseSeeder extends Seeder
            'password' => Hash::make('mmnnww123')
          ]);
 
-        }
+        $this->call(CmsSectionSeeder::class);
+    }
+}
