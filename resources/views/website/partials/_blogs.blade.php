@@ -74,11 +74,6 @@
                               <a href="{{ route('blogs.show', $blog->id) }}">
                                 <img src="{{ $blog->mainImage->media_link ?? asset('assets/images/default.png') }}" alt="Image not found!">
                               </a>
-                                <div class="position-absolute xy-center">
-                                    <div class="overflow-hidden text-center">
-                                        <a class="text-white first-push-up transation font-large" href="{{ route('blogs.show', $blog->id) }}">+</a>
-                                    </div>
-                                </div>
                             </div>
                             <div class="post-content p-35">
                                 <h5 class="d-block font-400 mb-3">
@@ -98,11 +93,6 @@
                     <div class="thumb-blog-overlay bg-white hover-text-PushUpBottom mb-4">
                         <div class="post-image position-relative overlay-secondary">
                             <img src="{{ asset('assets/images/blog/1.png') }}" alt="Image not found!">
-                            <div class="position-absolute xy-center">
-                                <div class="overflow-hidden text-center">
-                                    <a class="text-white first-push-up transation font-large" href="#">+</a>
-                                </div>
-                            </div>
                         </div>
                         <div class="post-content p-35">
                             <h5 class="d-block font-400 mb-3"><a href="#" class="transation text-dark hover-text-primary">Our latest development projects by more efficie.</a></h5>
@@ -118,11 +108,6 @@
                     <div class="thumb-blog-overlay bg-white hover-text-PushUpBottom mb-4">
                         <div class="post-image position-relative overlay-secondary">
                             <img src="{{ asset('assets/images/blog/2.png') }}" alt="Image not found!">
-                            <div class="position-absolute xy-center">
-                                <div class="overflow-hidden text-center">
-                                    <a class="text-white first-push-up transation font-large" href="#">+</a>
-                                </div>
-                            </div>
                         </div>
                         <div class="post-content p-35">
                             <h5 class="d-block font-400 mb-3"><a href="#" class="transation text-dark hover-text-primary">Cultivating market leadership from the inside.</a></h5>
@@ -138,11 +123,6 @@
                     <div class="thumb-blog-overlay bg-white hover-text-PushUpBottom mb-4">
                         <div class="post-image position-relative overlay-secondary">
                             <img src="{{ asset('assets/images/blog/3.png') }}" alt="Image not found!">
-                            <div class="position-absolute xy-center">
-                                <div class="overflow-hidden text-center">
-                                    <a class="text-white first-push-up transation font-large" href="#">+</a>
-                                </div>
-                            </div>
                         </div>
                         <div class="post-content p-35">
                             <h5 class="d-block font-400 mb-3"><a href="#" class="transation text-dark hover-text-primary">We are the next generation of the advertising.</a></h5>
