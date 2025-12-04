@@ -51,19 +51,24 @@ public function getMediaLinkAttribute()
     $path = $this->path_file_name ? $this->path_file_name . '/' : '';
     
     // Check if S3 is configured (has key, secret, and URL)
-    $s3Key = config('filesystems.disks.s3.key');
-    $s3Secret = config('filesystems.disks.s3.secret');
-    $s3Url = config('filesystems.disks.s3.url');
+    // Use env() directly as fallback in case config cache is stale
+    $s3Key = config('filesystems.disks.s3.key') ?: env('AWS_ACCESS_KEY_ID');
+    $s3Secret = config('filesystems.disks.s3.secret') ?: env('AWS_SECRET_ACCESS_KEY');
+    $s3Url = config('filesystems.disks.s3.url') ?: env('AWS_URL');
     
-    // Use S3 if fully configured (key, secret, and URL exist) and NOT in local environment
+    // Use S3 if fully configured (key, secret, and URL exist)
+    // Only skip S3 if explicitly in local/testing environment
     $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
-    $isLocalEnv = app()->environment('local');
+    $isLocalEnv = in_array(app()->environment(), ['local', 'testing']);
     
+    // If S3 is configured and not in local/testing, use S3
+    // On production, always prefer S3 if configured
     if ($s3Configured && !$isLocalEnv) {
-        return rtrim($s3Url, '/') . '/handco/' . $path . $this->media;
+        $s3Path = rtrim($s3Url, '/') . '/handco/' . $path . $this->media;
+        return $s3Path;
     }
 
-    // Use local storage for local environment or if S3 is not fully configured
+    // Use local storage for local/testing environment or if S3 is not fully configured
     return asset('files/' . $path . $this->media);
 }
 
