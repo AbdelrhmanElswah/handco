@@ -61,7 +61,6 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <span class="pb-2 d-table w-50 w-sm-100 text-primary m-auto text-center tagline">Our Recent Post</span>
                 <h1 class="down-line w-50 w-sm-100 mx-auto text-center mb-5 fw-bold" style="font-size: 2.5rem;">Latest News & Insights</h1>
             </div>
         </div>

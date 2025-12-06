@@ -273,6 +273,10 @@
     <!--============== Blog Section Start ==============-->
     @include('website.partials._blogs')
     <!--============== Blog Section End ==============-->
+
+    <!--============== FAQ Section Start ==============-->
+    @include('website.partials._faq')
+    <!--============== FAQ Section End ==============-->
 @endsection
 
 

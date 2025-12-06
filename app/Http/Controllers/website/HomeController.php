@@ -104,6 +104,7 @@ class HomeController extends Controller
         $mainServicesSection = CmsSection::getByKey('main_services');
         $countingSection = CmsSection::getByKey('counting_section');
         $testimonialsSection = CmsSection::getByKey('testimonials_section');
+        $faqSection = CmsSection::getByKey('faq_section');
 
         // Pass variables to the view
         return view('website.index', compact(
@@ -121,7 +122,8 @@ class HomeController extends Controller
             'allCategories',
             'mainServicesSection',
             'countingSection',
-            'testimonialsSection'
+            'testimonialsSection',
+            'faqSection'
 
         ));
     }

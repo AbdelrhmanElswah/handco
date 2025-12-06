@@ -218,5 +218,32 @@ class CmsSectionSeeder extends Seeder
                 'is_active' => true,
             ]
         );
+
+        // FAQ Section
+        CmsSection::updateOrCreate(
+            ['section_key' => 'faq_section'],
+            [
+                'section_name' => 'FAQ Section',
+                'title' => 'Frequently Asked Questions',
+                'subtitle' => null,
+                'content' => null,
+                'list_items' => null,
+                'stats_items' => null,
+                'testimonials' => null,
+                'accordion_items' => [
+                    [
+                        'title' => 'What is included in Dacha\'s property management services?',
+                        'content' => 'Our property management services include tenant screening, rent collection, property maintenance, regular inspections, and handling tenant relations. We ensure your property is well-maintained and profitable.',
+                        'is_active' => false,
+                    ],
+                    [
+                        'title' => 'How can Dacha help me invest in Dubai\'s off-plan properties?',
+                        'content' => 'We provide comprehensive guidance on off-plan investments, including market analysis, developer verification, payment plan assistance, and legal documentation support to ensure a secure investment.',
+                        'is_active' => false,
+                    ],
+                ],
+                'is_active' => true,
+            ]
+        );
     }
 }

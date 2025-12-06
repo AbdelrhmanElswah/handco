@@ -42,7 +42,7 @@
                             @endphp
 
                             {{-- Show Title and Subtitle for common sections including footer_register_cta --}}
-                            @if(in_array($sectionKey, ['main_services', 'testimonials_section', 'about_page_banner', 'about_hero_banner', 'about_partners', 'mission_vision_section', 'footer_register_cta', 'privacy_policy_section']))
+                            @if(in_array($sectionKey, ['main_services', 'testimonials_section', 'about_page_banner', 'about_hero_banner', 'about_partners', 'mission_vision_section', 'footer_register_cta', 'privacy_policy_section', 'faq_section']))
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="title" style="font-size: 21px">Title</label>
@@ -593,6 +593,71 @@
                             </div>
                             @endif
 
+                            {{-- Show Accordion Items for FAQ section --}}
+                            @if($sectionKey === 'faq_section')
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label style="font-size: 21px">FAQ Items (Questions & Answers)</label>
+                                    <div id="accordion-items-container">
+                                        @if($cms->accordion_items && count($cms->accordion_items) > 0)
+                                            @foreach($cms->accordion_items as $index => $item)
+                                                <div class="card mb-2 accordion-item-card" data-accordion-index="{{ $index }}">
+                                                    <div class="card-body">
+                                                        <div class="row">
+                                                            <div class="col-md-12 mb-3">
+                                                                <label class="form-label">Question</label>
+                                                                <input type="text" name="accordion_items[{{ $index }}][title]"
+                                                                       class="form-control" value="{{ $item['title'] ?? '' }}"
+                                                                       placeholder="FAQ Question">
+                                                            </div>
+                                                            <div class="col-md-12 mb-3">
+                                                                <label class="form-label">Answer</label>
+                                                                <textarea name="accordion_items[{{ $index }}][content]"
+                                                                          class="form-control" rows="4"
+                                                                          placeholder="FAQ Answer">{{ $item['content'] ?? '' }}</textarea>
+                                                            </div>
+                                                            <div class="col-md-12 mt-2">
+                                                                <button type="button" class="btn btn-outline-danger remove-accordion-item-btn">
+                                                                    <i class="far fa-trash-alt"></i> Remove
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @else
+                                            <div class="card mb-2 accordion-item-card" data-accordion-index="0">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-md-12 mb-3">
+                                                            <label class="form-label">Question</label>
+                                                            <input type="text" name="accordion_items[0][title]"
+                                                                   class="form-control" placeholder="FAQ Question">
+                                                        </div>
+                                                        <div class="col-md-12 mb-3">
+                                                            <label class="form-label">Answer</label>
+                                                            <textarea name="accordion_items[0][content]"
+                                                                      class="form-control" rows="4"
+                                                                      placeholder="FAQ Answer"></textarea>
+                                                        </div>
+                                                        <div class="col-md-12 mt-2">
+                                                            <button type="button" class="btn btn-outline-danger remove-accordion-item-btn">
+                                                                <i class="far fa-trash-alt"></i> Remove
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-accordion-item-btn">
+                                        <i class="far fa-plus"></i> Add FAQ Item
+                                    </button>
+                                    <small class="form-text text-muted d-block">Add FAQ questions and answers. Questions will be displayed with a "+" icon that expands to show the answer.</small>
+                                </div>
+                            </div>
+                            @endif
+
                             <div class="col-md-12 mb-3">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="is_active" id="is_active"
@@ -828,7 +893,7 @@
                 }
             });
 
-            // Add new accordion item (only for mission_vision_section)
+            // Add new accordion item (for mission_vision_section and faq_section)
             const addAccordionBtn = document.getElementById('add-accordion-item-btn');
             if (addAccordionBtn) {
                 addAccordionBtn.addEventListener('click', function() {
@@ -837,20 +902,28 @@
                     const newItem = document.createElement('div');
                     newItem.className = 'card mb-2 accordion-item-card';
                     newItem.setAttribute('data-accordion-index', index);
-                    newItem.innerHTML = `
+                    
+                    // Check if this is FAQ section or mission_vision_section
+                    const isFaqSection = '{{ $sectionKey }}' === 'faq_section';
+                    
+                    let htmlContent = `
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 mb-3">
-                                    <label class="form-label">Title</label>
+                                    <label class="form-label">${isFaqSection ? 'Question' : 'Title'}</label>
                                     <input type="text" name="accordion_items[${index}][title]"
-                                           class="form-control" placeholder="Accordion item title (e.g., Our Mission)">
+                                           class="form-control" placeholder="${isFaqSection ? 'FAQ Question' : 'Accordion item title (e.g., Our Mission)'}">
                                 </div>
                                 <div class="col-md-12 mb-3">
-                                    <label class="form-label">Content</label>
+                                    <label class="form-label">${isFaqSection ? 'Answer' : 'Content'}</label>
                                     <textarea name="accordion_items[${index}][content]"
                                               class="form-control" rows="4"
-                                              placeholder="Accordion item content"></textarea>
-                                </div>
+                                              placeholder="${isFaqSection ? 'FAQ Answer' : 'Accordion item content'}"></textarea>
+                                </div>`;
+                    
+                    // Only add is_active checkbox for mission_vision_section
+                    if (!isFaqSection) {
+                        htmlContent += `
                                 <div class="col-md-12">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox"
@@ -858,7 +931,10 @@
                                                value="1" checked>
                                         <label class="form-check-label">Show as active (expanded by default)</label>
                                     </div>
-                                </div>
+                                </div>`;
+                    }
+                    
+                    htmlContent += `
                                 <div class="col-md-12 mt-2">
                                     <button type="button" class="btn btn-outline-danger remove-accordion-item-btn">
                                         <i class="far fa-trash-alt"></i> Remove
@@ -867,6 +943,8 @@
                             </div>
                         </div>
                     `;
+                    
+                    newItem.innerHTML = htmlContent;
                     container.appendChild(newItem);
                 });
             }
