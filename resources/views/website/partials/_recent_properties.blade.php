@@ -31,13 +31,6 @@
                                     </div>
                                     <a href="{{ route('projects.show', $project->id) }}"><img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!">
 </a>
-                                    <ul class="position-absolute quick-meta">
-                                        <li class="md-mx-none">
-                                            <a class="quick-view" href="#quick-view-{{ $project->id }}" title="Quick View" style="opacity: 0;">
-                                                <i class="flaticon-zoom-increasing-symbol flat-mini"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </div>
                                 <div class="property_text p-4">
                                     <span class="listing-price" style="color: #001f3f;">AED {{ number_format($project->price) }}</span>
