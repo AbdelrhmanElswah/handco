@@ -105,7 +105,7 @@ class CmsController extends Controller
 
         $request->validate($validationRules);
 
-        // Handle background image upload for about_hero_banner and mission_vision_section
+        // Handle background image upload for hero / section banners
         if (in_array($cms->section_key, ['about_hero_banner', 'mission_vision_section']) && $request->hasFile('background_image')) {
             $uploadPath = 'cms/about-us';
 

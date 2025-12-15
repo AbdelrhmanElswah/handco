@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\CmsSection;
+use App\Models\OffPlanProject;
 use App\Models\Project;
 use App\Models\Slider;
 use App\Models\Utility;
@@ -20,6 +21,29 @@ class HomeController extends Controller
         $sliders = Slider::with('mainImage')->get();
         $latestBlogs = Blog::with('mainImage')->latest()->take(3)->get();
 
+        // Filter by listing type (Buy = sell, Rent = rent, Off Plan = new)
+        // Make sure Buy shows only "for Sale" properties, Rent shows only "for Rent" properties, and Off Plan shows "new" properties
+        $listingType = strtolower($request->get('listingType', ''));
+        if ($listingType === 'buy') {
+            // Only show properties for sale (rent_or_service = 'sell')
+            // Use LOWER() to handle any case sensitivity issues
+            $baseQuery->whereRaw('LOWER(rent_or_service) = ?', ['sell']);
+        } elseif ($listingType === 'rent') {
+            // Only show properties for rent (rent_or_service = 'rent')
+            // Use LOWER() to handle any case sensitivity issues
+            $baseQuery->whereRaw('LOWER(rent_or_service) = ?', ['rent']);
+        } elseif ($listingType === 'off-plan') {
+            // Only show off-plan properties (rent_or_service = 'new')
+            // Use LOWER() to handle any case sensitivity issues
+            $baseQuery->whereRaw('LOWER(rent_or_service) = ?', ['new']);
+        }
+
+        // Exclude HOTEL_APARTMENT properties
+        $baseQuery->whereDoesntHave('category', function($q) {
+            $q->whereRaw('LOWER(name) LIKE ?', ['%hotel%apartment%'])
+              ->orWhereRaw('LOWER(name) = ?', ['hotel_apartment'])
+              ->orWhereRaw('LOWER(name) = ?', ['hotel apartment']);
+        });
 
         // Apply search filters
         if ($request->filled('keyword')) {
@@ -38,7 +62,21 @@ class HomeController extends Controller
             $baseQuery->where('location_name', 'like', '%' . $request->location . '%');
         }
 
-        if ($request->filled('min_price') || $request->filled('max_price')) {
+        // Handle price range from dropdown or min/max inputs
+        if ($request->filled('price_range')) {
+            $priceRange = explode('-', $request->price_range);
+            if (count($priceRange) == 2) {
+                $minPrice = (int) $priceRange[0];
+                $maxPrice = (int) $priceRange[1];
+                if ($minPrice > 0 && $maxPrice > 0) {
+                    $baseQuery->whereBetween('price', [$minPrice, $maxPrice]);
+                } elseif ($minPrice > 0) {
+                    $baseQuery->where('price', '>=', $minPrice);
+                } elseif ($maxPrice > 0) {
+                    $baseQuery->where('price', '<=', $maxPrice);
+                }
+            }
+        } elseif ($request->filled('min_price') || $request->filled('max_price')) {
             $minPrice = $request->filled('min_price') ? (int) $request->min_price : null;
             $maxPrice = $request->filled('max_price') ? (int) $request->max_price : null;
 
@@ -49,6 +87,18 @@ class HomeController extends Controller
             } elseif ($maxPrice) {
                 $baseQuery->where('price', '<=', $maxPrice);
             }
+        }
+
+        // Filter by bedrooms
+        if ($request->filled('bedrooms')) {
+            $bedroomsValue = $request->bedrooms;
+            $baseQuery->whereHas('utility', function ($q) use ($bedroomsValue) {
+                if ($bedroomsValue === '6+') {
+                    $q->where('bedrooms', '>=', 6);
+                } else {
+                    $q->where('bedrooms', $bedroomsValue);
+                }
+            });
         }
 
         if ($request->filled('additional_options')) {
@@ -62,15 +112,13 @@ class HomeController extends Controller
         }
 
         // Clone base query to use for different sections with additional conditions
-        $popularProjectsQuery = clone $baseQuery;
         $recentProjectsQuery = clone $baseQuery;
 
-        // Fetch the top 3 featured off-plan projects for "Featured Projects"
-        $popularProjects = $popularProjectsQuery->where('featured', true)
-            ->where('rent_or_service', 'sell')
-            ->where('payment_option', 'off-plan')
+        // Fetch all featured projects for "Off Plan Projects" section from off_plan_projects table
+        // Show all featured projects on homepage
+        $popularProjects = OffPlanProject::where('is_active', true)
+            ->where('is_featured', true)
             ->orderBy('created_at', 'desc')
-            ->take(3)
             ->get();
 
         // Fetch the latest projects for "Recent Projects"
@@ -106,6 +154,9 @@ class HomeController extends Controller
         $testimonialsSection = CmsSection::getByKey('testimonials_section');
         $faqSection = CmsSection::getByKey('faq_section');
 
+        // Get current listing type for view
+        $currentListingType = $listingType ? strtolower($listingType) : '';
+
         // Pass variables to the view
         return view('website.index', compact(
             'popularProjects',
@@ -123,7 +174,8 @@ class HomeController extends Controller
             'mainServicesSection',
             'countingSection',
             'testimonialsSection',
-            'faqSection'
+            'faqSection',
+            'currentListingType'
 
         ));
     }

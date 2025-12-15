@@ -36,7 +36,7 @@
             fullSizeMode: 'fitheight',
             navButtons: false,
             navStartStop: false,
-            height: 840,
+            height: 500,
             skinsPath: '{{ asset('assets/skins/') }}'
         });
     });

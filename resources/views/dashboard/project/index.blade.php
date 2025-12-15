@@ -53,7 +53,7 @@
                                     <tbody>
                                     @foreach($projects as $project)
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $project->id }}</td>
                                             <td>{{ $project->title }}</td>
                                             <td>${{ number_format($project->price, 2) }}</td>
                                             <td>{{ $project->category->name }}</td>
@@ -104,6 +104,93 @@
                                     </tbody>
                                 </table>
                             </div>
+                            
+                            <!-- Pagination -->
+                            @if($projects->hasPages())
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="text-muted">
+                                        Showing {{ $projects->firstItem() ?? 0 }} to {{ $projects->lastItem() ?? 0 }} of {{ $projects->total() }} properties
+                                    </div>
+                                    <nav aria-label="Page navigation">
+                                        <ul class="pagination pagination-sm mb-0">
+                                            {{-- Previous Page Link --}}
+                                            @if ($projects->onFirstPage())
+                                                <li class="page-item disabled">
+                                                    <span class="page-link" aria-label="Previous">
+                                                        <i class="fe fe-chevron-left"></i> Previous
+                                                    </span>
+                                                </li>
+                                            @else
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $projects->previousPageUrl() }}" rel="prev" aria-label="Previous">
+                                                        <i class="fe fe-chevron-left"></i> Previous
+                                                    </a>
+                                                </li>
+                                            @endif
+
+                                            {{-- Pagination Links --}}
+                                            @php
+                                                $currentPage = $projects->currentPage();
+                                                $lastPage = $projects->lastPage();
+                                                $start = max(1, $currentPage - 2);
+                                                $end = min($lastPage, $currentPage + 2);
+                                            @endphp
+
+                                            {{-- First Page --}}
+                                            @if ($start > 1)
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $projects->url(1) }}">1</a>
+                                                </li>
+                                                @if ($start > 2)
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">...</span>
+                                                    </li>
+                                                @endif
+                                            @endif
+
+                                            {{-- Page Numbers --}}
+                                            @for ($page = $start; $page <= $end; $page++)
+                                                @if ($page == $currentPage)
+                                                    <li class="page-item active">
+                                                        <span class="page-link">{{ $page }}</span>
+                                                    </li>
+                                                @else
+                                                    <li class="page-item">
+                                                        <a class="page-link" href="{{ $projects->url($page) }}">{{ $page }}</a>
+                                                    </li>
+                                                @endif
+                                            @endfor
+
+                                            {{-- Last Page --}}
+                                            @if ($end < $lastPage)
+                                                @if ($end < $lastPage - 1)
+                                                    <li class="page-item disabled">
+                                                        <span class="page-link">...</span>
+                                                    </li>
+                                                @endif
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $projects->url($lastPage) }}">{{ $lastPage }}</a>
+                                                </li>
+                                            @endif
+
+                                            {{-- Next Page Link --}}
+                                            @if ($projects->hasMorePages())
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $projects->nextPageUrl() }}" rel="next" aria-label="Next">
+                                                        Next <i class="fe fe-chevron-right"></i>
+                                                    </a>
+                                                </li>
+                                            @else
+                                                <li class="page-item disabled">
+                                                    <span class="page-link" aria-label="Next">
+                                                        Next <i class="fe fe-chevron-right"></i>
+                                                    </span>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </nav>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>

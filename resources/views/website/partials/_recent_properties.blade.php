@@ -1,109 +1,75 @@
+@if($popularProjects->count() > 0)
 <div class="full-row bg-light">
     <div class="container">
         <div class="row">
             <div class="col mb-4">
                 <div class="align-items-center d-flex">
                     <div class="me-auto">
-                        <h1 class="d-table fw-bold" style="font-size: 2.5rem;">Featured Projects</h1>
+                        <h1 class="d-table fw-bold" style="font-size: 2.5rem;">Off Plan Projects</h1>
                     </div>
-                    <a href="{{ route('featured_projects') }}" class="ms-auto btn-link">View All</a>
+                    <a href="{{ route('off_plan_listing') }}" class="ms-auto btn-link">View All</a>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <div class="3block-carusel nav-disable owl-carousel">
+                <div class="row row-cols-1 row-cols-md-3 g-4">
                     @foreach($popularProjects as $project)
-                        <div class="item">
-                            <!-- Property Grid -->
-                            <div class="property-grid-1 property-block bg-white transation-this">
-                                <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom">
-                                    <div class="cata position-absolute">
-                                        <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->status === 'available' ? 'Available' : 'Sold Out' }}</span>
-                                        <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
-                                        <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->category->name }}</span>
-                                        @if($project->is_featured)
-                                            <span class="featured bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Featured</span>
-                                        @endif
-                                        @if($project->payment_option)
-                                            <span class="payment bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->payment_option }}</span>
-                                        @endif
-                                    </div>
-                                    <a href="{{ route('projects.show', $project->id) }}"><img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!">
-</a>
+                        <div class="col">
+                            <div class="bg-white property-block border transition hover-shadow" style="border-radius: 8px; overflow: hidden;">
+                                <!-- Property Image -->
+                                <div class="overflow-hidden position-relative" style="height: 300px;">
+                                    <a href="{{ route('off-plan-project.show', $project->id) }}">
+                                        <img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="{{ $project->project_name }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </a>
                                 </div>
-                                <div class="property_text p-4">
-                                    <span class="listing-price" style="color: #001f3f;">AED {{ number_format($project->price) }}</span>
-                                    <h5 class="listing-title">
-                                        <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
-                                    </h5>
-                                      <span class="listing-location">
-                                         <a href="{{ $project->location_link }}" target="_blank" style="display: flex; align-items: center; color: inherit;">
-                                         <i class="fas fa-map-marker-alt" style="margin-right: 5px; color: #b89d68;"></i>
-                                         {{ $project->location_name }}
-                                          </a>
-                                      </span>
-                                    <ul class="d-flex quantity font-fifteen" style="flex-wrap: wrap; gap: 10px;">
-                                        <!-- Property features, e.g., Bedrooms, Bathrooms, etc. -->
-                                        @if($project->utility && $project->utility->bedrooms)
-                                            <li title="Beds" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-bed" style="font-size: 14px;"></i>
-                                                <span>{{ $project->utility->bedrooms }}</span>
-                                            </li>
-                                        @endif
-                                        @if($project->utility && $project->utility->bathrooms)
-                                            <li title="Baths" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-shower" style="font-size: 14px;"></i>
-                                                <span>{{ $project->utility->bathrooms }}</span>
-                                            </li>
-                                        @endif
-                                        @if($project->floor_area)
-                                            <li title="Area" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-vector-square" style="font-size: 14px;"></i>
-                                                <span>{{ $project->floor_area }} Sqft</span>
-                                            </li>
-                                        @endif
-                                        @if($project->utility && $project->utility->parking_spaces)
-                                            <li title="Parking Spaces" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-car" style="font-size: 14px;"></i>
-                                                <span>{{ $project->utility->parking_spaces }}</span>
-                                            </li>
-                                        @endif
-                                        <!-- Additional features like Swimming Pool, Gym, Garden, etc. -->
-                                        @if($project->utility && $project->utility->swimming_pool)
-                                            <li title="Swimming Pool" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-water" style="font-size: 14px;"></i>
-                                            </li>
-                                        @endif
-                                        @if($project->utility && $project->utility->gym)
-                                            <li title="Gym" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-dumbbell" style="font-size: 14px;"></i>
-                                            </li>
-                                        @endif
-                                        @if($project->utility && $project->utility->garden)
-                                            <li title="Garden" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-tree" style="font-size: 14px;"></i>
-                                            </li>
-                                        @endif
-                                        @if($project->utility && $project->utility->air_conditioning)
-                                            <li title="Air Conditioning" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-snowflake" style="font-size: 14px;"></i>
-                                            </li>
-                                        @endif
-                                        @if($project->utility && $project->utility->furnished)
-                                            <li title="Furnished" style="display: flex; align-items: center; gap: 5px;">
-                                                <i class="fa-solid fa-couch" style="font-size: 14px;"></i>
-                                            </li>
-                                        @endif
-                                    </ul>
-                                </div>
-                                <div class="d-flex align-items-center post-meta mt-2 py-3 px-4 border-top">
-                                    <div class="agent">
-                                        <a href="{{ route('projects.show', $project->id) }}" class="d-flex text-general align-items-center"><span>Book Now</span></a>
-                                    </div>
-                                    <div class="post-date ms-auto">
-                                      <span>{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
-                                    </div>
+                                
+                                <!-- Property Details -->
+                                <div class="p-4">
+                                    <!-- Title -->
+                                    <h4 class="mb-3" style="font-size: 1.5rem; font-weight: 600; color: #333;">
+                                        <a href="{{ route('off-plan-project.show', $project->id) }}" style="color: #333; text-decoration: none;">{{ $project->project_name }}</a>
+                                    </h4>
+                                    
+                                    <!-- Price -->
+                                    @if($project->starting_price)
+                                    <p class="mb-3" style="font-size: 1.2rem; font-weight: 600; color: #001f3f;">
+                                        Prices from: AED {{ number_format($project->starting_price) }}
+                                    </p>
+                                    @endif
+                                    
+                                    <!-- Location -->
+                                    @if($project->location)
+                                    <p class="mb-2" style="color: #666; font-size: 0.95rem;">
+                                        <strong>Location:</strong> {{ $project->location }}
+                                    </p>
+                                    @endif
+                                    
+                                    <!-- Developer -->
+                                    @if($project->developer)
+                                    <p class="mb-2" style="color: #666; font-size: 0.95rem;">
+                                        <strong>Developer:</strong> {{ $project->developer }}
+                                    </p>
+                                    @endif
+                                    
+                                    <!-- Development Type -->
+                                    @if($project->development_type)
+                                    <p class="mb-3" style="color: #666; font-size: 0.95rem;">
+                                        <strong>Development Type:</strong> {{ $project->development_type }}
+                                    </p>
+                                    @endif
+                                    
+                                    <!-- Description -->
+                                    @if($project->description || $project->overview)
+                                    <p class="mb-4" style="color: #666; font-size: 0.9rem; line-height: 1.6;">
+                                        {{ \Illuminate\Support\Str::limit(strip_tags($project->description ?? $project->overview ?? ''), 120) }}
+                                    </p>
+                                    @endif
+                                    
+                                    <!-- View Property Details Button -->
+                                    <a href="{{ route('off-plan-project.show', $project->id) }}" class="btn w-100" style="background-color: #001f3f; color: white; padding: 12px; border-radius: 5px; text-decoration: none; display: block; text-align: center; font-weight: 500; transition: all 0.3s;">
+                                        View Property Details
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -113,3 +79,4 @@
         </div>
     </div>
 </div>
+@endif

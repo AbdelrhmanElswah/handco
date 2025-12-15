@@ -20,7 +20,7 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = Project::with('utility')->get();
+        $projects = Project::with(['utility', 'category'])->orderBy('id', 'desc')->paginate(10);
         return view('dashboard.project.index', compact('projects'));
     }
 

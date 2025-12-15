@@ -137,6 +137,7 @@
                         <select name="listingType" class="form-control" style="width: 150px;" onchange="this.form.submit()">
                             <option value="SELL" {{ $listingType == 'SELL' ? 'selected' : '' }}>For Sale</option>
                             <option value="RENT" {{ $listingType == 'RENT' ? 'selected' : '' }}>For Rent</option>
+                            <option value="NEW" {{ $listingType == 'NEW' ? 'selected' : '' }}>For Off Plan</option>
                         </select>
                         <select name="status" class="form-control" style="width: 150px;" onchange="this.form.submit()">
                             <option value="ACTIVE" {{ $status == 'ACTIVE' ? 'selected' : '' }}>Active</option>

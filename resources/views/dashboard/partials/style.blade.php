@@ -60,7 +60,7 @@
     <link rel="stylesheet"
           href="{{asset('dashboard/assets/libs/filepond-plugin-image-edit/filepond-plugin-image-edit.min.css')}}">
 
-    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script src="https://cdn.ckeditor.com/4.25.1/standard/ckeditor.js"></script>
 
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">

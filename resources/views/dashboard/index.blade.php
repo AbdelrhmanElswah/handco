@@ -12,6 +12,7 @@
     </div>
 @endif
 
+
         <!-- Start::page-header -->
         <div class="d-md-flex d-block align-items-center justify-content-between my-4 page-header-breadcrumb">
             <div>
@@ -59,12 +60,17 @@
                     <div class="card custom-card overflow-hidden text-center">
                         <div class="card-body">
                             <h5 class="mb-3">Sync Pixxi Properties</h5>
-                            <a href="{{ url('/sync-pixxi?listingType=SELL') }}" class="btn btn-primary me-2">
-                                Sync SELL Listings
-                            </a>
-                            <a href="{{ url('/sync-pixxi?listingType=RENT') }}" class="btn btn-success">
-                                Sync RENT Listings
-                            </a>
+                            <div class="d-flex gap-2 justify-content-center flex-wrap">
+                                <a href="{{ url('/sync-pixxi?listingType=SELL') }}" class="btn btn-primary">
+                                    Sync SELL Listings
+                                </a>
+                                <a href="{{ url('/sync-pixxi?listingType=RENT') }}" class="btn btn-success">
+                                    Sync RENT Listings
+                                </a>
+                                <a href="{{ url('/sync-pixxi?listingType=NEW') }}" class="btn btn-info">
+                                    Sync Off Plan Listings
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

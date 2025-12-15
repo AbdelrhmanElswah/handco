@@ -232,16 +232,104 @@ class CmsSectionSeeder extends Seeder
                 'testimonials' => null,
                 'accordion_items' => [
                     [
-                        'title' => 'What is included in Dacha\'s property management services?',
+                        'title' => 'What is included in H&Co\'s property management services?',
                         'content' => 'Our property management services include tenant screening, rent collection, property maintenance, regular inspections, and handling tenant relations. We ensure your property is well-maintained and profitable.',
                         'is_active' => false,
                     ],
                     [
-                        'title' => 'How can Dacha help me invest in Dubai\'s off-plan properties?',
+                        'title' => 'How can H&Co help me invest in Dubai\'s off-plan properties?',
                         'content' => 'We provide comprehensive guidance on off-plan investments, including market analysis, developer verification, payment plan assistance, and legal documentation support to ensure a secure investment.',
                         'is_active' => false,
                     ],
                 ],
+                'is_active' => true,
+            ]
+        );
+
+        /**
+         * Sell Page Sections
+         */
+
+        // Sell Hero Banner (large image with main CTA)
+        CmsSection::updateOrCreate(
+            ['section_key' => 'sell_hero_banner'],
+            [
+                'section_name' => 'Sell Hero Banner',
+                'title' => 'Ready to sell your property with H&Co Properties?',
+                'subtitle' => 'Get an expert, data‑driven valuation and a tailored marketing plan.',
+                'content' => 'Our team combines deep local knowledge with global reach to help you achieve the best possible price in the right time frame. From valuation to transfer, we guide you at every step.',
+                'list_items' => null,
+                'stats_items' => null,
+                'testimonials' => null,
+                'accordion_items' => null,
+                'is_active' => true,
+            ]
+        );
+
+        // Sell Steps Section (Step by Step cards)
+        CmsSection::updateOrCreate(
+            ['section_key' => 'sell_steps_section'],
+            [
+                'section_name' => 'Sell Page Steps Section',
+                'title' => 'How we sell your property – step by step',
+                'subtitle' => 'A clear process from valuation to transfer',
+                'content' => null,
+                'list_items' => null,
+                'stats_items' => null,
+                'testimonials' => null,
+                'accordion_items' => [
+                    [
+                        'title' => 'Property Valuation',
+                        'content' => 'Your dedicated agent visits the property and provides a professional valuation based on recent transactions and live market data.',
+                    ],
+                    [
+                        'title' => 'Marketing',
+                        'content' => 'We create high‑quality photos, video and listings, and promote your property across portals, social media and our buyer network.',
+                    ],
+                    [
+                        'title' => 'Offer Agreed',
+                        'content' => 'We negotiate on your behalf, qualify buyers, and manage viewings until the right offer is agreed.',
+                    ],
+                    [
+                        'title' => 'Transfer of Ownership',
+                        'content' => 'Our team handles all paperwork and coordinates the transfer with Dubai Land Department until completion.',
+                    ],
+                ],
+                'is_active' => true,
+            ]
+        );
+
+        // Sell CTA Section (bottom banner with buttons)
+        CmsSection::updateOrCreate(
+            ['section_key' => 'sell_cta_section'],
+            [
+                'section_name' => 'Sell Page CTA Section',
+                'title' => 'Ready to talk about selling your property?',
+                'subtitle' => null,
+                'content' => 'Request a free valuation or ask our team to call you back at a time that suits you.',
+                'list_items' => [
+                    'button_text' => 'Contact Us',
+                    'button_link' => '/contact',
+                ],
+                'stats_items' => null,
+                'testimonials' => null,
+                'accordion_items' => null,
+                'is_active' => true,
+            ]
+        );
+
+        // Create or update the Off Plan Projects Header Section
+        CmsSection::updateOrCreate(
+            ['section_key' => 'off_plan_projects_header'],
+            [
+                'section_name' => 'Off Plan Projects Header Section',
+                'title' => 'Off-Plan Projects in Dubai',
+                'subtitle' => 'Explore upcoming developments and secure your investment early.',
+                'content' => null,
+                'list_items' => null,
+                'stats_items' => null,
+                'testimonials' => null,
+                'accordion_items' => null,
                 'is_active' => true,
             ]
         );

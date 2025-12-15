@@ -11,6 +11,7 @@ class Booking extends Model
 
     protected $fillable = [
         'project_id',
+        'off_plan_project_id',
         'name',
         'email',
         'phone_number',
@@ -23,5 +24,13 @@ class Booking extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    /**
+     * Define the relationship with the OffPlanProject model.
+     */
+    public function offPlanProject()
+    {
+        return $this->belongsTo(OffPlanProject::class);
     }
 }

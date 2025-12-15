@@ -13,6 +13,173 @@
     @include('website.partials._property_search')
     <!--============== Property Search Form End ==============-->
 
+    <!--============== Filtered Properties Results Start ==============-->
+    @if(isset($currentListingType) && ($currentListingType == 'buy' || $currentListingType == 'rent' || $currentListingType == 'off-plan'))
+    <div class="full-row py-5">
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col">
+                    <h2 class="text-secondary fw-bold" style="font-size: 2rem;">
+                        @if($currentListingType == 'buy')
+                            Properties for Sale
+                        @elseif($currentListingType == 'rent')
+                            Properties for Rent
+                        @elseif($currentListingType == 'off-plan')
+                            Off Plan Properties
+                        @endif
+                    </h2>
+                    <p class="text-muted">Found {{ $filteredProjects->total() }} properties</p>
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @if($filteredProjects->isEmpty())
+                    <div class="col-12">
+                        <div class="alert alert-info text-center" role="alert">
+                            No properties found. Please adjust your search criteria and try again.
+                        </div>
+                    </div>
+                @else
+                    @foreach($filteredProjects as $project)
+                        <div class="col">
+                            <div class="property-grid-1 bg-white property-block border transition hover-shadow">
+                                <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom m-2" style="height: 200px;">
+                                    @if($project->featured)
+                                        <span class="cata position-absolute sale bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Hot Sale</span>
+                                    @endif
+                                    <a href="{{ route('projects.show', $project->id) }}">
+                                        <img src="{{ $project->mainImage->media_link ?? asset('nophoto.jpeg') }}" alt="{{ $project->title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </a>
+                                    <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #001f3f; color: #fff; padding: 5px 10px; border-radius: 5px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
+                                        AED {{ number_format($project->price) }}
+                                    </span>
+                                </div>
+                                <div class="property_text p-3">
+                                    <h5 class="mb-2">
+                                        <a href="{{ route('projects.show', $project->id) }}" class="text-secondary hover-text-primary">
+                                            {{ $project->title }}
+                                        </a>
+                                    </h5>
+                                    <p class="text-muted mb-2">
+                                        <i class="flaticon-placeholder me-1"></i>{{ $project->location_name }}
+                                    </p>
+                                    @if($project->utility)
+                                        <div class="d-flex flex-wrap gap-2 mb-2">
+                                            @if($project->utility->bedrooms)
+                                                <span class="badge bg-light text-dark">
+                                                    <i class="fas fa-bed me-1"></i>{{ $project->utility->bedrooms }} Beds
+                                                </span>
+                                            @endif
+                                            @if($project->utility->bathrooms)
+                                                <span class="badge bg-light text-dark">
+                                                    <i class="fas fa-bath me-1"></i>{{ $project->utility->bathrooms }} Baths
+                                                </span>
+                                            @endif
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+            <!-- Pagination with Numeric Links -->
+            @if($filteredProjects->hasPages())
+                <div class="row mt-5">
+                    <div class="col">
+                        <div class="d-flex flex-column align-items-center">
+                            <!-- Results Info -->
+                            <div class="mb-3 text-muted">
+                                <span>Showing {{ $filteredProjects->firstItem() }} to {{ $filteredProjects->lastItem() }} of {{ $filteredProjects->total() }} properties</span>
+                            </div>
+                            
+                            <!-- Pagination Navigation -->
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination pagination-lg justify-content-center mb-0">
+                                    {{-- Previous Page Link --}}
+                                    @if ($filteredProjects->onFirstPage())
+                                        <li class="page-item disabled">
+                                            <span class="page-link" aria-label="Previous">
+                                                <i class="fa-solid fa-chevron-left"></i> Previous
+                                            </span>
+                                        </li>
+                                    @else
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $filteredProjects->previousPageUrl() }}" rel="prev" aria-label="Previous">
+                                                <i class="fa-solid fa-chevron-left"></i> Previous
+                                            </a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Pagination Links --}}
+                                    @php
+                                        $currentPage = $filteredProjects->currentPage();
+                                        $lastPage = $filteredProjects->lastPage();
+                                        $start = max(1, $currentPage - 2);
+                                        $end = min($lastPage, $currentPage + 2);
+                                    @endphp
+
+                                    {{-- First Page --}}
+                                    @if ($start > 1)
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $filteredProjects->url(1) }}">1</a>
+                                        </li>
+                                        @if ($start > 2)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                    @endif
+
+                                    {{-- Page Numbers --}}
+                                    @for ($page = $start; $page <= $end; $page++)
+                                        @if ($page == $currentPage)
+                                            <li class="page-item active">
+                                                <span class="page-link">{{ $page }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $filteredProjects->url($page) }}">{{ $page }}</a>
+                                            </li>
+                                        @endif
+                                    @endfor
+
+                                    {{-- Last Page --}}
+                                    @if ($end < $lastPage)
+                                        @if ($end < $lastPage - 1)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $filteredProjects->url($lastPage) }}">{{ $lastPage }}</a>
+                                        </li>
+                                    @endif
+
+                                    {{-- Next Page Link --}}
+                                    @if ($filteredProjects->hasMorePages())
+                                        <li class="page-item">
+                                            <a class="page-link" href="{{ $filteredProjects->nextPageUrl() }}" rel="next" aria-label="Next">
+                                                Next <i class="fa-solid fa-chevron-right"></i>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="page-item disabled">
+                                            <span class="page-link" aria-label="Next">
+                                                Next <i class="fa-solid fa-chevron-right"></i>
+                                            </span>
+                                        </li>
+                                    @endif
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            @endif
+        </div>
+    </div>
+    @endif
+    <!--============== Filtered Properties Results End ==============-->
+
     <!-- =============== About ================-->
     @if($mainServicesSection && $mainServicesSection->is_active)
     <div class="full-row" style="padding: 70px 0 30px 0">
@@ -83,150 +250,6 @@
     @include('website.partials._recent_properties', ['popularProjects' => $popularProjects])
     <!--============== Recent Property End ==============-->
 
-    <!--============== Property Category Start ==============-->
-    <div class="full-row bg-secondary">
-        <div class="container">
-            <div class="row">
-                <div class="col mb-5">
-                    <h1 class="down-line w-50 mx-auto mb-4 text-center text-white w-sm-100 fw-bold" style="font-size: 2.5rem;">What Are You Looking
-                        for?</h1>
-                    <span class="d-table w-50 w-sm-100 sub-title text-white fw-normal mx-auto text-center">Select what you
-                        are looking for.</span>
-                </div>
-            </div>
-            <div class="row row-cols-lg-5 row-cols-sm-4 row-cols-1 g-3 justify-content-center">
-
-                <!-- Property Categories (Example for 1 category) -->
-                @php
-                    $icons = [
-                        'Apartment' => 'fa fa-building',
-                        'Villa' => 'fa fa-house-user',
-                        'Townhouse' => 'fa fa-house-damage',
-                        'Penthouse' => 'fa fa-building',
-                        'Compound' => 'fa fa-city',
-                        'Duplex' => 'fa fa-home',
-                        'Full Floor' => 'fa fa-building',
-                        'Half Floor' => 'fa fa-building',
-                        'Whole Building' => 'fa fa-building',
-                        'Bulk Rent Unit' => 'fa fa-boxes',
-                        'Bungalow' => 'fa fa-home',
-                        'Hotel & Hotel Apartment' => 'fa fa-hotel',
-                        'Office Space' => 'fa fa-briefcase',
-                    ];
-                @endphp
-
-                @foreach ($allCategories as $category)
-                    @if ($category->projects->isNotEmpty())
-                        <div class="col">
-                            <a href="{{ route('projects', ['category' => $category->id]) }}"
-                                class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                                <div class="box-70px position-relative">
-                                    @if (array_key_exists($category->name, $icons))
-                                        <i
-                                            class="{{ $icons[$category->name] }} flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                                    @else
-                                        <i
-                                            class="flaticon-home flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                                    @endif
-                                </div>
-
-                                <h6 class="d-block text-secondary">{{ Str::of($category->name)->replace('_', ' ')->title() }}</h6>
-                            </a>
-                        </div>
-                    @endif
-                @endforeach
-
-                <!--
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i class="flaticon-sketch-1 flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Solid Land</h6>
-                            <p>Hight listed solid use-able land in most popular area for development</p>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i
-                                    class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Office Floor</h6>
-                            <p>Preview most popular are office building listed category</p>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i class="flaticon-shop flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Commercial</h6>
-                            <p>Listing Commercial property for business and factory development</p>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i class="flaticon-real-estate flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Hostel Room</h6>
-                            <p>if you are single looking for sinlge living, preview the hostel listing</p>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i
-                                    class="flaticon-online-booking flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Appartment</h6>
-                            <p>for family living appartment, find your best appartment in our directort list</p>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i class="flaticon-sketch flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Condo</h6>
-                            <p>In our directory we have listed luxury condo for rent and sale</p>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i class="flaticon-spa flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Villa House</h6>
-                            <p>Please who like villa house click here this category listed</p>
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a href="#"
-                           class="text-center d-flex flex-column align-items-center hover-text-white p-4 bg-white transation text-general hover-bg-primary h-100">
-                            <div class="box-70px position-relative">
-                                <i class="flaticon-bed flat-medium d-inline-block text-primary position-absolute xy-center"></i>
-                            </div>
-                            <h6 class="d-block text-secondary">Hotel Room</h6>
-                            <p>The traveller people can findbest hotel here for living night</p>
-                        </a>
-                    </div>
-                -->
-
-                <!-- Add other categories here similarly -->
-            </div>
-        </div>
-    </div>
-    <!--============== Property Category End ==============-->
-
     <!--============== Testimonial Section Start ==============-->
     @if($testimonialsSection && $testimonialsSection->is_active && $testimonialsSection->testimonials && count($testimonialsSection->testimonials) > 0)
     <div class="full-row">
@@ -275,7 +298,9 @@
     <!--============== Blog Section End ==============-->
 
     <!--============== FAQ Section Start ==============-->
-    @include('website.partials._faq')
+    @if(!request('listingType') && !request('category') && !request('keyword'))
+        @include('website.partials._faq')
+    @endif
     <!--============== FAQ Section End ==============-->
 @endsection
 
@@ -284,12 +309,103 @@
 <!-- Script to toggle Price and Advanced Options dropdowns -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        document.querySelectorAll(".toggle-btn").forEach(function(button) {
-            button.addEventListener("click", function(event) {
+        // State management for price dropdown
+        let isPriceOpen = false;
+        const priceButton = document.getElementById('price-toggle-btn');
+        const priceDropdown = document.getElementById('data-range-price');
+        
+        // Handle Price dropdown specifically with reliable state management
+        if (priceButton && priceDropdown) {
+            priceButton.addEventListener("click", function(event) {
                 event.preventDefault();
-                const target = document.querySelector(button.getAttribute("data-target"));
-                if (target) {
-                    target.classList.toggle("d-none"); // Toggles the visibility
+                event.stopPropagation();
+                
+                // Close all other dropdowns first
+                document.querySelectorAll(".price-range-toggle").forEach(function(dropdown) {
+                    if (dropdown !== priceDropdown) {
+                        dropdown.classList.add('d-none');
+                        dropdown.style.display = 'none';
+                    }
+                });
+                
+                // Toggle price dropdown with state management
+                if (!isPriceOpen) {
+                    // Open dropdown
+                    priceDropdown.classList.remove('d-none');
+                    priceDropdown.style.display = 'block';
+                    isPriceOpen = true;
+                } else {
+                    // Close dropdown
+                    priceDropdown.classList.add('d-none');
+                    priceDropdown.style.display = 'none';
+                    isPriceOpen = false;
+                }
+            });
+        }
+        
+        // Handle all other toggle buttons
+        document.querySelectorAll(".toggle-btn").forEach(function(button) {
+            if (button.id !== 'price-toggle-btn') {
+                button.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    const targetSelector = button.getAttribute("data-target");
+                    if (targetSelector) {
+                        const target = document.querySelector(targetSelector);
+                        if (target) {
+                            // Close price dropdown if opening another
+                            if (priceDropdown && isPriceOpen) {
+                                priceDropdown.classList.add('d-none');
+                                priceDropdown.style.display = 'none';
+                                isPriceOpen = false;
+                            }
+                            
+                            // Close all other dropdowns first
+                            document.querySelectorAll(".price-range-toggle").forEach(function(dropdown) {
+                                if (dropdown !== target) {
+                                    dropdown.classList.add('d-none');
+                                    dropdown.style.display = 'none';
+                                }
+                            });
+                            
+                            // Toggle visibility
+                            if (target.classList.contains('d-none') || target.style.display === 'none') {
+                                target.classList.remove('d-none');
+                                target.style.display = 'block';
+                            } else {
+                                target.classList.add('d-none');
+                                target.style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(e) {
+            // Handle price dropdown
+            if (priceButton && priceDropdown && isPriceOpen) {
+                if (!priceButton.contains(e.target) && !priceDropdown.contains(e.target)) {
+                    priceDropdown.classList.add('d-none');
+                    priceDropdown.style.display = 'none';
+                    isPriceOpen = false;
+                }
+            }
+            
+            // Handle other dropdowns
+            document.querySelectorAll(".toggle-btn").forEach(function(button) {
+                if (button.id !== 'price-toggle-btn') {
+                    const targetSelector = button.getAttribute("data-target");
+                    if (targetSelector) {
+                        const target = document.querySelector(targetSelector);
+                        if (target && !target.classList.contains('d-none')) {
+                            if (!button.contains(e.target) && !target.contains(e.target)) {
+                                target.classList.add('d-none');
+                                target.style.display = 'none';
+                            }
+                        }
+                    }
                 }
             });
         });

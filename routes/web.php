@@ -7,6 +7,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CmsController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OffPlanProjectController;
 use App\Http\Controllers\PixxiController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\SliderController;
@@ -130,6 +131,16 @@ Route::prefix('admin')->group(function () {
             Route::get('/', [CmsController::class, 'index'])->name('cms.index');
             Route::get('/{cms}/edit', [CmsController::class, 'edit'])->name('cms.edit');
             Route::put('/{cms}', [CmsController::class, 'update'])->name('cms.update');
+        });
+
+        // Off Plan Projects Routes
+        Route::prefix('off-plan-projects')->group(function () {
+            Route::get('/', [OffPlanProjectController::class, 'index'])->name('off-plan-projects.index');
+            Route::get('/create', [OffPlanProjectController::class, 'create'])->name('off-plan-projects.create');
+            Route::post('/', [OffPlanProjectController::class, 'store'])->name('off-plan-projects.store');
+            Route::get('/{offPlanProject}/edit', [OffPlanProjectController::class, 'edit'])->name('off-plan-projects.edit');
+            Route::put('/{offPlanProject}', [OffPlanProjectController::class, 'update'])->name('off-plan-projects.update');
+            Route::delete('/{offPlanProject}', [OffPlanProjectController::class, 'destroy'])->name('off-plan-projects.destroy');
         });
 
 

@@ -41,8 +41,8 @@
                                 $sectionKey = $cms->section_key;
                             @endphp
 
-                            {{-- Show Title and Subtitle for common sections including footer_register_cta --}}
-                            @if(in_array($sectionKey, ['main_services', 'testimonials_section', 'about_page_banner', 'about_hero_banner', 'about_partners', 'mission_vision_section', 'footer_register_cta', 'privacy_policy_section', 'faq_section']))
+                            {{-- Show Title and Subtitle for common sections including footer_register_cta and Sell page sections --}}
+                            @if(in_array($sectionKey, ['main_services', 'testimonials_section', 'about_page_banner', 'about_hero_banner', 'about_partners', 'mission_vision_section', 'footer_register_cta', 'privacy_policy_section', 'faq_section', 'sell_page_banner', 'sell_hero_banner', 'sell_steps_section', 'sell_cta_section']))
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="title" style="font-size: 21px">Title</label>
@@ -231,8 +231,8 @@
                             </div>
                             @endif
 
-                            {{-- Show Content for main_services, about_hero_banner, and privacy_policy_section --}}
-                            @if(in_array($sectionKey, ['main_services', 'about_hero_banner', 'privacy_policy_section']))
+                            {{-- Show Content for sections that use rich content --}}
+                            @if(in_array($sectionKey, ['main_services', 'about_hero_banner', 'privacy_policy_section', 'sell_hero_banner', 'sell_cta_section']))
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="content" style="font-size: 21px">Content/Description</label>
@@ -492,7 +492,7 @@
                             @endif
 
                             {{-- Background Image Upload for mission_vision_section --}}
-                            @if($sectionKey === 'mission_vision_section')
+                            @if(in_array($sectionKey, ['mission_vision_section']))
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label style="font-size: 21px">Section Image</label>
@@ -593,11 +593,17 @@
                             </div>
                             @endif
 
-                            {{-- Show Accordion Items for FAQ section --}}
-                            @if($sectionKey === 'faq_section')
+                            {{-- Show Accordion Items for FAQ section and Sell Steps section --}}
+                            @if(in_array($sectionKey, ['faq_section', 'sell_steps_section']))
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label style="font-size: 21px">FAQ Items (Questions & Answers)</label>
+                                    <label style="font-size: 21px">
+                                        @if($sectionKey === 'sell_steps_section')
+                                            Step Items (Title & Description)
+                                        @else
+                                            FAQ Items (Questions & Answers)
+                                        @endif
+                                    </label>
                                     <div id="accordion-items-container">
                                         @if($cms->accordion_items && count($cms->accordion_items) > 0)
                                             @foreach($cms->accordion_items as $index => $item)
@@ -605,13 +611,25 @@
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-md-12 mb-3">
-                                                                <label class="form-label">Question</label>
+                                                                <label class="form-label">
+                                                                    @if($sectionKey === 'sell_steps_section')
+                                                                        Step Title
+                                                                    @else
+                                                                        Question
+                                                                    @endif
+                                                                </label>
                                                                 <input type="text" name="accordion_items[{{ $index }}][title]"
                                                                        class="form-control" value="{{ $item['title'] ?? '' }}"
                                                                        placeholder="FAQ Question">
                                                             </div>
                                                             <div class="col-md-12 mb-3">
-                                                                <label class="form-label">Answer</label>
+                                                                <label class="form-label">
+                                                                    @if($sectionKey === 'sell_steps_section')
+                                                                        Step Description
+                                                                    @else
+                                                                        Answer
+                                                                    @endif
+                                                                </label>
                                                                 <textarea name="accordion_items[{{ $index }}][content]"
                                                                           class="form-control" rows="4"
                                                                           placeholder="FAQ Answer">{{ $item['content'] ?? '' }}</textarea>
@@ -630,12 +648,24 @@
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-md-12 mb-3">
-                                                            <label class="form-label">Question</label>
+                                                            <label class="form-label">
+                                                                @if($sectionKey === 'sell_steps_section')
+                                                                    Step Title
+                                                                @else
+                                                                    Question
+                                                                @endif
+                                                            </label>
                                                             <input type="text" name="accordion_items[0][title]"
                                                                    class="form-control" placeholder="FAQ Question">
                                                         </div>
                                                         <div class="col-md-12 mb-3">
-                                                            <label class="form-label">Answer</label>
+                                                            <label class="form-label">
+                                                                @if($sectionKey === 'sell_steps_section')
+                                                                    Step Description
+                                                                @else
+                                                                    Answer
+                                                                @endif
+                                                            </label>
                                                             <textarea name="accordion_items[0][content]"
                                                                       class="form-control" rows="4"
                                                                       placeholder="FAQ Answer"></textarea>
@@ -651,9 +681,20 @@
                                         @endif
                                     </div>
                                     <button type="button" class="btn btn-outline-primary btn-sm mt-2" id="add-accordion-item-btn">
-                                        <i class="far fa-plus"></i> Add FAQ Item
+                                        <i class="far fa-plus"></i>
+                                        @if($sectionKey === 'sell_steps_section')
+                                            Add Step Item
+                                        @else
+                                            Add FAQ Item
+                                        @endif
                                     </button>
-                                    <small class="form-text text-muted d-block">Add FAQ questions and answers. Questions will be displayed with a "+" icon that expands to show the answer.</small>
+                                    <small class="form-text text-muted d-block">
+                                        @if($sectionKey === 'sell_steps_section')
+                                            Add steps for the selling process (each with a title and description).
+                                        @else
+                                            Add FAQ questions and answers. Questions will be displayed with a "+" icon that expands to show the answer.
+                                        @endif
+                                    </small>
                                 </div>
                             </div>
                             @endif
@@ -893,7 +934,7 @@
                 }
             });
 
-            // Add new accordion item (for mission_vision_section and faq_section)
+            // Add new accordion item (for mission_vision_section, faq_section and sell_steps_section)
             const addAccordionBtn = document.getElementById('add-accordion-item-btn');
             if (addAccordionBtn) {
                 addAccordionBtn.addEventListener('click', function() {
@@ -903,8 +944,8 @@
                     newItem.className = 'card mb-2 accordion-item-card';
                     newItem.setAttribute('data-accordion-index', index);
                     
-                    // Check if this is FAQ section or mission_vision_section
-                    const isFaqSection = '{{ $sectionKey }}' === 'faq_section';
+                    // Check if this is FAQ / Sell Steps section (no active checkbox) or mission_vision_section (with checkbox)
+                    const isFaqSection = ['faq_section', 'sell_steps_section'].includes('{{ $sectionKey }}');
                     
                     let htmlContent = `
                         <div class="card-body">

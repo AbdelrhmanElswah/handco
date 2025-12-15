@@ -108,6 +108,17 @@
                         <li><a href="{{ route('projects.index') }}" class="side-menu__item">Show Property</a></li>
                     </ul>
                 </li>
+                <li class="slide has-sub {{ request()->routeIs('off-plan-projects.*') ? 'active' : '' }}">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="fe fe-home side-menu__icon"></i>
+                        <span class="side-menu__label">Off Plan Projects</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li><a href="{{ route('off-plan-projects.create') }}" class="side-menu__item">Add Off Plan Project</a></li>
+                        <li><a href="{{ route('off-plan-projects.index') }}" class="side-menu__item">Show Off Plan Projects</a></li>
+                    </ul>
+                </li>
 
                 <!-- Blogs section -->
                 <li class="slide__category"><span class="category-name">Blogs</span></li>
@@ -152,6 +163,12 @@
             <a href="{{ route('pixxi.properties.index', ['listingType' => 'RENT', 'status' => 'ACTIVE']) }}"
                class="side-menu__item {{ request('listingType') === 'RENT' && request('status') === 'ACTIVE' ? 'active' : '' }}">
                For Rent
+            </a>
+        </li>
+        <li>
+            <a href="{{ route('pixxi.properties.index', ['listingType' => 'NEW', 'status' => 'ACTIVE']) }}"
+               class="side-menu__item {{ request('listingType') === 'NEW' && request('status') === 'ACTIVE' ? 'active' : '' }}">
+               For Off Plan
             </a>
         </li>
     </ul>

@@ -12,12 +12,18 @@
                         <div class="col">
                             <select class="form-control" name="category">
                                 <option value="">Property Types</option>
-                                <option value="Apartment" {{ request('category') == 'Apartment' ? 'selected' : '' }}>Apartments</option>
-                                <option value="Villa" {{ request('category') == 'Villa' ? 'selected' : '' }}>Villas</option>
-                                <option value="Townhouse" {{ request('category') == 'Townhouse' ? 'selected' : '' }}>Townhouses</option>
-                                <option value="Penthouse" {{ request('category') == 'Penthouse' ? 'selected' : '' }}>Penthouses</option>
-                                <option value="Duplex" {{ request('category') == 'Duplex' ? 'selected' : '' }}>Duplex</option>
-                                <option value="Commercial Spaces" {{ request('category') == 'Commercial Spaces' ? 'selected' : '' }}>Commercial Spaces</option>
+                                @if(isset($categories) && $categories->count() > 0)
+                                    @foreach($categories as $categoryName)
+                                        <option value="{{ $categoryName }}" {{ request('category') == $categoryName ? 'selected' : '' }}>{{ $categoryName }}</option>
+                                    @endforeach
+                                @else
+                                    <option value="Apartment" {{ request('category') == 'Apartment' ? 'selected' : '' }}>Apartments</option>
+                                    <option value="Villa" {{ request('category') == 'Villa' ? 'selected' : '' }}>Villas</option>
+                                    <option value="Townhouse" {{ request('category') == 'Townhouse' ? 'selected' : '' }}>Townhouses</option>
+                                    <option value="Penthouse" {{ request('category') == 'Penthouse' ? 'selected' : '' }}>Penthouses</option>
+                                    <option value="Duplex" {{ request('category') == 'Duplex' ? 'selected' : '' }}>Duplex</option>
+                                    <option value="Commercial Spaces" {{ request('category') == 'Commercial Spaces' ? 'selected' : '' }}>Commercial Spaces</option>
+                                @endif
                             </select>
                         </div>
 
