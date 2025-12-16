@@ -1,11 +1,11 @@
 @if($faqSection && $faqSection->is_active && $faqSection->accordion_items && count($faqSection->accordion_items) > 0)
-<div class="full-row" style="padding: 70px 0; background-color: #eef7fe;">
+<div class="full-row" style="padding: 70px 0; background-color: #f8f5f0;">
     <div class="container-fluid px-0">
         <div class="row">
             <div class="col-12 mb-5">
                 @if($faqSection->title)
                 <div class="container">
-                    <h1 class="text-center text-secondary fw-bold mb-4" style="font-size: 2.5rem; font-family: serif;">{{ $faqSection->title }}</h1>
+                    <h1 class="text-center fw-bold mb-4" style="font-size: 2.5rem; font-family: 'Calibri', sans-serif; color: #001f3f;">{{ $faqSection->title }}</h1>
                 </div>
                 @endif
             </div>
@@ -17,18 +17,18 @@
                     <div class="faq-item">
                         <div class="faq-question d-flex justify-content-between align-items-center p-4 cursor-pointer" 
                              data-faq-index="{{ $index }}"
-                             style="cursor: pointer; background-color: #eef7fe; border-bottom: 1px solid #d0d0d0; transition: background-color 0.3s;">
-                            <span class="faq-question-text text-secondary fw-normal" style="font-size: 1.1rem; flex: 1; text-align: left;">
+                             style="cursor: pointer; background-color: #ffffff; border-bottom: 1px solid #d0d0d0; transition: background-color 0.3s;">
+                            <span class="faq-question-text fw-normal" style="font-size: 24px; flex: 1; text-align: left; color: #001f3f; font-family: 'Calibri', sans-serif;">
                                 {{ $faq['title'] ?? '' }}
                             </span>
-                            <span class="faq-toggle-icon text-secondary ms-3" style="font-size: 1.5rem; font-weight: bold; flex-shrink: 0;">
+                            <span class="faq-toggle-icon ms-3" style="font-size: 1.5rem; font-weight: bold; flex-shrink: 0; color: #001f3f;">
                                 <i class="fa fa-plus"></i>
                             </span>
                         </div>
                         <div class="faq-answer p-4" 
                              data-faq-answer="{{ $index }}"
-                             style="display: none; border-bottom: 1px solid #d0d0d0; background-color: #eef7fe;">
-                            <p class="text-secondary mb-0" style="line-height: 1.8;">
+                             style="display: none; border-bottom: 1px solid #d0d0d0; background-color: #ffffff;">
+                            <p class="mb-0" style="line-height: 1.8; color: #001f3f; font-family: 'Calibri', sans-serif; font-size: 24px;">
                                 {!! nl2br(e($faq['content'] ?? '')) !!}
                             </p>
                         </div>
@@ -51,11 +51,11 @@
     }
     
     .faq-question:hover {
-        background-color: #eef7fe !important;
+        background-color: #f8f5f0 !important;
     }
     
     .faq-item.active .faq-question {
-        background-color: #eef7fe !important;
+        background-color: #f8f5f0 !important;
     }
     
     .faq-item.active .faq-toggle-icon i {

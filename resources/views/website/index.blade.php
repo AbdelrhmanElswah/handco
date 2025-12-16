@@ -19,7 +19,7 @@
         <div class="container">
             <div class="row mb-4">
                 <div class="col">
-                    <h2 class="text-secondary fw-bold" style="font-size: 2rem;">
+                    <h2 class="text-secondary fw-bold" style="font-size: 2.5rem;">
                         @if($currentListingType == 'buy')
                             Properties for Sale
                         @elseif($currentListingType == 'rent')
@@ -31,7 +31,7 @@
                     <p class="text-muted">Found {{ $filteredProjects->total() }} properties</p>
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row row-cols-1 row-cols-md-3 g-4" style="display: flex; flex-wrap: wrap;">
                 @if($filteredProjects->isEmpty())
                     <div class="col-12">
                         <div class="alert alert-info text-center" role="alert">
@@ -41,8 +41,9 @@
                 @else
                     @foreach($filteredProjects as $project)
                         <div class="col">
-                            <div class="property-grid-1 bg-white property-block border transition hover-shadow">
-                                <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom m-2" style="height: 200px;">
+                            <div class="property-grid-1 bg-white property-block border transition hover-shadow" style="display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden;">
+                                <!-- Property Image (fixed height like Recent Properties) -->
+                                <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom" style="height: 300px;">
                                     @if($project->featured)
                                         <span class="cata position-absolute sale bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Hot Sale</span>
                                     @endif
@@ -53,7 +54,7 @@
                                         AED {{ number_format($project->price) }}
                                     </span>
                                 </div>
-                                <div class="property_text p-3">
+                                <div class="property_text p-4" style="flex: 1; display: flex; flex-direction: column;">
                                     <h5 class="mb-2">
                                         <a href="{{ route('projects.show', $project->id) }}" class="text-secondary hover-text-primary">
                                             {{ $project->title }}

@@ -26,12 +26,13 @@
 
     <div class="full-row pt-0">
         <div class="container">
-            <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="row row-cols-1 row-cols-md-3 g-4" style="display: flex; flex-wrap: wrap;">
                 <!-- Properties Grid -->
                 @foreach($projects as $project)
                     <div class="col mt-4">
-                        <div class="property-grid-1 bg-white property-block border transition hover-shadow">
-                            <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom m-2" style="height: 200px;">
+                        <div class="property-grid-1 bg-white property-block border transition hover-shadow" style="display: flex; flex-direction: column; height: 100%; border-radius: 8px; overflow: hidden;">
+                            <!-- Property Image (fixed height like Recent Properties) -->
+                            <div class="overflow-hidden position-relative thumbnail-img bg-secondary hover-img-zoom" style="height: 300px;">
                                 <!-- Featured Tag -->
                                 @if($project->featured)
                                     <span class="cata position-absolute sale bg-primary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">Hot Sale</span>
@@ -45,7 +46,7 @@
                                     AED {{ number_format($project->price) }}
                                 </span>
                             </div>
-                            <div class="property_text p-3">
+                            <div class="property_text p-4" style="flex: 1; display: flex; flex-direction: column;">
                                 <span class="d-inline-block text-primary">{{ $project->category->name }}</span>
                                 <h5 class="mt-2"><a class="font-400 text-secondary" href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a></h5>
                                 <!-- Location -->
@@ -69,7 +70,7 @@
                                 </ul>
                             </div>
                             <!-- More Info Link -->
-                            <div class="d-flex align-items-center post-meta mt-2 p-3 border-top">
+                            <div class="d-flex align-items-center post-meta mt-auto p-3 border-top">
                                 <a href="{{ route('projects.show', $project->id) }}" class="me-auto"><span>View Details </span><i class="fa-solid fa-arrow-right"></i></a>
                                 <div class="post-date ms-auto"><span>{{ $project->created_at->format('M d, Y') }}</span></div>
                             </div>

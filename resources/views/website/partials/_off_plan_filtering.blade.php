@@ -72,7 +72,7 @@
 
                         <!-- Search Button -->
                         <div class="col-lg-2 col-md-3 col-12">
-                            <button type="submit" class="btn w-100 form-control" style="background-color: #ff6b35; color: white; border: none; padding: 0.375rem 0.75rem; border-radius: 4px; font-weight: 500; height: calc(1.9em + 0.75rem + 2px); display: flex; align-items: center; justify-content: center;">
+                            <button type="submit" class="btn w-100 form-control" style="background-color: #001f3f; color: white; border: none; padding: 0.375rem 0.75rem; border-radius: 4px; font-weight: 500; height: calc(1.9em + 0.75rem + 2px); display: flex; align-items: center; justify-content: center;">
                                 Search
                             </button>
                         </div>

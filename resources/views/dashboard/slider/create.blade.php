@@ -55,10 +55,18 @@
                                     <input type="url" placeholder="Button Link" name="button_link" class="form-control" value="{{ old('button_link') }}">
                                 </div>
                             </div>
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="main_image" style="font-size: 21px">Main Image</label>
-                                    <input type="file" name="main_image" class="form-control">
+                                    <input type="file" name="main_image" class="form-control" accept="image/*">
+                                    <small class="text-muted">Upload an image (JPEG, PNG, JPG, GIF - Max 2MB)</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="main_video" style="font-size: 21px">Main Video (Alternative)</label>
+                                    <input type="file" name="main_video" class="form-control" accept="video/*">
+                                    <small class="text-muted">Upload a video (MP4, WebM, OGG - Max 10MB)</small>
                                 </div>
                             </div>
                             <div class="col-md-12">

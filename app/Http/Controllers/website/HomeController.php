@@ -18,7 +18,27 @@ class HomeController extends Controller
     {
         // Initialize base query for filtered projects
         $baseQuery = Project::query();
-        $sliders = Slider::with('mainImage')->get();
+        $sliders = Slider::with(['mainImage', 'mainVideo'])->get();
+        
+        // Log sliders data for debugging
+        \Log::info('Sliders Data:', [
+            'count' => $sliders->count(),
+            'sliders' => $sliders->map(function($slider) {
+                return [
+                    'id' => $slider->id,
+                    'title' => $slider->title,
+                    'subtitle' => $slider->subtitle,
+                    'description' => $slider->description ? substr($slider->description, 0, 50) . '...' : null,
+                    'button_text' => $slider->button_text,
+                    'button_link' => $slider->button_link,
+                    'media_type' => $slider->media_type,
+                    'has_main_image' => $slider->mainImage ? true : false,
+                    'main_image_link' => $slider->mainImage ? $slider->mainImage->media_link : null,
+                    'has_main_video' => $slider->mainVideo ? true : false,
+                    'main_video_link' => $slider->mainVideo ? $slider->mainVideo->media_link : null,
+                ];
+            })->toArray()
+        ]);
         $latestBlogs = Blog::with('mainImage')->latest()->take(3)->get();
 
         // Filter by listing type (Buy = sell, Rent = rent, Off Plan = new)

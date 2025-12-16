@@ -107,54 +107,58 @@ class CmsController extends Controller
 
         // Handle background image upload for hero / section banners
         if (in_array($cms->section_key, ['about_hero_banner', 'mission_vision_section']) && $request->hasFile('background_image')) {
-            $uploadPath = 'cms/about-us';
-
-            // Delete old background image from S3 if exists
-            if ($cms->backgroundImage) {
-                $oldS3Path = 'handco/' . $cms->backgroundImage->path_file_name . '/' . $cms->backgroundImage->media;
-                if (Storage::disk('s3')->exists($oldS3Path)) {
-                    Storage::disk('s3')->delete($oldS3Path);
-                }
-                $cms->backgroundImage()->delete();
-            }
-
-            // Upload new background image to S3
             $file = $request->file('background_image');
-            $now = Carbon::now();
-            $randomString = Str::random(10);
-            $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
-            $s3Path = 'handco/' . $uploadPath . '/' . $filename;
+            
+            // Check if file is valid and not empty
+            if ($file && $file->isValid() && $file->getSize() > 0) {
+                $uploadPath = 'cms/about-us';
 
-            try {
-                // Upload to S3
-                $fileContents = file_get_contents($file->getRealPath());
-
-                if ($fileContents === false) {
-                    throw new \Exception('Failed to read file contents');
+                // Delete old background image from S3 if exists
+                if ($cms->backgroundImage) {
+                    $oldS3Path = 'handco/' . $cms->backgroundImage->path_file_name . '/' . $cms->backgroundImage->media;
+                    if (Storage::disk('s3')->exists($oldS3Path)) {
+                        Storage::disk('s3')->delete($oldS3Path);
+                    }
+                    $cms->backgroundImage()->delete();
                 }
 
-                $uploaded = Storage::disk('s3')->put($s3Path, $fileContents);
+                // Upload new background image to S3
+                $now = Carbon::now();
+                $randomString = Str::random(10);
+                $filename = $now->format('Ymdh') . '_' . $randomString . '.' . $file->getClientOriginalExtension();
+                $s3Path = 'handco/' . $uploadPath . '/' . $filename;
 
-                if (!$uploaded) {
-                    throw new \Exception('Failed to upload file to S3');
+                try {
+                    // Upload to S3
+                    $fileContents = file_get_contents($file->getRealPath());
+
+                    if ($fileContents === false) {
+                        throw new \Exception('Failed to read file contents');
+                    }
+
+                    $uploaded = Storage::disk('s3')->put($s3Path, $fileContents);
+
+                    if (!$uploaded) {
+                        throw new \Exception('Failed to upload file to S3');
+                    }
+
+                    // Set visibility to public
+                    Storage::disk('s3')->setVisibility($s3Path, 'public');
+                } catch (\Exception $e) {
+                    Log::error('S3 Upload Error (Background Image): ' . $e->getMessage(), [
+                        'path' => $s3Path ?? null,
+                        'filename' => $filename,
+                    ]);
+                    throw $e;
                 }
 
-                // Set visibility to public
-                Storage::disk('s3')->setVisibility($s3Path, 'public');
-            } catch (\Exception $e) {
-                Log::error('S3 Upload Error (Background Image): ' . $e->getMessage(), [
-                    'path' => $s3Path ?? null,
-                    'filename' => $filename,
+                // Create media record using backgroundImage relationship
+                $cms->backgroundImage()->create([
+                    'media' => $filename,
+                    'info' => 'background',
+                    'path_file_name' => $uploadPath,
                 ]);
-                throw $e;
             }
-
-            // Create media record using backgroundImage relationship
-            $cms->backgroundImage()->create([
-                'media' => $filename,
-                'info' => 'background',
-                'path_file_name' => $uploadPath,
-            ]);
         }
 
         // Handle partner logo uploads for about_partners section

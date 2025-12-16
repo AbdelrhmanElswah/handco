@@ -84,9 +84,23 @@ class MediaUploadService
                     'info' => $info,
                     'path_file_name' => $path_file_name,
                 ]);
-            } else {
-                // For additional images, use the 'images' relationship
+            } elseif ($info === 'video' && method_exists($model, 'mainVideo')) {
+                // For video, use the 'mainVideo' relationship (for Slider model)
+                $model->mainVideo()->create([
+                    'media' => $filename,
+                    'info' => $info,
+                    'path_file_name' => $path_file_name,
+                ]);
+            } elseif (method_exists($model, 'images')) {
+                // For additional images, use the 'images' relationship (for other models like Project)
                 $model->images()->create([
+                    'media' => $filename,
+                    'info' => $info,
+                    'path_file_name' => $path_file_name,
+                ]);
+            } else {
+                // Fallback: use mainImage if images() doesn't exist
+                $model->mainImage()->create([
                     'media' => $filename,
                     'info' => $info,
                     'path_file_name' => $path_file_name,

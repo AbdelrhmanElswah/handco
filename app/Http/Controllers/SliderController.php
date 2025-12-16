@@ -39,16 +39,24 @@ class SliderController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'button_text' => 'nullable|string|max:255',
             'button_link' => 'nullable|url',
-            'main_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         // Create the slider data
-        $sliderData = $request->except(['main_image']);
+        $sliderData = $request->except(['main_image', 'main_video']);
+        // Set media_type based on what was uploaded
+        if ($request->hasFile('main_video')) {
+            $sliderData['media_type'] = 'video';
+        } elseif ($request->hasFile('main_image')) {
+            $sliderData['media_type'] = 'image';
+        } else {
+            $sliderData['media_type'] = $request->input('media_type', 'image');
+        }
         $slider = Slider::create($sliderData);
 
         // Upload the main image
@@ -58,6 +66,16 @@ class SliderController extends Controller
                 $slider,
                 'sliders/main_images',
                 'main'
+            );
+        }
+
+        // Upload the main video
+        if ($request->hasFile('main_video')) {
+            $this->mediaUploadService->uploadMedia(
+                $request->file('main_video'),
+                $slider,
+                'sliders/main_videos',
+                'video'
             );
         }
 
@@ -79,16 +97,67 @@ class SliderController extends Controller
     public function update(Request $request, Slider $slider)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
+            'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'button_text' => 'nullable|string|max:255',
             'button_link' => 'nullable|url',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'main_video' => 'nullable|mimes:mp4,webm,ogg|max:10240', // Max 10MB
+            'media_type' => 'nullable|in:image,video',
         ]);
 
         // Update slider data
-        $slider->update($request->except(['main_image', 'images']));
+        $updateData = $request->except(['main_image', 'main_video', 'images']);
+        // Set media_type based on what was uploaded
+        if ($request->hasFile('main_video')) {
+            $updateData['media_type'] = 'video';
+        } elseif ($request->hasFile('main_image')) {
+            $updateData['media_type'] = 'image';
+        } elseif ($request->has('media_type')) {
+            $updateData['media_type'] = $request->input('media_type');
+        }
+        $slider->update($updateData);
+
+        // Delete old media if switching type
+        if ($request->has('media_type') && $request->input('media_type') != $slider->media_type) {
+            if ($slider->mainImage) {
+                $s3Key = config('filesystems.disks.s3.key') ?: env('AWS_ACCESS_KEY_ID');
+                $s3Secret = config('filesystems.disks.s3.secret') ?: env('AWS_SECRET_ACCESS_KEY');
+                $s3Url = config('filesystems.disks.s3.url') ?: env('AWS_URL');
+                $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
+                $isLocal = in_array(app()->environment(), ['local', 'testing']) || !$s3Configured;
+                
+                if ($isLocal) {
+                    $filePath = public_path('files/sliders/main_images/' . $slider->mainImage->media);
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                } else {
+                    $s3Path = 'handco/sliders/main_images/' . $slider->mainImage->media;
+                    Storage::disk('s3')->delete($s3Path);
+                }
+                $slider->mainImage()->delete();
+            }
+            if ($slider->mainVideo) {
+                $s3Key = config('filesystems.disks.s3.key') ?: env('AWS_ACCESS_KEY_ID');
+                $s3Secret = config('filesystems.disks.s3.secret') ?: env('AWS_SECRET_ACCESS_KEY');
+                $s3Url = config('filesystems.disks.s3.url') ?: env('AWS_URL');
+                $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
+                $isLocal = in_array(app()->environment(), ['local', 'testing']) || !$s3Configured;
+                
+                if ($isLocal) {
+                    $filePath = public_path('files/sliders/main_videos/' . $slider->mainVideo->media);
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                } else {
+                    $s3Path = 'handco/sliders/main_videos/' . $slider->mainVideo->media;
+                    Storage::disk('s3')->delete($s3Path);
+                }
+                $slider->mainVideo()->delete();
+            }
+        }
 
         // Replace the main image if a new one is uploaded
         if ($request->hasFile('main_image')) {
@@ -124,6 +193,92 @@ class SliderController extends Controller
             );
         }
 
+        // Replace the main video if a new one is uploaded
+        if ($request->hasFile('main_video')) {
+            // Delete the old main video
+            if ($slider->mainVideo) {
+                // Use env() directly as fallback in case config cache is stale
+                $s3Key = config('filesystems.disks.s3.key') ?: env('AWS_ACCESS_KEY_ID');
+                $s3Secret = config('filesystems.disks.s3.secret') ?: env('AWS_SECRET_ACCESS_KEY');
+                $s3Url = config('filesystems.disks.s3.url') ?: env('AWS_URL');
+                $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
+                $isLocal = in_array(app()->environment(), ['local', 'testing']) || !$s3Configured;
+                
+                if ($isLocal) {
+                    // Delete from local storage
+                    $filePath = public_path('files/sliders/main_videos/' . $slider->mainVideo->media);
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                } else {
+                    // Delete from S3
+                    $s3Path = 'handco/sliders/main_videos/' . $slider->mainVideo->media;
+                    Storage::disk('s3')->delete($s3Path);
+                }
+                $slider->mainVideo()->delete();
+            }
+
+            // Upload the new main video
+            $this->mediaUploadService->uploadMedia(
+                $request->file('main_video'),
+                $slider,
+                'sliders/main_videos',
+                'video'
+            );
+        }
+
+        // Delete main image if checkbox is checked
+        if ($request->has('delete_main_image') && $request->input('delete_main_image') == '1') {
+            if ($slider->mainImage) {
+                $s3Key = config('filesystems.disks.s3.key') ?: env('AWS_ACCESS_KEY_ID');
+                $s3Secret = config('filesystems.disks.s3.secret') ?: env('AWS_SECRET_ACCESS_KEY');
+                $s3Url = config('filesystems.disks.s3.url') ?: env('AWS_URL');
+                $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
+                $isLocal = in_array(app()->environment(), ['local', 'testing']) || !$s3Configured;
+                
+                if ($isLocal) {
+                    $filePath = public_path('files/sliders/main_images/' . $slider->mainImage->media);
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                } else {
+                    $s3Path = 'handco/sliders/main_images/' . $slider->mainImage->media;
+                    Storage::disk('s3')->delete($s3Path);
+                }
+                $slider->mainImage()->delete();
+            }
+            // If deleting image and no video, set media_type to null or keep current
+            if (!$slider->mainVideo) {
+                $slider->update(['media_type' => 'image']);
+            }
+        }
+
+        // Delete main video if checkbox is checked
+        if ($request->has('delete_main_video') && $request->input('delete_main_video') == '1') {
+            if ($slider->mainVideo) {
+                $s3Key = config('filesystems.disks.s3.key') ?: env('AWS_ACCESS_KEY_ID');
+                $s3Secret = config('filesystems.disks.s3.secret') ?: env('AWS_SECRET_ACCESS_KEY');
+                $s3Url = config('filesystems.disks.s3.url') ?: env('AWS_URL');
+                $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
+                $isLocal = in_array(app()->environment(), ['local', 'testing']) || !$s3Configured;
+                
+                if ($isLocal) {
+                    $filePath = public_path('files/sliders/main_videos/' . $slider->mainVideo->media);
+                    if (file_exists($filePath)) {
+                        unlink($filePath);
+                    }
+                } else {
+                    $s3Path = 'handco/sliders/main_videos/' . $slider->mainVideo->media;
+                    Storage::disk('s3')->delete($s3Path);
+                }
+                $slider->mainVideo()->delete();
+            }
+            // If deleting video and no image, set media_type to image
+            if (!$slider->mainImage) {
+                $slider->update(['media_type' => 'image']);
+            }
+        }
+
 
         return redirect()->route('sliders.index')->with('success', 'Slider updated successfully.');
     }
@@ -151,6 +306,26 @@ class SliderController extends Controller
                 Storage::disk('s3')->delete($s3Path);
             }
             $slider->mainImage()->delete();
+        }
+
+        // Delete the main video
+        if ($slider->mainVideo) {
+            $s3Key = config('filesystems.disks.s3.key');
+            $s3Url = config('filesystems.disks.s3.url');
+            $isLocal = app()->environment('local') || !$s3Key || !$s3Url;
+            
+            if ($isLocal) {
+                // Delete from local storage
+                $filePath = public_path('files/sliders/main_videos/' . $slider->mainVideo->media);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            } else {
+                // Delete from S3
+                $s3Path = 'handco/sliders/main_videos/' . $slider->mainVideo->media;
+                Storage::disk('s3')->delete($s3Path);
+            }
+            $slider->mainVideo()->delete();
         }
 
         $slider->delete();

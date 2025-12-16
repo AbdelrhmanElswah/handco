@@ -56,12 +56,42 @@
                                     <input type="url" placeholder="Button Link" name="button_link" class="form-control" value="{{ old('button_link', $slider->button_link) }}">
                                 </div>
                             </div>
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label for="main_image" style="font-size: 21px">Main Image</label>
-                                    <input type="file" name="main_image" class="form-control">
+                                    <input type="file" name="main_image" class="form-control" accept="image/*">
+                                    <small class="text-muted">Upload an image (JPEG, PNG, JPG, GIF - Max 2MB)</small>
                                     @if($slider->mainImage)
-                                        <img src="{{ $slider->mainImage->media_link }}" alt="Main Image" class="img-fluid mt-2" width="150">
+                                        <div class="mt-2">
+                                            <img src="{{ $slider->mainImage->media_link }}" alt="Main Image" class="img-fluid" width="150" style="display: block; margin-bottom: 10px;">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="delete_main_image" id="delete_main_image" value="1">
+                                                <label class="form-check-label text-danger" for="delete_main_image" style="font-size: 14px;">
+                                                    <i class="fas fa-trash"></i> Delete Image
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-group">
+                                    <label for="main_video" style="font-size: 21px">Main Video (Alternative)</label>
+                                    <input type="file" name="main_video" class="form-control" accept="video/*">
+                                    <small class="text-muted">Upload a video (MP4, WebM, OGG - Max 10MB)</small>
+                                    @if($slider->mainVideo)
+                                        <div class="mt-2">
+                                            <video width="150" controls style="display: block; margin-bottom: 10px;">
+                                                <source src="{{ $slider->mainVideo->media_link }}" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                            </video>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="delete_main_video" id="delete_main_video" value="1">
+                                                <label class="form-check-label text-danger" for="delete_main_video" style="font-size: 14px;">
+                                                    <i class="fas fa-trash"></i> Delete Video
+                                                </label>
+                                            </div>
+                                        </div>
                                     @endif
                                 </div>
                             </div>

@@ -15,6 +15,7 @@ class Slider extends Model
         'description',
         'button_text',
         'button_link',
+        'media_type',
     ];
 
     /**
@@ -23,6 +24,14 @@ class Slider extends Model
     public function mainImage()
     {
         return $this->morphOne(Media::class, 'modelable')->where('info', 'main');
+    }
+
+    /**
+     * Define a one-to-one relationship for the main video.
+     */
+    public function mainVideo()
+    {
+        return $this->morphOne(Media::class, 'modelable')->where('info', 'video');
     }
 
 }

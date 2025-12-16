@@ -29,8 +29,8 @@
                                    id="buy-tab" 
                                    href="{{ route('home', ['listingType' => 'buy']) }}" 
                                    style="border: none; 
-                                          border-bottom: 3px solid {{ (!request('listingType') || request('listingType') == 'buy') ? '#ff6b35' : 'transparent' }}; 
-                                          color: {{ (!request('listingType') || request('listingType') == 'buy') ? '#ff6b35' : '#999' }}; 
+                                          border-bottom: 3px solid {{ (!request('listingType') || request('listingType') == 'buy') ? '#001f3f' : 'transparent' }}; 
+                                          color: {{ (!request('listingType') || request('listingType') == 'buy') ? '#001f3f' : '#999' }}; 
                                           font-weight: {{ (!request('listingType') || request('listingType') == 'buy') ? '600' : '400' }}; 
                                           padding: 15px 25px;
                                           background: {{ (!request('listingType') || request('listingType') == 'buy') ? '#fff' : 'transparent' }};
@@ -44,8 +44,8 @@
                                    id="rent-tab" 
                                    href="{{ route('home', ['listingType' => 'rent']) }}" 
                                    style="border: none; 
-                                          border-bottom: 3px solid {{ request('listingType') == 'rent' ? '#ff6b35' : 'transparent' }}; 
-                                          color: {{ request('listingType') == 'rent' ? '#ff6b35' : '#999' }}; 
+                                          border-bottom: 3px solid {{ request('listingType') == 'rent' ? '#001f3f' : 'transparent' }}; 
+                                          color: {{ request('listingType') == 'rent' ? '#001f3f' : '#999' }}; 
                                           font-weight: {{ request('listingType') == 'rent' ? '600' : '400' }}; 
                                           padding: 15px 25px;
                                           background: {{ request('listingType') == 'rent' ? '#fff' : 'transparent' }};
@@ -59,8 +59,8 @@
                                    id="offplan-tab" 
                                    href="{{ route('home', ['listingType' => 'off-plan']) }}"
                                    style="border: none; 
-                                          border-bottom: 3px solid {{ request('listingType') == 'off-plan' ? '#ff6b35' : 'transparent' }}; 
-                                          color: {{ request('listingType') == 'off-plan' ? '#ff6b35' : '#999' }}; 
+                                          border-bottom: 3px solid {{ request('listingType') == 'off-plan' ? '#001f3f' : 'transparent' }}; 
+                                          color: {{ request('listingType') == 'off-plan' ? '#001f3f' : '#999' }}; 
                                           font-weight: {{ request('listingType') == 'off-plan' ? '600' : '400' }}; 
                                           padding: 15px 25px;
                                           background: {{ request('listingType') == 'off-plan' ? '#fff' : 'transparent' }};
@@ -89,7 +89,7 @@
                                            value="{{ request('location') }}"
                                            style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px;">
                                     <i class="fas fa-map-marker-alt position-absolute" 
-                                       style="right: 12px; top: 50%; transform: translateY(-50%); color: #ff6b35; font-size: 14px; pointer-events: none;"></i>
+                                       style="right: 12px; top: 50%; transform: translateY(-50%); color: #001f3f; font-size: 14px; pointer-events: none;"></i>
                                 </div>
                             </div>
 
@@ -97,7 +97,7 @@
                             <div class="col-md-2 col-sm-6">
                                 <select class="form-control" 
                                         name="category"
-                                        style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23ff6b35\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px;">
+                                        style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23001f3f\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px;">
                                     <option value="">Property Type</option>
                                     @foreach($categories as $category)
                                         <option value="{{ $category->name }}" {{ request('category') == $category->name ? 'selected' : '' }}>
@@ -111,7 +111,7 @@
                             <div class="col-md-2 col-sm-6">
                                 <select class="form-control" 
                                         name="bedrooms"
-                                        style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23ff6b35\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px;">
+                                        style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23001f3f\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px;">
                                     <option value="">Beds</option>
                                     <option value="1" {{ request('bedrooms') == '1' ? 'selected' : '' }}>1 Bed</option>
                                     <option value="2" {{ request('bedrooms') == '2' ? 'selected' : '' }}>2 Beds</option>
@@ -130,7 +130,7 @@
                                             class="form-control price-toggle toggle-btn text-start" 
                                             id="price-toggle-btn"
                                             data-target="#data-range-price" 
-                                            style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px; background: white; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23ff6b35\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px;">
+                                            style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px; background: white; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23001f3f\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px;">
                                         Price
                                     </button>
                                     <div id="data-range-price" 
@@ -141,7 +141,7 @@
                                             <label class="text-dark fw-semibold mb-2 d-block" style="font-size: 13px; color: #333;">Min Price</label>
                                             <select class="form-control w-100" 
                                                     name="min_price"
-                                                    style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 6px; appearance: none; background-color: #ffffff; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23ff6b35\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px; font-size: 14px; color: #333; width: 100%;">
+                                                    style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 6px; appearance: none; background-color: #ffffff; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23001f3f\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px; font-size: 14px; color: #333; width: 100%;">
                                                 <option value="">No Min</option>
                                                 <option value="300000" {{ request('min_price') == '300000' ? 'selected' : '' }}>300,000 AED</option>
                                                 <option value="400000" {{ request('min_price') == '400000' ? 'selected' : '' }}>400,000 AED</option>
@@ -163,7 +163,7 @@
                                             <label class="text-dark fw-semibold mb-2 d-block" style="font-size: 13px; color: #333;">Max Price</label>
                                             <select class="form-control w-100" 
                                                     name="max_price"
-                                                    style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 6px; appearance: none; background-color: #ffffff; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23ff6b35\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px; font-size: 14px; color: #333; width: 100%;">
+                                                    style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 6px; appearance: none; background-color: #ffffff; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23001f3f\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px; font-size: 14px; color: #333; width: 100%;">
                                                 <option value="">No Max</option>
                                                 <option value="500000" {{ request('max_price') == '500000' ? 'selected' : '' }}>500,000 AED</option>
                                                 <option value="600000" {{ request('max_price') == '600000' ? 'selected' : '' }}>600,000 AED</option>
@@ -188,7 +188,7 @@
                             <div class="col-md-3 col-sm-12">
                                 <button type="submit" 
                                         class="btn w-100 d-flex align-items-center justify-content-center" 
-                                        style="background: #ff6b35; color: white; border: none; padding: 12px 20px; border-radius: 4px; font-weight: 600; height: 42px;">
+                                        style="background: #001f3f; color: white; border: none; padding: 12px 20px; border-radius: 4px; font-weight: 600; height: 42px;">
                                     <i class="fas fa-search me-2"></i>Search
                                 </button>
                             </div>

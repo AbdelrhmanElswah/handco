@@ -40,11 +40,13 @@ public function getMediaLinkAttribute()
 {
     // Return empty if media filename is not set
     if (empty($this->media)) {
+        \Log::warning('Media Link - Empty media filename', ['media_id' => $this->id]);
         return '';
     }
 
     // If media is already a full URL, return it as is
     if (Str::startsWith($this->media, ['http://', 'https://'])) {
+        \Log::info('Media Link - Already full URL', ['media_id' => $this->id, 'url' => $this->media]);
         return $this->media;
     }
 
@@ -61,15 +63,27 @@ public function getMediaLinkAttribute()
     $s3Configured = !empty($s3Key) && !empty($s3Secret) && !empty($s3Url);
     $isLocalEnv = in_array(app()->environment(), ['local', 'testing']);
     
+    \Log::info('Media Link - Configuration Check', [
+        'media_id' => $this->id,
+        'media' => $this->media,
+        'path_file_name' => $this->path_file_name,
+        's3_configured' => $s3Configured,
+        'is_local_env' => $isLocalEnv,
+        'environment' => app()->environment(),
+    ]);
+    
     // If S3 is configured and not in local/testing, use S3
     // On production, always prefer S3 if configured
     if ($s3Configured && !$isLocalEnv) {
         $s3Path = rtrim($s3Url, '/') . '/handco/' . $path . $this->media;
+        \Log::info('Media Link - Using S3', ['media_id' => $this->id, 's3_path' => $s3Path]);
         return $s3Path;
     }
 
     // Use local storage for local/testing environment or if S3 is not fully configured
-    return asset('files/' . $path . $this->media);
+    $localPath = asset('files/' . $path . $this->media);
+    \Log::info('Media Link - Using Local', ['media_id' => $this->id, 'local_path' => $localPath]);
+    return $localPath;
 }
 
 

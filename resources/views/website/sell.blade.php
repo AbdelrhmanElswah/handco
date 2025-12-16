@@ -79,7 +79,7 @@
                             </span>
                         @endif
                         @if($sellStepsSection->title)
-                            <h2 class="fw-bold" style="font-size:2.4rem; color:#0b2948;">
+                            <h2 class="fw-bold" style="font-size: 2.5rem; color:#0b2948;">
                                 {{ $sellStepsSection->title }}
                             </h2>
                         @endif
@@ -126,7 +126,7 @@
                 <div class="col-lg-7 d-flex align-items-center" style="background-color: #001f3f; position: relative; padding: 70px 80px 80px 80px;">
                     <div style="position:absolute; inset:0; opacity:0.12; background-image:repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(255,255,255,.08) 30px, rgba(255,255,255,.08) 60px);"></div>
                     <div class="position-relative text-white" style="z-index:1;">
-                        <h2 class="fw-bold mb-4" style="font-size: 2.4rem; line-height: 1.2; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <h2 class="fw-bold mb-4" style="font-size: 2.5rem; line-height: 1.2; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                             {{ optional($sellCtaSection)->title ?? 'Ready to sell your property with H&Co Properties?' }}
                         </h2>
                         @if(optional($sellCtaSection)->content)

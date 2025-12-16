@@ -7,11 +7,12 @@
         </div>
         <div class="row">
             <div class="col">
-                <div class="3block-carusel nav-disable owl-carousel">
+                <div class="3block-carusel nav-disable owl-carousel" style="display: flex; align-items: stretch;">
                     @foreach($recentProjects as $project)
-                        <div class="item">
-                            <div class="property-grid-1 property-block bg-white transation-this">
-                                <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom">
+                        <div class="item" style="display: flex; align-items: stretch;">
+                            <div class="property-grid-1 property-block bg-white transation-this" style="display: flex; flex-direction: column; height: 100%; width: 100%; border-radius: 8px; overflow: hidden;">
+                                <!-- Property Image (match Off Plan card height) -->
+                                <div class="overflow-hidden position-relative transation thumbnail-img bg-secondary hover-img-zoom" style="height: 300px;">
                                     <div class="cata position-absolute">
                                         <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->status === 'available' ? 'Available' : 'Sold Out' }}</span>
                                         <span class="sale bg-secondary text-white" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">{{ $project->rent_or_service === 'sell' ? 'For Sale' : 'For Rent' }}</span>
@@ -21,11 +22,10 @@
                                         @endif
                                     </div>
                                     <a href="{{ route('projects.show', $project->id) }}">
-                                <img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!">
-
+                                        <img src="{{ $project->mainImage->media_link ?? asset('images/default.jpg') }}" alt="Image Not Found!" style="width: 100%; height: 100%; object-fit: cover;">
                                     </a>
                                 </div>
-                                <div class="property_text p-4">
+                                <div class="property_text p-4" style="flex: 1; display: flex; flex-direction: column;">
                                     <span class="listing-price" style="color: #001f3f;">AED {{ number_format($project->price) }}</span>
                                     <h5 class="listing-title">
                                         <a href="{{ route('projects.show', $project->id) }}">{{ $project->title }}</a>
@@ -93,7 +93,7 @@
                                         @endif
                                     </ul>
                                 </div>
-                                <div class="d-flex align-items-center post-meta mt-2 py-3 px-4 border-top">
+                                <div class="d-flex align-items-center post-meta mt-auto py-3 px-4 border-top">
                                     <div class="agent">
                                         <a href="{{ route('projects.show', $project->id) }}" class="d-flex text-general align-items-center"><span>Book Now</span></a>
                                     </div>
@@ -109,3 +109,115 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Ensure Recent Properties cards are aligned and fixed height */
+    .3block-carusel.owl-carousel {
+        display: flex !important;
+    }
+    
+    .3block-carusel .owl-stage {
+        display: flex !important;
+        align-items: stretch !important;
+    }
+    
+    .3block-carusel .owl-stage-outer {
+        overflow: visible !important;
+    }
+    
+    .3block-carusel .owl-item {
+        display: flex !important;
+        align-items: stretch !important;
+        height: auto !important;
+    }
+    
+    .3block-carusel .item {
+        display: flex !important;
+        align-items: stretch !important;
+        height: 100% !important;
+        width: 100% !important;
+    }
+    
+    .3block-carusel .property-grid-1 {
+        display: flex !important;
+        flex-direction: column !important;
+        height: 650px !important;
+        width: 100% !important;
+        overflow: hidden !important;
+    }
+    
+    .3block-carusel .property_text {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        min-height: 0 !important;
+        overflow: hidden !important;
+    }
+    
+    .3block-carusel .listing-title {
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        line-height: 1.4 !important;
+        max-height: 3em !important;
+    }
+    
+    .3block-carusel .quantity {
+        max-height: 60px !important;
+        overflow: hidden !important;
+    }
+    
+    .3block-carusel .post-meta {
+        margin-top: auto !important;
+    }
+    
+    /* Pagination colors */
+    .pagination .page-item.active .page-link {
+        background-color: #001f3f !important;
+        border-color: #001f3f !important;
+        color: #fff !important;
+    }
+    
+    .pagination .page-link:hover {
+        color: #001f3f !important;
+    }
+</style>
+
+<script>
+    // Force fixed height for all cards - content won't control height
+    (function() {
+        function setFixedCardHeights() {
+            const cards = document.querySelectorAll('.3block-carusel .property-grid-1');
+            cards.forEach(card => {
+                card.style.height = '650px';
+                card.style.maxHeight = '650px';
+                card.style.minHeight = '650px';
+            });
+        }
+        
+        // Run immediately and after various events
+        setFixedCardHeights();
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', setFixedCardHeights);
+        }
+        
+        window.addEventListener('load', setFixedCardHeights);
+        
+        // After Owl Carousel initializes
+        if (typeof jQuery !== 'undefined') {
+            jQuery(document).ready(function() {
+                const $carousel = jQuery('.3block-carusel');
+                if ($carousel.length) {
+                    $carousel.on('initialized.owl.carousel', setFixedCardHeights);
+                    $carousel.on('resized.owl.carousel', setFixedCardHeights);
+                    $carousel.on('changed.owl.carousel', setFixedCardHeights);
+                    
+                    setTimeout(setFixedCardHeights, 200);
+                }
+            });
+        }
+    })();
+</script>

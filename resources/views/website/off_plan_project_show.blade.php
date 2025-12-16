@@ -40,7 +40,7 @@
                             Prices from: AED {{ number_format($project->starting_price) }}
                         </p>
                         @endif
-                        <a href="#register-interest" class="btn btn-lg" style="background-color: #ff6b35; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);">
+                        <a href="#register-interest" class="btn btn-lg" style="background-color: #001f3f; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);">
                             Register Your Interest
                         </a>
                     </div>
@@ -60,13 +60,13 @@
                 <div class="col">
                     <ul class="nav nav-tabs border-0 justify-content-center" id="section-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" href="#details-section" onclick="scrollToSection('details-section'); return false;">Details</a>
+                            <a class="nav-link active" href="#details-section" onclick="scrollToSection('details-section'); return false;" style="color: #001f3f;">Details</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#gallery-section" onclick="scrollToSection('gallery-section'); return false;">Gallery</a>
+                            <a class="nav-link" href="#gallery-section" onclick="scrollToSection('gallery-section'); return false;" style="color: #001f3f;">Gallery</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#payment-plan-section" onclick="scrollToSection('payment-plan-section'); return false;">Payment Plan</a>
+                            <a class="nav-link" href="#payment-plan-section" onclick="scrollToSection('payment-plan-section'); return false;" style="color: #001f3f;">Payment Plan</a>
                         </li>
                     </ul>
                 </div>
@@ -258,7 +258,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mx-auto">
-                    <h3 class="text-white fw-bold mb-4 text-center" style="font-size: 2rem;">Register your interest</h3>
+                    <h3 class="text-white fw-bold mb-4 text-center" style="font-size: 2.5rem;">Register your interest</h3>
                     @if(session('success'))
                         <div class="alert alert-success" role="alert">
                             {{ session('success') }}
@@ -298,7 +298,7 @@
                             <textarea class="form-control" name="message" rows="5" placeholder="Leave your message" style="background-color: white; border: none; padding: 12px; border-radius: 4px; resize: vertical;">{{ old('message') }}</textarea>
                         </div>
                         <div class="text-center mb-3">
-                            <button class="btn btn-lg w-100" type="submit" style="background-color: #ff6b35; color: white; padding: 15px; border: none; border-radius: 5px; font-weight: 600; font-size: 1.1rem;">
+                            <button class="btn btn-lg w-100" type="submit" style="background-color: #001f3f; color: white; padding: 15px; border: none; border-radius: 5px; font-weight: 600; font-size: 1.1rem;">
                                 Submit
                             </button>
                         </div>
@@ -315,10 +315,10 @@
         <div class="container">
             <div class="row mb-4 align-items-center">
                 <div class="col-md-8">
-                    <h2 class="text-secondary fw-bold mb-0" style="font-size: 2rem;">Latest Off Plan Development</h2>
+                    <h2 class="text-secondary fw-bold mb-0" style="font-size: 2.5rem;">Latest Off Plan Development</h2>
                 </div>
                 <div class="col-md-4 text-end">
-                    <a href="{{ route('featured_projects') }}" class="btn" style="background-color: #4a90e2; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-weight: 500;">More Developments</a>
+                    <a href="{{ route('featured_projects') }}" class="btn" style="background-color: #001f3f; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-weight: 500;">More Developments</a>
                 </div>
             </div>
             
@@ -334,12 +334,12 @@
                 
                 <!-- Details Section (Right) -->
                 <div class="col-lg-6 p-4 d-flex flex-column justify-content-center">
-                    <h3 class="text-secondary fw-bold mb-3" style="font-size: 2rem;">
+                    <h3 class="text-secondary fw-bold mb-3" style="font-size: 2.5rem;">
                         <a href="{{ route('off-plan-project.show', $latestProject->id) }}" style="color: #001f3f; text-decoration: none;">{{ $latestProject->project_name }}</a>
                     </h3>
                     
                     @if($latestProject->starting_price)
-                    <p class="mb-4" style="font-size: 1.5rem; font-weight: 600; color: #ff6b35;">
+                    <p class="mb-4" style="font-size: 1.5rem; font-weight: 600; color: #001f3f;">
                         Prices from: AED {{ number_format($latestProject->starting_price) }}
                     </p>
                     @endif
@@ -392,10 +392,10 @@
                             Ready to find your perfect home in Dubai for the best price?
                         </h2>
                         <div class="d-flex flex-column flex-sm-row gap-3">
-                            <a href="{{ url('featured-projects') }}" class="btn btn-lg" style="background-color: #ff6b35; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; transition: all 0.3s;">
+                            <a href="{{ url('featured-projects') }}" class="btn btn-lg" style="background-color: #aa8453; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
                                 Search
                             </a>
-                            <a href="{{ route('contact') }}" class="btn btn-lg" style="background-color: #4a90e2; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; transition: all 0.3s;">
+                            <a href="{{ route('contact') }}" class="btn btn-lg" style="background-color: #aa8453; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
                                 Contact Us
                             </a>
                         </div>
@@ -426,8 +426,8 @@
             transition: all 0.3s ease;
         }
         .nav-link.active {
-            color: #ff6b35 !important;
-            border-bottom: 2px solid #ff6b35 !important;
+            color: #001f3f !important;
+            border-bottom: 2px solid #001f3f !important;
         }
         html {
             scroll-behavior: smooth;
@@ -488,7 +488,7 @@
         }
         .thumbnail-item.active {
             opacity: 1;
-            border-color: #ff6b35 !important;
+            border-color: #001f3f !important;
             transform: scale(1.05);
         }
     </style>

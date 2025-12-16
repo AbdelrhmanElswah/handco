@@ -34,6 +34,7 @@
 <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/colors/color.css') }}">
 <link rel="stylesheet" href="{{ asset('assets/css/loader.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/handco-custom.css') }}">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-KH7CZLWXX9"></script>
 <script>
     window.dataLayer = window.dataLayer || [];

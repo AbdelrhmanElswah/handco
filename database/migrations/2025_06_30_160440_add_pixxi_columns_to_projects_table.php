@@ -13,10 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            $table->string('property_id')->nullable();
-            $table->string('developer_name')->nullable();
-        });
+        if (Schema::hasTable('projects')) {
+            Schema::table('projects', function (Blueprint $table) {
+                if (!Schema::hasColumn('projects', 'property_id')) {
+                    $table->string('property_id')->nullable();
+                }
+                if (!Schema::hasColumn('projects', 'developer_name')) {
+                    $table->string('developer_name')->nullable();
+                }
+            });
+        }
     }
 
     /**

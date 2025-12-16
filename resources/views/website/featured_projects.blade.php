@@ -45,7 +45,7 @@
                 <!-- Properties Grid -->
                 @foreach($featuredProjects as $project)
                     <div class="col mt-4">
-                        <div class="bg-white property-block border transition hover-shadow" style="border-radius: 8px; overflow: hidden; {{ $project->is_featured ? 'border: 2px solid #ff6b35;' : '' }}">
+                        <div class="bg-white property-block border transition hover-shadow" style="border-radius: 8px; overflow: hidden; {{ $project->is_featured ? 'border: 2px solid #001f3f;' : '' }}">
                             <!-- Property Image -->
                             <div class="overflow-hidden position-relative" style="height: 300px;">
                                 <a href="{{ route('off-plan-project.show', $project->id) }}">
