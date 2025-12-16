@@ -96,7 +96,7 @@
                         'slider_id' => $activeSlider->id,
                     ]);
                 @endphp
-                <div class="slider-content-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100 !important; display: flex !important; align-items: center !important; justify-content: center !important; pointer-events: none !important;">
+                <div class="slider-content-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100 !important; display: flex !important; align-items: flex-start !important; justify-content: center !important; pointer-events: none !important; padding-top: 0% !important;">
                     <div class="container">
                         <div class="row justify-content-center">
                             <div class="col-lg-10 col-xl-9">
