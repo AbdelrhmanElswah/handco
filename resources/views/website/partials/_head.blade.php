@@ -45,11 +45,13 @@
 </script>
 
 <!-- Teleoceans Analytics -->
-<script
-    src="https://analytics.teleoceans-servers.cloud/api/script.js"
-    data-site-id="8"
-    defer
-></script>
+<!-- Privacy-friendly analytics by Plausible -->
+<script async src="https://analytics.teleoceans-servers.cloud/js/pa-bMqLGqdvywCD2MAl5Wmvc.js"></script>
+<script>
+  window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+  plausible.init()
+</script>
+
 
 <style>
     /* #1c2e4a */
