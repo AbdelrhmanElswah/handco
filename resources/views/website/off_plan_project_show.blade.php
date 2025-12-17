@@ -40,7 +40,7 @@
                             Prices from: AED {{ number_format($project->starting_price) }}
                         </p>
                         @endif
-                        <a href="#register-interest" class="btn btn-lg" style="background-color: #001f3f; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);">
+                        <a href="#register-interest" class="btn btn-lg" style="background-color: #0E3D7D; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 8px; text-decoration: none; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);">
                             Register Your Interest
                         </a>
                     </div>
@@ -298,7 +298,7 @@
                             <textarea class="form-control" name="message" rows="5" placeholder="Leave your message" style="background-color: white; border: none; padding: 12px; border-radius: 4px; resize: vertical;">{{ old('message') }}</textarea>
                         </div>
                         <div class="text-center mb-3">
-                            <button class="btn btn-lg w-100" type="submit" style="background-color: #001f3f; color: white; padding: 15px; border: none; border-radius: 5px; font-weight: 600; font-size: 1.1rem;">
+                            <button class="btn btn-lg w-100" type="submit" style="background-color: #0E3D7D; color: white; padding: 15px; border: none; border-radius: 8px; font-weight: 600; font-size: 1.1rem;">
                                 Submit
                             </button>
                         </div>
@@ -318,7 +318,7 @@
                     <h2 class="text-secondary fw-bold mb-0" style="font-size: 2.5rem;">Latest Off Plan Development</h2>
                 </div>
                 <div class="col-md-4 text-end">
-                    <a href="{{ route('featured_projects') }}" class="btn" style="background-color: #001f3f; color: white; border: none; border-radius: 5px; padding: 10px 20px; font-weight: 500;">More Developments</a>
+                    <a href="{{ route('featured_projects') }}" class="btn" style="background-color: #0E3D7D; color: white; border: none; border-radius: 8px; padding: 10px 20px; font-weight: 500;">More Developments</a>
                 </div>
             </div>
             

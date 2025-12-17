@@ -5,6 +5,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CmsController;
+use App\Http\Controllers\CommunityController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\OffPlanProjectController;
@@ -109,6 +110,16 @@ Route::prefix('admin')->group(function () {
             Route::get('/{blog}/edit', [BlogController::class, 'edit'])->name('blog.edit');
             Route::put('/{blog}', [BlogController::class, 'update'])->name('blog.update');
             Route::delete('/{blog}', [BlogController::class, 'destroy'])->name('blog.destroy');
+        });
+
+        // Routes for Community
+        Route::prefix('communities')->group(function () {
+            Route::get('/', [CommunityController::class, 'index'])->name('community.index');
+            Route::get('/create', [CommunityController::class, 'create'])->name('community.create');
+            Route::post('/', [CommunityController::class, 'store'])->name('community.store');
+            Route::get('/{community}/edit', [CommunityController::class, 'edit'])->name('community.edit');
+            Route::put('/{community}', [CommunityController::class, 'update'])->name('community.update');
+            Route::delete('/{community}', [CommunityController::class, 'destroy'])->name('community.destroy');
         });
 
               Route::prefix('sliders')->group(function () {

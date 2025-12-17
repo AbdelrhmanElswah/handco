@@ -224,6 +224,9 @@
                     <a class="dropdown-item" href="{{ route('blogs') }}">Blogs</a>
                 </li>
                 <li>
+                    <a class="dropdown-item" href="{{ route('communities') }}">Communities</a>
+                </li>
+                <li>
                     <a class="dropdown-item" href="{{ route('about') }}">About Us</a>
                 </li>
             </ul>

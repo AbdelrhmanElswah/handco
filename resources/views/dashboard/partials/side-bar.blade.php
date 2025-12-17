@@ -134,6 +134,20 @@
                     </ul>
                 </li>
 
+                <!-- Communities section -->
+                <li class="slide__category"><span class="category-name">Communities</span></li>
+                <li class="slide has-sub {{ request()->routeIs('community.*') }}">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="fe fe-map-pin side-menu__icon"></i>
+                        <span class="side-menu__label">Communities</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li><a href="{{ route('community.create') }}" class="side-menu__item">Add Community</a></li>
+                        <li><a href="{{ route('community.index') }}" class="side-menu__item">Show Communities</a></li>
+                    </ul>
+                </li>
+
                 <!-- CMS section -->
                 <li class="slide__category"><span class="category-name">CMS</span></li>
                 <li class="slide {{ request()->routeIs('cms.*') ? 'active' : '' }}">

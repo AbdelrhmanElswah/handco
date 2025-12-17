@@ -3,6 +3,7 @@
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\website\BlogController;
+use App\Http\Controllers\website\CommunityController;
 use App\Http\Controllers\website\HomeController;
 use App\Http\Controllers\website\ProjectController;
 use Illuminate\Http\Request;
@@ -92,6 +93,10 @@ Route::get('/privacy-policy', function () {
 Route::get('/blogs', [BlogController::class, 'showBlogs'])->name('blogs');
 
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('blogs.show');
+
+Route::get('/communities', [CommunityController::class, 'showCommunities'])->name('communities');
+
+Route::get('/communities/{id}', [CommunityController::class, 'show'])->name('communities.show');
 
 Route::get('/projects', [ProjectController::class, 'index'])->name('projects');
 
