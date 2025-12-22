@@ -10,14 +10,14 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <h1 class="text-secondary fw-bold" style="font-size: 2.5rem;">Dubai Communities</h1>
+                    <h1 class="text-secondary fw-bold text-start" style="font-size: 2.5rem;">Dubai Communities</h1>
                     @if(request()->has('subtitle') && request('subtitle'))
-                        <p class="text-muted mt-2">{{ request('subtitle') }}</p>
+                        <p class="text-muted mt-2 text-start">{{ request('subtitle') }}</p>
                     @else
-                        <p class="text-muted mt-2">Discover Dubai's most iconic neighbourhoods and lifestyle destinations.</p>
+                        <p class="text-muted mt-2 text-start">Discover Dubai's most iconic neighbourhoods and lifestyle destinations.</p>
                     @endif
                     <nav aria-label="breadcrumb" class="mb-2">
-                        <ol class="breadcrumb mb-0 bg-transparent p-0">
+                        <ol class="breadcrumb mb-0 bg-transparent p-0 justify-content-start">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                             <li class="breadcrumb-item active text-primary" aria-current="page">Communities</li>
                         </ol>
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <form class="quick-search form-icon-right position-relative" action="{{ route('communities') }}" method="GET">
-                        <div class="row row-cols-lg-6 row-cols-md-4 row-cols-1 g-3">
+                        <div class="row row-cols-lg-6 row-cols-md-4 row-cols-1 g-3 justify-content-start">
                             <div class="col">
                                 <input type="text" class="form-control" name="keyword" placeholder="Enter Project" value="{{ request('keyword') }}">
                             </div>
@@ -96,7 +96,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12 order-xl-1 sm-mb-30">
-                    <div class="row row-cols-md-3 row-cols-1 g-4">
+                    <div class="row row-cols-md-3 row-cols-1 g-4 justify-content-start">
                         @foreach($communities as $community)
                             <div class="col">
                                 <a href="{{ route('communities.show', $community->id) }}" class="text-decoration-none d-block">
@@ -118,7 +118,7 @@
 
                     <!-- Pagination with Numeric Links -->
                     <div class="row">
-                        <div class="col mt-5">
+                        <div class="col mt-5 d-flex justify-content-start">
                             {{ $communities->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
@@ -130,7 +130,54 @@
 
     <!-- Inline CSS Styling -->
     <style>
-        /* Community Card Styling (Same as Blog) */
+        /* Ensure proper left alignment for all content */
+        .full-row .container {
+            text-align: left;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        
+        .full-row .row {
+            justify-content: flex-start !important;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        /* Page title section alignment */
+        .full-row .col {
+            text-align: left !important;
+            padding-left: 0;
+        }
+        
+        /* Filter form alignment */
+        .quick-search {
+            text-align: left;
+        }
+        
+        .quick-search .row {
+            justify-content: flex-start !important;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        .quick-search .col {
+            padding-left: 0;
+            padding-right: 12px;
+        }
+        
+        /* Community cards container */
+        .row-cols-md-3 {
+            justify-content: flex-start !important;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        .row-cols-md-3 > .col {
+            padding-left: 0;
+            padding-right: 16px;
+        }
+        
+        /* Community Card Styling */
         .blog-card {
             position: relative;
             height: 300px;
@@ -140,6 +187,8 @@
             cursor: pointer;
             display: block;
             width: 100%;
+            margin-left: 0;
+            margin-right: 0;
         }
 
         .blog-card:hover {
@@ -153,6 +202,7 @@
             cursor: pointer;
             transition: transform 0.3s ease;
             display: block;
+            object-position: left center;
         }
 
         .blog-card:hover .blog-image {
@@ -163,6 +213,7 @@
             width: 100%;
             height: 100%;
             position: relative;
+            display: block;
         }
 
         .post-content {
@@ -175,10 +226,33 @@
             padding: 15px;
             box-sizing: border-box;
             pointer-events: none;
+            text-align: left;
         }
 
         .post-content h5 {
             pointer-events: none;
+            text-align: left;
+            margin-left: 0;
+        }
+        
+        .post-content .post-meta {
+            text-align: left;
+            margin-left: 0;
+        }
+        
+        /* Pagination alignment */
+        .pagination {
+            justify-content: flex-start !important;
+        }
+        
+        /* Remove any center alignment */
+        .text-center {
+            text-align: left !important;
+        }
+        
+        /* Ensure breadcrumb is left aligned */
+        .breadcrumb {
+            justify-content: flex-start !important;
         }
     </style>
 @endsection

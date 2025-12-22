@@ -32,12 +32,12 @@
     }
     
     #navbarSupportedContent .nav-link:hover {
-        border-bottom: 3px solid #ffd700;
+        border-bottom: 3px solid #aa8453;
         padding-bottom: 2px;
     }
     
     #navbarSupportedContent .nav-link.active {
-        border-bottom: 3px solid #ffd700;
+        border-bottom: 3px solid #aa8453;
         padding-bottom: 2px;
     }
     

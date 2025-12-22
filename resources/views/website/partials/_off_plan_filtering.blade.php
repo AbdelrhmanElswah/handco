@@ -17,17 +17,91 @@
                             <div class="position-relative">
                                 <select class="form-control" name="category" style="appearance: none; padding-right: 40px; border: 1px solid #ddd; border-radius: 4px; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23ff6b35\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center;">
                                     <option value="">Property Type</option>
-                                    @if(isset($categories) && $categories->count() > 0)
-                                        @foreach($categories as $id => $categoryName)
-                                            <option value="{{ $categoryName }}" {{ request('category') == $categoryName ? 'selected' : '' }}>{{ $categoryName }}</option>
-                                        @endforeach
-                                    @else
-                                        <option value="Apartment" {{ request('category') == 'Apartment' ? 'selected' : '' }}>Apartment</option>
-                                        <option value="Villa" {{ request('category') == 'Villa' ? 'selected' : '' }}>Villa</option>
-                                        <option value="Townhouse" {{ request('category') == 'Townhouse' ? 'selected' : '' }}>Townhouse</option>
-                                        <option value="Penthouse" {{ request('category') == 'Penthouse' ? 'selected' : '' }}>Penthouse</option>
-                                        <option value="Duplex" {{ request('category') == 'Duplex' ? 'selected' : '' }}>Duplex</option>
-                                    @endif
+                                    @php
+                                        // Fixed categories mapping: Display Name (plural) => Filter Value (singular)
+                                        $fixedCategoriesMap = [
+                                            'Apartments' => 'Apartment',
+                                            'Villas' => 'Villa',
+                                            'Townhouses' => 'Townhouse',
+                                            'Penthouses' => 'Penthouse',
+                                            'Duplex' => 'Duplex',
+                                            'Commercial Spaces' => 'Commercial Spaces'
+                                        ];
+                                        
+                                        // Get API categories if available
+                                        $apiCategoryNames = [];
+                                        if(isset($categories) && $categories->count() > 0) {
+                                            $apiCategoryNames = is_array($categories) ? array_values($categories) : $categories->toArray();
+                                            // Handle if categories is a collection with id => name pairs
+                                            if(!is_numeric(array_keys($apiCategoryNames)[0] ?? null)) {
+                                                $apiCategoryNames = array_values($apiCategoryNames);
+                                            }
+                                        }
+                                        
+                                        // Convert API category names to lowercase for comparison
+                                        $apiCategoryNamesLower = array_map('strtolower', $apiCategoryNames);
+                                        
+                                        // Process categories: if API has singular, use it with plural display
+                                        $allCategories = [];
+                                        
+                                        // First, process API categories - if they match fixed categories, use plural display
+                                        foreach($apiCategoryNames as $apiCat) {
+                                            $apiCatLower = strtolower($apiCat);
+                                            
+                                            // Check if this API category matches a fixed category (singular form)
+                                            $matchedPlural = null;
+                                            foreach($fixedCategoriesMap as $plural => $singular) {
+                                                if(strtolower($singular) === $apiCatLower) {
+                                                    $matchedPlural = $plural;
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            if($matchedPlural) {
+                                                // Use plural display but singular filter value
+                                                $allCategories[] = [
+                                                    'display' => $matchedPlural,
+                                                    'value' => $apiCat
+                                                ];
+                                            } else {
+                                                // Not a fixed category, add as is
+                                                $allCategories[] = [
+                                                    'display' => $apiCat,
+                                                    'value' => $apiCat
+                                                ];
+                                            }
+                                        }
+                                        
+                                        // Then, add fixed categories that don't exist in API
+                                        foreach($fixedCategoriesMap as $pluralDisplay => $singularValue) {
+                                            $singularLower = strtolower($singularValue);
+                                            
+                                            // Check if this fixed category already exists in allCategories
+                                            $exists = false;
+                                            foreach($allCategories as $cat) {
+                                                if(strtolower($cat['value']) === $singularLower) {
+                                                    $exists = true;
+                                                    break;
+                                                }
+                                            }
+                                            
+                                            if(!$exists) {
+                                                // Add fixed category with display name and filter value
+                                                array_unshift($allCategories, [
+                                                    'display' => $pluralDisplay,
+                                                    'value' => $singularValue
+                                                ]);
+                                            }
+                                        }
+                                    @endphp
+                                    @foreach($allCategories as $category)
+                                        @php
+                                            $displayName = $category['display'];
+                                            $filterValue = $category['value'];
+                                            $isSelected = request('category') == $filterValue || request('category') == $displayName;
+                                        @endphp
+                                        <option value="{{ $filterValue }}" {{ $isSelected ? 'selected' : '' }}>{{ $displayName }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>

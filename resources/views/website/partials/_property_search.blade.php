@@ -1,6 +1,18 @@
 @php
     $currentListingType = request('listingType', 'buy');
-    $categories = \App\Models\Category::whereHas('projects', function($query) use ($currentListingType) {
+    
+    // Fixed categories mapping: Display Name (plural) => Filter Value (singular)
+    $fixedCategoriesMap = [
+        'Apartments' => 'Apartment',
+        'Villas' => 'Villa',
+        'Townhouses' => 'Townhouse',
+        'Penthouses' => 'Penthouse',
+        'Duplex' => 'Duplex',
+        'Commercial Spaces' => 'Commercial Spaces'
+    ];
+    
+    // Get categories from API/database
+    $apiCategories = \App\Models\Category::whereHas('projects', function($query) use ($currentListingType) {
         if ($currentListingType == 'buy') {
             $query->whereRaw('LOWER(rent_or_service) = ?', ['sell']);
         } elseif ($currentListingType == 'rent') {
@@ -13,6 +25,69 @@
           ->whereRaw('LOWER(name) != ?', ['hotel_apartment'])
           ->whereRaw('LOWER(name) != ?', ['hotel apartment']);
     })->orderBy('name')->get();
+    
+    // Get API category names (case-insensitive comparison)
+    $apiCategoryNames = $apiCategories->map(function($cat) {
+        return strtolower($cat->name);
+    })->toArray();
+    
+    // Create reverse map: singular => plural for display
+    $singularToPluralMap = array_flip($fixedCategoriesMap);
+    
+    // Process fixed categories and API categories
+    $processedCategories = collect();
+    
+    // First, process API categories - if they match fixed categories, use plural display
+    foreach ($apiCategories as $apiCat) {
+        $apiCatLower = strtolower($apiCat->name);
+        
+        // Check if this API category matches a fixed category (singular form)
+        if (isset($singularToPluralMap[$apiCat->name]) || 
+            in_array($apiCatLower, array_map('strtolower', array_values($fixedCategoriesMap)))) {
+            // Find the matching plural display name
+            $pluralDisplay = null;
+            foreach ($fixedCategoriesMap as $plural => $singular) {
+                if (strtolower($singular) === $apiCatLower) {
+                    $pluralDisplay = $plural;
+                    break;
+                }
+            }
+            
+            // Create object with plural display but singular filter value
+            $category = new \stdClass();
+            $category->display_name = $pluralDisplay ?? $apiCat->name;
+            $category->name = $apiCat->name; // Keep original for filtering
+            $processedCategories->push($category);
+        } else {
+            // Not a fixed category, add as is
+            $processedCategories->push($apiCat);
+        }
+    }
+    
+    // Then, add fixed categories that don't exist in API
+    foreach ($fixedCategoriesMap as $pluralDisplay => $singularValue) {
+        $singularLower = strtolower($singularValue);
+        
+        // Check if this fixed category already exists in processed categories
+        $exists = $processedCategories->contains(function($cat) use ($singularLower) {
+            return strtolower($cat->name) === $singularLower;
+        });
+        
+        if (!$exists) {
+            // Create a custom object with display name (plural) and filter value (singular)
+            $category = new \stdClass();
+            $category->display_name = $pluralDisplay;
+            $category->name = $singularValue;
+            $processedCategories->prepend($category); // Add at beginning
+        }
+    }
+    
+    // Sort: fixed categories first, then API categories
+    $categories = $processedCategories->sortBy(function($cat) use ($fixedCategoriesMap) {
+        $singularValues = array_values($fixedCategoriesMap);
+        $index = array_search(strtolower($cat->name), array_map('strtolower', $singularValues));
+        return $index !== false ? $index : 999; // Fixed categories first
+    })->values();
 @endphp
 
 <div class="full-row p-0 property-search-form on-slider" style="margin-top: -200px !important;">
@@ -25,58 +100,62 @@
                     <div class="border-bottom" style="background: #f8f9fa;">
                         <ul class="nav nav-tabs border-0 mb-0" id="listingTypeTabs" role="tablist" style="background: transparent;">
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link {{ (!request('listingType') || request('listingType') == 'buy') ? 'active' : '' }}" 
-                                   id="buy-tab" 
-                                   href="{{ route('home', ['listingType' => 'buy']) }}" 
-                                   style="border: none; 
-                                          border-bottom: 3px solid {{ (!request('listingType') || request('listingType') == 'buy') ? '#001f3f' : 'transparent' }}; 
-                                          color: {{ (!request('listingType') || request('listingType') == 'buy') ? '#001f3f' : '#999' }}; 
-                                          font-weight: {{ (!request('listingType') || request('listingType') == 'buy') ? '600' : '400' }}; 
-                                          padding: 15px 25px;
-                                          background: {{ (!request('listingType') || request('listingType') == 'buy') ? '#fff' : 'transparent' }};
-                                          opacity: {{ (!request('listingType') || request('listingType') == 'buy') ? '1' : '0.5' }};
-                                          border-radius: 0;">
+                                <button type="button" 
+                                        class="nav-link listing-type-tab {{ (!request('listingType') || request('listingType') == 'buy') ? 'active' : '' }}" 
+                                        data-listing-type="buy"
+                                        style="border: none; 
+                                               border-bottom: 3px solid {{ (!request('listingType') || request('listingType') == 'buy') ? '#001f3f' : 'transparent' }}; 
+                                               color: {{ (!request('listingType') || request('listingType') == 'buy') ? '#001f3f' : '#999' }}; 
+                                               font-weight: {{ (!request('listingType') || request('listingType') == 'buy') ? '600' : '400' }}; 
+                                               padding: 15px 25px;
+                                               background: {{ (!request('listingType') || request('listingType') == 'buy') ? '#fff' : 'transparent' }};
+                                               opacity: {{ (!request('listingType') || request('listingType') == 'buy') ? '1' : '0.5' }};
+                                               border-radius: 0;
+                                               cursor: pointer;
+                                               background-color: transparent;">
                                     Buy
-                                </a>
+                                </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link {{ request('listingType') == 'rent' ? 'active' : '' }}" 
-                                   id="rent-tab" 
-                                   href="{{ route('home', ['listingType' => 'rent']) }}" 
-                                   style="border: none; 
-                                          border-bottom: 3px solid {{ request('listingType') == 'rent' ? '#001f3f' : 'transparent' }}; 
-                                          color: {{ request('listingType') == 'rent' ? '#001f3f' : '#999' }}; 
-                                          font-weight: {{ request('listingType') == 'rent' ? '600' : '400' }}; 
-                                          padding: 15px 25px;
-                                          background: {{ request('listingType') == 'rent' ? '#fff' : 'transparent' }};
-                                          opacity: {{ request('listingType') == 'rent' ? '1' : '0.5' }};
-                                          border-radius: 0;">
+                                <button type="button" 
+                                        class="nav-link listing-type-tab {{ request('listingType') == 'rent' ? 'active' : '' }}" 
+                                        data-listing-type="rent"
+                                        style="border: none; 
+                                               border-bottom: 3px solid {{ request('listingType') == 'rent' ? '#001f3f' : 'transparent' }}; 
+                                               color: {{ request('listingType') == 'rent' ? '#001f3f' : '#999' }}; 
+                                               font-weight: {{ request('listingType') == 'rent' ? '600' : '400' }}; 
+                                               padding: 15px 25px;
+                                               background: {{ request('listingType') == 'rent' ? '#fff' : 'transparent' }};
+                                               opacity: {{ request('listingType') == 'rent' ? '1' : '0.5' }};
+                                               border-radius: 0;
+                                               cursor: pointer;
+                                               background-color: transparent;">
                                     Rent
-                                </a>
+                                </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <a class="nav-link {{ request('listingType') == 'off-plan' ? 'active' : '' }}" 
-                                   id="offplan-tab" 
-                                   href="{{ route('home', ['listingType' => 'off-plan']) }}"
-                                   style="border: none; 
-                                          border-bottom: 3px solid {{ request('listingType') == 'off-plan' ? '#001f3f' : 'transparent' }}; 
-                                          color: {{ request('listingType') == 'off-plan' ? '#001f3f' : '#999' }}; 
-                                          font-weight: {{ request('listingType') == 'off-plan' ? '600' : '400' }}; 
-                                          padding: 15px 25px;
-                                          background: {{ request('listingType') == 'off-plan' ? '#fff' : 'transparent' }};
-                                          opacity: {{ request('listingType') == 'off-plan' ? '1' : '0.5' }};
-                                          border-radius: 0;">
+                                <button type="button" 
+                                        class="nav-link listing-type-tab {{ request('listingType') == 'off-plan' ? 'active' : '' }}" 
+                                        data-listing-type="off-plan"
+                                        style="border: none; 
+                                               border-bottom: 3px solid {{ request('listingType') == 'off-plan' ? '#001f3f' : 'transparent' }}; 
+                                               color: {{ request('listingType') == 'off-plan' ? '#001f3f' : '#999' }}; 
+                                               font-weight: {{ request('listingType') == 'off-plan' ? '600' : '400' }}; 
+                                               padding: 15px 25px;
+                                               background: {{ request('listingType') == 'off-plan' ? '#fff' : 'transparent' }};
+                                               opacity: {{ request('listingType') == 'off-plan' ? '1' : '0.5' }};
+                                               border-radius: 0;
+                                               cursor: pointer;
+                                               background-color: transparent;">
                                     Off Plan
-                                </a>
+                                </button>
                             </li>
                         </ul>
                     </div>
 
                     <!-- Search Form -->
-                    <form action="{{ route('home') }}" method="GET" class="p-4" style="position: relative; overflow: visible;">
-                        @if(request('listingType'))
-                            <input type="hidden" name="listingType" value="{{ request('listingType') }}">
-                        @endif
+                    <form action="{{ route('projects') }}" method="GET" class="p-4" style="position: relative; overflow: visible;" id="propertySearchForm">
+                        <input type="hidden" name="listingType" id="listingTypeInput" value="{{ request('listingType', 'buy') }}">
                         
                         <div class="row g-3 align-items-end" style="position: relative; overflow: visible;">
                             <!-- Location Input -->
@@ -97,11 +176,18 @@
                             <div class="col-md-2 col-sm-6">
                                 <select class="form-control" 
                                         name="category"
+                                        id="propertyTypeSelect"
                                         style="border: 1px solid #ddd; padding: 10px 12px; border-radius: 4px; appearance: none; background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'12\' height=\'12\' viewBox=\'0 0 12 12\'><path fill=\'%23001f3f\' d=\'M6 9L1 4h10z\'/></svg>'); background-repeat: no-repeat; background-position: right 12px center; padding-right: 35px;">
                                     <option value="">Property Type</option>
                                     @foreach($categories as $category)
-                                        <option value="{{ $category->name }}" {{ request('category') == $category->name ? 'selected' : '' }}>
-                                            {{ $category->name }}
+                                        @php
+                                            // Use display_name if available (for fixed categories with plural), otherwise use name
+                                            $displayName = isset($category->display_name) ? $category->display_name : $category->name;
+                                            $filterValue = $category->name; // Always use name (singular) for filtering
+                                            $isSelected = request('category') == $filterValue || request('category') == $displayName;
+                                        @endphp
+                                        <option value="{{ $filterValue }}" {{ $isSelected ? 'selected' : '' }}>
+                                            {{ $displayName }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -241,6 +327,81 @@
         overflow: visible !important;
     }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle tab switching - update categories dropdown based on selected tab
+    const tabs = document.querySelectorAll('.listing-type-tab');
+    const listingTypeInput = document.getElementById('listingTypeInput');
+    const propertyTypeSelect = document.getElementById('propertyTypeSelect');
+    
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const listingType = this.getAttribute('data-listing-type');
+            
+            // Update hidden input
+            listingTypeInput.value = listingType;
+            
+            // Update active tab styles
+            tabs.forEach(t => {
+                const isActive = t === this;
+                t.classList.toggle('active', isActive);
+                t.style.borderBottom = isActive ? '3px solid #001f3f' : 'transparent';
+                t.style.color = isActive ? '#001f3f' : '#999';
+                t.style.fontWeight = isActive ? '600' : '400';
+                t.style.background = isActive ? '#fff' : 'transparent';
+                t.style.opacity = isActive ? '1' : '0.5';
+            });
+            
+            // Load and update categories for this listing type
+            loadCategoriesForListingType(listingType);
+        });
+    });
+    
+    function loadCategoriesForListingType(listingType) {
+        // Show loading state
+        if (propertyTypeSelect) {
+            propertyTypeSelect.innerHTML = '<option value="">Loading...</option>';
+            propertyTypeSelect.disabled = true;
+        }
+        
+        // Make AJAX request to get categories
+        fetch(`{{ route('home') }}?listingType=${listingType}&getCategories=1`, {
+            method: 'GET',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (propertyTypeSelect && data.categories) {
+                // Clear existing options except the first one
+                propertyTypeSelect.innerHTML = '<option value="">Property Type</option>';
+                
+                // Add new categories
+                data.categories.forEach(category => {
+                    const option = document.createElement('option');
+                    option.value = category.value;
+                    option.textContent = category.display;
+                    propertyTypeSelect.appendChild(option);
+                });
+                
+                propertyTypeSelect.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error loading categories:', error);
+            if (propertyTypeSelect) {
+                propertyTypeSelect.innerHTML = '<option value="">Property Type</option>';
+                propertyTypeSelect.disabled = false;
+            }
+        });
+    }
+});
+</script>
 
 
 

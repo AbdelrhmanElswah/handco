@@ -707,7 +707,9 @@ select:focus {
 Header Style Start
 ==================================================================================*/
 .nav-logo {
-    width: 120px
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
 }
 .dropdown-item,
 .navbar-nav .nav-link {

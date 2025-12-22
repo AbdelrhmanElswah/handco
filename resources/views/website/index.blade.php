@@ -14,7 +14,8 @@
     <!--============== Property Search Form End ==============-->
 
     <!--============== Filtered Properties Results Start ==============-->
-    @if(isset($currentListingType) && ($currentListingType == 'buy' || $currentListingType == 'rent' || $currentListingType == 'off-plan'))
+    <div id="propertyResultsContainer">
+    @if((isset($currentListingType) && ($currentListingType == 'buy' || $currentListingType == 'rent' || $currentListingType == 'off-plan')) || request('listingType'))
     <div class="full-row py-5">
         <div class="container">
             <div class="row mb-4">
@@ -179,6 +180,7 @@
         </div>
     </div>
     @endif
+    </div>
     <!--============== Filtered Properties Results End ==============-->
 
     <!-- =============== About ================-->

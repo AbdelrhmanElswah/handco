@@ -3518,7 +3518,9 @@ header.nav-leftpush-overlay.fixed-top {
 }
 
 .full-header .nav-logo {
-    width: 120px
+    max-width: 200px;
+    height: auto;
+    object-fit: contain;
 }
 
 .nav-sticky {
@@ -4159,7 +4161,9 @@ Newsletter Style
 ===========================================*/
 
 .footer-logo img {
-    width: 150px;
+    max-width: 150px;
+    height: auto;
+    object-fit: contain;
 }
 
 .footer-logo a {
@@ -5485,7 +5489,9 @@ Newsletter Style
         position: absolute
     }
     img.nav-logo {
-        width: 100px;
+        max-width: 150px;
+        height: auto;
+        object-fit: contain;
     }
     .blue100 {
         padding: 30px !important

@@ -634,6 +634,15 @@
                                                                           class="form-control" rows="4"
                                                                           placeholder="FAQ Answer">{{ $item['content'] ?? '' }}</textarea>
                                                             </div>
+                                                            @if($sectionKey === 'faq_section')
+                                                            <div class="col-md-12 mb-3">
+                                                                <label class="form-label">Category</label>
+                                                                <input type="text" name="accordion_items[{{ $index }}][category]"
+                                                                       class="form-control" value="{{ $item['category'] ?? 'General' }}"
+                                                                       placeholder="Category (e.g., Buying, Selling, General)">
+                                                                <small class="form-text text-muted">Group this FAQ item into a category</small>
+                                                            </div>
+                                                            @endif
                                                             <div class="col-md-12 mt-2">
                                                                 <button type="button" class="btn btn-outline-danger remove-accordion-item-btn">
                                                                     <i class="far fa-trash-alt"></i> Remove
@@ -670,6 +679,15 @@
                                                                       class="form-control" rows="4"
                                                                       placeholder="FAQ Answer"></textarea>
                                                         </div>
+                                                        @if($sectionKey === 'faq_section')
+                                                        <div class="col-md-12 mb-3">
+                                                            <label class="form-label">Category</label>
+                                                            <input type="text" name="accordion_items[0][category]"
+                                                                   class="form-control" value="General"
+                                                                   placeholder="Category (e.g., Buying, Selling, General)">
+                                                            <small class="form-text text-muted">Group this FAQ item into a category</small>
+                                                        </div>
+                                                        @endif
                                                         <div class="col-md-12 mt-2">
                                                             <button type="button" class="btn btn-outline-danger remove-accordion-item-btn">
                                                                 <i class="far fa-trash-alt"></i> Remove
@@ -946,6 +964,7 @@
                     
                     // Check if this is FAQ / Sell Steps section (no active checkbox) or mission_vision_section (with checkbox)
                     const isFaqSection = ['faq_section', 'sell_steps_section'].includes('{{ $sectionKey }}');
+                    const isFaqOnly = '{{ $sectionKey }}' === 'faq_section';
                     
                     let htmlContent = `
                         <div class="card-body">
@@ -961,6 +980,18 @@
                                               class="form-control" rows="4"
                                               placeholder="${isFaqSection ? 'FAQ Answer' : 'Accordion item content'}"></textarea>
                                 </div>`;
+                    
+                    // Add category field only for FAQ section
+                    if (isFaqOnly) {
+                        htmlContent += `
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label">Category</label>
+                                    <input type="text" name="accordion_items[${index}][category]"
+                                           class="form-control" value="General"
+                                           placeholder="Category (e.g., Buying, Selling, General)">
+                                    <small class="form-text text-muted">Group this FAQ item into a category</small>
+                                </div>`;
+                    }
                     
                     // Only add is_active checkbox for mission_vision_section
                     if (!isFaqSection) {

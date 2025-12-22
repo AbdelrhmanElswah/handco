@@ -2,7 +2,14 @@
     <div class="container">
         <div class="row">
             <div class="col mb-5">
-                <h1 class="down-line text-white w-50 mx-auto text-center w-sm-100 fw-bold" style="font-size: 2.5rem;">Recent Properties</h1>
+                <div class="align-items-center d-flex justify-content-between">
+                    <div>
+                        <h1 class="down-line text-white fw-bold" style="font-size: 2.5rem; margin: 0;">Recent Properties</h1>
+                    </div>
+                    <a href="{{ route('projects') }}" class="view-all-btn" style="text-decoration: none; font-weight: 600; font-size: 1.1rem; padding: 10px 20px; border: 2px solid white; border-radius: 5px; transition: all 0.3s; white-space: nowrap; color: white; background-color: transparent;">
+                        View All
+                    </a>
+                </div>
             </div>
         </div>
         <div class="row">
@@ -181,6 +188,27 @@
     }
     
     .pagination .page-link:hover {
+        color: #001f3f !important;
+    }
+    
+    /* View All Button Styling */
+    .view-all-btn {
+        color: white !important;
+        background-color: transparent !important;
+        border: 2px solid white !important;
+    }
+    
+    .view-all-btn:hover {
+        background-color: white !important;
+        color: #001f3f !important;
+        border-color: white !important;
+    }
+    
+    .view-all-btn:visited {
+        color: white !important;
+    }
+    
+    .view-all-btn:visited:hover {
         color: #001f3f !important;
     }
 </style>

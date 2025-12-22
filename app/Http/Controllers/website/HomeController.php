@@ -177,6 +177,87 @@ class HomeController extends Controller
         // Get current listing type for view
         $currentListingType = $listingType ? strtolower($listingType) : '';
 
+        // If this is an AJAX request to get categories only
+        if (($request->ajax() || $request->wantsJson()) && $request->has('getCategories')) {
+            // Get categories for the selected listing type
+            $categoriesForListingType = Category::whereHas('projects', function($query) use ($listingType) {
+                if ($listingType === 'buy') {
+                    $query->whereRaw('LOWER(rent_or_service) = ?', ['sell']);
+                } elseif ($listingType === 'rent') {
+                    $query->whereRaw('LOWER(rent_or_service) = ?', ['rent']);
+                } elseif ($listingType === 'off-plan') {
+                    $query->whereRaw('LOWER(rent_or_service) = ?', ['new']);
+                }
+            })->where(function($q) {
+                $q->whereRaw('LOWER(name) NOT LIKE ?', ['%hotel%apartment%'])
+                  ->whereRaw('LOWER(name) != ?', ['hotel_apartment'])
+                  ->whereRaw('LOWER(name) != ?', ['hotel apartment']);
+            })->orderBy('name')->get();
+            
+            // Fixed categories mapping
+            $fixedCategoriesMap = [
+                'Apartments' => 'Apartment',
+                'Villas' => 'Villa',
+                'Townhouses' => 'Townhouse',
+                'Penthouses' => 'Penthouse',
+                'Duplex' => 'Duplex',
+                'Commercial Spaces' => 'Commercial Spaces'
+            ];
+            
+            // Process categories
+            $apiCategoryNames = $categoriesForListingType->map(function($cat) {
+                return strtolower($cat->name);
+            })->toArray();
+            
+            $processedCategories = collect();
+            
+            // Process API categories
+            foreach ($categoriesForListingType as $apiCat) {
+                $apiCatLower = strtolower($apiCat->name);
+                
+                // Check if this API category matches a fixed category
+                $matchedPlural = null;
+                foreach ($fixedCategoriesMap as $plural => $singular) {
+                    if (strtolower($singular) === $apiCatLower) {
+                        $matchedPlural = $plural;
+                        break;
+                    }
+                }
+                
+                if ($matchedPlural) {
+                    $processedCategories->push([
+                        'display' => $matchedPlural,
+                        'value' => $apiCat->name
+                    ]);
+                } else {
+                    $processedCategories->push([
+                        'display' => $apiCat->name,
+                        'value' => $apiCat->name
+                    ]);
+                }
+            }
+            
+            // Add fixed categories that don't exist in API
+            foreach ($fixedCategoriesMap as $pluralDisplay => $singularValue) {
+                $singularLower = strtolower($singularValue);
+                
+                $exists = $processedCategories->contains(function($cat) use ($singularLower) {
+                    return strtolower($cat['value']) === $singularLower;
+                });
+                
+                if (!$exists) {
+                    $processedCategories->prepend([
+                        'display' => $pluralDisplay,
+                        'value' => $singularValue
+                    ]);
+                }
+            }
+            
+            return response()->json([
+                'categories' => $processedCategories->values()->all()
+            ]);
+        }
+
         // Pass variables to the view
         return view('website.index', compact(
             'popularProjects',

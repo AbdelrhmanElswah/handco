@@ -5,7 +5,7 @@
                 <div class="col">
                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand" href="/">
-                            <img class="nav-logo" src="{{ asset('assets/images/logo/logo-light.png') }}" alt="H&Co Properties" style="height: 50px;">
+                            <img class="nav-logo" src="{{ asset('assets/images/logo/logo-light.png') }}" alt="H&Co Properties" style="max-height: 80px; width: auto; object-fit: contain;">
                         </a>
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
