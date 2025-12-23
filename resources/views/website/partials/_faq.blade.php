@@ -35,7 +35,8 @@
             <div class="col-12 mb-5">
                 @if($faqSection->title)
                 <div class="container">
-                    <h1 class="text-center fw-bold mb-4" style="font-size: 2.5rem; font-family: 'Calibri', sans-serif; color: #001f3f; border-bottom: 1px solid #d0d0d0; padding-bottom: 20px;">{{ $faqSection->title }}</h1>
+                    <h1 class="text-center fw-bold mb-4" style="font-size: 2.5rem; font-family: 'Calibri', sans-serif; color: #001f3f; padding-bottom: 20px;">{{ $faqSection->title }}</h1>
+                    <hr style="border: 0; border-top: 1px solid #d0d0d0; margin: 0 auto; width: 100%;">
                 </div>
                 @endif
             </div>
@@ -69,7 +70,7 @@
                             <div class="faq-question d-flex justify-content-between align-items-center p-4 cursor-pointer" 
                                  data-faq-index="{{ $faq['index'] }}"
                                  style="cursor: pointer; background-color: #ffffff; border-bottom: 1px solid #d0d0d0; transition: background-color 0.3s;">
-                                <span class="faq-question-text fw-normal" style="font-size: 16px; flex: 1; text-align: left; color: #001f3f; font-family: 'Calibri', sans-serif;">
+                                <span class="faq-question-text fw-normal" style="font-size: 16px !important; flex: 1; text-align: left; color: #001f3f; font-family: 'Calibri', sans-serif;">
                                     {{ $faq['title'] }}
                                 </span>
                                 <span class="faq-toggle-icon ms-3" style="font-size: 1.5rem; font-weight: bold; flex-shrink: 0; color: #001f3f;">
@@ -79,7 +80,7 @@
                             <div class="faq-answer p-4" 
                                  data-faq-answer="{{ $faq['index'] }}"
                                  style="display: none; border-bottom: 1px solid #d0d0d0; background-color: #ffffff;">
-                                <p class="mb-0" style="line-height: 1.8; color: #808080; font-family: 'Calibri', sans-serif; font-size: 11.5px;">
+                                <p class="mb-0" style="line-height: 1.8; color: #666666 !important; font-family: 'Calibri', sans-serif; font-size: 11.5px !important;">
                                     {!! nl2br(e($faq['content'])) !!}
                                 </p>
                             </div>
@@ -95,7 +96,7 @@
                             <div class="faq-question d-flex justify-content-between align-items-center p-4 cursor-pointer" 
                                  data-faq-index="{{ $faq['index'] }}"
                                  style="cursor: pointer; background-color: #ffffff; border-bottom: 1px solid #d0d0d0; transition: background-color 0.3s;">
-                                <span class="faq-question-text fw-normal" style="font-size: 16px; flex: 1; text-align: left; color: #001f3f; font-family: 'Calibri', sans-serif;">
+                                <span class="faq-question-text fw-normal" style="font-size: 16px !important; flex: 1; text-align: left; color: #001f3f; font-family: 'Calibri', sans-serif;">
                                     {{ $faq['title'] }}
                                 </span>
                                 <span class="faq-toggle-icon ms-3" style="font-size: 1.5rem; font-weight: bold; flex-shrink: 0; color: #001f3f;">
@@ -105,7 +106,7 @@
                             <div class="faq-answer p-4" 
                                  data-faq-answer="{{ $faq['index'] }}"
                                  style="display: none; border-bottom: 1px solid #d0d0d0; background-color: #ffffff;">
-                                <p class="mb-0" style="line-height: 1.8; color: #808080; font-family: 'Calibri', sans-serif; font-size: 11.5px;">
+                                <p class="mb-0" style="line-height: 1.8; color: #666666 !important; font-family: 'Calibri', sans-serif; font-size: 11.5px !important;">
                                     {!! nl2br(e($faq['content'])) !!}
                                 </p>
                             </div>
@@ -144,6 +145,19 @@
     
     .faq-answer {
         animation: slideDown 0.3s ease-out;
+    }
+    
+    .faq-answer p {
+        font-size: 11.5px !important;
+        color: #666666 !important;
+    }
+    
+    .faq-answer p * {
+        color: #666666 !important;
+    }
+    
+    .faq-question-text {
+        font-size: 16px !important;
     }
     
     @keyframes slideDown {
