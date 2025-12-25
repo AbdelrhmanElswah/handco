@@ -3,11 +3,13 @@
     <div class="container">
         <div class="row">
             <div class="col mb-4">
-                <div class="align-items-center d-flex">
-                    <div class="me-auto">
-                        <h1 class="d-table fw-bold" style="font-size: 2.5rem;">Off Plan Projects</h1>
+                <div class="position-relative">
+                    <div class="text-center">
+                        <h1 class="down-line w-50 mx-auto mb-4 text-center fw-bold" style="font-size: 2.5rem;">Off Plan Projects</h1>
                     </div>
-                    <a href="{{ route('off_plan_listing') }}" class="ms-auto btn-link">View All</a>
+                    <div class="position-absolute" style="bottom: 0; right: 0;">
+                        <a href="{{ route('featured_projects') }}" class="btn-link">View All</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -61,15 +63,10 @@
                                     
                                     <!-- Description -->
                                     @if($project->description || $project->overview)
-                                    <p class="mb-4" style="color: #666; font-size: 0.9rem; line-height: 1.6;">
+                                    <p class="mb-0" style="color: #666; font-size: 0.9rem; line-height: 1.6;">
                                         {{ \Illuminate\Support\Str::limit(strip_tags($project->description ?? $project->overview ?? ''), 120) }}
                                     </p>
                                     @endif
-                                    
-                                    <!-- View Property Details Button -->
-                                    <a href="{{ route('off-plan-project.show', $project->id) }}" class="btn w-100" style="background-color: #001f3f; color: white; padding: 12px; border-radius: 5px; text-decoration: none; display: block; text-align: center; font-weight: 500; transition: all 0.3s;">
-                                        View Property Details
-                                    </a>
                                 </div>
                             </div>
                         </div>

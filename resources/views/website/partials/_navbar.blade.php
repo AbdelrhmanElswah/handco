@@ -1,22 +1,24 @@
 @php
     // Get all categories that have projects (for Buy dropdown - sell properties)
-    // Exclude HOTEL_APARTMENT
+    // Exclude HOTEL_APARTMENT and APARTMENT
     $buyCategories = \App\Models\Category::whereHas('projects', function($query) {
         $query->whereRaw('LOWER(rent_or_service) = ?', ['sell']);
     })->where(function($q) {
         $q->whereRaw('LOWER(name) NOT LIKE ?', ['%hotel%apartment%'])
           ->whereRaw('LOWER(name) != ?', ['hotel_apartment'])
-          ->whereRaw('LOWER(name) != ?', ['hotel apartment']);
+          ->whereRaw('LOWER(name) != ?', ['hotel apartment'])
+          ->whereRaw('LOWER(name) != ?', ['apartment']);
     })->orderBy('name')->get();
     
     // Get all categories that have projects (for Rent dropdown - rent properties)
-    // Exclude HOTEL_APARTMENT
+    // Exclude HOTEL_APARTMENT and APARTMENT
     $rentCategories = \App\Models\Category::whereHas('projects', function($query) {
         $query->whereRaw('LOWER(rent_or_service) = ?', ['rent']);
     })->where(function($q) {
         $q->whereRaw('LOWER(name) NOT LIKE ?', ['%hotel%apartment%'])
           ->whereRaw('LOWER(name) != ?', ['hotel_apartment'])
-          ->whereRaw('LOWER(name) != ?', ['hotel apartment']);
+          ->whereRaw('LOWER(name) != ?', ['hotel apartment'])
+          ->whereRaw('LOWER(name) != ?', ['apartment']);
     })->orderBy('name')->get();
     
 @endphp
@@ -104,64 +106,22 @@
             </a>
         </li>
         
-        <!-- Buy Dropdown -->
-        <li class="nav-item dropdown" id="buyDropdownContainer">
-            <a class="nav-link dropdown-toggle {{ (request('listingType') == 'buy' || Request::is('buy*')) ? 'active' : '' }}" 
-               href="{{ route('home', ['listingType' => 'buy']) }}" 
-               id="buyDropdown" 
-               role="button" 
-               aria-expanded="false"
+        <!-- Buy -->
+        <li class="nav-item">
+            <a class="nav-link {{ (request('listingType') == 'buy' || Request::is('buy*')) ? 'active' : '' }}" 
+               href="{{ route('home', ['listingType' => 'buy']) }}"
                style="color: white; font-weight: {{ (request('listingType') == 'buy' || Request::is('buy*')) ? '600' : '400' }};">
                 Buy
             </a>
-            <ul class="dropdown-menu" aria-labelledby="buyDropdown">
-                @foreach($buyCategories as $category)
-                    <li>
-                        <a class="dropdown-item {{ request('category') == $category->name ? 'active-category' : '' }}" 
-                           href="{{ route('home', ['listingType' => 'buy', 'category' => $category->name]) }}">
-                            {{ $category->name }}
-                        </a>
-                    </li>
-                @endforeach
-                @if($buyCategories->count() > 0)
-                    <li><hr class="dropdown-divider"></li>
-                @endif
-                <li>
-                    <a class="dropdown-item view-all-item" href="{{ route('home', ['listingType' => 'buy']) }}">
-                        View All
-                    </a>
-                </li>
-            </ul>
         </li>
 
-        <!-- Rent Dropdown -->
-        <li class="nav-item dropdown" id="rentDropdownContainer">
-            <a class="nav-link dropdown-toggle {{ (request('listingType') == 'rent' || Request::is('rent*')) ? 'active' : '' }}" 
-               href="{{ route('home', ['listingType' => 'rent']) }}" 
-               id="rentDropdown" 
-               role="button" 
-               aria-expanded="false"
+        <!-- Rent -->
+        <li class="nav-item">
+            <a class="nav-link {{ (request('listingType') == 'rent' || Request::is('rent*')) ? 'active' : '' }}" 
+               href="{{ route('home', ['listingType' => 'rent']) }}"
                style="color: white; font-weight: {{ (request('listingType') == 'rent' || Request::is('rent*')) ? '600' : '400' }};">
                 Rent
             </a>
-            <ul class="dropdown-menu" aria-labelledby="rentDropdown">
-                @foreach($rentCategories as $category)
-                    <li>
-                        <a class="dropdown-item {{ request('category') == $category->name ? 'active-category' : '' }}" 
-                           href="{{ route('home', ['listingType' => 'rent', 'category' => $category->name]) }}">
-                            {{ $category->name }}
-                        </a>
-                    </li>
-                @endforeach
-                @if($rentCategories->count() > 0)
-                    <li><hr class="dropdown-divider"></li>
-                @endif
-                <li>
-                    <a class="dropdown-item view-all-item" href="{{ route('home', ['listingType' => 'rent']) }}">
-                        View All
-                    </a>
-                </li>
-            </ul>
         </li>
 
         <!-- Sell -->
@@ -235,71 +195,8 @@
 </div>
 
 <script>
-    // Handle Buy and Rent navbar links: allow navigation on click, dropdown on hover
+    // Handle Off Plan dropdown - show on hover, navigate on click
     document.addEventListener('DOMContentLoaded', function() {
-        const buyLink = document.getElementById('buyDropdown');
-        const buyContainer = document.getElementById('buyDropdownContainer');
-        const buyMenu = buyContainer ? buyContainer.querySelector('.dropdown-menu') : null;
-        
-        const rentLink = document.getElementById('rentDropdown');
-        const rentContainer = document.getElementById('rentDropdownContainer');
-        const rentMenu = rentContainer ? rentContainer.querySelector('.dropdown-menu') : null;
-        
-        // Handle Buy dropdown - show on hover, navigate on click
-        if (buyLink && buyContainer && buyMenu) {
-            let buyTimeout;
-            
-            // Show dropdown on hover
-            buyContainer.addEventListener('mouseenter', function() {
-                clearTimeout(buyTimeout);
-                buyMenu.classList.add('show');
-                buyContainer.classList.add('show');
-                buyLink.setAttribute('aria-expanded', 'true');
-            });
-            
-            // Hide dropdown when mouse leaves
-            buyContainer.addEventListener('mouseleave', function() {
-                buyTimeout = setTimeout(function() {
-                    buyMenu.classList.remove('show');
-                    buyContainer.classList.remove('show');
-                    buyLink.setAttribute('aria-expanded', 'false');
-                }, 100);
-            });
-            
-            // Keep dropdown open when hovering over it
-            buyMenu.addEventListener('mouseenter', function() {
-                clearTimeout(buyTimeout);
-            });
-        }
-        
-        // Handle Rent dropdown - show on hover, navigate on click
-        if (rentLink && rentContainer && rentMenu) {
-            let rentTimeout;
-            
-            // Show dropdown on hover
-            rentContainer.addEventListener('mouseenter', function() {
-                clearTimeout(rentTimeout);
-                rentMenu.classList.add('show');
-                rentContainer.classList.add('show');
-                rentLink.setAttribute('aria-expanded', 'true');
-            });
-            
-            // Hide dropdown when mouse leaves
-            rentContainer.addEventListener('mouseleave', function() {
-                rentTimeout = setTimeout(function() {
-                    rentMenu.classList.remove('show');
-                    rentContainer.classList.remove('show');
-                    rentLink.setAttribute('aria-expanded', 'false');
-                }, 100);
-            });
-            
-            // Keep dropdown open when hovering over it
-            rentMenu.addEventListener('mouseenter', function() {
-                clearTimeout(rentTimeout);
-            });
-        }
-        
-        // Handle Off Plan dropdown - show on hover, navigate on click
         const offPlanLink = document.getElementById('offPlanDropdown');
         const offPlanContainer = document.getElementById('offPlanDropdownContainer');
         const offPlanMenu = offPlanContainer ? offPlanContainer.querySelector('.dropdown-menu') : null;

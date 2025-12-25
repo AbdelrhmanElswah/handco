@@ -129,10 +129,24 @@
     font-family: 'Calibri', sans-serif !important;
 }
 
-.faq-container .faq-answer p {
-    color: #001f3f !important;
+.faq-container .faq-answer p,
+.faq-container .faq-answer p.faq-answer-text,
+.faq-container .faq-answer .faq-answer-text {
+    color: #666666 !important;
     font-family: 'Calibri', sans-serif !important;
-    font-size: 24px !important;
+    font-size: 15px !important;
+}
+
+.faq-container .faq-answer p *,
+.faq-container .faq-answer p.faq-answer-text *,
+.faq-container .faq-answer .faq-answer-text * {
+    font-size: 15px !important;
+    color: #666666 !important;
+}
+
+.faq-item .faq-answer p,
+.faq-item .faq-answer p.faq-answer-text {
+    font-size: 15px !important;
 }
 
 /* Fixed Card Sizes for Buy and Rent Pages */

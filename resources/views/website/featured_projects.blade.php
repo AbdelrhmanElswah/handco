@@ -95,15 +95,10 @@
                                 
                                 <!-- Description -->
                                 @if($project->description || $project->overview)
-                                <p class="mb-4" style="color: #666; font-size: 0.9rem; line-height: 1.6;">
+                                <p class="mb-0" style="color: #666; font-size: 0.9rem; line-height: 1.6;">
                                     {{ \Illuminate\Support\Str::limit(strip_tags($project->description ?? $project->overview ?? ''), 120) }}
                                 </p>
                                 @endif
-                                
-                                <!-- View Property Details Button -->
-                                <a href="{{ route('off-plan-project.show', $project->id) }}" class="btn w-100" style="background-color: #001f3f; color: white; padding: 12px; border-radius: 5px; text-decoration: none; display: block; text-align: center; font-weight: 500; transition: all 0.3s;">
-                                    View Property Details
-                                </a>
                             </div>
                         </div>
                     </div>

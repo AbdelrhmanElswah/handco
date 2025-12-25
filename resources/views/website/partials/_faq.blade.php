@@ -29,12 +29,12 @@
         $faqsByCategory['General'] = $allFaqs;
     }
 @endphp
-<div class="full-row" style="padding: 70px 0; background-color: #f8f5f0;">
-    <div class="container-fluid px-0">
+<div class="full-row" style="padding: 50px 0; background-color: #ffffff;">
+    <div class="container">
         <div class="row">
             <div class="col-12 mb-5">
                 @if($faqSection->title)
-                <div class="container">
+                <div>
                     <h1 class="text-center fw-bold mb-4" style="font-size: 2.5rem; font-family: 'Calibri', sans-serif; color: #001f3f; padding-bottom: 20px;">{{ $faqSection->title }}</h1>
                     <hr style="border: 0; border-top: 1px solid #d0d0d0; margin: 0 auto; width: 100%;">
                 </div>
@@ -45,7 +45,7 @@
         <!-- Category Buttons -->
         <div class="row mb-4">
             <div class="col-12">
-                <div class="container">
+                <div>
                     <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
                         <button class="faq-category-btn active" data-category="all" style="padding: 12px 24px; border: 2px solid #001f3f; background-color: #001f3f; color: white; border-radius: 5px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s;">
                             View All
@@ -80,7 +80,7 @@
                             <div class="faq-answer p-4" 
                                  data-faq-answer="{{ $faq['index'] }}"
                                  style="display: none; border-bottom: 1px solid #d0d0d0; background-color: #ffffff;">
-                                <p class="mb-0" style="line-height: 1.8; color: #666666 !important; font-family: 'Calibri', sans-serif; font-size: 11.5px !important;">
+                                <p class="mb-0 faq-answer-text" style="line-height: 1.8; color: #666666 !important; font-family: 'Calibri', sans-serif; font-size: 15px !important;">
                                     {!! nl2br(e($faq['content'])) !!}
                                 </p>
                             </div>
@@ -106,7 +106,7 @@
                             <div class="faq-answer p-4" 
                                  data-faq-answer="{{ $faq['index'] }}"
                                  style="display: none; border-bottom: 1px solid #d0d0d0; background-color: #ffffff;">
-                                <p class="mb-0" style="line-height: 1.8; color: #666666 !important; font-family: 'Calibri', sans-serif; font-size: 11.5px !important;">
+                                <p class="mb-0 faq-answer-text" style="line-height: 1.8; color: #666666 !important; font-family: 'Calibri', sans-serif; font-size: 15px !important;">
                                     {!! nl2br(e($faq['content'])) !!}
                                 </p>
                             </div>
@@ -147,13 +147,23 @@
         animation: slideDown 0.3s ease-out;
     }
     
-    .faq-answer p {
-        font-size: 11.5px !important;
+    .faq-answer p,
+    .faq-answer p.faq-answer-text,
+    .faq-answer .faq-answer-text {
+        font-size: 15px !important;
         color: #666666 !important;
     }
     
-    .faq-answer p * {
+    .faq-answer p *,
+    .faq-answer p.faq-answer-text *,
+    .faq-answer .faq-answer-text * {
+        font-size: 15px !important;
         color: #666666 !important;
+    }
+    
+    .faq-item .faq-answer p,
+    .faq-item .faq-answer p.faq-answer-text {
+        font-size: 15px !important;
     }
     
     .faq-question-text {

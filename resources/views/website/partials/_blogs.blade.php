@@ -64,8 +64,15 @@
     </style>
     <div class="container">
         <div class="row">
-            <div class="col">
-                <h1 class="down-line w-50 w-sm-100 mx-auto text-center mb-5 fw-bold" style="font-size: 2.5rem;">Latest News & Insights</h1>
+            <div class="col mb-4">
+                <div class="position-relative">
+                    <div class="text-center">
+                        <h1 class="down-line w-50 mx-auto mb-4 text-center fw-bold" style="font-size: 2.5rem;">Latest News & Insights</h1>
+                    </div>
+                    <div class="position-absolute" style="bottom: 0; right: 0;">
+                        <a href="{{ route('blogs') }}" class="btn-link">View All</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row row-cols-lg-3 row-cols-md-2 row-cols-1">

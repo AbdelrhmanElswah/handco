@@ -76,10 +76,35 @@
             transform: scale(1.05); /* Slight zoom effect on hover */
         }
 
+        /* Post Image Container - Fixed Size */
+        .blog-card .post-image {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            display: block;
+            position: relative;
+        }
+
+        .blog-card .post-image a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            border: none;
+            outline: none;
+        }
+
         .blog-image {
             width: 100%;
-            height: 100%; /* Make image occupy full height of the card */
-            object-fit: cover; /* Ensures image fits proportionally */
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+            border: none;
+            outline: none;
+            vertical-align: top;
+            margin: 0;
+            padding: 0;
         }
 
         .post-content {
@@ -96,6 +121,11 @@
         /* Reduce overlay-secondary opacity for better image visibility */
         .overlay-secondary::before {
             background-color: rgba(28, 46, 74, 0.3) !important; /* Reduced from 0.8 to 0.3 */
+        }
+
+        /* Hide category text from blog cards */
+        .blog-card .post-content .post-meta.list-color-white {
+            display: none !important;
         }
     </style>
 @endsection
