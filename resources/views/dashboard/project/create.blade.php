@@ -276,16 +276,17 @@
         </div>
     </div>
 
-    <!-- WYSIWYG, Tags Input, and Dynamic Field Scripts -->
+
+@push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
     <script>
         // Declare counters for dynamic fields at the top
         let sellingPointCount = 1;
         let moreInfoCount = 1;
 
-        $('input[data-role="tagsinput"]').tagsinput();
-        CKEDITOR.replace('description');
+        $(document).ready(function() {
+            $('input[data-role="tagsinput"]').tagsinput();
+        });
 
         // Dynamic fields for Selling Points and More Information
         function addSellingPoint() {
@@ -316,5 +317,5 @@
             document.getElementById(`info_${id}`).remove();
         }
     </script>
-
+@endpush
 @endsection

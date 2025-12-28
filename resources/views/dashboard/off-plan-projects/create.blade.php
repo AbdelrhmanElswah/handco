@@ -183,12 +183,12 @@
         </div>
     </div>
 
-    <!-- WYSIWYG Editor Scripts -->
-    <script src="https://cdn.ckeditor.com/4.25.1/standard/ckeditor.js"></script>
+
+@push('script')
     <script>
         // Initialize CKEditor
+        // Description is handled globally in script.blade.php
         CKEDITOR.replace('overview');
-        CKEDITOR.replace('description');
 
         // Dynamic fields counters - use var for global scope
         var keyFeatureCount = 1;
@@ -278,6 +278,6 @@
             }
         });
     </script>
-
+@endpush
 @endsection
 

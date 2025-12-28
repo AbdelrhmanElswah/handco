@@ -379,9 +379,9 @@ $project->utility->covered_parking) ? 'checked' : '' }}>
         </div>
     </div>
 
-    <!-- WYSIWYG, Tags Input, and Dynamic Field Scripts -->
+
+@push('script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 @php
 $selling_counter = 0;
 $more_counter = 0;
@@ -395,8 +395,9 @@ if($project->more_information)
         let sellingPointCount = {{ $selling_counter }};
         let moreInfoCount = {{ $more_counter }};
 
-        $('input[data-role="tagsinput"]').tagsinput();
-        CKEDITOR.replace('description');
+        $(document).ready(function() {
+             $('input[data-role="tagsinput"]').tagsinput();
+        });
 
         function addSellingPoint() {
             let html = `<div class="input-group mb-2" id="selling_point_${sellingPointCount}">
@@ -426,5 +427,5 @@ if($project->more_information)
             document.getElementById(`info_${id}`).remove();
         }
     </script>
-
+@endpush
 @endsection

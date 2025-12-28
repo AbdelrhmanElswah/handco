@@ -17,6 +17,10 @@
     <script src="{{asset('dashboard/assets/libs/choices.js/public/assets/scripts/choices.min.js')}}"></script>
 
 
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
     <!-- Main Theme Js -->
     <script src="{{asset('dashboard/assets/js/main.js')}}"></script>
 
