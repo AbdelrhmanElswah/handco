@@ -32,7 +32,6 @@ class OffPlanProject extends Model
         'nearby_attractions' => 'array',
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
-        'starting_price' => 'decimal:2',
     ];
 
     // Relationship to get hero/main image

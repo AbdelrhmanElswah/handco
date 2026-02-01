@@ -67,7 +67,7 @@
                             <!-- Starting Price -->
                             <div class="col-md-6 mb-3">
                                 <label for="starting_price" style="font-size: 21px">Starting Price (AED)</label>
-                                <input type="number" name="starting_price" class="form-control" placeholder="Enter starting price" value="{{ old('starting_price', $offPlanProject->starting_price) }}" step="0.01">
+                                <input type="text" name="starting_price" class="form-control" placeholder="Enter starting price (e.g., 1,450,000 or Contact for pricing)" value="{{ old('starting_price', $offPlanProject->starting_price) }}">
                             </div>
 
                             <!-- Completion Date -->
@@ -219,24 +219,44 @@
                             <div class="col-md-6 mb-3">
                                 <label for="main_image" style="font-size: 21px">Main Image</label>
                                 @if($offPlanProject->mainImage)
-                                    <div class="mb-2">
-                                        <img src="{{ $offPlanProject->mainImage->media_link }}" alt="Current image" style="max-width: 200px; max-height: 200px;">
-                                        <p class="text-muted">Current image</p>
+                                    <div class="mb-2 position-relative" style="display: inline-block;">
+                                        <img src="{{ $offPlanProject->mainImage->media_link }}" alt="Current image" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                        <button type="button" 
+                                                class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-main-image-btn" 
+                                                data-project-id="{{ $offPlanProject->id }}"
+                                                onclick="deleteMainImage({{ $offPlanProject->id }}, this)"
+                                                style="padding: 4px 8px; font-size: 12px;">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
+                                    <p class="text-muted">Current image (click trash icon to delete)</p>
                                 @endif
                                 <input type="file" name="main_image" class="form-control" accept="image/*">
-                                <small class="text-muted">Leave empty to keep current image</small>
+                                <small class="text-muted">{{ $offPlanProject->mainImage ? 'Upload a new image to replace the current one' : 'Upload main image' }}</small>
                             </div>
 
                             <!-- Gallery Images -->
                             <div class="col-md-6 mb-3">
                                 <label for="gallery_images" style="font-size: 21px">Gallery Images</label>
                                 @if($offPlanProject->galleryImages->count() > 0)
-                                    <div class="mb-2">
-                                        @foreach($offPlanProject->galleryImages as $image)
-                                            <img src="{{ $image->media_link }}" alt="Gallery image" style="max-width: 100px; max-height: 100px; margin: 5px;">
-                                        @endforeach
-                                        <p class="text-muted">Current gallery images</p>
+                                    <div class="mb-3">
+                                        <div class="row g-2" id="current-gallery-images">
+                                            @foreach($offPlanProject->galleryImages as $image)
+                                                <div class="col-6 col-md-4 col-lg-3 position-relative gallery-image-item" data-image-id="{{ $image->id }}">
+                                                    <div class="position-relative" style="border-radius: 8px; overflow: hidden; border: 2px solid #e0e0e0;">
+                                                        <img src="{{ $image->media_link }}" alt="Gallery image" class="w-100" style="height: 120px; object-fit: cover;">
+                                                        <button type="button" 
+                                                                class="btn btn-danger btn-sm position-absolute top-0 end-0 m-1 delete-gallery-image-btn" 
+                                                                data-image-id="{{ $image->id }}"
+                                                                onclick="deleteGalleryImage({{ $image->id }}, this)"
+                                                                style="padding: 4px 8px; font-size: 12px;">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                        <p class="text-muted mt-2">Current gallery images (click trash icon to delete)</p>
                                     </div>
                                 @endif
                                 <input type="file" name="gallery_images[]" id="gallery_images" class="form-control" multiple accept="image/*">
@@ -367,6 +387,91 @@
                 countDiv.style.display = 'none';
             }
         });
+
+        // Delete Gallery Image Function
+        function deleteGalleryImage(imageId, buttonElement) {
+            if (!confirm('Are you sure you want to delete this image? This action cannot be undone.')) {
+                return;
+            }
+
+            fetch('{{ url("/admin/off-plan-projects/gallery-image") }}/' + imageId + '/delete', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the image from the grid
+                    const imageItem = buttonElement.closest('.gallery-image-item');
+                    if (imageItem) {
+                        imageItem.remove();
+                    }
+                    
+                    // Show message if no images left
+                    const remainingImages = document.querySelectorAll('.gallery-image-item');
+                    if (remainingImages.length === 0) {
+                        const container = document.getElementById('current-gallery-images');
+                        if (container) {
+                            container.innerHTML = '<p class="text-muted">No gallery images. Upload new images below.</p>';
+                        }
+                    }
+                    
+                    // Show success message
+                    alert('Image deleted successfully!');
+                } else {
+                    alert('Error deleting image: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting image. Please try again.');
+            });
+        }
+
+        // Delete Main Image Function
+        function deleteMainImage(projectId, buttonElement) {
+            if (!confirm('Are you sure you want to delete the main image? This action cannot be undone.')) {
+                return;
+            }
+
+            fetch('{{ url("/admin/off-plan-projects") }}/' + projectId + '/main-image/delete', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Remove the image display
+                    const imageContainer = buttonElement.closest('.mb-2');
+                    if (imageContainer) {
+                        imageContainer.remove();
+                    }
+                    
+                    // Update the small text
+                    const smallText = document.querySelector('input[name="main_image"]').nextElementSibling;
+                    if (smallText) {
+                        smallText.textContent = 'Upload main image';
+                    }
+                    
+                    // Show success message
+                    alert('Main image deleted successfully!');
+                } else {
+                    alert('Error deleting image: ' + (data.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting image. Please try again.');
+            });
+        }
     </script>
 @endpush
 @endsection

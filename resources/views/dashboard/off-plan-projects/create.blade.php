@@ -66,7 +66,7 @@
                             <!-- Starting Price -->
                             <div class="col-md-6 mb-3">
                                 <label for="starting_price" style="font-size: 21px">Starting Price (AED)</label>
-                                <input type="number" name="starting_price" class="form-control" placeholder="Enter starting price" value="{{ old('starting_price') }}" step="0.01">
+                                <input type="text" name="starting_price" class="form-control" placeholder="Enter starting price (e.g., 1,450,000 or Contact for pricing)" value="{{ old('starting_price') }}">
                             </div>
 
                             <!-- Completion Date -->

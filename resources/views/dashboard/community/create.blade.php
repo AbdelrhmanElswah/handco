@@ -46,7 +46,8 @@
                             <div class="col-md-12 mb-3">
                                 <div class="form-group">
                                     <label for="content" style="font-size: 21px">Content</label>
-                                    <textarea name="content" class="form-control" rows="5" required>{{ old('content') }}</textarea>
+                                    <div id="community-content-editor" style="height: 400px;">{!! old('content', '') !!}</div>
+                                    <textarea name="content" id="community-content" style="display: none;" required>{{ old('content') }}</textarea>
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -73,3 +74,57 @@
     </div>
 
 @endsection
+
+@push('style')
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+@endpush
+
+@push('script')
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var toolbarOptions = [
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+            [{ 'font': [] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            ['blockquote', 'code-block'],
+            [{ 'header': 1 }, { 'header': 2 }],
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],
+            [{ 'indent': '-1'}, { 'indent': '+1' }],
+            [{ 'direction': 'rtl' }],
+            [{ 'size': ['small', false, 'large', 'huge'] }],
+            [{ 'color': [] }, { 'background': [] }],
+            [{ 'align': [] }],
+            ['link', 'image', 'video'],
+            ['clean']
+        ];
+
+        var quill = new Quill('#community-content-editor', {
+            modules: {
+                toolbar: toolbarOptions
+            },
+            theme: 'snow'
+        });
+
+        // Set initial content if exists
+        var initialContent = {!! json_encode(old('content', '')) !!};
+        if (initialContent) {
+            quill.root.innerHTML = initialContent;
+        }
+
+        // Update hidden textarea before form submit
+        var form = document.querySelector('form');
+        var textarea = document.getElementById('community-content');
+        
+        form.addEventListener('submit', function(e) {
+            textarea.value = quill.root.innerHTML;
+        });
+
+        // Also update on content change
+        quill.on('text-change', function() {
+            textarea.value = quill.root.innerHTML;
+        });
+    });
+</script>
+@endpush

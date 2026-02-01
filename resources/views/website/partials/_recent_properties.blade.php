@@ -36,7 +36,7 @@
                                     <!-- Price -->
                                     @if($project->starting_price)
                                     <p class="mb-3" style="font-size: 1.2rem; font-weight: 600; color: #001f3f;">
-                                        Prices from: AED {{ number_format($project->starting_price) }}
+                                        Prices from: {{ is_numeric($project->starting_price) ? 'AED ' . number_format($project->starting_price) : $project->starting_price }}
                                     </p>
                                     @endif
                                     

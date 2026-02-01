@@ -53,7 +53,7 @@
                                 </a>
                                 @if($project->starting_price)
                                 <span class="price-on text-white font-medium font-500" style="position: absolute; bottom: 10px; right: 10px; background-color: #001f3f; color: #fff; padding: 5px 10px; border-radius: 5px; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);">
-                                    AED {{ number_format($project->starting_price) }}
+                                    {{ is_numeric($project->starting_price) ? 'AED ' . number_format($project->starting_price) : $project->starting_price }}
                                 </span>
                                 @endif
                             </div>
@@ -68,7 +68,7 @@
                                 <!-- Price -->
                                 @if($project->starting_price)
                                 <p class="mb-3" style="font-size: 1.2rem; font-weight: 600; color: #001f3f;">
-                                    Prices from: AED {{ number_format($project->starting_price) }}
+                                    Prices from: {{ is_numeric($project->starting_price) ? 'AED ' . number_format($project->starting_price) : $project->starting_price }}
                                 </p>
                                 @endif
                                 

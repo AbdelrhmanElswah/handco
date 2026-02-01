@@ -183,6 +183,7 @@
     </div>
     <!--============== Filtered Properties Results End ==============-->
 
+    @if(!request('listingType') || (request('listingType') != 'buy' && request('listingType') != 'rent' && request('listingType') != 'off-plan'))
     <!-- =============== About ================-->
     @if($mainServicesSection && $mainServicesSection->is_active)
     <div class="full-row" style="padding: 70px 0 30px 0">
@@ -248,7 +249,15 @@
     </div>
     @endif
     <!-- =============== Counting ================-->
+    @endif
 
+    <!--============== Off Plan Projects Start ==============-->
+    @if((isset($currentListingType) && ($currentListingType == 'buy' || $currentListingType == 'off-plan')) || (request('listingType') && request('listingType') != 'rent'))
+    @include('website.partials._recent_properties', ['popularProjects' => $popularProjects])
+    @endif
+    <!--============== Off Plan Projects End ==============-->
+
+    @if(!request('listingType') || (request('listingType') != 'buy' && request('listingType') != 'rent' && request('listingType') != 'off-plan'))
     <!--============== Recent Property Start ==============-->
     @include('website.partials._recent_properties', ['popularProjects' => $popularProjects])
     <!--============== Recent Property End ==============-->
@@ -305,6 +314,7 @@
         @include('website.partials._faq')
     @endif
     <!--============== FAQ Section End ==============-->
+    @endif
 @endsection
 
 

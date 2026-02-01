@@ -68,7 +68,7 @@
                                                     {{ $project->location }}
                                                 @endif
                                             </td>
-                                            <td>{{ $project->starting_price ? 'AED ' . number_format($project->starting_price, 2) : '-' }}</td>
+                                            <td>{{ $project->starting_price ? (is_numeric($project->starting_price) ? 'AED ' . number_format($project->starting_price, 2) : $project->starting_price) : '-' }}</td>
                                             <td>{{ $project->completion_date ?? '-' }}</td>
                                             <td>
                                                 <span class="badge {{ $project->is_active ? 'bg-success' : 'bg-danger' }}">

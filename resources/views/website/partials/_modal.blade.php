@@ -33,7 +33,11 @@
                                           </a>
                                 </span>
                                 <div class="d-flex">
-                                    <span class="text-secondary font-large">AED {{ number_format($project->price ?? $project->starting_price ?? 0, 2) }}</span>
+                                    @php
+                                        $priceValue = $project->price ?? $project->starting_price ?? 0;
+                                        $displayPrice = is_numeric($priceValue) ? 'AED ' . number_format($priceValue, 2) : ($priceValue ?: 'N/A');
+                                    @endphp
+                                    <span class="text-secondary font-large">{{ $displayPrice }}</span>
                                     <span class="text-white font-mini px-2 rounded product-status ms-5 my-1 bg-primary">
                                         <i class="fas fa-check"></i> {{ $project->status === 'available' ? 'Available' : 'Sold Out' }}
                                     </span>

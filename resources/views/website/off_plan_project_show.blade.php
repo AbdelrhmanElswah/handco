@@ -37,7 +37,7 @@
                         </h1>
                         @if($project->starting_price)
                         <p class="text-white mb-4" style="font-size: 1.5rem; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);">
-                            Prices from: AED {{ number_format($project->starting_price) }}
+                            Prices from: {{ is_numeric($project->starting_price) ? 'AED ' . number_format($project->starting_price) : $project->starting_price }}
                         </p>
                         @endif
                         <a href="#register-interest" class="btn btn-lg" style="background-color: #0E3D7D; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 8px; text-decoration: none; box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);">
@@ -65,9 +65,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#gallery-section" onclick="scrollToSection('gallery-section'); return false;" style="color: #001f3f;">Gallery</a>
                         </li>
+                        @if($project->payment_plan && count($project->payment_plan) > 0)
                         <li class="nav-item">
                             <a class="nav-link" href="#payment-plan-section" onclick="scrollToSection('payment-plan-section'); return false;" style="color: #001f3f;">Payment Plan</a>
                         </li>
+                        @endif
                     </ul>
                 </div>
             </div>
@@ -130,7 +132,7 @@
 
                                             @if($project->starting_price)
                                             <div class="mb-3">
-                                                <strong>Prices from:</strong> AED {{ number_format($project->starting_price) }}
+                                                <strong>Prices from:</strong> {{ is_numeric($project->starting_price) ? 'AED ' . number_format($project->starting_price) : $project->starting_price }}
                                             </div>
                                             @endif
                                         </div>
@@ -177,76 +179,91 @@
                 <div id="gallery-section" class="section-content mt-5 pt-5">
                     <h3 class="text-secondary fw-bold mb-4">Gallery</h3>
                     @if($project->galleryImages->count() > 0)
-                        <div id="galleryCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
-                            <div class="carousel-inner">
-                                @foreach($project->galleryImages as $index => $image)
-                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                                        <img src="{{ $image->media_link }}" alt="Gallery Image {{ $index + 1 }}" class="d-block w-100" style="height: 600px; object-fit: cover;">
-                                    </div>
-                                @endforeach
-                            </div>
-                            @if($project->galleryImages->count() > 1)
-                                <button class="carousel-control-prev" type="button" data-target="#galleryCarousel" data-slide="prev" id="galleryPrevBtn">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-target="#galleryCarousel" data-slide="next" id="galleryNextBtn">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </button>
-                                <!-- Carousel Indicators -->
-                                <ol class="carousel-indicators">
-                                    @foreach($project->galleryImages as $index => $image)
-                                        <li data-target="#galleryCarousel" data-slide-to="{{ $index }}" class="{{ $index === 0 ? 'active' : '' }}"></li>
-                                    @endforeach
-                                </ol>
-                            @endif
-                        </div>
-                        
-                        <!-- Thumbnail Gallery -->
-                        @if($project->galleryImages->count() > 1)
-                        <div class="mt-4">
-                            <div class="row g-2" id="galleryThumbnails">
-                                @foreach($project->galleryImages as $index => $image)
-                                    <div class="col-3 col-md-2 col-lg-2">
-                                        <div class="thumbnail-item {{ $index === 0 ? 'active' : '' }}" data-slide-to="{{ $index }}" style="cursor: pointer; border: 3px solid transparent; border-radius: 8px; overflow: hidden; transition: all 0.3s ease;">
-                                            <img src="{{ $image->media_link }}" alt="Thumbnail {{ $index + 1 }}" class="img-fluid w-100" style="height: 100px; object-fit: cover; border-radius: 5px;">
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        @endif
-                    @else
-                        <p class="text-muted">No gallery images available.</p>
-                    @endif
-                </div>
-
-                <!-- Payment Plan Section -->
-                <div id="payment-plan-section" class="section-content mt-5 pt-5">
-                    <h3 class="text-secondary fw-bold mb-4">Payment Plan</h3>
-                    @if($project->payment_plan && count($project->payment_plan) > 0)
-                        <div class="row">
-                            @foreach($project->payment_plan as $plan)
-                                <div class="col-md-6 mb-4">
-                                    <div class="card h-100 border">
-                                        <div class="card-body text-center">
-                                            <h5 class="card-title">{{ $plan['title'] ?? 'Installment' }}</h5>
-                                            @if(isset($plan['percentage']))
-                                                <h2 class="text-primary fw-bold">{{ $plan['percentage'] }}</h2>
-                                            @endif
-                                            @if(isset($plan['description']))
-                                                <p class="text-muted mb-0">{{ $plan['description'] }}</p>
-                                            @endif
+                        @php
+                            $imageCount = $project->galleryImages->count();
+                            // Improved grid layout: 3, 6, or 12 images
+                            // 1-3 images: 3 columns (col-md-4)
+                            // 4-6 images: 3 columns (col-md-4) 
+                            // 7-12 images: 4 columns on large screens (col-lg-3)
+                            if ($imageCount <= 3) {
+                                $colClass = 'col-12 col-md-4';
+                            } elseif ($imageCount <= 6) {
+                                $colClass = 'col-12 col-md-6 col-lg-4';
+                            } else {
+                                $colClass = 'col-12 col-md-6 col-lg-4 col-xl-3';
+                            }
+                        @endphp
+                        <div class="row g-3" id="gallery-grid">
+                            @foreach($project->galleryImages as $index => $image)
+                                <div class="{{ $colClass }} gallery-item-wrapper">
+                                    <div class="gallery-item position-relative" style="border-radius: 8px; overflow: hidden; cursor: pointer; aspect-ratio: 1; background: #f5f5f5;">
+                                        <img src="{{ $image->media_link }}" 
+                                             alt="Gallery Image {{ $index + 1 }}" 
+                                             class="w-100 h-100" 
+                                             style="object-fit: cover; transition: transform 0.3s ease;"
+                                             data-image-index="{{ $index }}"
+                                             onclick="openLightbox({{ $index }})">
+                                        <div class="gallery-overlay position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center" 
+                                             style="background: rgba(0, 0, 0, 0.3); opacity: 0; transition: opacity 0.3s ease; pointer-events: none;">
+                                            <i class="fas fa-search-plus text-white" style="font-size: 2rem;"></i>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                     @else
-                        <p class="text-muted">Payment plan information not available.</p>
+                        <p class="text-muted">No gallery images available.</p>
                     @endif
                 </div>
+
+                <!-- Lightbox Modal -->
+                @if($project->galleryImages->count() > 0)
+                <div id="galleryLightbox" class="lightbox-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); z-index: 9999; overflow: hidden;">
+                    <button class="lightbox-close" onclick="closeLightbox()" style="position: absolute; top: 20px; right: 30px; background: none; border: none; color: white; font-size: 40px; cursor: pointer; z-index: 10001; width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;">&times;</button>
+                    
+                    @if($project->galleryImages->count() > 1)
+                    <button class="lightbox-nav lightbox-prev" onclick="event.stopPropagation(); changeLightboxImage(-1)" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.2); border: none; color: white; font-size: 24px; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; z-index: 10001; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <button class="lightbox-nav lightbox-next" onclick="event.stopPropagation(); changeLightboxImage(1)" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(255, 255, 255, 0.2); border: none; color: white; font-size: 24px; width: 60px; height: 60px; border-radius: 50%; cursor: pointer; z-index: 10001; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    @endif
+                    
+                    <div class="lightbox-content d-flex align-items-center justify-content-center" style="width: 100%; height: 100%; padding: 80px 120px;">
+                        <img id="lightboxImage" src="" alt="Gallery Image" style="max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 8px; user-select: none;">
+                    </div>
+                    
+                    <div class="lightbox-counter text-white text-center" style="position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 18px; z-index: 10001; background: rgba(0, 0, 0, 0.5); padding: 10px 20px; border-radius: 20px;">
+                        <span id="lightboxCounter"></span>
+                    </div>
+                </div>
+                @endif
+
+                <!-- Payment Plan Section -->
+                @if($project->payment_plan && count($project->payment_plan) > 0)
+                <div id="payment-plan-section" class="section-content mt-5 pt-5">
+                    <h3 class="text-secondary fw-bold mb-4">Payment Plan</h3>
+                    <div class="row">
+                        @foreach($project->payment_plan as $plan)
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100 border">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title">{{ $plan['title'] ?? 'Installment' }}</h5>
+                                        @if(isset($plan['percentage']))
+                                            <h2 class="text-primary fw-bold">{{ $plan['percentage'] }}</h2>
+                                        @endif
+                                        @if(isset($plan['description']))
+                                            <p class="text-muted mb-0">{{ $plan['description'] }}</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                @endif
             </div>
         </div>
     </div>
@@ -340,7 +357,7 @@
                     
                     @if($latestProject->starting_price)
                     <p class="mb-4" style="font-size: 1.5rem; font-weight: 600; color: #001f3f;">
-                        Prices from: AED {{ number_format($latestProject->starting_price) }}
+                        Prices from: {{ is_numeric($latestProject->starting_price) ? 'AED ' . number_format($latestProject->starting_price) : $latestProject->starting_price }}
                     </p>
                     @endif
                     
@@ -389,7 +406,7 @@
                     
                     <div style="position: relative; z-index: 1;">
                         <h2 class="text-white fw-bold mb-4" style="font-size: 2.5rem; line-height: 1.3;">
-                            Ready to find your perfect home in Dubai for the best price?
+                            Ready to find your perfect home in Dubai?
                         </h2>
                         <div class="d-flex flex-column flex-sm-row gap-3">
                             <a href="{{ url('featured-projects') }}" class="btn btn-lg" style="background-color: #aa8453; color: white; padding: 15px 40px; font-size: 1.1rem; font-weight: 600; border: none; border-radius: 5px; text-decoration: none; transition: all 0.3s; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);">
@@ -432,64 +449,63 @@
         html {
             scroll-behavior: smooth;
         }
-        /* Gallery Carousel Styles */
-        #galleryCarousel {
-            position: relative;
-            border-radius: 8px;
+        /* Gallery Grid Styles */
+        .gallery-item-wrapper {
+            margin-bottom: 0;
+        }
+        .gallery-item {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
-        #galleryCarousel .carousel-item img {
-            border-radius: 8px;
+        .gallery-item:hover {
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
         }
-        #galleryCarousel .carousel-control-prev,
-        #galleryCarousel .carousel-control-next {
-            width: 50px;
-            height: 50px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 50%;
-            top: 50%;
-            transform: translateY(-50%);
-            opacity: 0.8;
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1 !important;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+        .gallery-item img {
+            display: block;
+            will-change: transform;
+        }
+        
+        /* Lightbox Styles */
+        .lightbox-modal {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .lightbox-nav {
+            backdrop-filter: blur(5px);
+        }
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.4) !important;
+            transform: translateY(-50%) scale(1.1);
+        }
+        .lightbox-close:hover {
+            color: #ff6b6b !important;
+            transform: scale(1.1);
+        }
+        #lightboxImage {
+            animation: zoomIn 0.3s ease;
+            pointer-events: none;
             transition: opacity 0.3s ease;
         }
-        #galleryCarousel .carousel-control-prev:hover,
-        #galleryCarousel .carousel-control-next:hover {
-            opacity: 1;
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
-        #galleryCarousel .carousel-control-prev {
-            left: 20px;
+        .lightbox-content {
+            pointer-events: none;
         }
-        #galleryCarousel .carousel-control-next {
-            right: 20px;
-        }
-        #galleryCarousel .carousel-indicators {
-            bottom: 20px;
-        }
-        #galleryCarousel .carousel-indicators li {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.8);
-        }
-        #galleryCarousel .carousel-indicators li.active {
-            background-color: #ff6b35;
-            border-color: #ff6b35;
-        }
-        /* Thumbnail Gallery Styles */
-        .thumbnail-item {
-            opacity: 0.7;
-            transition: all 0.3s ease;
-        }
-        .thumbnail-item:hover {
-            opacity: 1;
-            transform: scale(1.05);
-        }
-        .thumbnail-item.active {
-            opacity: 1;
-            border-color: #001f3f !important;
-            transform: scale(1.05);
+        .lightbox-nav, .lightbox-close {
+            pointer-events: auto;
         }
     </style>
 
@@ -516,11 +532,16 @@
 
         // Update active nav on scroll
         window.addEventListener('scroll', function() {
-            const sections = ['details-section', 'gallery-section', 'payment-plan-section'];
+            const allSections = ['details-section', 'gallery-section', 'payment-plan-section'];
             const navLinks = document.querySelectorAll('#section-nav .nav-link');
             const scrollPosition = window.pageYOffset + 150;
 
-            sections.forEach((sectionId, index) => {
+            // Only process sections that actually exist in the DOM
+            const existingSections = allSections.filter(sectionId => {
+                return document.getElementById(sectionId) !== null;
+            });
+
+            existingSections.forEach((sectionId, index) => {
                 const section = document.getElementById(sectionId);
                 if (section) {
                     const sectionTop = section.offsetTop;
@@ -528,74 +549,102 @@
 
                     if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
                         navLinks.forEach(link => link.classList.remove('active'));
-                        navLinks[index].classList.add('active');
+                        if (navLinks[index]) {
+                            navLinks[index].classList.add('active');
+                        }
                     }
                 }
             });
         });
 
-        // Gallery Carousel and Thumbnails Control
-        $(document).ready(function() {
-            var $carousel = $('#galleryCarousel');
-            var $thumbnails = $('.thumbnail-item');
+        // Gallery Lightbox Functions
+        var currentLightboxIndex = 0;
+        var galleryImages = @json($project->galleryImages->map(function($img) { return $img->media_link; })->toArray());
+
+        function openLightbox(index) {
+            if (galleryImages.length === 0) return;
             
-            // Initialize carousel
-            if ($carousel.length) {
-                $carousel.carousel({
-                    interval: false,
-                    wrap: true
-                });
+            currentLightboxIndex = parseInt(index);
+            if (currentLightboxIndex < 0) currentLightboxIndex = 0;
+            if (currentLightboxIndex >= galleryImages.length) currentLightboxIndex = galleryImages.length - 1;
+            
+            updateLightboxImage();
+            const lightbox = document.getElementById('galleryLightbox');
+            if (lightbox) {
+                lightbox.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('galleryLightbox');
+            if (lightbox) {
+                lightbox.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+
+        function changeLightboxImage(direction) {
+            if (galleryImages.length === 0) return;
+            
+            currentLightboxIndex += direction;
+            
+            if (currentLightboxIndex < 0) {
+                currentLightboxIndex = galleryImages.length - 1;
+            } else if (currentLightboxIndex >= galleryImages.length) {
+                currentLightboxIndex = 0;
             }
             
-            // Previous button click handler
-            $('#galleryPrevBtn').on('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if ($carousel.length) {
-                    $carousel.carousel('prev');
-                }
-                return false;
-            });
+            updateLightboxImage();
+        }
+
+        function updateLightboxImage() {
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxCounter = document.getElementById('lightboxCounter');
             
-            // Next button click handler
-            $('#galleryNextBtn').on('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                if ($carousel.length) {
-                    $carousel.carousel('next');
-                }
-                return false;
-            });
+            if (lightboxImage && galleryImages[currentLightboxIndex]) {
+                // Add fade effect
+                lightboxImage.style.opacity = '0';
+                setTimeout(() => {
+                    lightboxImage.src = galleryImages[currentLightboxIndex];
+                    lightboxImage.style.opacity = '1';
+                }, 150);
+            }
             
-            // Click on thumbnail to navigate to that slide
-            $thumbnails.on('click', function() {
-                var slideTo = $(this).data('slide-to');
-                if ($carousel.length && slideTo !== undefined) {
-                    $carousel.carousel(parseInt(slideTo));
+            if (lightboxCounter) {
+                lightboxCounter.textContent = (currentLightboxIndex + 1) + ' / ' + galleryImages.length;
+            }
+        }
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', function(e) {
+            const lightbox = document.getElementById('galleryLightbox');
+            if (lightbox && lightbox.style.display === 'block') {
+                if (e.key === 'Escape') {
+                    closeLightbox();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    changeLightboxImage(-1);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    changeLightboxImage(1);
                 }
-            });
-            
-            // Click on indicators
-            $('.carousel-indicators li').on('click', function(e) {
-                e.preventDefault();
-                var slideTo = $(this).data('slide-to');
-                if ($carousel.length && slideTo !== undefined) {
-                    $carousel.carousel(parseInt(slideTo));
-                }
-                return false;
-            });
-            
-            // Update active thumbnail when carousel slides
-            $carousel.on('slid.bs.carousel', function() {
-                var activeIndex = $('.carousel-item.active').index();
-                $thumbnails.removeClass('active');
-                $('.carousel-indicators li').removeClass('active');
-                if (activeIndex >= 0) {
-                    $thumbnails.eq(activeIndex).addClass('active');
-                    $('.carousel-indicators li').eq(activeIndex).addClass('active');
-                }
-            });
+            }
         });
+
+        // Close lightbox when clicking outside image (but not on buttons)
+        document.getElementById('galleryLightbox')?.addEventListener('click', function(e) {
+            // Only close if clicking on the background, not on buttons or image
+            if (e.target === this || e.target.classList.contains('lightbox-close')) {
+                closeLightbox();
+            }
+        });
+
+        // Prevent lightbox from closing when clicking on image or buttons
+        document.getElementById('lightboxImage')?.addEventListener('click', function(e) {
+            e.stopPropagation();
+        });
+
     </script>
 @endsection
 

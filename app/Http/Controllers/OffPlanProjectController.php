@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OffPlanProject;
+use App\Models\Media;
 use App\Services\MediaUploadService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -34,7 +35,7 @@ class OffPlanProjectController extends Controller
             'developer' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'location_link' => 'nullable|url',
-            'starting_price' => 'nullable|numeric',
+            'starting_price' => 'nullable|string|max:255',
             'completion_date' => 'nullable|string|max:255',
             'development_type' => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -127,7 +128,7 @@ class OffPlanProjectController extends Controller
             'developer' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'location_link' => 'nullable|url',
-            'starting_price' => 'nullable|numeric',
+            'starting_price' => 'nullable|string|max:255',
             'completion_date' => 'nullable|string|max:255',
             'development_type' => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -234,6 +235,49 @@ class OffPlanProjectController extends Controller
 
         $offPlanProject->delete();
         return redirect()->route('off-plan-projects.index')->with('success', 'Off Plan Project deleted successfully.');
+    }
+
+    public function deleteGalleryImage(Request $request, $imageId)
+    {
+        try {
+            $image = Media::findOrFail($imageId);
+            
+            // Verify the image belongs to an off-plan project
+            if ($image->modelable_type !== 'App\Models\OffPlanProject' || $image->info !== 'gallery') {
+                return response()->json(['success' => false, 'message' => 'Invalid image'], 400);
+            }
+
+            // Delete the file
+            Storage::disk('public')->delete('files/off-plan-projects/gallery/' . $image->media);
+            
+            // Delete the database record
+            $image->delete();
+
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error deleting image: ' . $e->getMessage()], 500);
+        }
+    }
+
+    public function deleteMainImage(Request $request, $projectId)
+    {
+        try {
+            $project = OffPlanProject::findOrFail($projectId);
+            
+            if (!$project->mainImage) {
+                return response()->json(['success' => false, 'message' => 'No main image found'], 404);
+            }
+
+            // Delete the file
+            Storage::disk('public')->delete('files/off-plan-projects/main_images/' . $project->mainImage->media);
+            
+            // Delete the database record
+            $project->mainImage()->delete();
+
+            return response()->json(['success' => true, 'message' => 'Main image deleted successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Error deleting image: ' . $e->getMessage()], 500);
+        }
     }
 }
 

@@ -152,6 +152,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/{offPlanProject}/edit', [OffPlanProjectController::class, 'edit'])->name('off-plan-projects.edit');
             Route::put('/{offPlanProject}', [OffPlanProjectController::class, 'update'])->name('off-plan-projects.update');
             Route::delete('/{offPlanProject}', [OffPlanProjectController::class, 'destroy'])->name('off-plan-projects.destroy');
+            Route::post('/gallery-image/{imageId}/delete', [OffPlanProjectController::class, 'deleteGalleryImage'])->name('off-plan-projects.delete-gallery-image');
+            Route::post('/{projectId}/main-image/delete', [OffPlanProjectController::class, 'deleteMainImage'])->name('off-plan-projects.delete-main-image');
         });
 
 
