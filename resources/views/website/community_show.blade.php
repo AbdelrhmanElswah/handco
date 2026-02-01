@@ -63,10 +63,10 @@
                 <div class="col-lg-4">
                     <div class="widget-box-model bg-white p-4 rounded shadow-sm">
                         <h5 class="mb-4" style="color: #001f3f; font-weight: bold;">Need to sell a property in {{ $community->title }}?</h5>
-                        <p class="mb-4" style="color: #666; font-size: 1rem; line-height: 1.6;">Speak to one of our advisor's today for a personal touch.</p>
+                        <p class="mb-4" style="color: #666; font-size: 1rem; line-height: 1.6;">Speak to one of our advisor's today.</p>
                         <div class="d-flex flex-column gap-2">
                             <a href="{{ route('contact') }}" class="btn w-100 community-primary-btn" style="background-color: #0E3D7D; color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600;">Contact Us</a>
-                            <a href="{{ route('sell') }}" class="btn w-100" style="background-color: #0E3D7D; color: white; border: none; border-radius: 8px; font-weight: 500;">Meet our team</a>
+                            <a href="{{ route('sell') }}" class="btn w-100" style="background-color: #0E3D7D; color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600;">Meet our team</a>
                         </div>
                         <hr class="my-4">
                         <div class="contact-info">
@@ -220,10 +220,10 @@
                                     
                                     <!-- Action Buttons -->
                                     <div class="d-flex gap-2 mt-3">
-                                        <a href="tel:+971527785359" class="btn btn-sm flex-fill" style="background-color: #0E3D7D; color: white; border: none; border-radius: 8px; font-weight: 500;">
+                                        <a href="tel:+971527785359" class="btn btn-sm flex-fill" style="background-color: #0E3D7D; color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600;">
                                             <i class="fas fa-phone me-1"></i> Call
                                         </a>
-                                        <a href="mailto:info@handcoproperties.com" class="btn btn-sm flex-fill" style="background-color: #0E3D7D; color: white; border: none; border-radius: 8px; font-weight: 500;">
+                                        <a href="mailto:info@handcoproperties.com" class="btn btn-sm flex-fill" style="background-color: #0E3D7D; color: #FFFFFF; border: none; border-radius: 8px; font-weight: 600;">
                                             <i class="fas fa-envelope me-1"></i> Email
                                         </a>
                                     </div>
