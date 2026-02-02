@@ -106,6 +106,8 @@
                                             <div class="mb-3">
                                                 <strong>Location:</strong> 
                                                 @if($project->location_link)
+                                                    <a href="{{ $project->location_link }}" target="_blank">{{ $project->location }}</a>
+                                                @else
                                                     {{ $project->location }}
                                                 @endif
                                             </div>
