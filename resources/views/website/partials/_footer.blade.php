@@ -182,7 +182,7 @@
         <div class="container">
             <div class="row row-cols-md-2 row-cols-1">
                 <div class="col">
-                    <span class="text-white">Copy Rights © 2025 - All Rights Reserved - Powered By <a href="https://teleoceans.com/" target="_blank">Teleoceans.com</a></span>
+                    <span class="text-white">Copy Rights © {{ date('Y') }} - All Rights Reserved - Powered By <a href="https://teleoceans.com/" target="_blank">Teleoceans.com</a></span>
                 </div>
                 <div class="col">
                     <ul class="line-menu float-end list-color-gray">
