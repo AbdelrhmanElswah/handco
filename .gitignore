@@ -4,6 +4,8 @@
 /public/storage
 /storage/*.key
 /vendor
+# Note: .env.example should be committed to the repository
+!.env.example
 .env
 .env.backup
 .env.production
