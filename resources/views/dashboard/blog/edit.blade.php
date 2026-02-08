@@ -41,9 +41,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="category_id" style="font-size: 21px">Category</label>
-                                    <select name="category_id" class="form-control" required>
+                                    <select name="category_id" class="form-control">
+                                        <option value="" {{ old('category_id', $blog->category_id) === '' || old('category_id', $blog->category_id) === null ? 'selected' : '' }}>None</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->id }}" {{ $category->id == $blog->category_id ? 'selected' : '' }}>
+                                            <option value="{{ $category->id }}" {{ old('category_id', $blog->category_id) == $category->id ? 'selected' : '' }}>
                                                 {{ $category->name }}
                                             </option>
                                         @endforeach

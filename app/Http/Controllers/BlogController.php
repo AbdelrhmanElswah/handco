@@ -33,10 +33,14 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'main_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $data = $request->only(['title', 'content', 'category_id']);
+        // Convert empty string to null for category_id
+        if ($data['category_id'] === '') {
+            $data['category_id'] = null;
+        }
 
         // Create the blog without the main image first
         $blog = Blog::create($data);
@@ -67,10 +71,14 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'content' => 'required',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'category_id' => 'required|exists:categories,id',
+            'category_id' => 'nullable|exists:categories,id',
         ]);
 
         $data = $request->only(['title', 'content', 'category_id']);
+        // Convert empty string to null for category_id
+        if ($data['category_id'] === '') {
+            $data['category_id'] = null;
+        }
 
         // Update the blog data first
         $blog->update($data);
